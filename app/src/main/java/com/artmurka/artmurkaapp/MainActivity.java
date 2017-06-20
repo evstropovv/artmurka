@@ -4,12 +4,20 @@ import android.app.FragmentTransaction;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.artmurka.artmurkaapp.Fragments.ShopFragment;
+import com.artmurka.artmurkaapp.Retrofit.OneCategory;
+import com.artmurka.artmurkaapp.Retrofit.RetroClient;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
@@ -36,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
     private void loadingInfo() {
         //loading info from api
 
+        RetroClient.getApiService().getShopList("artmurka", "CUchqePQNHIuQ6ceMfaziBOLI42sah", "X0S3jMEVlOvxAQSsIZ40zeYzYvOnthchpK.abu1d", "6Gcq2RVe02fL3qUk8hsVaXmri92y5NpHP3RzXA6a")
+                .enqueue(new Callback<List<OneCategory>>() {
+                    @Override
+                    public void onResponse(Call<List<OneCategory>> call, Response<List<OneCategory>> response) {
+
+                        Log.d("Log.d", call.toString() + response.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<OneCategory>> call, Throwable t) {
+
+                    }
+                });
+
     }
 
     private void refreshFragment(){
@@ -53,30 +75,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
+
     }
 
-    public String md5Custom(String st) {
-        MessageDigest messageDigest = null;
-        byte[] digest = new byte[0];
-
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.reset();
-            messageDigest.update(st.getBytes());
-            digest = messageDigest.digest();
-        } catch (NoSuchAlgorithmException e) {
-            // тут можно обработать ошибку
-            // возникает она если в передаваемый алгоритм в getInstance(,,,) не существует
-            e.printStackTrace();
-        }
-
-        BigInteger bigInt = new BigInteger(1, digest);
-        String md5Hex = bigInt.toString(16);
-
-        while( md5Hex.length() < 32 ){
-            md5Hex = "0" + md5Hex;
-        }
-
-        return md5Hex;
-    }
 }
