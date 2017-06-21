@@ -42,40 +42,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadingInfo() {
-        //loading info from api
 
-        RetroClient.getApiService().getShopList("artmurka", "CUchqePQNHIuQ6ceMfaziBOLI42sah", "X0S3jMEVlOvxAQSsIZ40zeYzYvOnthchpK.abu1d", "6Gcq2RVe02fL3qUk8hsVaXmri92y5NpHP3RzXA6a")
-                .enqueue(new Callback<List<OneCategory>>() {
-                    @Override
-                    public void onResponse(Call<List<OneCategory>> call, Response<List<OneCategory>> response) {
+        RetroClient.getApiService().getOAuthGetRequestToken(
+                "murka", RetroClient.oauth_signature_method, RetroClient.oa
 
-                        Log.d("Log.d", call.toString() + response.toString());
-                    }
+        )
 
-                    @Override
-                    public void onFailure(Call<List<OneCategory>> call, Throwable t) {
 
-                    }
-                });
+//        RetroClient.getApiService().getShopList("artmurka", "CUchqePQNHIuQ6ceMfaziBOLI42sah", "X0S3jMEVlOvxAQSsIZ40zeYzYvOnthchpK.abu1d", "6Gcq2RVe02fL3qUk8hsVaXmri92y5NpHP3RzXA6a")
+//                .enqueue(new Callback<List<OneCategory>>() {
+//                    @Override
+//                    public void onResponse(Call<List<OneCategory>> call, Response<List<OneCategory>> response) {
+//
+//                        Log.d("Log.d", call.toString() + response.toString());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<OneCategory>> call, Throwable t) {
+//
+//                    }
+//                });
 
     }
 
     private void refreshFragment(){
-        Bundle bundle = new Bundle();
 
-        bundle.putParcelableArrayList("array", new ArrayList<Parcelable>());
-        shopFragment.setArguments(bundle);
-
-        fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.mainFrame, shopFragment);
-        fragmentTransaction.commit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
 
     }
 

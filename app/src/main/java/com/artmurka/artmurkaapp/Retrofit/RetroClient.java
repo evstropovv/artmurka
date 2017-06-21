@@ -8,9 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RetroClient {
-    private static final String MURKA_URL = "http://artmurka.com/";
-    private static final String oauth_version = "1.0";
-    private static final String oauth_signature_method = "HMAC-SHA1";
+    public static final String MURKA_URL = "http://artmurka.com/";
+    public static final String UAPI_URL = "http://uapi.ucoz.com/";
+    public static final String oauth_version = "1.0";
+    public static final String oauth_signature_method = "HMAC-SHA1";
 
     private static Retrofit getRetrofitInstance(){
         return new Retrofit.Builder()
@@ -24,7 +25,7 @@ public class RetroClient {
     }
 
 
-    public String oauth_nonce() {
+    public static String oauth_nonce() {
         Long time = System.currentTimeMillis();
         String st = time + "." + Math.random();
 
@@ -49,9 +50,22 @@ public class RetroClient {
 
         return md5Hex;
     }
+    public static String oauth_signature(){
+        String ouauth_signature="";
 
-    private String oauth_timestamp(){
+        return ouauth_signature;
+    }
+
+    public static String oauth_timestamp(){
 
         return String.valueOf(System.currentTimeMillis()%1000);
     }
+
+    public static String basestring(){
+
+        String basestring = "oauth_callback="+""
+
+    }
+
+
 }
