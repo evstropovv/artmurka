@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp;
+package com.artmurka.artmurkaapp.Activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -8,8 +8,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.artmurka.artmurkaapp.Adapters.PagerAdapter;
+import com.artmurka.artmurkaapp.R;
 
 public class SelectedGood extends AppCompatActivity {
 FragmentManager fragmentTransaction;
@@ -27,8 +30,13 @@ FragmentManager fragmentTransaction;
             toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
@@ -59,4 +67,11 @@ FragmentManager fragmentTransaction;
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() ==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

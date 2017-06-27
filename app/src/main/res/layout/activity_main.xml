@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"
-        android:layout_marginTop="112dp" />
+        android:layout_marginTop="?attr/actionBarSize" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -23,18 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorColor="@android:color/background_light"
-            app:tabSelectedTextColor="@android:color/background_light" />
-
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/mainFrame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="open SelectedGoods" />
+
 
 </FrameLayout>

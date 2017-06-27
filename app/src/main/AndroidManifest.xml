@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.PrefActivity" />
-        <activity android:name=".SelectedGood"></activity>
+        <activity android:name=".Activities.SelectedGood"></activity>
     </application>
 
 </manifest>
