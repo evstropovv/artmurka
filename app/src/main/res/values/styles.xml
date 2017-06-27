@@ -1,12 +1,13 @@
 <resources>
-
-        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
+        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
             <item name="searchViewStyle">@style/AppSearchViewStyle</item>
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+
         </style>
+
         <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
             <item name="queryBackground">@android:color/transparent</item>
-
             <item name="android:imeActionId">6</item>
         </style>
 
