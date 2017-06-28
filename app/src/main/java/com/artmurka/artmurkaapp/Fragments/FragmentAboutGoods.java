@@ -23,5 +23,4 @@ public class FragmentAboutGoods extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragment_about_goods, container, false);
     }
-
 }

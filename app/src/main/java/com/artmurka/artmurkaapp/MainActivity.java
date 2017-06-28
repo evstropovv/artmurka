@@ -8,27 +8,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.artmurka.artmurkaapp.Activities.PrefActivity;
-import com.artmurka.artmurkaapp.Activities.SelectedGood;
 import com.artmurka.artmurkaapp.Fragments.CategoryFragment;
-import com.artmurka.artmurkaapp.Modules.UcozApiModule;
-import com.artmurka.artmurkaapp.Retrofit.ApiRetrofit;
-import com.artmurka.artmurkaapp.Retrofit.Example;
-
-import java.util.HashMap;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentTransaction;
-    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadShopFragment() {
         CategoryFragment fragCategory = new CategoryFragment();
         fragmentTransaction.beginTransaction().replace(R.id.mainFrame, fragCategory)
+
                 .commit();
     }
 
@@ -66,16 +52,5 @@ public class MainActivity extends AppCompatActivity {
             // toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
-        btn = (Button) findViewById(R.id.button3);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-        btn.setText("" + BuildConfig.URL);
     }
-
-
 }
