@@ -15,7 +15,8 @@ import com.artmurka.artmurkaapp.Adapters.PagerAdapter;
 import com.artmurka.artmurkaapp.R;
 
 public class SelectedGood extends AppCompatActivity {
-FragmentManager fragmentTransaction;
+    FragmentManager fragmentTransaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,30 +25,27 @@ FragmentManager fragmentTransaction;
         setUI();
     }
 
-    private void setUI(){
+    private void setUI() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar !=null){
-            toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        if (toolbar != null) {
+              //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
-
-
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
         tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
 
-        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
-        PagerAdapter tabAdapter = new PagerAdapter(fragmentTransaction,2);
+        PagerAdapter tabAdapter = new PagerAdapter(fragmentTransaction, 2);
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -56,6 +54,7 @@ FragmentManager fragmentTransaction;
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
 
             }
 
@@ -69,7 +68,7 @@ FragmentManager fragmentTransaction;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() ==android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);

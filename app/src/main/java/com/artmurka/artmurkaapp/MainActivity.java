@@ -2,7 +2,6 @@ package com.artmurka.artmurkaapp;
 
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,27 +14,20 @@ import android.widget.Button;
 import com.artmurka.artmurkaapp.Activities.PrefActivity;
 import com.artmurka.artmurkaapp.Activities.SelectedGood;
 import com.artmurka.artmurkaapp.Fragments.CategoryFragment;
-import com.artmurka.artmurkaapp.Fragments.SplashFragment;
 
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentTransaction;
     Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentTransaction = getFragmentManager();
-        loadSplashScreen();
+
         setUI();
     }
 
-    private void loadSplashScreen() {
-        SplashFragment splashFragment = new SplashFragment();
-        fragmentTransaction.beginTransaction().replace(R.id.content_frame, splashFragment)
-                .addToBackStack(null)
-                .commit();
-
-    }
 
     private void loadShopFragment() {
         CategoryFragment fragCategory = new CategoryFragment();
@@ -59,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUI(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar !=null){
-            toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+           // toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
         btn = (Button)findViewById(R.id.button3);
@@ -71,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn.setText("" + BuildConfig.URL);
     }
 
 
