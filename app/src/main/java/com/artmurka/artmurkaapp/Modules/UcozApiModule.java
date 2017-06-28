@@ -1,12 +1,9 @@
 package com.artmurka.artmurkaapp.Modules;
 
-
 import android.util.Base64;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.BuildConfig;
-import com.vasyaevstropov.ucozapitest.Retrofit.ApiRetrofit;
-import com.vasyaevstropov.ucozapitest.Retrofit.Example;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -19,60 +16,36 @@ import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-
 public class UcozApiModule {
-    private final String url = BuildConfig.URL;
-    private final String consumer_key = BuildConfig.CONSUMER_KEY;
-    private final String consumer_secret=BuildConfig.CONSUMER_SECRET;
-    private final String oauth_token=BuildConfig.OAUTH_TOKEN;
-    private final String oauth_token_secret=BuildConfig.OAUTH_TOKEN_SECRET;
 
-    private static Map<String, String> config;
-    private static Map<String, String> params;
-
-    String time, oauth_nonce;
+    private final String URL = BuildConfig.URL; //artmurka
+    private final String CONSUMER_KEY = BuildConfig.CONSUMER_KEY;
+    private final String CONSUMER_SECRET = BuildConfig.CONSUMER_SECRET;
+    private final String OAUTH_TOKEN = BuildConfig.OAUTH_TOKEN;
+    private final String OAUTH_TOKEN_SECRET = BuildConfig.OAUTH_TOKEN_SECRET;
+    private final String OAUTH_VERSION = BuildConfig.OAUTH_VERSION;
+    private final String OAUTH_SIGNATURE_METHOD = BuildConfig.OAUTH_SIGNATURE_METHOD;
 
     // in PHP -> time();
     //in this method we get current time in SEC, from 1 jan 1970
 
-    public static String getTime() { return String.valueOf(System.currentTimeMillis()/1000);
+    private static String getTime() {
+        return String.valueOf(System.currentTimeMillis() / 1000);
     }
 
     //in PHP -> microtime();
 
-    public static String getMicrotime() {
+    private static String getMicrotime() {
         long mstime = System.currentTimeMillis();
         long right_seconds = mstime / 1000;
         long seconds = mstime / 100000000;
         double decimal = (mstime - (seconds * 100000000)) / 100000000d;
-        return decimal +" " + right_seconds;
-    }
-
-    private void setConfig(Map<String, String> config) {
-        this.config = config;
-
-        time = getTime();
-        oauth_nonce = oauth_nonce();
-
-        params = new HashMap<>();
-        params.put("oauth_version", "1.0");
-        params.put("oauth_timestamp", time);
-        params.put("oauth_nonce", oauth_nonce);
-        params.put("oauth_signature_method", "HMAC-SHA1");
-        params.put("oauth_consumer_key", config.get("oauth_consumer_key"));
-        params.put("oauth_token", config.get("oauth_token"));
-        params.put("oauth_consumer_secret", config.get("oauth_consumer_secret"));
+        return decimal + " " + right_seconds;
     }
 
     //random similar as php -> mt_rand();
     public static String getRandom() {
-        int x = (int)(Math.random() * 1234567890) + 75000000;
+        int x = (int) (Math.random() * 1234567890) + 75000000;
         return String.valueOf(x);
     }
 
@@ -116,51 +89,50 @@ public class UcozApiModule {
 
         String a = "";
         try {
-            a = encode(config.get("oauth_consumer_secret") + "&" + config.get("oauth_token_secret"), baseString);
+            a = encode(CONSUMER_SECRET + "&" + OAUTH_TOKEN_SECRET, baseString);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return a;
     }
 
-    public Example get(Map<String, String> config) {
-        setConfig(config);
+    public HashMap<String, String> get(Map<String, String> config) {
+        //Map<string, string> config -> MUST have:
+        // 'method' ("GET"/"PUT")
+        // 'url' in format "uapi/shop/request"
+        //'id' or 'page'
+        String oauth_nonce = oauth_nonce();
+        String time = getTime();
 
-        String signature = getSignature("GET", "http://artmurka.com/uapi/shop/request",
-                "oauth_consumer_key=" + params.get("oauth_consumer_key") + "&" +
-                        "oauth_nonce=" + params.get("oauth_nonce") + "&" +
-                        "oauth_signature_method=" + "HMAC-SHA1" + "&" +
-                        "oauth_timestamp=" + params.get("oauth_timestamp") + "&" +
-                        "oauth_token=" + params.get("oauth_token") + "&" +
-                        "oauth_version=" + "1.0" + "&" +
-                        "page=" + "categories");
-        Log.d("Log.d", "oauth_signature: " + signature);
+        HashMap<String, String> answerMap = new HashMap<>();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://artmurka.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        answerMap.put("oauth_signature", getSignature(config.get("method"), URL + config.get("url"),
+                "oauth_consumer_key=" + CONSUMER_KEY + "&" +
+                        "oauth_nonce=" + oauth_nonce + "&" +
+                        "oauth_signature_method=" + OAUTH_SIGNATURE_METHOD + "&" +
+                        "oauth_timestamp=" + time + "&" +
+                        "oauth_token=" + OAUTH_TOKEN + "&" +
+                        "oauth_version=" + OAUTH_VERSION +
+                        (config.get("page") != null ? "&" + "page=" + config.get("page") :
+                                (config.get("id") != null ? "&" + "id=" + config.get("id") : ""))));
+        answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
+        answerMap.put("oauth_version", OAUTH_VERSION);
+        answerMap.put("consumer_key", CONSUMER_KEY);
+        answerMap.put("oauth_token", OAUTH_TOKEN);
+        answerMap.put("oauth_nonce", oauth_nonce);
+        answerMap.put("oauth_timestamp", time);
 
-        ApiRetrofit apiRetrofit = retrofit.create(ApiRetrofit.class);
+        if (config.get("page") != null) {
+            answerMap.put("page", config.get("page"));
+        }
+        if (config.get("id") != null) {
+            answerMap.put("id", config.get("id"));
+        }
 
-        apiRetrofit.getShopCategories(signature, "HMAC-SHA1", "1.0", "murka", params.get("oauth_token"),params.get("oauth_nonce"),params.get("oauth_timestamp"),"categories")
-                .enqueue(new Callback<Example>() {
-            @Override
-            public void onResponse(Call<Example> call, Response<Example> response) {
-                Log.d("Log.d", response.body().getSuccess().get(0).getCatDescr());
-
-            }
-
-            @Override
-            public void onFailure(Call<Example> call, Throwable t) {
-               Log.d("Log.d","onFailure");
-                t.printStackTrace();
-            }
-        });
-        return success;
+        return answerMap;
     }
 
-    public String encode(String key, String data) throws Exception {
+    private String encode(String key, String data) throws Exception {
         Mac mac = Mac.getInstance("HmacSHA1");
         SecretKeySpec secret = new SecretKeySpec(key.getBytes("UTF-8"), mac.getAlgorithm());
         mac.init(secret);

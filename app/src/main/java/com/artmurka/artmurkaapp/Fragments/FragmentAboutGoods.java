@@ -12,7 +12,6 @@ import com.artmurka.artmurkaapp.R;
 
 public class FragmentAboutGoods extends Fragment {
 
-
     public FragmentAboutGoods() {
         // Required empty public constructor
     }

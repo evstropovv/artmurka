@@ -23,6 +23,8 @@ android {
         it.buildConfigField 'String', 'CONSUMER_SECRET', consumer_secret
         it.buildConfigField 'String', 'OAUTH_TOKEN', oauth_token
         it.buildConfigField 'String', 'OAUTH_TOKEN_SECRET', oauth_token_secret
+        it.buildConfigField 'String', 'OAUTH_VERSION', oauth_version
+        it.buildConfigField 'String', 'OAUTH_SIGNATURE_METHOD', oauth_signature_method
     }
 }
 
@@ -40,4 +42,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.android.support:support-v13:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
 }
