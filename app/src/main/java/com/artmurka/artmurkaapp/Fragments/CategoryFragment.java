@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.artmurka.artmurkaapp.Adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.Modules.AllRequestOvservers;
+import com.artmurka.artmurkaapp.Modules.ApiModule;
 import com.artmurka.artmurkaapp.Modules.UcozApiModule;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Retrofit.ApiRetrofit;
@@ -35,6 +37,7 @@ public class CategoryFragment extends Fragment {
     private RecyclerView.LayoutManager recyclerLayoutManager;
 
     public CategoryFragment() {
+
     }
 
     @Override
@@ -45,33 +48,11 @@ public class CategoryFragment extends Fragment {
     }
 
     private void loadInfo() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        ApiRetrofit apiRetrofit = retrofit.create(ApiRetrofit.class);
 
-        UcozApiModule ucoz = new UcozApiModule();
 
-        HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("page", "categories");
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/request");
+        AllRequestOvservers alo = new AllRequestOvservers();
 
-        //Getting all token for autorization.
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
-
-        Observable<Example> exampleObservable = apiRetrofit.getShopCategories(confForRequest.get("oauth_signature"),
-                confForRequest.get("oauth_signature_method"),
-                confForRequest.get("oauth_version"),
-                confForRequest.get("consumer_key"),
-                confForRequest.get("oauth_token"),
-                confForRequest.get("oauth_nonce"),
-                confForRequest.get("oauth_timestamp"),
-                mapForUcozModule.get("page"))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        Observable<Example> exampleObservable = alo.getCategories();
         exampleObservable.subscribe(new Observer<Example>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -106,6 +87,5 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
     }
 }
