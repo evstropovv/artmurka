@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Retrofit;
+package com.artmurka.artmurkaapp.Model.Retrofit;
 
 /**
  * Created by Вася on 26.06.2017.

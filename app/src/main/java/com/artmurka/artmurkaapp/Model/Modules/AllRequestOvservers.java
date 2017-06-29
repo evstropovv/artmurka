@@ -1,6 +1,6 @@
-package com.artmurka.artmurkaapp.Modules;
+package com.artmurka.artmurkaapp.Model.Modules;
 
-import com.artmurka.artmurkaapp.Retrofit.Example;
+import com.artmurka.artmurkaapp.Model.Retrofit.Example;
 
 import java.util.HashMap;
 
@@ -8,14 +8,11 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by Вася on 29.06.2017.
- */
 
-public class AllRequestOvservers {
+public class AllRequestOvservers implements IAllRequestObservers {
 
-
-    public Observable<Example> getCategories(){
+    @Override
+    public Observable<Example> getCategories() {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();

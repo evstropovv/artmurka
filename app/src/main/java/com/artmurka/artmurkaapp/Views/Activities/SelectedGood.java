@@ -1,17 +1,14 @@
-package com.artmurka.artmurkaapp.Activities;
+package com.artmurka.artmurkaapp.Views.Activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.artmurka.artmurkaapp.Adapters.PagerAdapter;
+import com.artmurka.artmurkaapp.Presenter.Adapters.PagerAdapter;
 import com.artmurka.artmurkaapp.R;
 
 public class SelectedGood extends AppCompatActivity {

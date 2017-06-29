@@ -1,11 +1,11 @@
-package com.artmurka.artmurkaapp.Adapters;
+package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.artmurka.artmurkaapp.Fragments.FragmentAboutGoods;
-import com.artmurka.artmurkaapp.Fragments.FragmentDescriptionGoods;
+import com.artmurka.artmurkaapp.Views.Fragments.FragmentAboutGoods;
+import com.artmurka.artmurkaapp.Views.Fragments.FragmentDescriptionGoods;
 
 
 public class PagerAdapter extends FragmentStatePagerAdapter {

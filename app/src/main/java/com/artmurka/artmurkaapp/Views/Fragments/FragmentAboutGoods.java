@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Fragments;
+package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.app.Fragment;
@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 import com.artmurka.artmurkaapp.R;
 
 
-public class FragmentDescriptionGoods extends Fragment {
+public class FragmentAboutGoods extends Fragment {
 
-
-    public FragmentDescriptionGoods() {
+    public FragmentAboutGoods() {
         // Required empty public constructor
     }
 
@@ -22,7 +21,6 @@ public class FragmentDescriptionGoods extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_description_goods, container, false);
+        return inflater.inflate(R.layout.fragment_fragment_about_goods, container, false);
     }
-
 }

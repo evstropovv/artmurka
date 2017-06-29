@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp;
+package com.artmurka.artmurkaapp.Views.Activities;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -9,10 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.artmurka.artmurkaapp.Activities.PrefActivity;
-import com.artmurka.artmurkaapp.Fragments.CategoryFragment;
+import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 
 public class MainActivity extends AppCompatActivity {
+
     FragmentManager fragmentTransaction;
 
     @Override
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadShopFragment() {
         CategoryFragment fragCategory = new CategoryFragment();
         fragmentTransaction.beginTransaction().replace(R.id.mainFrame, fragCategory)
-
                 .commit();
     }
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private void setUI() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
-            // toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+
             setSupportActionBar(toolbar);
         }
     }

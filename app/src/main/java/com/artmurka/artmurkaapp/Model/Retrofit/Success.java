@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Retrofit;
+package com.artmurka.artmurkaapp.Model.Retrofit;
 
 
 import com.google.gson.annotations.Expose;

@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Modules;
+package com.artmurka.artmurkaapp.Model.Modules;
 
 import android.util.Base64;
 import android.util.Log;

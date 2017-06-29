@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Adapters;
+package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.Retrofit.Success;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

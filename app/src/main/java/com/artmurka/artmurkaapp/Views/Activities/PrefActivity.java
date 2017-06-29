@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Activities;
+package com.artmurka.artmurkaapp.Views.Activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

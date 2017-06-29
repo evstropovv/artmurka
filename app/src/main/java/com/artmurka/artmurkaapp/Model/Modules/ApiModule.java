@@ -1,7 +1,7 @@
-package com.artmurka.artmurkaapp.Modules;
+package com.artmurka.artmurkaapp.Model.Modules;
 
 import com.artmurka.artmurkaapp.BuildConfig;
-import com.artmurka.artmurkaapp.Retrofit.ApiRetrofit;
+import com.artmurka.artmurkaapp.Model.Retrofit.ApiRetrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
