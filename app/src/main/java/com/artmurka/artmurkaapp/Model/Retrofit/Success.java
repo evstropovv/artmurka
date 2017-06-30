@@ -1,11 +1,14 @@
 package com.artmurka.artmurkaapp.Model.Retrofit;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Success {
+public class Success implements Parcelable {
 
     @SerializedName("cat_id")
     @Expose
@@ -22,9 +25,7 @@ public class Success {
     @SerializedName("cat_name")
     @Expose
     private String catName;
-    @SerializedName("meta_data")
-    @Expose
-    private MetaData metaData;
+
     @SerializedName("childs")
     @Expose
     private String childs;
@@ -72,13 +73,6 @@ public class Success {
         this.catName = catName;
     }
 
-    public MetaData getMetaData() {
-        return metaData;
-    }
-
-    public void setMetaData(MetaData metaData) {
-        this.metaData = metaData;
-    }
 
     public String getChilds() {
         return childs;
@@ -96,4 +90,47 @@ public class Success {
         this.catUrl = catUrl;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.catId);
+        dest.writeString(this.catDescr);
+        dest.writeInt(this.goodsCount);
+        dest.writeString(this.catImg);
+        dest.writeString(this.catName);
+
+        dest.writeString(this.childs);
+        dest.writeString(this.catUrl);
+    }
+
+    public Success() {
+    }
+
+    protected Success(Parcel in) {
+        this.catId = in.readString();
+        this.catDescr = in.readString();
+        this.goodsCount = in.readInt();
+        this.catImg = in.readString();
+        this.catName = in.readString();
+
+        this.childs = in.readString();
+        this.catUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<Success> CREATOR = new Parcelable.Creator<Success>() {
+        @Override
+        public Success createFromParcel(Parcel source) {
+            return new Success(source);
+        }
+
+        @Override
+        public Success[] newArray(int size) {
+            return new Success[size];
+        }
+    };
 }

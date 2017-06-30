@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.R;
@@ -21,6 +22,7 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     private List<Success> successList = new ArrayList<>();
     private Context ctx;
 
+
     public RVcategoryAdapter(Context ctx, List<Success> successList){
         this.ctx = ctx;
         this.successList = successList;
@@ -31,7 +33,6 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_category, parent, false);
         final ViewHolder vh = new ViewHolder(view);
-
         return vh;
     }
 
@@ -40,6 +41,7 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
 
         holder.tvCategoryName.setText(successList.get(position).getCatName());
         Picasso.with(ctx).load(successList.get(position).getCatImg()).into(holder.ivCategoryImage);
+
     }
 
     @Override
@@ -55,5 +57,9 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
             tvCategoryName = (TextView)itemView.findViewById(R.id.category_name);
             ivCategoryImage = (ImageView)itemView.findViewById(R.id.category_photo);
         }
+    }
+
+    public interface OnItemClickListener{
+        void itemClicked(View view, int position);
     }
 }

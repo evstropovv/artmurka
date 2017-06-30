@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+     <item
+        android:id="@+id/card"
+        android:orderInCategory="300"
+        android:title="Card"
+        android:icon="@drawable/cart_outline"
+        app:showAsAction="ifRoom"/>
+
+</menu>

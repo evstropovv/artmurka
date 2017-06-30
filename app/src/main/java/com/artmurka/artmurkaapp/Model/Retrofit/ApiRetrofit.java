@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiRetrofit {
-
+    
     @GET("uapi/shop/request")
     Observable<Example> getShopCategories(@Query("oauth_signature") String oauth_signature,
                                           @Query("oauth_signature_method") String oauth_signature_method,

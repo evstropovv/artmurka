@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
-
-    <android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        card_view:cardUseCompatPadding="true"
+
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="4dp">
 
         <RelativeLayout
             android:layout_width="120dp"
             android:layout_height="150dp"
-            android:padding="4dp">
-
-            <ImageView
-                android:id="@+id/category_photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/splash" />
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/category_name"
@@ -28,7 +21,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:paddingTop="5dp" />
+                android:paddingTop="2dp"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/category_photo"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:paddingBottom="2dp"
+                android:src="@drawable/splash" />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-</LinearLayout>

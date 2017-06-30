@@ -1,42 +1,45 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.Presenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Presenter.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
-public class CategoryFragment extends Fragment implements ICategoryFragment{
+public class CategoryFragment extends Fragment implements ICategoryFragment {
 
 
     ICategoryPresenter presenter;
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter recyclerAdapter;
-    private RecyclerView.LayoutManager recyclerLayoutManager;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter recyclerAdapter;
 
     public CategoryFragment() {
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (presenter ==null){
+
+        setRetainInstance(true);
+        if (presenter == null) {
             presenter = new CategoryPresenter(this);
         }
+
         presenter.getCategoriesData(true);
 
         return inflater.inflate(R.layout.fragment_category, container, false);
@@ -44,25 +47,31 @@ public class CategoryFragment extends Fragment implements ICategoryFragment{
 
 
     @Override
-    public void showCategories(List<Success> categoriesList) {
-
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerView);
-        if (getResources().getConfiguration().orientation == 1) {
-            recyclerLayoutManager = new GridLayoutManager(getActivity(), 2);
-        } else  recyclerLayoutManager = new GridLayoutManager(getActivity(), 3);
-
+    public void showCategories(ArrayList<Success> categoriesList) {
+        if (recyclerView == null) {
+            recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
+        }
+        RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(getView().getContext(), 2);
         recyclerView.setLayoutManager(recyclerLayoutManager);
-        recyclerAdapter = new RVcategoryAdapter(getActivity(), categoriesList);
+        recyclerAdapter = new RVcategoryAdapter(getView().getContext(), categoriesList);
+
         recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getContext(),"Clicked " + v.getId() + " id", Toast.LENGTH_SHORT ).show();
+
+            }
+        });
+
     }
 
     @Override
     public void onGetCategoryClick() {
-
     }
 
     @Override
     public void showError(String error) {
-
     }
 }
