@@ -10,10 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.artmurka.artmurkaapp.ItemList;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainActivity {
 
     CategoryFragment fragCategory;
     private final String TAG = "Storage_category_fragment";
@@ -24,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadShopFragment(savedInstanceState);
+        loadShopFragment();
         setUI();
 
     }
 
 
-    private void loadShopFragment(Bundle savedState) {
+    private void loadShopFragment() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(TAG);
         if (fragment == null) {
@@ -78,5 +79,18 @@ public class MainActivity extends AppCompatActivity {
         if (fragCategory != null) {
             outState.putString(TAG, fragCategory.getTag());
         }
+    }
+
+    @Override
+    public void changeFragment(String url) {
+        ItemList itemList = new ItemList();
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        itemList.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.mainFrame, itemList)
+                .commit();
+        fm.executePendingTransactions();
     }
 }

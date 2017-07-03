@@ -56,20 +56,8 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         recyclerAdapter = new RVcategoryAdapter(getView().getContext(), categoriesList);
 
         recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getContext(),"Clicked " + v.getId() + " id", Toast.LENGTH_SHORT ).show();
-
-            }
-        });
-
     }
 
-    @Override
-    public void onGetCategoryClick() {
-    }
 
     @Override
     public void showError(String error) {

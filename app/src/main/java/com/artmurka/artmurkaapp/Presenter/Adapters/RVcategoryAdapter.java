@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.IMainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,12 +23,10 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     private List<Success> successList = new ArrayList<>();
     private Context ctx;
 
-
     public RVcategoryAdapter(Context ctx, List<Success> successList){
         this.ctx = ctx;
         this.successList = successList;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,11 +36,9 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvCategoryName.setText(successList.get(position).getCatName());
         Picasso.with(ctx).load(successList.get(position).getCatImg()).into(holder.ivCategoryImage);
-
     }
 
     @Override
@@ -50,16 +47,20 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         public TextView tvCategoryName;
         public ImageView ivCategoryImage;
         public ViewHolder(View itemView) {
             super(itemView);
             tvCategoryName = (TextView)itemView.findViewById(R.id.category_name);
             ivCategoryImage = (ImageView)itemView.findViewById(R.id.category_photo);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),"adapterPosition " + getAdapterPosition() +"\n", Toast.LENGTH_SHORT).show();
+                    
+                }
+            });
         }
-    }
-
-    public interface OnItemClickListener{
-        void itemClicked(View view, int position);
     }
 }
