@@ -48,18 +48,17 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
     @Override
     public void showCategories(ArrayList<Success> categoriesList) {
-        if (recyclerView == null) {
+        if(recyclerView == null) {
             recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         }
         RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(getView().getContext(), 2);
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVcategoryAdapter(getView().getContext(), categoriesList);
-
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-
     @Override
     public void showError(String error) {
+
     }
 }

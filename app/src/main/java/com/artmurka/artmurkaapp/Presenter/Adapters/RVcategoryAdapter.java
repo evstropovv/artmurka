@@ -10,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.ItemList;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.IMainActivity;
+import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,8 +59,9 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"adapterPosition " + getAdapterPosition() +"\n", Toast.LENGTH_SHORT).show();
-                    
+                    Toast.makeText(v.getContext(),successList.get(getAdapterPosition()).getCatUrl() +"\n", Toast.LENGTH_SHORT).show();
+                    MainActivity activity = (MainActivity)v.getContext(); 
+                    activity.changeFragment(successList.get(getAdapterPosition()).getCatUrl());
                 }
             });
         }
