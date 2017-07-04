@@ -60,7 +60,7 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),successList.get(getAdapterPosition()).getCatUrl() +"\n", Toast.LENGTH_SHORT).show();
-                    MainActivity activity = (MainActivity)v.getContext(); 
+                    MainActivity activity = (MainActivity)v.getContext();
                     activity.changeFragment(successList.get(getAdapterPosition()).getCatUrl());
                 }
             });
