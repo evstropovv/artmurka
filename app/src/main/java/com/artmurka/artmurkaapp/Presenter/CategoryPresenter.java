@@ -23,7 +23,6 @@ public class CategoryPresenter implements ICategoryPresenter {
     private ICategoryFragment catFragment;
     private IAllRequestObservers model;
     private static ArrayList<Success> successList;
-    private static Subscription subscription;
     private static Observable<Example> exampleObservable;
 
 

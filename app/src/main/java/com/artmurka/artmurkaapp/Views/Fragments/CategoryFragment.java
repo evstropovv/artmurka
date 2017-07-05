@@ -34,8 +34,6 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        setRetainInstance(true);
         if (presenter == null) {
             presenter = new CategoryPresenter(this);
         }

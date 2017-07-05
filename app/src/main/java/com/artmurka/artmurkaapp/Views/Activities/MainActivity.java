@@ -1,6 +1,5 @@
 package com.artmurka.artmurkaapp.Views.Activities;
 
-import android.app.FragmentTransaction;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.artmurka.artmurkaapp.ItemList;
+import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragmentFragment;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
 
     @Override
     public void changeFragment(String url) {
-        ItemList itemList = new ItemList();
+        ItemListFragmentFragment itemList = new ItemListFragmentFragment();
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
         itemList.setArguments(bundle);

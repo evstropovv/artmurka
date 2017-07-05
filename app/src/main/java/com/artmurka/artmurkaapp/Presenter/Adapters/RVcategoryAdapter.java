@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.ItemList;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.Views.Activities.IMainActivity;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
