@@ -45,7 +45,6 @@ public class CategoryPresenter implements ICategoryPresenter {
             exampleObservable.subscribe(new Observer<Example>() {
                 @Override
                 public void onSubscribe(Disposable d) {
-                    
                 }
                 @Override
                 public void onNext(Example value) {

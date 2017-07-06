@@ -9,12 +9,14 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.http.Query;
 
 
 public class RequestItemList implements IRequestItemList {
 
     @Override
-    public Observable <Success> getItemList(String page) {
+    public Call<Success> getItemList(String page) {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
@@ -23,10 +25,18 @@ public class RequestItemList implements IRequestItemList {
         mapForUcozModule.put("url", "uapi/shop/cat");
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        confForRequest.put("cat_uri", page);
         Log.d("Log.d", "confreqyest map " + confForRequest.toString());
 
-        return ApiModule.getClient().getItemList(confForRequest)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        return ApiModule.getClient().getItemList(
+                confForRequest.get("oauth_signature"),
+                confForRequest.get("oauth_signature_method"),
+                confForRequest.get("oauth_version"),
+
+                confForRequest.get("oauth_consumer_key"),
+                confForRequest.get("oauth_token"),
+                confForRequest.get("oauth_nonce"),
+                confForRequest.get("oauth_timestamp"),
+                confForRequest.get("cat_uri"));
     }
 }

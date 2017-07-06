@@ -118,7 +118,7 @@ public class UcozApiModule {
                                 (config.get("id") != null ? "&" + "id=" + config.get("id") : "")), (config.get("cat_uri")!=null?"cat_uri="+ config.get("cat_uri"):null) ));
         answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
         answerMap.put("oauth_version", OAUTH_VERSION);
-        answerMap.put("consumer_key", CONSUMER_KEY);
+        answerMap.put("oauth_consumer_key", CONSUMER_KEY);
         answerMap.put("oauth_token", OAUTH_TOKEN);
         answerMap.put("oauth_nonce", oauth_nonce);
         answerMap.put("oauth_timestamp", time);

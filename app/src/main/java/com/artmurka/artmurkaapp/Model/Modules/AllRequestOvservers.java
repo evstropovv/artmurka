@@ -26,7 +26,7 @@ public class AllRequestOvservers implements IAllRequestObservers {
         return ApiModule.getClient().getShopCategories(confForRequest.get("oauth_signature"),
                 confForRequest.get("oauth_signature_method"),
                 confForRequest.get("oauth_version"),
-                confForRequest.get("consumer_key"),
+                confForRequest.get("oauth_consumer_key"),
                 confForRequest.get("oauth_token"),
                 confForRequest.get("oauth_nonce"),
                 confForRequest.get("oauth_timestamp"),
@@ -34,5 +34,4 @@ public class AllRequestOvservers implements IAllRequestObservers {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
 }
