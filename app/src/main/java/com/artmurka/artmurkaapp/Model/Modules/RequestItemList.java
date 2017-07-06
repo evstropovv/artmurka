@@ -1,5 +1,7 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
+import android.util.Log;
+
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Success;
 
 import java.util.HashMap;
@@ -21,10 +23,10 @@ public class RequestItemList implements IRequestItemList {
         mapForUcozModule.put("url", "uapi/shop/cat");
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        Log.d("Log.d", "confreqyest map " + confForRequest.toString());
 
         return ApiModule.getClient().getItemList(confForRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
-
     }
 }

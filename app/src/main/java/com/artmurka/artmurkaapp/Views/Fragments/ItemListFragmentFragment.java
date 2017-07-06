@@ -29,21 +29,19 @@ public class ItemListFragmentFragment extends Fragment implements IItemListFragm
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_item_list, container, false);
 
+        return inflater.inflate(R.layout.fragment_item_list, container, false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         RequestItemList model = new RequestItemList();
-
         exampleObservable = model.getItemList("string-art");
-
         exampleObservable.subscribe(new Observer<Success>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.d("Log.d", "onSubscribe" + d.toString());
+                Log.d("Log.d", "onSubscribe " + d.toString());
             }
 
             @Override
@@ -53,15 +51,13 @@ public class ItemListFragmentFragment extends Fragment implements IItemListFragm
 
             @Override
             public void onError(Throwable e) {
-                Log.d("Log.d", "onError" + e.toString());
+                Log.d("Log.d", "onError " + e.toString());
+
             }
 
             @Override
-            public void onComplete() {
-
-            }
+            public void onComplete() { }
         });
-
     }
 
     @Override

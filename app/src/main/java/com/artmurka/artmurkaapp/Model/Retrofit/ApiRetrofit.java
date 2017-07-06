@@ -25,5 +25,5 @@ public interface ApiRetrofit {
 
     //oauth_signature oauth_signature_method oauth_version oauth_consumer_key oauth_token oauth_nonce oauth_timestamp page
     @GET("uapi/shop/cat")
-    Observable<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Success> getItemList(@QueryMap HashMap<String,String> map);
+    Observable<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Success> getItemList(@QueryMap HashMap<String,String> options);
 }

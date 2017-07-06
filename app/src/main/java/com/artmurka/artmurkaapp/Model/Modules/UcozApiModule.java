@@ -78,10 +78,10 @@ public class UcozApiModule {
      * return string
      */
 
-    private String getSignature(String method, String url, String params) {
+    private String getSignature(String method, String url, String params, String page) {
         String baseString = "";
         try {
-            baseString = method + "&" + URLEncoder.encode(url, "UTF-8") + "&" + URLEncoder.encode(params, "UTF-8");
+            baseString = method + "&" + URLEncoder.encode(url, "UTF-8") + (page!=null?"&"+URLEncoder.encode(page+"&","UTF-8"):"&")  + URLEncoder.encode(params, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -105,6 +105,7 @@ public class UcozApiModule {
         String time = getTime();
 
         HashMap<String, String> answerMap = new HashMap<>();
+        Log.d("Log.d", "url " +config.get("url"));
 
         answerMap.put("oauth_signature", getSignature(config.get("method"), URL + config.get("url"),
                 "oauth_consumer_key=" + CONSUMER_KEY + "&" +
@@ -114,7 +115,7 @@ public class UcozApiModule {
                         "oauth_token=" + OAUTH_TOKEN + "&" +
                         "oauth_version=" + OAUTH_VERSION +
                         (config.get("page") != null ? "&" + "page=" + config.get("page") :
-                                (config.get("id") != null ? "&" + "id=" + config.get("id") : ""))));
+                                (config.get("id") != null ? "&" + "id=" + config.get("id") : "")), (config.get("cat_uri")!=null?"cat_uri="+ config.get("cat_uri"):null) ));
         answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
         answerMap.put("oauth_version", OAUTH_VERSION);
         answerMap.put("consumer_key", CONSUMER_KEY);
@@ -128,7 +129,6 @@ public class UcozApiModule {
         if (config.get("id") != null) {
             answerMap.put("id", config.get("id"));
         }
-
         return answerMap;
     }
 

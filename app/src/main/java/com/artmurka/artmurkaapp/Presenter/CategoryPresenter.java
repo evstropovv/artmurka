@@ -40,7 +40,6 @@ public class CategoryPresenter implements ICategoryPresenter {
         }
     }
 
-
     private void  resetData(){
             exampleObservable = model.getCategories();
             exampleObservable.subscribe(new Observer<Example>() {
@@ -57,6 +56,7 @@ public class CategoryPresenter implements ICategoryPresenter {
 
                 @Override
                 public void onError(Throwable e) {
+
                 }
 
                 @Override
