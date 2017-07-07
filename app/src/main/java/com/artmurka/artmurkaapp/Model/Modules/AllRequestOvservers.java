@@ -22,15 +22,9 @@ public class AllRequestOvservers implements IAllRequestObservers {
 
         //Getting all token for autorization.
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        confForRequest.put("page", mapForUcozModule.get("page"));
 
-        return ApiModule.getClient().getShopCategories(confForRequest.get("oauth_signature"),
-                confForRequest.get("oauth_signature_method"),
-                confForRequest.get("oauth_version"),
-                confForRequest.get("oauth_consumer_key"),
-                confForRequest.get("oauth_token"),
-                confForRequest.get("oauth_nonce"),
-                confForRequest.get("oauth_timestamp"),
-                mapForUcozModule.get("page"))
+        return ApiModule.getClient().getShopCategories(confForRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
             fragCategory = new CategoryFragment();
             fm.beginTransaction()
                     .replace(R.id.mainFrame, fragCategory, TAG)
+                    .addToBackStack(TAG)
                     .commit();
             fm.executePendingTransactions();
         } else {
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .replace(R.id.mainFrame, itemList)
+                .addToBackStack("a")
                 .commit();
         fm.executePendingTransactions();
     }

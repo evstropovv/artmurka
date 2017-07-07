@@ -28,15 +28,6 @@ public class RequestItemList implements IRequestItemList {
         confForRequest.put("cat_uri", page);
         Log.d("Log.d", "confreqyest map " + confForRequest.toString());
 
-        return ApiModule.getClient().getItemList(
-                confForRequest.get("oauth_signature"),
-                confForRequest.get("oauth_signature_method"),
-                confForRequest.get("oauth_version"),
-
-                confForRequest.get("oauth_consumer_key"),
-                confForRequest.get("oauth_token"),
-                confForRequest.get("oauth_nonce"),
-                confForRequest.get("oauth_timestamp"),
-                confForRequest.get("cat_uri"));
+        return ApiModule.getClient().getItemList(confForRequest);
     }
 }
