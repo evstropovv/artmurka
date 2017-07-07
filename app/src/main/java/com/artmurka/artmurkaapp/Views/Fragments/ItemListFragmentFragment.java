@@ -13,6 +13,7 @@ import com.artmurka.artmurkaapp.Model.Modules.RequestItemList;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Success;
 import com.artmurka.artmurkaapp.Model.Retrofit.Example;
 import com.artmurka.artmurkaapp.R;
+import com.google.gson.Gson;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -24,42 +25,36 @@ import retrofit2.Response;
 
 public class ItemListFragmentFragment extends Fragment implements IItemListFragment {
 
-    private static Call<Success> exampleObservable;
-
+    private static Observable<Success> exampleObservable;
+    String url = "string-art";
     public ItemListFragmentFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        if (savedInstanceState!=null && savedInstanceState.getString("url")!=null){
+           this.url = savedInstanceState.getString("url");
+        }
         return inflater.inflate(R.layout.fragment_item_list, container, false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         RequestItemList model = new RequestItemList();
-        exampleObservable = model.getItemList("string-art");
-        Log.d("Log.d", "exampleObservable "+exampleObservable.request().url().toString() + "");
-        ;
-        exampleObservable.enqueue(new Callback<Success>() {
+        model.getItemList(url).enqueue(new Callback<Success>() {
             @Override
             public void onResponse(Call<Success> call, Response<Success> response) {
-                Log.d("Log.d", response.toString());
+                Log.d("Log.d","onResponse: " + "Response : "+  new Gson().toJson(response) );
             }
 
             @Override
             public void onFailure(Call<Success> call, Throwable t) {
-                Log.d("Log.d", "onFailure" + call.request().body().toString() + "");
+
             }
         });
-
-//        RequestItemList model = new RequestItemList();
 //        exampleObservable = model.getItemList("string-art");
-//        //Log.d("Log.d", exampleObservable.);
-//
 //        exampleObservable.subscribe(new Observer<Success>() {
 //            @Override
 //            public void onSubscribe(Disposable d) {
@@ -68,24 +63,20 @@ public class ItemListFragmentFragment extends Fragment implements IItemListFragm
 //
 //            @Override
 //            public void onNext(Success value) {
-//                Log.d("Tag.t", value.toString());
+//                Log.d("Log.d", "onNext " + new Gson().toJson(value));
 //            }
-//
 //            @Override
 //            public void onError(Throwable e) {
-//                Log.d("Log.d", "onError " + e.toString());
-//
-//            }
-//
+//                Log.d("Log.d", "onError " + e.toString());}
 //            @Override
-//            public void onComplete() { }
+//            public void onComplete() {
+//                Log.d("Log.d", "onComplete ");
+//            }
 //        });
     }
-
     @Override
     public void showItemList() {
     }
-
     @Override
     public void showError(String error) {
 

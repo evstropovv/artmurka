@@ -1,10 +1,12 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
     ICategoryPresenter presenter;
     RecyclerView recyclerView;
-    RecyclerView.Adapter recyclerAdapter;
+    RVcategoryAdapter recyclerAdapter;
 
     public CategoryFragment() {
     }
@@ -33,26 +35,29 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+        recyclerView.setLayoutManager(recyclerLayoutManager);
+        recyclerAdapter = new RVcategoryAdapter(view.getContext());
+        recyclerView.setAdapter(recyclerAdapter);
         if (presenter == null) {
             presenter = new CategoryPresenter(this);
         }
-
         presenter.getCategoriesData(true);
-
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        return view;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public void showCategories(ArrayList<Success> categoriesList) {
-        if(recyclerView == null) {
-            recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
-        }
-        RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(getView().getContext(), 2);
-        recyclerView.setLayoutManager(recyclerLayoutManager);
-        recyclerAdapter = new RVcategoryAdapter(getView().getContext(), categoriesList);
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerAdapter.setData(categoriesList);
     }
 
     @Override

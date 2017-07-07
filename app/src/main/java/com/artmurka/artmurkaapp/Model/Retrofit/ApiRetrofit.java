@@ -17,6 +17,7 @@ public interface ApiRetrofit {
     @GET("uapi/shop/request")
     Observable<Example> getShopCategories(@QueryMap HashMap<String, String> map);
 
+
     //oauth_signature oauth_signature_method oauth_version oauth_consumer_key oauth_token oauth_nonce oauth_timestamp page
     @GET("uapi/shop/cat")
     Call<Success> getItemList(@QueryMap HashMap<String, String> map);

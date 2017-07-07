@@ -29,5 +29,7 @@ public class RequestItemList implements IRequestItemList {
         Log.d("Log.d", "confreqyest map " + confForRequest.toString());
 
         return ApiModule.getClient().getItemList(confForRequest);
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread());
     }
 }

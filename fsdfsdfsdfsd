@@ -1,0 +1,138 @@
+[33mcommit c170bdf07087572d5fe3c8e19d7286f69e104b00[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Fri Jul 7 21:40:08 2017 +0300
+
+    refactoring retrofit api.
+
+[33mcommit a9b24de141cdcc7a205c29b1ccea8cdf3956fb92[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Thu Jul 6 23:52:39 2017 +0300
+
+    request in categoryFragment working good. Need to remake in rx
+
+[33mcommit 2cf3657f547ef773165ff01d59714cec6f44f7d3[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Thu Jul 6 22:50:14 2017 +0300
+
+    config base string for request
+
+[33mcommit 097ea4f586e1e54f852b2591e9899e776df4b243[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jul 5 23:17:30 2017 +0300
+
+    add pojo for categories
+
+[33mcommit 0652301a345a7656be3a2bf0f04180033717cf89[m
+Merge: 3bbcb66 c8d0ae0
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Tue Jul 4 23:45:07 2017 +0300
+
+    Merge remote-tracking branch 'refs/remotes/origin/master'
+
+[33mcommit 3bbcb66361425bc1d8e66900f803478387cf21ae[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Tue Jul 4 23:30:45 2017 +0300
+
+    test
+
+[33mcommit aee4c26fb9ab1b8a94af99d851a92b2c3273cd6b[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Mon Jul 3 23:45:21 2017 +0300
+
+    add new fragment. In recyclerView set setOnClickListener
+
+[33mcommit db65f8ee1152a85e116e7ff1be3d9ed9445600b9[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Mon Jul 3 23:23:40 2017 +0300
+
+    some refactoring
+
+[33mcommit 72255ec76a48ac460cb88dd643e363b2d2ff5a1a[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Sat Jul 1 00:23:42 2017 +0300
+
+    some changes
+
+[33mcommit caca9457b3c83d328d75e56a1445d2598759fe85[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Thu Jun 29 23:31:40 2017 +0300
+
+    add something MVP :)
+
+[33mcommit 4fb603d237049963bb8de4e44bf9a7468aac1cd4[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Thu Jun 29 17:29:59 2017 +0300
+
+    getRetrofit in class ApiModule; Make class with all Requests
+
+[33mcommit c8d0ae03a1ea0e8b9f3b61de357c87e26009f3dd[m
+Author: Vasyl <vas.evstropov@gmail.com>
+Date:   Thu Jun 29 15:53:11 2017 +0300
+
+    Create README.md
+
+[33mcommit f3955eb1fd24d216874539126f2e67751096870d[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jun 28 21:48:22 2017 +0300
+
+    retrofit request in rxjava
+
+[33mcommit 68d2277f4e652368292db86d8bd33217a0fe7d8f[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jun 28 16:38:08 2017 +0300
+
+    add apiRetrofit module + cardView for categoryFragment
+
+[33mcommit ecf689d44c39efef4cdd37455208dbe537d97ea7[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jun 28 14:45:34 2017 +0300
+
+    add oauth keys, secrets, consumer key, secret in BuildConfig
+
+[33mcommit c14333dcec22183b1138698e59a2d63423ef45a7[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jun 28 00:03:33 2017 +0300
+
+    add navigation in SelectedGoods activity
+
+[33mcommit 5b3281345a1a4e069e56c860d9fb39d15a48e366[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Tue Jun 27 23:42:31 2017 +0300
+
+    add fragments
+
+[33mcommit 200d328497af61131ad475f55cbb12a4b62dc3c5[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Tue Jun 27 21:08:43 2017 +0300
+
+    add settings activity
+
+[33mcommit 6bc548e2a659b1b3cf8883fb8a7fa6d35cbfa3c9[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jun 21 22:38:02 2017 +0300
+
+    +1 step for OAauth autorization
+
+[33mcommit 1e90e733b21f8500e6f5db6b6f1b9ea77a0ed1f2[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Wed Jun 21 00:00:44 2017 +0300
+
+    some refactoring
+
+[33mcommit 5427503baf88a21e6d473f61ba1234be8522f041[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Tue Jun 20 23:26:42 2017 +0300
+
+    retrofit
+
+[33mcommit bf6f5c455c582bef8b69516a65b25b219cba04c1[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Tue Jun 13 23:12:41 2017 +0300
+
+    add library rxjava
+
+[33mcommit bd877a6cb806d98d869d694113a15ef097200189[m
+Author: evstropovv <vas.evstropov@gmail.com>
+Date:   Sun Jun 11 10:46:18 2017 +0300
+
+    first

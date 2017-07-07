@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
+import com.artmurka.artmurkaapp.Views.Fragments.ICategoryFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,12 +21,20 @@ import java.util.List;
 
 
 public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.ViewHolder> {
-    private List<Success> successList = new ArrayList<>();
+    private List<Success> successList;
     private Context ctx;
 
-    public RVcategoryAdapter(Context ctx, List<Success> successList){
-        this.ctx = ctx;
-        this.successList = successList;
+    public RVcategoryAdapter(Context context){
+        this.ctx = context;
+        successList = new ArrayList<>();
+    }
+
+    public void setData(List<Success> list){
+        if (list!=null && list.size()>0){
+            this.successList.clear();
+            this.successList.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
