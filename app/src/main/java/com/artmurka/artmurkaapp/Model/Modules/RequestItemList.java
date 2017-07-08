@@ -14,13 +14,14 @@ import io.reactivex.schedulers.Schedulers;
 public class RequestItemList implements IRequestItemList {
 
     @Override
-    public Observable<SuccessExample> getItemList(String page) {
+    public Observable<SuccessExample> getItemList(String page, String pageNumber) {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("cat_uri", page);
         mapForUcozModule.put("method", "GET");
         mapForUcozModule.put("url", "uapi/shop/cat");
+        mapForUcozModule.put("pnum", pageNumber);
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
 

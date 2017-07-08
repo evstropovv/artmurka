@@ -37,7 +37,7 @@ public class ItemListPresenter implements IPresenterItemList {
     public void getCategoriesData() {
 
         RequestItemList model = new RequestItemList();
-        exampleObservable = model.getItemList(url);
+        exampleObservable = model.getItemList(url, "1");
         exampleObservable.subscribe(new Observer<SuccessExample>() {
             @Override
             public void onSubscribe(Disposable d) {
