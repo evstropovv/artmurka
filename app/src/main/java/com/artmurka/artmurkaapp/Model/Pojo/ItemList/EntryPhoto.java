@@ -6,22 +6,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class EntryPhoto {
 
-    @SerializedName("others_photo")
-    @Expose
-    private OthersPhoto othersPhoto;
-    @SerializedName("num_photos")
-    @Expose
-    private int numPhotos;
     @SerializedName("def_photo")
     @Expose
     private DefPhoto defPhoto;
+    @SerializedName("num_photos")
+    @Expose
+    private int numPhotos;
+//    @SerializedName("others_photo")
+//    @Expose
+//    private OthersPhoto othersPhoto;
 
-    public OthersPhoto getOthersPhoto() {
-        return othersPhoto;
+    public DefPhoto getDefPhoto() {
+        return defPhoto;
     }
 
-    public void setOthersPhoto(OthersPhoto othersPhoto) {
-        this.othersPhoto = othersPhoto;
+    public void setDefPhoto(DefPhoto defPhoto) {
+        this.defPhoto = defPhoto;
     }
 
     public int getNumPhotos() {
@@ -32,12 +32,12 @@ public class EntryPhoto {
         this.numPhotos = numPhotos;
     }
 
-    public DefPhoto getDefPhoto() {
-        return defPhoto;
-    }
-
-    public void setDefPhoto(DefPhoto defPhoto) {
-        this.defPhoto = defPhoto;
-    }
+//    public OthersPhoto getOthersPhoto() {
+//        return othersPhoto;
+//    }
+//
+//    public void setOthersPhoto(OthersPhoto othersPhoto) {
+//        this.othersPhoto = othersPhoto;
+//    }
 
 }

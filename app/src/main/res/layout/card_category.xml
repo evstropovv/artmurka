@@ -25,7 +25,7 @@
             android:textAlignment="center" />
 
         <ImageView
-            android:id="@+id/category_photo"
+            android:id="@+id/item_ph"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_alignParentBottom="true"

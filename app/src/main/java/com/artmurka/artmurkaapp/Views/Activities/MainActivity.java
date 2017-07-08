@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragmentFragment;
+import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
 
     @Override
     public void changeFragment(String url) {
-        ItemListFragmentFragment itemList = new ItemListFragmentFragment();
+        ItemListFragment itemList = new ItemListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
         itemList.setArguments(bundle);

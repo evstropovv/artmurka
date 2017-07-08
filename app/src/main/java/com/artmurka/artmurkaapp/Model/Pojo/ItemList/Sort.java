@@ -7,15 +7,23 @@ import com.google.gson.annotations.SerializedName;
 
 public class Sort {
 
+    @SerializedName("order")
+    @Expose
+    private String order;
     @SerializedName("slist")
     @Expose
     private List<Slist> slist = null;
     @SerializedName("sort")
     @Expose
     private String sort;
-    @SerializedName("order")
-    @Expose
-    private String order;
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
 
     public List<Slist> getSlist() {
         return slist;
@@ -31,14 +39,6 @@ public class Sort {
 
     public void setSort(String sort) {
         this.sort = sort;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
     }
 
 }

@@ -4,62 +4,70 @@ package com.artmurka.artmurkaapp.Model.Pojo.ItemList;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Success {
 
-    @SerializedName("goods_list")
+    @SerializedName("sort")
     @Expose
-    private GoodsList goodsList;
-    @SerializedName("parent_cat")
+    private Sort sort;
+    @SerializedName("cat_descr")
     @Expose
-    private String parentCat;
+    private String catDescr;
     @SerializedName("cat_id")
     @Expose
     private String catId;
+
+
+    @SerializedName("goods_list")
+    @Expose
+    private HashMap<String, GoodsProperties> goodsList;
+
+
+    @SerializedName("duplicate")
+    @Expose
+    private int duplicate;
     @SerializedName("cat_img")
     @Expose
     private String catImg;
     @SerializedName("meta_data")
     @Expose
     private MetaData metaData;
+    @SerializedName("cat_url")
+    @Expose
+    private String catUrl;
+    @SerializedName("parent_cat")
+    @Expose
+    private String parentCat;
     @SerializedName("goods_count")
     @Expose
     private int goodsCount;
-    @SerializedName("duplicate")
-    @Expose
-    private int duplicate;
-    @SerializedName("cat_descr")
-    @Expose
-    private String catDescr;
-    @SerializedName("filters")
-    @Expose
-    private String filters;
     @SerializedName("cat_name")
     @Expose
     private String catName;
     @SerializedName("paginator")
     @Expose
     private Paginator paginator;
-    @SerializedName("sort")
+    @SerializedName("filters")
     @Expose
-    private Sort sort;
-    @SerializedName("cat_url")
-    @Expose
-    private String catUrl;
+    private String filters;
 
-    public GoodsList getGoodsList() {
-        return goodsList;
+    public Sort getSort() {
+        return sort;
     }
 
-    public void setGoodsList(GoodsList goodsList) {
-        this.goodsList = goodsList;
+    public void setSort(Sort sort) {
+        this.sort = sort;
     }
 
-    public String getParentCat() {
-        return parentCat;
+    public String getCatDescr() {
+        return catDescr;
     }
 
-    public void setParentCat(String parentCat) {
-        this.parentCat = parentCat;
+    public void setCatDescr(String catDescr) {
+        this.catDescr = catDescr;
     }
 
     public String getCatId() {
@@ -68,6 +76,18 @@ public class Success {
 
     public void setCatId(String catId) {
         this.catId = catId;
+    }
+
+    public HashMap<String, GoodsProperties> getGoodsList() {
+        return goodsList;
+    }
+
+    public int getDuplicate() {
+        return duplicate;
+    }
+
+    public void setDuplicate(int duplicate) {
+        this.duplicate = duplicate;
     }
 
     public String getCatImg() {
@@ -86,36 +106,28 @@ public class Success {
         this.metaData = metaData;
     }
 
+    public String getCatUrl() {
+        return catUrl;
+    }
+
+    public void setCatUrl(String catUrl) {
+        this.catUrl = catUrl;
+    }
+
+    public String getParentCat() {
+        return parentCat;
+    }
+
+    public void setParentCat(String parentCat) {
+        this.parentCat = parentCat;
+    }
+
     public int getGoodsCount() {
         return goodsCount;
     }
 
     public void setGoodsCount(int goodsCount) {
         this.goodsCount = goodsCount;
-    }
-
-    public int getDuplicate() {
-        return duplicate;
-    }
-
-    public void setDuplicate(int duplicate) {
-        this.duplicate = duplicate;
-    }
-
-    public String getCatDescr() {
-        return catDescr;
-    }
-
-    public void setCatDescr(String catDescr) {
-        this.catDescr = catDescr;
-    }
-
-    public String getFilters() {
-        return filters;
-    }
-
-    public void setFilters(String filters) {
-        this.filters = filters;
     }
 
     public String getCatName() {
@@ -134,20 +146,12 @@ public class Success {
         this.paginator = paginator;
     }
 
-    public Sort getSort() {
-        return sort;
+    public String getFilters() {
+        return filters;
     }
 
-    public void setSort(Sort sort) {
-        this.sort = sort;
-    }
-
-    public String getCatUrl() {
-        return catUrl;
-    }
-
-    public void setCatUrl(String catUrl) {
-        this.catUrl = catUrl;
+    public void setFilters(String filters) {
+        this.filters = filters;
     }
 
 }
