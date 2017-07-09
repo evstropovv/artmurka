@@ -13,11 +13,11 @@ import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 
-public class CartFragment extends Fragment {
+public class BasketFragment extends Fragment {
     private Button btnToMain;
     private TextView tvMessage;
 
-    public CartFragment() {
+    public BasketFragment() {
 
     }
 

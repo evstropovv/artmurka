@@ -3,6 +3,7 @@ package com.artmurka.artmurkaapp.Presenter.Adapters;
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
+import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
 
 public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.ViewHolder> {
     private ArrayList<GoodsProperties> successList;
@@ -57,7 +66,36 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                         switch (item.getItemId()){
                             case R.id.to_card:
                                 //в корзину
-                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до кошика", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+
+                                IBasket basket = new BasketRequest();
+                                Observable<ResponseBody> observable = basket.toBasket(successList.get(position).getEntryId());
+                                observable.subscribe(new Observer<ResponseBody>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(ResponseBody value) {
+                                        try{
+                                            Log.d("Log.d",value.string());
+                                        }catch (IOException e){}
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
+
+
                                 break;
                             case R.id.wish_wad:
                                 //в список пожеланий

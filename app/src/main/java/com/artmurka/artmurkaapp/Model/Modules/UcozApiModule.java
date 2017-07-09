@@ -78,17 +78,26 @@ public class UcozApiModule {
      * return string
      */
 
-    private String getSignature(String method, String url, String params, String page, String pnum) {
+    private String getSignature(String method, String url, String params, String page, String pnum, String id) {
         String baseString = "";
         try {
-            baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
-                    + (page!=null?"&"+URLEncoder.encode(page+"&","UTF-8"):"&")
-                    + URLEncoder.encode(params, "UTF-8") + (pnum!=null?URLEncoder.encode(pnum,"UTF-8"):"");
-            Log.d("Log.d", "baseString " + baseString);
+            if (id!=null){
+                baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
+                        +"&"+URLEncoder.encode("id="+id+"&mode=add&","UTF-8")
+                        + URLEncoder.encode(params, "UTF-8") + (pnum!=null?URLEncoder.encode(pnum,"UTF-8"):"");
+                Log.d("Log.d", "baseString " + baseString);
+            }else {
+                baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
+                        + (page!=null?"&"+URLEncoder.encode(page+"&","UTF-8"):"&")
+                        + URLEncoder.encode(params, "UTF-8") + (pnum!=null?URLEncoder.encode(pnum,"UTF-8"):"");
+                Log.d("Log.d", "baseString " + baseString);
+            }
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+
         Log.d("Log.d", "Base string: " + baseString);
 
         String a = "";
@@ -121,7 +130,7 @@ public class UcozApiModule {
                         (config.get("page") != null ? "&page=" + config.get("page") :
                                 (config.get("id") != null ? "&id=" + config.get("id") : "")),
                 (config.get("cat_uri")!=null?"cat_uri="+ config.get("cat_uri"):null),
-                (config.get("pnum")!=null?"&pnum="+ config.get("pnum"):null) ));
+                (config.get("pnum")!=null?"&pnum="+ config.get("pnum"):null), (config.get("goodId")!=null?config.get("goodId"):null)));
 
         answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
         answerMap.put("oauth_version", OAUTH_VERSION);
@@ -129,7 +138,6 @@ public class UcozApiModule {
         answerMap.put("oauth_token", OAUTH_TOKEN);
         answerMap.put("oauth_nonce", oauth_nonce);
         answerMap.put("oauth_timestamp", time);
-
         if (config.get("page") != null) {
             answerMap.put("page", config.get("page"));
         }

@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
 import com.artmurka.artmurkaapp.Model.Retrofit.Example;
 
 import java.util.HashMap;

@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.artmurka.artmurkaapp.Views.Fragments.CartFragment;
+import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
 import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
 import com.artmurka.artmurkaapp.R;
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
                 fm.executePendingTransactions();
                 break;
             case 103:
-                CartFragment cartFragment = new CartFragment();
+                BasketFragment cartFragment = new BasketFragment();
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, cartFragment)
                         .addToBackStack("cartFragment")

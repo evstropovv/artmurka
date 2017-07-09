@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Model.Modules;
+package com.artmurka.artmurkaapp.Model.InterfacesModel;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
 

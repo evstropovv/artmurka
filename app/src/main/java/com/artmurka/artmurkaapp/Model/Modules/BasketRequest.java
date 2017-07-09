@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
-import com.artmurka.artmurkaapp.Model.InterfacesModel.IRequestItemList;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
 
 import java.util.HashMap;
@@ -8,24 +8,27 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
+/**
+ * Created by Вася on 09.07.2017.
+ */
 
-public class RequestItemList implements IRequestItemList {
-
+public class BasketRequest implements IBasket {
     @Override
-    public Observable<SuccessExample> getItemList(String page, String pageNumber) {
+    public Observable<ResponseBody> toBasket(String goodId) {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("cat_uri", page);
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/cat");
-        mapForUcozModule.put("pnum", pageNumber);
+        mapForUcozModule.put("goodId", goodId);
+        mapForUcozModule.put("method", "POST");
+        mapForUcozModule.put("mode", "add");
+        mapForUcozModule.put("url", "uapi/shop/basket/");
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
-        confForRequest.put("cat_uri", page);
+       // confForRequest.put("cat_uri", page);
 
-        return ApiModule.getClient().getItemList(confForRequest)
+        return ApiModule.getClient().addToBasket(confForRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
