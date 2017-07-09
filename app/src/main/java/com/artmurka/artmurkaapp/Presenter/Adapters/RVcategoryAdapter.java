@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
@@ -67,7 +68,8 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),successList.get(getAdapterPosition()).getCatUrl() +"\n", Toast.LENGTH_SHORT).show();
                     MainActivity activity = (MainActivity)v.getContext();
-                    activity.changeFragment(successList.get(getAdapterPosition()).getCatUrl());
+                    activity.changeFragment(Const.ITEM_LIST_FRAGMENT,successList.get(getAdapterPosition()).getCatUrl());
+
                 }
             });
         }

@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Presenter;
+package com.artmurka.artmurkaapp.Presenter.InterfacesPresenter;
 
 public interface ICategoryPresenter {
 

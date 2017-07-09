@@ -3,27 +3,23 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Success;
-import com.artmurka.artmurkaapp.Presenter.Adapters.ItemListPresenter;
-import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
+import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
-import com.artmurka.artmurkaapp.Presenter.ICategoryPresenter;
-import com.artmurka.artmurkaapp.Presenter.IPresenterItemList;
+import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IPresenterItemList;
 import com.artmurka.artmurkaapp.R;
-import com.google.gson.Gson;
+import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IItemListFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class ItemListFragment extends Fragment implements IItemListFragment {
@@ -32,6 +28,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     private RVitemListAdapter recyclerAdapter;
     private String url = "vushivki";
     private IPresenterItemList presenter;
+    private int curPage = 1;
 
     public ItemListFragment() {
     }
@@ -48,15 +45,35 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             }
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+        final RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVitemListAdapter(view.getContext());
         recyclerView.setAdapter(recyclerAdapter);
 
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = recyclerLayoutManager.getChildCount();//смотрим сколько элементов на экране
+                int totalItemCount = recyclerLayoutManager.getItemCount();//сколько всего элементов
+
+                Toast.makeText(getContext(), "vItemCount="+visibleItemCount + " totalItemCount="+totalItemCount,Toast.LENGTH_SHORT).show();
+                if (totalItemCount - visibleItemCount<8){
+                    presenter.getCategoriesData(++curPage);
+                }
+            }
+        });
+
+
         if (presenter ==null){
             presenter = new ItemListPresenter(this, url);
         }
-        presenter.getCategoriesData();
+        presenter.getCategoriesData(curPage);
         return view;
     }
 
@@ -77,6 +94,13 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     }
 
     @Override
-    public void showError(String error) {
+    public void showError(String error){
+       Snackbar.make(getView(),error, Snackbar.LENGTH_LONG)
+               .setAction("Угу...", new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+
+                   }
+               }).show();
     }
 }

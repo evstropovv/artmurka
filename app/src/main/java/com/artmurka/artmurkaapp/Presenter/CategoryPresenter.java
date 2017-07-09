@@ -6,12 +6,10 @@ import com.artmurka.artmurkaapp.Model.Modules.AllRequestOvservers;
 import com.artmurka.artmurkaapp.Model.Modules.IAllRequestObservers;
 import com.artmurka.artmurkaapp.Model.Retrofit.Example;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
-import com.artmurka.artmurkaapp.Views.Fragments.ICategoryFragment;
-
-import org.reactivestreams.Subscription;
+import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
+import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -41,6 +39,7 @@ public class CategoryPresenter implements ICategoryPresenter {
     }
 
     private void resetData() {
+
         exampleObservable = model.getCategories();
         exampleObservable.subscribe(new Observer<Example>() {
             @Override
@@ -56,6 +55,7 @@ public class CategoryPresenter implements ICategoryPresenter {
 
             @Override
             public void onError(Throwable e) {
+                catFragment.showError("Щось пішло не так. Перезавантажити ?");
             }
             @Override
             public void onComplete() {

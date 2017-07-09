@@ -1,8 +1,10 @@
 package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.content.Context;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,9 +43,39 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvItemName.setText(successList.get(position).getEntryTitle());
         Picasso.with(ctx).load(successList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
+        holder.ivMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(ctx, holder.ivMenu);
+                popupMenu.inflate(R.menu.item_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.to_card:
+                                //в корзину
+                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до кошика", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.wish_wad:
+                                //в список пожеланий
+                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.widget_add:
+                                //в список сравнений
+                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано в порівняння", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
     @Override
@@ -55,10 +87,13 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
 
         public TextView tvItemName;
         public ImageView ivItemPhoto;
+        public ImageView ivMenu;
+
         public ViewHolder(View itemView) {
             super(itemView);
             tvItemName = (TextView)itemView.findViewById(R.id.item_name);
             ivItemPhoto = (ImageView)itemView.findViewById(R.id.item_ph);
+            ivMenu = (ImageView)itemView.findViewById(R.id.item_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

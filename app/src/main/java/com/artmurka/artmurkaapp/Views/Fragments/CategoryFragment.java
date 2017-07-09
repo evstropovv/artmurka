@@ -1,23 +1,27 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
-import com.artmurka.artmurkaapp.Presenter.ICategoryPresenter;
+import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Presenter.*;
+import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
+import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
 import java.util.ArrayList;
 
@@ -45,8 +49,24 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         if (presenter == null) {
             presenter = new CategoryPresenter(this);
         }
-        presenter.getCategoriesData(true);
+        if(!isOnline()){
+            showError("Відсутній інтернет. Перезавантажити ?", view);
+        }else{
+            presenter.getCategoriesData(true);
+        }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override
@@ -62,6 +82,25 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
     @Override
     public void showError(String error) {
-
+        if (getView()!=null){
+            Snackbar.make(getView(), error, Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Так", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                            getActivity().finish();
+                        }
+                    }).show();
+        }
+    }
+    private void showError(String error, View view){
+        Snackbar.make(view, error, Snackbar.LENGTH_INDEFINITE)
+                .setAction("Так", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getContext(), MainActivity.class));
+                        getActivity().finish();
+                    }
+                }).show();
     }
 }

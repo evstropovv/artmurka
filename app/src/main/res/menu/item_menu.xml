@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/to_card"
+        android:title="До кошика" />
+    <item
+        android:id="@+id/wish_wad"
+        android:title="В бажання" />
+    <item
+        android:id="@+id/widget_add"
+        android:title="В порівняння" />
+</menu>

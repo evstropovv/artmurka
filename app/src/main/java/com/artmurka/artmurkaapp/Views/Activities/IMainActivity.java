@@ -5,5 +5,5 @@ package com.artmurka.artmurkaapp.Views.Activities;
  */
 
 public interface IMainActivity {
-    void changeFragment(String url);
+    void changeFragment(int currentFragment, String url);
 }

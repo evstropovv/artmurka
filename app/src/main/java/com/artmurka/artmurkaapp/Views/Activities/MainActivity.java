@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.artmurka.artmurkaapp.Views.Fragments.CartFragment;
+import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.card) {
-
+            changeFragment(Const.CART_FRAGMENT, null);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -82,16 +84,38 @@ public class MainActivity extends AppCompatActivity implements IMainActivity {
     }
 
     @Override
-    public void changeFragment(String url) {
-        ItemListFragment itemList = new ItemListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("url", url);
-        itemList.setArguments(bundle);
+    public void changeFragment(int fragment,String url) {
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .replace(R.id.mainFrame, itemList)
-                .addToBackStack("a")
-                .commit();
-        fm.executePendingTransactions();
+        switch (fragment){
+            case 101:
+                CategoryFragment categoryFragment = new CategoryFragment();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, categoryFragment)
+                        .addToBackStack(TAG)
+                        .commit();
+                fm.executePendingTransactions();
+                break;
+
+            case 102:
+                ItemListFragment itemList = new ItemListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("url", url);
+                itemList.setArguments(bundle);
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, itemList)
+                        .addToBackStack("a")
+                        .commit();
+                fm.executePendingTransactions();
+                break;
+            case 103:
+                CartFragment cartFragment = new CartFragment();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, cartFragment)
+                        .addToBackStack("cartFragment")
+                        .commit();
+                fm.executePendingTransactions();
+                break;
+        }
+
     }
 }

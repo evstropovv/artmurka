@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Views.Fragments;
+package com.artmurka.artmurkaapp.Views.Fragments.Interfaces;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Example;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
