@@ -97,9 +97,6 @@ public class UcozApiModule {
             e.printStackTrace();
         }
 
-
-        Log.d("Log.d", "Base string: " + baseString);
-
         String a = "";
         try {
             a = encode(CONSUMER_SECRET + "&" + OAUTH_TOKEN_SECRET, baseString);
@@ -147,6 +144,11 @@ public class UcozApiModule {
         if (config.get("pnum")!=null){
             answerMap.put("pnum", config.get("pnum"));
         }
+        if (config.get("url").contains("uapi/shop/basket/")){
+            answerMap.put("id", config.get("goodId"));
+            answerMap.put("mode",config.get("mode"));
+        }
+
         return answerMap;
     }
 

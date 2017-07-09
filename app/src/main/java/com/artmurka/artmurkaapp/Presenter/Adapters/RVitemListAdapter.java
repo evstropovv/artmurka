@@ -15,8 +15,10 @@ import android.widget.Toast;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -26,6 +28,9 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.ViewHolder> {
     private ArrayList<GoodsProperties> successList;
@@ -66,36 +71,27 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                         switch (item.getItemId()){
                             case R.id.to_card:
                                 //в корзину
-                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
 
                                 IBasket basket = new BasketRequest();
-                                Observable<ResponseBody> observable = basket.toBasket(successList.get(position).getEntryId());
-                                observable.subscribe(new Observer<ResponseBody>() {
+                                Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
+
+                                observable.subscribe(new Observer<BasketItems>() {
                                     @Override
-                                    public void onSubscribe(Disposable d) {
-
-                                    }
+                                    public void onSubscribe(Disposable d) {}
 
                                     @Override
-                                    public void onNext(ResponseBody value) {
-                                        try{
-                                            Log.d("Log.d",value.string());
-                                        }catch (IOException e){}
-
+                                    public void onNext(BasketItems value) {
+                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
+                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
                                     }
-
                                     @Override
                                     public void onError(Throwable e) {
-
+                                        Log.d("Log.d", "onError " + e.toString());
                                     }
-
                                     @Override
                                     public void onComplete() {
-
                                     }
                                 });
-
-
                                 break;
                             case R.id.wish_wad:
                                 //в список пожеланий

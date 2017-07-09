@@ -2,11 +2,13 @@ package com.artmurka.artmurkaapp.Model.Retrofit;
 
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.*;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -22,6 +24,6 @@ public interface ApiRetrofit {
     Observable<SuccessExample> getItemList(@QueryMap HashMap<String, String> map);
 
     //add to item to BASKET
-    @POST("uapi/shop/basket/")
-    Observable<ResponseBody> addToBasket(@QueryMap HashMap<String, String> map);
+    @GET("uapi/shop/basket/")
+    Observable<BasketItems> addToBasket(@QueryMap HashMap<String, String> map);
 }
