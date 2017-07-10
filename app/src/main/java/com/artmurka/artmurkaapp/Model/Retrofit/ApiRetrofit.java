@@ -26,4 +26,8 @@ public interface ApiRetrofit {
     //add to item to BASKET
     @GET("uapi/shop/basket/")
     Observable<BasketItems> addToBasket(@QueryMap HashMap<String, String> map);
+
+    @GET("uapi/shop/basket/")
+    Observable<BasketItems> getGoodsInBasket(@QueryMap HashMap<String, String> map);
+
 }

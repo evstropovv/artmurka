@@ -17,20 +17,14 @@ import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.ViewHolder> {
     private ArrayList<GoodsProperties> successList;
@@ -71,7 +65,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                         switch (item.getItemId()){
                             case R.id.to_card:
                                 //в корзину
-
                                 IBasket basket = new BasketRequest();
                                 Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
 
@@ -97,10 +90,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                                 //в список пожеланий
                                 Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
                                 break;
-                            case R.id.widget_add:
-                                //в список сравнений
-                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано в порівняння", Toast.LENGTH_SHORT).show();
-                                break;
+
                             default:
                                 break;
                         }
@@ -126,7 +116,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             tvItemName = (TextView)itemView.findViewById(R.id.item_name);
-            ivItemPhoto = (ImageView)itemView.findViewById(R.id.item_ph);
+            ivItemPhoto = (ImageView)itemView.findViewById(R.id.item_photo);
             ivMenu = (ImageView)itemView.findViewById(R.id.item_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

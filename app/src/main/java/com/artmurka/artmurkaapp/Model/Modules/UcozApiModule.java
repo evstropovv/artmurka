@@ -145,8 +145,8 @@ public class UcozApiModule {
             answerMap.put("pnum", config.get("pnum"));
         }
         if (config.get("url").contains("uapi/shop/basket/")){
-            answerMap.put("id", config.get("goodId"));
-            answerMap.put("mode",config.get("mode"));
+            if (config.get("goodId")!=null) answerMap.put("id", config.get("goodId"));
+            if (config.get("mode")!=null) answerMap.put("mode",config.get("mode"));
         }
 
         return answerMap;
