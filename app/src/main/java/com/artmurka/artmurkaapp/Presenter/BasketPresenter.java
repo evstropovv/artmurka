@@ -5,13 +5,9 @@ import android.util.Log;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IBasketPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IBasketFragment;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;

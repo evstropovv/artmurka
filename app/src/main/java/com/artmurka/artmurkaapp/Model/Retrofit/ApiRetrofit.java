@@ -9,6 +9,7 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -29,5 +30,8 @@ public interface ApiRetrofit {
 
     @GET("uapi/shop/basket/")
     Observable<BasketItems> getGoodsInBasket(@QueryMap HashMap<String, String> map);
+
+    @DELETE("uapi/shop/basket/")
+    Observable<BasketItems> deleteItemInBasket(@QueryMap HashMap<String, String> map);
 
 }
