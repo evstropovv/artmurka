@@ -12,14 +12,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
+import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
 
 import com.artmurka.artmurkaapp.R;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHolder> {
     private Context ctx;
@@ -63,13 +71,39 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
 
                             case R.id.delete_from_basket:
                                 //Удалить с козинки
-                                Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " повинно бути видалено :)", Toast.LENGTH_SHORT).show();
+                                IBasket basket = new BasketRequest();
+                                Observable<BasketItems> observable = basket.deleteItemFromBasket(null);//basketItemList.get(position).getEntryId()
+                                observable.subscribe(new Observer<BasketItems>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {}
+
+                                    @Override
+                                    public void onNext(BasketItems value) {
+                                        Log.d("Log.d", new Gson().toJson(value));
+                                    }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Log.d("Log.d", "onError. Delete From Basket " + e.toString());
+                                    }
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
+
+                                basketItemList.clear();
+                                notifyDataSetChanged();
+
+                             // Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " повинно бути видалено :)", Toast.LENGTH_SHORT).show();
+
                                 break;
                             case R.id.wish_wad:
                                 //в список бажань
                                 Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " додано в бажання", Toast.LENGTH_SHORT).show();
+
                                 break;
                             default:
+
                                 break;
                         }
                         return false;

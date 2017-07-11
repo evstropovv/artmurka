@@ -88,10 +88,12 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     @Override
     public void showItemsInBasket(List<Item> items) {
         recyclerAdapter.setData(items);
+
     }
 
     @Override
     public void makeMessageInvisible(boolean b) {
+
         if (b){
             btnToMain.setVisibility(View.INVISIBLE);
             tvMessage.setVisibility(View.INVISIBLE);

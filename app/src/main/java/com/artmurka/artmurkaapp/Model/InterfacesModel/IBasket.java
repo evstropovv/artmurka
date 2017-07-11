@@ -8,5 +8,6 @@ import io.reactivex.Observable;
 public interface IBasket {
     Observable<BasketItems> toBasket(String goodId);
     Observable<BasketItems> getItemInBasket();
+    Observable<BasketItems> deleteItemFromBasket(String goodId);
 
 }

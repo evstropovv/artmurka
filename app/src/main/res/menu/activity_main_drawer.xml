@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_catalog"
+            android:icon="@drawable/table"
+            android:title="Каталог"/>
+        <item
+            android:id="@+id/nav_basket"
+            android:icon="@drawable/cart_outline"
+            android:title="Корзинка"/>
+        <item
+            android:id="@+id/nav_desires"
+            android:icon="@drawable/heartoutline"
+            android:title="Мої бажання"/>
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/reorderhorizontal"
+            android:title="Мої закази"/>
+    </group>
+
+    <item android:title="Додатково">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/settings"
+                android:title="Налаштування"/>
+            <item
+                android:id="@+id/nav_individual"
+                android:icon="@drawable/feather"
+                android:title="Індивідуальний заказ"/>
+            <item
+                android:id="@+id/nav_consulting"
+                android:icon="@drawable/phoneclassic"
+                android:title="Подзвонити нам :)"/>
+        </menu>
+    </item>
+
 </menu>

@@ -45,4 +45,21 @@ public class BasketRequest implements IBasket {
                 .observeOn(AndroidSchedulers.mainThread());
 
     }
+
+    @Override
+    public Observable<BasketItems> deleteItemFromBasket(String goodId) {
+        UcozApiModule ucoz = new UcozApiModule();
+
+        HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
+        mapForUcozModule.put("method", "DELETE");
+        mapForUcozModule.put("url", "uapi/shop/basket/");
+        mapForUcozModule.put("goodId", goodId);
+
+        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+
+        return ApiModule.getClient().deleteItemInBasket(confForRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
 }
