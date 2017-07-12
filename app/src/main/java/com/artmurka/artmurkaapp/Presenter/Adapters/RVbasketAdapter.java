@@ -28,6 +28,9 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHolder> {
     private Context ctx;
@@ -72,24 +75,36 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                             case R.id.delete_from_basket:
                                 //Удалить с козинки
                                 IBasket basket = new BasketRequest();
-                                Observable<BasketItems> observable = basket.deleteItemFromBasket(null);//basketItemList.get(position).getEntryId()
-                                observable.subscribe(new Observer<BasketItems>() {
+                                Call<BasketItems> observable = basket.deleteItemFromBasket(basketItemList.get(position).getEntryId());//
+                                observable.enqueue(new Callback<BasketItems>() {
                                     @Override
-                                    public void onSubscribe(Disposable d) {}
+                                    public void onResponse(Call<BasketItems> call, Response<BasketItems> response) {
+                                        Log.d("Log.d", response.raw().request().url().toString());
+                                    }
 
                                     @Override
-                                    public void onNext(BasketItems value) {
-                                        Log.d("Log.d", new Gson().toJson(value));
-                                    }
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        Log.d("Log.d", "onError. Delete From Basket " + e.toString());
-                                    }
-                                    @Override
-                                    public void onComplete() {
+                                    public void onFailure(Call<BasketItems> call, Throwable t) {
 
                                     }
                                 });
+
+//                                observable.subscribe(new Observer<BasketItems>() {
+//                                    @Override
+//                                    public void onSubscribe(Disposable d) {}
+//
+//                                    @Override
+//                                    public void onNext(BasketItems value) {
+//                                        Log.d("Log.d", new Gson().toJson(value));
+//                                    }
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        Log.d("Log.d", "onError. Delete From Basket " + e.toString());
+//                                    }
+//                                    @Override
+//                                    public void onComplete() {
+//
+//                                    }
+//                                });
 
                                 basketItemList.clear();
                                 notifyDataSetChanged();

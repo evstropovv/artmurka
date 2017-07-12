@@ -9,6 +9,7 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 
 public class BasketRequest implements IBasket {
@@ -47,7 +48,7 @@ public class BasketRequest implements IBasket {
     }
 
     @Override
-    public Observable<BasketItems> deleteItemFromBasket(String goodId) {
+    public Call<BasketItems> deleteItemFromBasket(String goodId) {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
@@ -57,9 +58,9 @@ public class BasketRequest implements IBasket {
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
 
-        return ApiModule.getClient().deleteItemInBasket(confForRequest)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        return ApiModule.getClient().deleteItemInBasket(confForRequest);
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread());
 
     }
 }

@@ -32,6 +32,6 @@ public interface ApiRetrofit {
     Observable<BasketItems> getGoodsInBasket(@QueryMap HashMap<String, String> map);
 
     @DELETE("uapi/shop/basket/")
-    Observable<BasketItems> deleteItemInBasket(@QueryMap HashMap<String, String> map);
+    Call<BasketItems> deleteItemInBasket(@QueryMap HashMap<String, String> map);
 
 }

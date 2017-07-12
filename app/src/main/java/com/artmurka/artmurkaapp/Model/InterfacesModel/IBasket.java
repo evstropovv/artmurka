@@ -3,11 +3,12 @@ package com.artmurka.artmurkaapp.Model.InterfacesModel;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 
 
 public interface IBasket {
     Observable<BasketItems> toBasket(String goodId);
     Observable<BasketItems> getItemInBasket();
-    Observable<BasketItems> deleteItemFromBasket(String goodId);
+    Call<BasketItems> deleteItemFromBasket(String goodId);
 
 }
