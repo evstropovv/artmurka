@@ -12,13 +12,12 @@ import com.artmurka.artmurkaapp.Presenter.Adapters.PagerAdapter;
 import com.artmurka.artmurkaapp.R;
 
 public class SelectedGood extends AppCompatActivity {
-    FragmentManager fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_good);
-        fragmentTransaction = getFragmentManager();
+
         setUI();
     }
 
@@ -29,32 +28,35 @@ public class SelectedGood extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        toolbar.setTitle("Категорія");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Опис"));
 
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Характеристики"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-
-        PagerAdapter tabAdapter = new PagerAdapter(fragmentTransaction, 2);
+        final PagerAdapter tabAdapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
     }

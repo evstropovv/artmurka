@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             changeFragment(Const.BASKET_FRAGMENT, null);
         } else if (id == R.id.nav_desires) { //желания
 
+
         } else if (id == R.id.nav_orders) { // мои заказы
 
         } else if (id == R.id.nav_settings) { //настройки

@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -100,6 +102,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                 popupMenu.show();
             }
         });
+
     }
 
     @Override
@@ -113,7 +116,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
         public ImageView ivItemPhoto;
         public ImageView ivMenu;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             tvItemName = (TextView)itemView.findViewById(R.id.item_name);
             ivItemPhoto = (ImageView)itemView.findViewById(R.id.item_photo);
@@ -124,6 +127,10 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                     Toast.makeText(v.getContext(),successList.get(getAdapterPosition()) +"\n", Toast.LENGTH_SHORT).show();
 //                    MainActivity activity = (MainActivity)v.getContext();
 //                    activity.changeFragment(successList.get(getAdapterPosition()).getCatUrl());
+                    Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
+                    intent.putExtra("0","");
+                    itemView.getContext().startActivity(intent);
+
                 }
             });
         }

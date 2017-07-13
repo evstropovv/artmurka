@@ -21,7 +21,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentAboutGoods();
+                FragmentAboutGoods fragmentAboutGoods = new FragmentAboutGoods();
+                return fragmentAboutGoods;
             case 1:
                 return new FragmentDescriptionGoods();
             default:
@@ -31,6 +32,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return numberOfTabs;
     }
 }

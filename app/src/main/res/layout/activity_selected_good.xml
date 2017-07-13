@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"
+        android:background="#2ff2ff2f"
         android:layout_marginTop="112dp" />
 
     <android.support.design.widget.AppBarLayout
@@ -29,10 +30,5 @@
             app:tabSelectedTextColor="@color/colorPrimary" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/mainFrame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </RelativeLayout>
