@@ -1,5 +1,7 @@
 package com.artmurka.artmurkaapp.Views.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.card) {
-            changeFragment(Const.CART_FRAGMENT, null);
+            changeFragment(Const.BASKET_FRAGMENT, null);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -140,19 +142,24 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         int id = item.getItemId();
 
         if (id == R.id.nav_catalog) { //каталог
+            changeFragment(Const.CATEGORY_FRAGMENT, null);
             // Handle the camera action
         } else if (id == R.id.nav_basket) { //корзинка
-
+            changeFragment(Const.BASKET_FRAGMENT, null);
         } else if (id == R.id.nav_desires) { //желания
 
         } else if (id == R.id.nav_orders) { // мои заказы
 
         } else if (id == R.id.nav_settings) { //настройки
-
+            Intent intent = new Intent(this, PrefActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_individual) { // індивідуальний заказ
 
         } else if (id == R.id.nav_consulting) { // подзвонити нам
-
+            String number = "7777777777";
+            Uri call = Uri.parse("tel:" + number);
+            Intent surf = new Intent(Intent.ACTION_DIAL, call);
+            startActivity(surf);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
