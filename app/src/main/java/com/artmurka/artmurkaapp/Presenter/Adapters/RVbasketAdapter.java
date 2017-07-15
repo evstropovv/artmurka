@@ -19,15 +19,11 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
 
 import com.artmurka.artmurkaapp.R;
 
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -146,7 +142,7 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
             goodName = (TextView) itemView.findViewById(R.id.good_name);
             goodDescription = (TextView) itemView.findViewById(R.id.good_description);
             goodPrice = (TextView) itemView.findViewById(R.id.price);
-            itemPhoto = (ImageView) itemView.findViewById(R.id.item_photo);
+            itemPhoto = (ImageView) itemView.findViewById(R.id.itemPhoto);
             basketMenu = (ImageView) itemView.findViewById(R.id.basket_menu);
         }
     }

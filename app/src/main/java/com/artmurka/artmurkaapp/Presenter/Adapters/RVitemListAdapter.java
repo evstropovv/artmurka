@@ -119,7 +119,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
         public ViewHolder(final View itemView) {
             super(itemView);
             tvItemName = (TextView)itemView.findViewById(R.id.item_name);
-            ivItemPhoto = (ImageView)itemView.findViewById(R.id.item_photo);
+            ivItemPhoto = (ImageView)itemView.findViewById(R.id.itemPhoto);
             ivMenu = (ImageView)itemView.findViewById(R.id.item_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -128,7 +128,8 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
 //                    MainActivity activity = (MainActivity)v.getContext();
 //                    activity.changeFragment(successList.get(getAdapterPosition()).getCatUrl());
                     Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
-                    intent.putExtra("0","");
+                    String id = successList.get(getAdapterPosition()).getEntryId();
+                    intent.putExtra("id",id);
                     itemView.getContext().startActivity(intent);
 
                 }

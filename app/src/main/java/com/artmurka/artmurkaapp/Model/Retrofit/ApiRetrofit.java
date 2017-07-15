@@ -2,17 +2,15 @@ package com.artmurka.artmurkaapp.Model.Retrofit;
 
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.*;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ApiRetrofit {
@@ -33,5 +31,8 @@ public interface ApiRetrofit {
 
     @DELETE("uapi/shop/basket/")
     Call<BasketItems> deleteItemInBasket(@QueryMap HashMap<String, String> map);
+
+    @GET("uapi/shop/request")
+    Call<AboutGood> getGoodDescription(@QueryMap HashMap<String, String> map);
 
 }

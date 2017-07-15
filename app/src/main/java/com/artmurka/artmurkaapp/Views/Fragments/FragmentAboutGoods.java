@@ -2,20 +2,30 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
+import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 
 
-public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods, LoaderManager.LoaderCallbacks<String> {
+public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods {
 
+    IAboutGoodsPresenter presenter;
+    private final String ID = "id";
 
+    private TextView tvName, tvPrice, tvDescription;
+    private ImageView ivPhoto;
 
 
     public FragmentAboutGoods() {
@@ -28,47 +38,51 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_about_goods, container, false);
+        if (presenter==null){
+            presenter = new AboutGoodsPresenter(this);
+        }
+        tvName = (TextView)view.findViewById(R.id.tvName);
+        tvPrice = (TextView)view.findViewById(R.id.tvPrice);
+        tvDescription = (TextView)view.findViewById(R.id.tvDescription);
+        ivPhoto = (ImageView)view.findViewById(R.id.itemPhoto);
 
+        Bundle bundle = getArguments();
+
+        if (bundle!=null){
+            presenter.getDataAboutGoods(bundle.getString(ID));
+        }
+        setUI();
         return view;
+    }
+
+    private void setUI() {
+
+    }
+
+    @Override
+    public void setName(String name) {
+        tv
+
     }
 
     @Override
     public void setPhoto(String url) {
-
     }
 
     @Override
     public void setDescription(String description) {
-
+        Toast.makeText(getView().getContext(), description+"", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setPrice(String price) {
-
     }
 
     @Override
     public void setFullDescription(String fullDescription) {
-
     }
 
     @Override
     public void setDataForRecyclerView() {
-
-    }
-
-    @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<String> loader) {
-
     }
 }

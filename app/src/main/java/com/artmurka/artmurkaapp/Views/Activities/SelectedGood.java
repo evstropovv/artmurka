@@ -13,11 +13,13 @@ import com.artmurka.artmurkaapp.R;
 
 public class SelectedGood extends AppCompatActivity {
 
+private String currentId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_good);
-
+        currentId = getIntent().getExtras().getString("id");
         setUI();
     }
 
@@ -37,7 +39,7 @@ public class SelectedGood extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Характеристики"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter tabAdapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter tabAdapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount(), currentId);
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -45,7 +47,6 @@ public class SelectedGood extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
