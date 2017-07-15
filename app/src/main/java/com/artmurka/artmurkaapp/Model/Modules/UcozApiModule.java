@@ -10,8 +10,10 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -78,23 +80,25 @@ public class UcozApiModule {
      * return string
      */
 
-    private String getSignature(String method, String url, String params, String page, String pnum, String id) {
+    private String getSignature(String method, String url, TreeMap<String, String> params) {
         String baseString = "";
         try {
-            if (id != null) {
-                baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
-                        + "&" + URLEncoder.encode("id=" + id + "&mode=add&", "UTF-8")
-                        + URLEncoder.encode(params, "UTF-8") + (pnum != null ? URLEncoder.encode(pnum, "UTF-8") : "");
-                Log.d("Log.d", "baseString " + baseString);
-            } else {
-                baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
-                        + (page != null ? "&" + URLEncoder.encode(page + "&", "UTF-8") : "&")
-                        + URLEncoder.encode(params, "UTF-8") + (pnum != null ? URLEncoder.encode(pnum, "UTF-8") : "");
-                Log.d("Log.d", "baseString " + baseString);
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                builder.append(entry.getKey() + entry.getValue());
+                if (entry.getKey() != params.lastEntry().getKey()){
+                    builder.append("&");
+                }
             }
 
+            baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
+                    + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
+            Log.d("Log.d", "baseString " + baseString);
+
         } catch (UnsupportedEncodingException e) {
+
             e.printStackTrace();
+
         }
 
         String a = "";
@@ -117,34 +121,29 @@ public class UcozApiModule {
         HashMap<String, String> answerMap = new HashMap<>();
         Log.d("Log.d", "url " + config.get("url"));
 
-        answerMap.put("oauth_signature",
+        TreeMap<String,String> list = new TreeMap<>();
 
-                getSignature(config.get("method"),
-
-                        URL + config.get("url"),
-
-                        "oauth_consumer_key=" + CONSUMER_KEY + "&" +
-                                "oauth_nonce=" + oauth_nonce + "&" +
-                                "oauth_signature_method=" + OAUTH_SIGNATURE_METHOD + "&" +
-                                "oauth_timestamp=" + time + "&" +
-                                "oauth_token=" + OAUTH_TOKEN + "&" +
-                                "oauth_version=" + OAUTH_VERSION +
-                                (config.get("page") != null ? "&page=" + config.get("page") :
-                                        (config.get("id") != null ? "&id=" + config.get("id") : "")),
-
-                        (config.get("cat_uri") != null ? "cat_uri=" + config.get("cat_uri") : null),
-
-                        (config.get("pnum") != null ? "&pnum=" + config.get("pnum") : null),
-
-                        (config.get("goodId") != null ? config.get("goodId") : (config.get("id") != null ? config.get("id") : null))));
+        list.put("oauth_consumer_key=",CONSUMER_KEY);
+        list.put("oauth_nonce=",oauth_nonce);
+        list.put("oauth_signature_method=",OAUTH_SIGNATURE_METHOD);
+        list.put("oauth_timestamp=",time);
+        list.put("oauth_token=",OAUTH_TOKEN);
+        list.put("oauth_version=",OAUTH_VERSION);
+        if (config.get("page")!=null) list.put("page=",config.get("page"));
+        if (config.get("id")!=null) list.put("id=",config.get("id"));
+        if (config.get("cat_uri")!=null) list.put("cat_uri=",config.get("cat_uri"));
+        if (config.get("pnum")!=null) list.put("pnum=",config.get("pnum"));
+        if (config.get("goodId")!=null) list.put("goodId=",config.get("goodId"));
 
 
+        answerMap.put("oauth_signature", getSignature(config.get("method"), URL + config.get("url"), list));
         answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
         answerMap.put("oauth_version", OAUTH_VERSION);
         answerMap.put("oauth_consumer_key", CONSUMER_KEY);
         answerMap.put("oauth_token", OAUTH_TOKEN);
         answerMap.put("oauth_nonce", oauth_nonce);
         answerMap.put("oauth_timestamp", time);
+
         if (config.get("page") != null) {
             answerMap.put("page", config.get("page"));
         }
