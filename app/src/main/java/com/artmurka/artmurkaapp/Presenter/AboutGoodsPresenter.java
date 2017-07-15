@@ -5,6 +5,7 @@ import android.util.Log;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
 import com.artmurka.artmurkaapp.Model.Modules.AboutGoodsRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.Success;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 import com.google.gson.Gson;
@@ -26,10 +27,18 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
     public void getDataAboutGoods(String id) {
         IAboutGoods model = new AboutGoodsRequest();
         Call<AboutGood> observable = model.getDataAboutGood(id);
+        Log.d("Log.d", "id: "+id);
         observable.enqueue(new Callback<AboutGood>() {
             @Override
             public void onResponse(Call<AboutGood> call, Response<AboutGood> response) {
+             //   Success aboutGood = response.body().getSuccess();
+                Log.d("Log.d", new Gson().toJson(response));
+                Log.d("Log.d", call.request().url().toString());
 
+//                fragment.setName(aboutGood.getEntryTitle());
+//                fragment.setDescription(response.body().getSuccess().getEntryDescription());
+//                fragment.setPrice(response.body().getSuccess().getEntryPrice().getPrice());
+//                fragment.setPhoto(response.body().getSuccess().getEntryPhoto().getDefPhoto().getPhoto());
             }
 
             @Override

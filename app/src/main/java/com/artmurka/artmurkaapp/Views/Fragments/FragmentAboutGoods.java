@@ -17,6 +17,7 @@ import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
+import com.squareup.picasso.Picasso;
 
 
 public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods {
@@ -61,21 +62,22 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
 
     @Override
     public void setName(String name) {
-        tv
-
+        tvName.setText(name);
     }
 
     @Override
     public void setPhoto(String url) {
+        Picasso.with(getActivity()).load(url).into(ivPhoto);
     }
 
     @Override
     public void setDescription(String description) {
-        Toast.makeText(getView().getContext(), description+"", Toast.LENGTH_SHORT).show();
+      tvDescription.setText(description);
     }
 
     @Override
     public void setPrice(String price) {
+        tvPrice.setText(price);
     }
 
     @Override

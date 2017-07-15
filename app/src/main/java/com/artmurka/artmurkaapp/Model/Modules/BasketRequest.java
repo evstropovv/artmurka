@@ -13,12 +13,12 @@ import retrofit2.Call;
 
 
 public class BasketRequest implements IBasket {
+
     @Override
     public Observable<BasketItems> toBasket(String goodId) {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-
         mapForUcozModule.put("goodId", goodId);
         mapForUcozModule.put("method", "GET");
         mapForUcozModule.put("mode", "add");
