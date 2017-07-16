@@ -4,6 +4,10 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +15,16 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
 import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
+import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
+import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterAboutGoods;
 import com.artmurka.artmurkaapp.Presenter.Adapters.ViewPagerAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,7 +39,8 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     private ImageView ivPhoto;
     private ViewPager viewPager;
     private View view;
-
+    private RecyclerView recyclerView;
+    private RVitemListAdapterAboutGoods recyclerAdapter;
 
     public FragmentAboutGoods() {
         // Required empty public constructor
@@ -50,6 +60,13 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
         tvDescription = (TextView)view.findViewById(R.id.tvDescription);
         ivPhoto = (ImageView)view.findViewById(R.id.itemPhoto);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.rvCategoryItem);
+        final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(recyclerLayoutManager);
+        recyclerAdapter = new RVitemListAdapterAboutGoods(view.getContext());
+        recyclerView.setAdapter(recyclerAdapter);
+
 
         Bundle bundle = getArguments();
 
@@ -83,6 +100,11 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     }
 
     @Override
+    public void getDataForRecyclerView(String category) {
+        presenter.getCategoryData(category);
+    }
+
+    @Override
     public void setPrice(String price) {
         tvPrice.setText(price);
     }
@@ -92,6 +114,9 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     }
 
     @Override
-    public void setDataForRecyclerView() {
+    public void setDataForRecyclerView(ArrayList<GoodsProperties> list) {
+       // Log.d("Log.d", "list for RV "+ new Gson().toJson(list));
+        recyclerAdapter.setData(list);
+
     }
 }

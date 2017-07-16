@@ -66,7 +66,7 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),successList.get(getAdapterPosition()).getCatUrl() +"\n", Toast.LENGTH_SHORT).show();
+
                     MainActivity activity = (MainActivity)v.getContext();
                     activity.changeFragment(Const.ITEM_LIST_FRAGMENT,successList.get(getAdapterPosition()).getCatUrl());
 
