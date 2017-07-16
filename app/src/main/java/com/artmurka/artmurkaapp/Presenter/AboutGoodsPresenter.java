@@ -6,10 +6,14 @@ import android.util.Log;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
 import com.artmurka.artmurkaapp.Model.Modules.AboutGoodsRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.SizePhoto;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.Success;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +39,8 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.setName(aboutGood.getEntryTitle());
                 fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
                 fragment.setPrice(aboutGood.getEntryPrice().getPrice());
-                fragment.setPhoto(aboutGood.getEntryPhoto().getDefPhoto().getPhoto());
+                fragment.setPhoto(getImageList(aboutGood.getEntryPhoto().getOthersPhoto()));
+
                 Log.d("Log.d", new Gson().toJson(aboutGood.getEntryPhoto().getOthersPhoto()));
             }
 
@@ -66,5 +71,14 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 //
 //            }
 //        });
+    }
+
+    private ArrayList<String> getImageList(HashMap<String, SizePhoto> map) {
+
+        ArrayList<String> photosUrl = new ArrayList<>();
+        for (String key : map.keySet()) {
+            photosUrl.add(map.get(key).getPhoto());
+        }
+        return photosUrl;
     }
 }

@@ -2,22 +2,23 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
+import com.artmurka.artmurkaapp.Presenter.Adapters.ViewPagerAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods {
@@ -27,6 +28,8 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
 
     private TextView tvName, tvPrice, tvDescription;
     private ImageView ivPhoto;
+    private ViewPager viewPager;
+    private View view;
 
 
     public FragmentAboutGoods() {
@@ -46,6 +49,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
         tvPrice = (TextView)view.findViewById(R.id.tvPrice);
         tvDescription = (TextView)view.findViewById(R.id.tvDescription);
         ivPhoto = (ImageView)view.findViewById(R.id.itemPhoto);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
         Bundle bundle = getArguments();
 
@@ -53,6 +57,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
             presenter.getDataAboutGoods(bundle.getString(ID));
         }
         setUI();
+        this.view = view;
         return view;
     }
 
@@ -66,8 +71,10 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     }
 
     @Override
-    public void setPhoto(String url) {
-        Picasso.with(getActivity()).load(url).into(ivPhoto);
+    public void setPhoto(ArrayList<String> urles) {
+      //  Picasso.with(getActivity()).load(url).into(ivPhoto);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(view.getContext(), urles);
+        viewPager.setAdapter(viewPagerAdapter);
     }
 
     @Override
