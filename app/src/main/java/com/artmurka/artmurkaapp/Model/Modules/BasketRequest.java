@@ -17,12 +17,11 @@ public class BasketRequest implements IBasket {
     @Override
     public Observable<BasketItems> toBasket(String goodId) {
         UcozApiModule ucoz = new UcozApiModule();
-
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("goodId", goodId);
-        mapForUcozModule.put("method", "GET");
+        mapForUcozModule.put("id", goodId);
+        mapForUcozModule.put("method", "POST");
         mapForUcozModule.put("mode", "add");
-        mapForUcozModule.put("url", "uapi/shop/basket/");
+        mapForUcozModule.put("url", "uapi/shop/basket");
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
 
@@ -41,10 +40,9 @@ public class BasketRequest implements IBasket {
 
         HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
 
-        return ApiModule.getClient().addToBasket(confForRequest)
+        return ApiModule.getClient().getGoodsInBasket(confForRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
-
     }
 
     @Override

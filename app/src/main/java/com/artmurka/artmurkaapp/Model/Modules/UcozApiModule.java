@@ -126,12 +126,28 @@ public class UcozApiModule {
         list.put("oauth_timestamp=",time);
         list.put("oauth_token=",OAUTH_TOKEN);
         list.put("oauth_version=",OAUTH_VERSION);
-        if (config.get("page")!=null) list.put("page=",config.get("page"));
-        if (config.get("id")!=null) list.put("id=",config.get("id"));
+        if (config.get("page")!=null){
+            list.put("page=",config.get("page"));
+            answerMap.put("page", config.get("page"));
+        }
+        if (config.get("id")!=null) {
+            list.put("id=",config.get("id"));
+            answerMap.put("id", config.get("id"));
+        }
         if (config.get("cat_uri")!=null) list.put("cat_uri=",config.get("cat_uri"));
-        if (config.get("pnum")!=null) list.put("pnum=",config.get("pnum"));
+        if (config.get("pnum")!=null){
+            list.put("pnum=",config.get("pnum"));
+            answerMap.put("pnum", config.get("pnum"));
+        }
         if (config.get("goodId")!=null) list.put("goodId=",config.get("goodId"));
-
+        if (config.get("goods_id")!=null){
+            list.put("goods_id=", config.get("goods_id"));
+            answerMap.put("goods_id", config.get("goods_id"));
+        }
+        if (config.get("mode") != null) {
+            list.put("mode=", config.get("mode"));
+            answerMap.put("mode", config.get("mode"));
+        }
 
         answerMap.put("oauth_signature", getSignature(config.get("method"), URL + config.get("url"), list));
         answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
@@ -140,20 +156,6 @@ public class UcozApiModule {
         answerMap.put("oauth_token", OAUTH_TOKEN);
         answerMap.put("oauth_nonce", oauth_nonce);
         answerMap.put("oauth_timestamp", time);
-
-        if (config.get("page") != null) {
-            answerMap.put("page", config.get("page"));
-        }
-        if (config.get("id") != null) {
-            answerMap.put("id", config.get("id"));
-        }
-        if (config.get("pnum") != null) {
-            answerMap.put("pnum", config.get("pnum"));
-        }
-        if (config.get("url").contains("uapi/shop/basket/")) {
-            if (config.get("goodId") != null) answerMap.put("id", config.get("goodId"));
-            if (config.get("mode") != null) answerMap.put("mode", config.get("mode"));
-        }
 
         return answerMap;
     }

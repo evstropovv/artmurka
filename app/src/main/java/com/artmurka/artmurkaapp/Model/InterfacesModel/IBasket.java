@@ -10,5 +10,4 @@ public interface IBasket {
     Observable<BasketItems> toBasket(String goodId);
     Observable<BasketItems> getItemInBasket();
     Call<BasketItems> deleteItemFromBasket(String goodId);
-
 }

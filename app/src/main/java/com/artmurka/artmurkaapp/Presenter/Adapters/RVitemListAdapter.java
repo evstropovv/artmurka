@@ -14,9 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
+import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
 import com.google.gson.Gson;
@@ -27,6 +30,9 @@ import java.util.ArrayList;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.ViewHolder> {
     private ArrayList<GoodsProperties> successList;
@@ -88,9 +94,46 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                                     }
                                 });
                                 break;
+
                             case R.id.wish_wad:
                                 //в список пожеланий
                                 Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
+                                IWishList iWishList = new WishListRequest();
+                                Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
+                                obs.enqueue(new Callback<WishList>() {
+                                    @Override
+                                    public void onResponse(Call<WishList> call, Response<WishList> response) {
+                                        Log.d("Log.d", new Gson().toJson(response.body()));
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<WishList> call, Throwable t) {
+
+                                    }
+                                });
+//                                obs.subscribe(new Observer<WishList>() {
+//                                    @Override
+//                                    public void onSubscribe(Disposable d) {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onNext(WishList value) {
+//                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getGoodsList()));
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        Log.d("Log.d", new Gson().toJson(e.getMessage()));
+//                                    }
+//
+//                                    @Override
+//                                    public void onComplete() {
+//
+//                                    }
+//                                });
+
+
                                 break;
 
                             default:
