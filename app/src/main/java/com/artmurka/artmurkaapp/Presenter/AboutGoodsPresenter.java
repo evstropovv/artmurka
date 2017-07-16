@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.Presenter;
 
+import android.text.Html;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
@@ -19,7 +20,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
     IFragmentAboutGoods fragment;
 
-    public AboutGoodsPresenter (IFragmentAboutGoods fr){
+    public AboutGoodsPresenter(IFragmentAboutGoods fr) {
         this.fragment = fr;
     }
 
@@ -27,18 +28,15 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
     public void getDataAboutGoods(String id) {
         IAboutGoods model = new AboutGoodsRequest();
         Call<AboutGood> observable = model.getDataAboutGood(id);
-        Log.d("Log.d", "id: "+id);
         observable.enqueue(new Callback<AboutGood>() {
             @Override
             public void onResponse(Call<AboutGood> call, Response<AboutGood> response) {
-             //   Success aboutGood = response.body().getSuccess();
-                Log.d("Log.d", new Gson().toJson(response));
-                Log.d("Log.d", call.request().url().toString());
-
-//                fragment.setName(aboutGood.getEntryTitle());
-//                fragment.setDescription(response.body().getSuccess().getEntryDescription());
-//                fragment.setPrice(response.body().getSuccess().getEntryPrice().getPrice());
-//                fragment.setPhoto(response.body().getSuccess().getEntryPhoto().getDefPhoto().getPhoto());
+                Success aboutGood = response.body().getSuccess();
+                fragment.setName(aboutGood.getEntryTitle());
+                fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
+                fragment.setPrice(aboutGood.getEntryPrice().getPrice());
+                fragment.setPhoto(aboutGood.getEntryPhoto().getDefPhoto().getPhoto());
+                Log.d("Log.d", new Gson().toJson(aboutGood.getEntryPhoto().getOthersPhoto()));
             }
 
             @Override

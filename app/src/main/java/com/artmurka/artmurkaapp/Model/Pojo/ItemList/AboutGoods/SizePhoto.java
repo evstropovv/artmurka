@@ -4,7 +4,7 @@ package com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class _1 {
+public class SizePhoto {
 
     @SerializedName("thumb")
     @Expose

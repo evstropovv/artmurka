@@ -91,14 +91,11 @@ public class UcozApiModule {
                 }
             }
 
-            baseString = method + "&" + URLEncoder.encode(url, "UTF-8")
-                    + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
+            baseString = method + "&" + URLEncoder.encode(url, "UTF-8") + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
             Log.d("Log.d", "baseString " + baseString);
 
         } catch (UnsupportedEncodingException e) {
-
             e.printStackTrace();
-
         }
 
         String a = "";

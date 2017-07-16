@@ -12,9 +12,7 @@ public class EntryPhoto {
     @SerializedName("num_photos")
     @Expose
     private int numPhotos;
-//    @SerializedName("others_photo")
-//    @Expose
-//    private OthersPhoto othersPhoto;
+
 
     public DefPhoto getDefPhoto() {
         return defPhoto;
@@ -32,12 +30,5 @@ public class EntryPhoto {
         this.numPhotos = numPhotos;
     }
 
-//    public OthersPhoto getOthersPhoto() {
-//        return othersPhoto;
-//    }
-//
-//    public void setOthersPhoto(OthersPhoto othersPhoto) {
-//        this.othersPhoto = othersPhoto;
-//    }
 
 }

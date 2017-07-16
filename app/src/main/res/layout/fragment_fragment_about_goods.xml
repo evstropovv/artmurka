@@ -15,6 +15,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
             <android.support.v7.widget.CardView
                 android:id="@+id/cv"
                 android:layout_width="match_parent"
@@ -27,13 +29,13 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="285dp"
+                    android:layout_height="300dp"
                     android:layout_gravity="center">
 
                     <ImageView
                         android:id="@+id/itemPhoto"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
@@ -56,19 +58,37 @@
                         android:text="@string/app_name"
                         android:textAlignment="center" />
 
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                card_view:cardCornerRadius="2dp"
+
+                card_view:cardElevation="4dp"
+                card_view:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center">
+
                     <TextView
                         android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="652 грн"
                         android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
