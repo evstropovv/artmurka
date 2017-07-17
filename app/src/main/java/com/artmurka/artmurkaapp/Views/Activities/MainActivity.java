@@ -21,6 +21,7 @@ import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
+import com.artmurka.artmurkaapp.Views.Fragments.WishFragment;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener{
 
@@ -132,6 +133,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                         .commit();
                 fm.executePendingTransactions();
                 break;
+            case 104:
+                WishFragment wishFragment = new WishFragment();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, wishFragment)
+                        .addToBackStack("wishFragment")
+                        .commit();
+                fm.executePendingTransactions();
+                break;
         }
 
     }
@@ -147,8 +156,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         } else if (id == R.id.nav_basket) { //корзинка
             changeFragment(Const.BASKET_FRAGMENT, null);
         } else if (id == R.id.nav_desires) { //желания
-
-
+            changeFragment(Const.WISH_FRAGMENT,null);
         } else if (id == R.id.nav_orders) { // мои заказы
 
         } else if (id == R.id.nav_settings) { //настройки

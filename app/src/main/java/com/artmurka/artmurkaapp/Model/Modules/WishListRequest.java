@@ -25,4 +25,18 @@ public class WishListRequest implements IWishList {
 //                .subscribeOn(Schedulers.newThread())
 //                .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public Call<WishList> getWishList() {
+
+        UcozApiModule ucoz = new UcozApiModule();
+        HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
+        mapForUcozModule.put("page", "wishlist");
+        mapForUcozModule.put("method", "GET");
+        mapForUcozModule.put("url", "uapi/shop/request");
+
+        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+
+        return ApiModule.getClient().getWishList(confForRequest);
+    }
 }

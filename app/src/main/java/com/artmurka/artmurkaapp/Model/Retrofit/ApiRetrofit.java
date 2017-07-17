@@ -45,4 +45,7 @@ public interface ApiRetrofit {
     @POST("uapi/shop/wishlisth")
     Call<WishList> addToWishList(@FieldMap HashMap<String, String> map);
 
+    @GET("uapi/shop/request")
+    Call<WishList> getWishList(@QueryMap HashMap<String, String> map);
+
 }
