@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    card_view:cardUseCompatPadding="true"
+
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/itemPhotoo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/category_name"
+            android:layout_toLeftOf="@+id/tvPrice"
+            android:layout_toStartOf="@+id/tvPrice"
+            android:paddingBottom="2dp"
+            android:src="@drawable/splash" />
+
+        <TextView
+            android:id="@+id/category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="2dp"
+            android:text="Білі штуковини на гойдальці"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivDeleteFromWish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/category_name"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            card_view:srcCompat="@drawable/delete_empty" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="500 грн."
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/category_name"
+            android:layout_alignEnd="@+id/category_name" />
+
+        <ImageView
+            android:id="@+id/ivToBasket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvPrice"
+            android:layout_alignEnd="@+id/ivDeleteFromWish"
+            android:layout_alignRight="@+id/ivDeleteFromWish"
+            card_view:srcCompat="@drawable/basketfill" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

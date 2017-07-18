@@ -20,9 +20,9 @@
             android:layout_height="50sp"
 
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/itemPhoto"
+            android:layout_toEndOf="@+id/itemPhotoo"
             android:layout_toLeftOf="@+id/basket_menu"
-            android:layout_toRightOf="@+id/itemPhoto"
+            android:layout_toRightOf="@+id/itemPhotoo"
             android:maxLines="2"
             android:paddingTop="2dp"
             android:text="Білі голубки"
@@ -31,7 +31,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/itemPhoto"
+            android:id="@+id/itemPhotoo"
             android:layout_width="150dp"
             android:layout_height="120dp"
             android:layout_alignParentBottom="true"
@@ -48,7 +48,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/good_name"
-            android:layout_toRightOf="@+id/itemPhoto"
+            android:layout_toRightOf="@+id/itemPhotoo"
             android:text="Опис віаіва іваі ваів аіва іва іва іваіва іва @android:string/defaultMsisdnAlphaTag"
             android:textAlignment="viewStart" />
 

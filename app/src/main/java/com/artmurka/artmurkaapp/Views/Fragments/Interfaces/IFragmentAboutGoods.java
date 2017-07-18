@@ -15,5 +15,6 @@ public interface IFragmentAboutGoods {
 
     void setFullDescription(String fullDescription);
     void setDataForRecyclerView(ArrayList<GoodsProperties> list);
+    void setWishButton(boolean isInWish);
 
 }

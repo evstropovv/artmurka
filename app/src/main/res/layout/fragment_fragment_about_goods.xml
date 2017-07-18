@@ -159,35 +159,34 @@
                     android:layout_gravity="center">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/ivBasket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
                         android:layout_marginLeft="17dp"
                         android:layout_marginStart="17dp"
-                        card_view:srcCompat="@drawable/basket" />
+                        card_view:srcCompat="@drawable/basket"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/ivWish"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="46dp"
                         android:layout_marginStart="46dp"
-                        android:layout_toEndOf="@+id/imageView3"
-                        android:layout_toRightOf="@+id/imageView3"
-                        card_view:srcCompat="@drawable/heartoutlinebig" />
+                        android:layout_toEndOf="@+id/ivBasket"
+                        android:layout_toRightOf="@+id/ivBasket"/>
 
                     <Button
                         android:id="@+id/button2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/imageView4"
+                        android:layout_alignTop="@+id/ivWish"
                         android:layout_marginLeft="44dp"
                         android:layout_marginStart="44dp"
-                        android:layout_toRightOf="@+id/imageView4"
+                        android:layout_toRightOf="@+id/ivWish"
                         android:text="Купити зараз" />
                 </RelativeLayout>
 

@@ -3,29 +3,23 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
 import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
-import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterAboutGoods;
 import com.artmurka.artmurkaapp.Presenter.Adapters.ViewPagerAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
-import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,8 +29,9 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     IAboutGoodsPresenter presenter;
     private final String ID = "id";
 
+
     private TextView tvName, tvPrice, tvDescription;
-    private ImageView ivPhoto;
+    private ImageView ivPhoto, ivWish, ivBasket;
     private ViewPager viewPager;
     private View view;
     private RecyclerView recyclerView;
@@ -58,8 +53,19 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
         tvName = (TextView)view.findViewById(R.id.tvName);
         tvPrice = (TextView)view.findViewById(R.id.tvPrice);
         tvDescription = (TextView)view.findViewById(R.id.tvDescription);
-        ivPhoto = (ImageView)view.findViewById(R.id.itemPhoto);
+        ivPhoto = (ImageView)view.findViewById(R.id.itemPhotoo);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        ivWish = (ImageView)view.findViewById(R.id.ivWish);
+        ivWish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.btnClicked(v.getId());
+            }
+        });
+
+
+
+        ivBasket = (ImageView)view.findViewById(R.id.ivBasket);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rvCategoryItem);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -115,8 +121,20 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
 
     @Override
     public void setDataForRecyclerView(ArrayList<GoodsProperties> list) {
-       // Log.d("Log.d", "list for RV "+ new Gson().toJson(list));
         recyclerAdapter.setData(list);
+    }
 
+    @Override
+    public void setWishButton(boolean isInWish) {
+       if (getView()!=null){
+           if(!isInWish) {
+               ivWish.setImageDrawable(getResources().getDrawable(R.drawable.heartoutlinebig));
+
+           }else {
+               ivWish.setImageDrawable(getResources().getDrawable(R.drawable.heart_black));
+               Snackbar.make(getView(), "Додано у бажання", Snackbar.LENGTH_SHORT)
+                       .show();
+           }
+       }
     }
 }

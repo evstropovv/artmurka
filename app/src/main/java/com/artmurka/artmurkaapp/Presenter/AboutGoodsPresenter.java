@@ -2,20 +2,27 @@ package com.artmurka.artmurkaapp.Presenter;
 
 import android.text.Html;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Modules.AboutGoodsRequest;
+import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.SizePhoto;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.Success;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
+import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -26,7 +33,8 @@ import retrofit2.Response;
 
 public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
-    IFragmentAboutGoods fragment;
+    private IFragmentAboutGoods fragment;
+    private String goodsId;
 
     public AboutGoodsPresenter(IFragmentAboutGoods fr) {
         this.fragment = fr;
@@ -34,6 +42,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
     @Override
     public void getDataAboutGoods(String id) {
+        this.goodsId = id;
         IAboutGoods model = new AboutGoodsRequest();
         Call<AboutGood> observable = model.getDataAboutGood(id);
         observable.enqueue(new Callback<AboutGood>() {
@@ -44,8 +53,8 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
                 fragment.setPrice(aboutGood.getEntryPrice().getPrice());
                 fragment.setPhoto(getImageList(aboutGood.getEntryPhoto().getOthersPhoto()));
-
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
+                fragment.setWishButton(aboutGood.getEntryIsInWishlist() != 0 ? true : false);
             }
 
             @Override
@@ -53,28 +62,6 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
             }
         });
-//        observable.subscribe(new Observer<AboutGood>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(AboutGood value) {
-//                    fragment.setDescription(value.getSuccess().getEntryDescription());
-//                    Log.d("Log.d", new Gson().toJson(value.getSuccess()));
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.d("Log.d","onError-AboutGoodsPresenter "+ e.getMessage());
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//
-//            }
-//        });
     }
 
     @Override
@@ -84,24 +71,66 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
         observable.subscribe(new Observer<SuccessExample>() {
             @Override
             public void onSubscribe(Disposable d) {
-
             }
+
             @Override
             public void onNext(SuccessExample value) {
-
                 Log.d("Log.d", new Gson().toJson(value.getSuccess()));
                 fragment.setDataForRecyclerView(getGoodsList(value.getSuccess().getGoodsList()));
-
             }
+
             @Override
             public void onError(Throwable e) {
-
             }
+
             @Override
             public void onComplete() {
-
             }
         });
+    }
+
+    @Override
+    public void btnClicked(int buttonId) {
+        switch (buttonId) {
+            case R.id.ivWish:
+                IWishList iWishList = new WishListRequest();
+                Call<WishList> obs = iWishList.toWishList(goodsId);
+                obs.enqueue(new Callback<WishList>() {
+                    @Override
+                    public void onResponse(Call<WishList> call, Response<WishList> response) {
+                        try {
+                            for (Map.Entry<String, GoodsListDescription> map : response.body().getSuccess().getGoodsList().entrySet()) {
+                                if (map.getValue().getEntryId().equals(goodsId)){
+                                    fragment.setWishButton(true);
+
+                                    break;
+                                }else {
+                                    fragment.setWishButton(false);
+                                }
+
+                            }
+                        } catch (NullPointerException e) {
+                            fragment.setWishButton(false);
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<WishList> call, Throwable t) {
+
+                    }
+                });
+
+                break;
+            case R.id.ivBasket:
+
+                break;
+            default:
+                break;
+        }
+
+
     }
 
     private ArrayList<String> getImageList(HashMap<String, SizePhoto> map) {
@@ -115,7 +144,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
 
     private ArrayList<GoodsProperties> getGoodsList(HashMap<String, GoodsProperties> map) {
-       ArrayList<GoodsProperties> goodsProperties = new ArrayList<>();
+        ArrayList<GoodsProperties> goodsProperties = new ArrayList<>();
         for (String key : map.keySet()) {
             goodsProperties.add(map.get(key));
         }

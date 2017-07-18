@@ -162,7 +162,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
         public ViewHolder(final View itemView) {
             super(itemView);
             tvItemName = (TextView)itemView.findViewById(R.id.item_name);
-            ivItemPhoto = (ImageView)itemView.findViewById(R.id.itemPhoto);
+            ivItemPhoto = (ImageView)itemView.findViewById(R.id.itemPhotoo);
             ivMenu = (ImageView)itemView.findViewById(R.id.item_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.artmurka.artmurkaapp.Other.Const;
@@ -62,7 +61,7 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             tvCategoryName = (TextView)itemView.findViewById(R.id.category_name);
-            ivCategoryImage = (ImageView)itemView.findViewById(R.id.itemPhoto);
+            ivCategoryImage = (ImageView)itemView.findViewById(R.id.itemPhotoo);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

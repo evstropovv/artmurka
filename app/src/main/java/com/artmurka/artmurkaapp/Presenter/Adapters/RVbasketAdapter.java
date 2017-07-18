@@ -142,7 +142,7 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
             goodName = (TextView) itemView.findViewById(R.id.good_name);
             goodDescription = (TextView) itemView.findViewById(R.id.good_description);
             goodPrice = (TextView) itemView.findViewById(R.id.price);
-            itemPhoto = (ImageView) itemView.findViewById(R.id.itemPhoto);
+            itemPhoto = (ImageView) itemView.findViewById(R.id.itemPhotoo);
             basketMenu = (ImageView) itemView.findViewById(R.id.basket_menu);
         }
     }
