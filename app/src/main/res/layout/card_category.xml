@@ -16,7 +16,7 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/category_name"
+            android:id="@+id/tvCategoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -25,7 +25,7 @@
             android:textAlignment="center" />
 
         <ImageView
-            android:id="@+id/itemPhotoo"
+            android:id="@+id/ivItemPhoto"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_alignParentBottom="true"

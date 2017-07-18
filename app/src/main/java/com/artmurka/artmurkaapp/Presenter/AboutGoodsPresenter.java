@@ -5,13 +5,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Modules.AboutGoodsRequest;
+import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.SizePhoto;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.Success;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
@@ -22,6 +26,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -54,7 +59,9 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.setPrice(aboutGood.getEntryPrice().getPrice());
                 fragment.setPhoto(getImageList(aboutGood.getEntryPhoto().getOthersPhoto()));
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
-                fragment.setWishButton(aboutGood.getEntryIsInWishlist() != 0 ? true : false);
+                Log.d("Log.d", "about good " + new Gson().toJson(aboutGood));
+                fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
+                fragment.setBasketButton(aboutGood.getEntryIsInBasket() == 1 ? true : false);
             }
 
             @Override
@@ -100,11 +107,11 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                     public void onResponse(Call<WishList> call, Response<WishList> response) {
                         try {
                             for (Map.Entry<String, GoodsListDescription> map : response.body().getSuccess().getGoodsList().entrySet()) {
-                                if (map.getValue().getEntryId().equals(goodsId)){
+                                if (map.getValue().getEntryId().equals(goodsId)) {
                                     fragment.setWishButton(true);
 
                                     break;
-                                }else {
+                                } else {
                                     fragment.setWishButton(false);
                                 }
 
@@ -124,7 +131,29 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
                 break;
             case R.id.ivBasket:
+                //кнопка добавления в корзину
+                IBasket basket = new BasketRequest();
+                Observable<BasketItems> observable = basket.toBasket(goodsId);
+                observable.subscribe(new Observer<BasketItems>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
+                    @Override
+                    public void onNext(BasketItems value) {
+                        fragment.setBasketButton(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Log.d", "onError " + e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
                 break;
             default:
                 break;

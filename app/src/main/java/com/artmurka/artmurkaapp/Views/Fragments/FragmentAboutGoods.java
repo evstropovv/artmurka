@@ -53,7 +53,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
         tvName = (TextView)view.findViewById(R.id.tvName);
         tvPrice = (TextView)view.findViewById(R.id.tvPrice);
         tvDescription = (TextView)view.findViewById(R.id.tvDescription);
-        ivPhoto = (ImageView)view.findViewById(R.id.itemPhotoo);
+        ivPhoto = (ImageView)view.findViewById(R.id.ivItemPhoto);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         ivWish = (ImageView)view.findViewById(R.id.ivWish);
         ivWish.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +62,13 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
                 presenter.btnClicked(v.getId());
             }
         });
-
-
-
         ivBasket = (ImageView)view.findViewById(R.id.ivBasket);
+        ivBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.btnClicked(v.getId());
+            }
+        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rvCategoryItem);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -136,5 +139,19 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
                        .show();
            }
        }
+    }
+
+    @Override
+    public void setBasketButton(boolean isInBasket) {
+        if (getView()!=null){
+            if(!isInBasket) {
+                ivBasket.setImageDrawable(getResources().getDrawable(R.drawable.basketunfill));
+            }else {
+                ivBasket.setImageDrawable(getResources().getDrawable(R.drawable.basketfill));
+                Snackbar.make(getView(), "Додано у корзинку", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        }
+
     }
 }

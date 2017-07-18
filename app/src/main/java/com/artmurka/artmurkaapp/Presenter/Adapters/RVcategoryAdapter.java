@@ -60,8 +60,8 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
         public ImageView ivCategoryImage;
         public ViewHolder(View itemView) {
             super(itemView);
-            tvCategoryName = (TextView)itemView.findViewById(R.id.category_name);
-            ivCategoryImage = (ImageView)itemView.findViewById(R.id.itemPhotoo);
+            tvCategoryName = (TextView)itemView.findViewById(R.id.tvCategoryName);
+            ivCategoryImage = (ImageView)itemView.findViewById(R.id.ivItemPhoto);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -119,7 +119,7 @@ public class RVitemListAdapterAboutGoods extends RecyclerView.Adapter<RVitemList
         public ViewHolder(final View itemView) {
             super(itemView);
             tvItemName = (TextView)itemView.findViewById(R.id.item_name);
-            ivItemPhoto = (ImageView)itemView.findViewById(R.id.itemPhotoo);
+            ivItemPhoto = (ImageView)itemView.findViewById(R.id.ivItemPhoto);
             ivMenu = (ImageView)itemView.findViewById(R.id.item_iv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
