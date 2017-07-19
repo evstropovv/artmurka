@@ -67,36 +67,41 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(ctx, holder.ivMenu);
                 popupMenu.inflate(R.menu.item_menu);
+
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.to_card:
-                                //в корзину
-                                IBasket basket = new BasketRequest();
-                                Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
 
-                                observable.subscribe(new Observer<BasketItems>() {
-                                    @Override
-                                    public void onSubscribe(Disposable d) {}
+                                //проверяем, есть ли такой товар в корзине
+                                if (successList.get(position).getEntryIsInBasket()==0) {
+                                    //в корзину
+                                    IBasket basket = new BasketRequest();
+                                    Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
 
-                                    @Override
-                                    public void onNext(BasketItems value) {
-                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
-                                    }
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        Log.d("Log.d", "onError " + e.toString());
-                                    }
-                                    @Override
-                                    public void onComplete() {
-                                    }
-                                });
+                                    observable.subscribe(new Observer<BasketItems>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {}
+
+                                        @Override
+                                        public void onNext(BasketItems value) {
+                                            Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
+                                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+                                        }
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            Log.d("Log.d", "onError " + e.toString());
+                                        }
+                                        @Override
+                                        public void onComplete() {
+                                        }
+                                    });
+                                }
                                 break;
-
                             case R.id.wish_wad:
                                 //в список пожеланий
+
                                 Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
                                 IWishList iWishList = new WishListRequest();
                                 Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
@@ -111,29 +116,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
 
                                     }
                                 });
-//                                obs.subscribe(new Observer<WishList>() {
-//                                    @Override
-//                                    public void onSubscribe(Disposable d) {
-//
-//                                    }
-//
-//                                    @Override
-//                                    public void onNext(WishList value) {
-//                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getGoodsList()));
-//                                    }
-//
-//                                    @Override
-//                                    public void onError(Throwable e) {
-//                                        Log.d("Log.d", new Gson().toJson(e.getMessage()));
-//                                    }
-//
-//                                    @Override
-//                                    public void onComplete() {
-//
-//                                    }
-//                                });
-
-
                                 break;
 
                             default:
@@ -173,6 +155,8 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                     Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
                     String id = successList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id",id);
+                    intent.putExtra("inWish", successList.get(getAdapterPosition()).getEntryIsInWishlist());
+                    intent.putExtra("inBasket", successList.get(getAdapterPosition()).getEntryIsInBasket());
                     itemView.getContext().startActivity(intent);
 
                 }

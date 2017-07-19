@@ -61,7 +61,8 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
                 Log.d("Log.d", "about good " + new Gson().toJson(aboutGood));
                 fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
-                fragment.setBasketButton(aboutGood.getEntryIsInBasket() == 1 ? true : false);
+                Log.d("Log.d", "in basket = " +aboutGood.getEntryIsInBasket());
+                fragment.setBasketButton(aboutGood.getEntryIsInBasket() > 0 ? true : false);
             }
 
             @Override
@@ -100,6 +101,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
     public void btnClicked(int buttonId) {
         switch (buttonId) {
             case R.id.ivWish:
+                //добавить в список желаний
                 IWishList iWishList = new WishListRequest();
                 Call<WishList> obs = iWishList.toWishList(goodsId);
                 obs.enqueue(new Callback<WishList>() {
@@ -109,23 +111,18 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                             for (Map.Entry<String, GoodsListDescription> map : response.body().getSuccess().getGoodsList().entrySet()) {
                                 if (map.getValue().getEntryId().equals(goodsId)) {
                                     fragment.setWishButton(true);
-
                                     break;
                                 } else {
                                     fragment.setWishButton(false);
                                 }
-
                             }
                         } catch (NullPointerException e) {
                             fragment.setWishButton(false);
                             e.printStackTrace();
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<WishList> call, Throwable t) {
-
                     }
                 });
 
