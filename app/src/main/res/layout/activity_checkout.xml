@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"
-        android:background="#2ff2ff2f"
-        android:layout_marginTop="112dp" />
+        android:background="#2fffa15a"
+        android:layout_below="@+id/app_bar_layout" />
 
 
     <android.support.design.widget.AppBarLayout

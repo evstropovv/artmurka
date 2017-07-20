@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IBasketPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IPresenterItemList;
 import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.CheckoutActivity;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IBasketFragment;
 import com.google.gson.Gson;
@@ -71,7 +73,8 @@ public class BasketFragment extends Fragment implements IBasketFragment {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent =new Intent(getContext(), CheckoutActivity.class);
+                startActivity(intent);
             }
         });
 
