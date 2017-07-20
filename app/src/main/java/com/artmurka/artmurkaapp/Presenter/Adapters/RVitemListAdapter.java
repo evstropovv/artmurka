@@ -127,7 +127,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                 popupMenu.show();
             }
         });
-
     }
 
     @Override

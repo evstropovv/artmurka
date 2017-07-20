@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +40,15 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class BasketFragment extends Fragment implements IBasketFragment {
-    private Button btnToMain;
-    private TextView tvMessage;
+    private Button btnToMain, btnCheckout;
+    private TextView tvMessage, tvPrice;
+
+    private FrameLayout frameCheckout;
 
     private RecyclerView recyclerView;
     private RVbasketAdapter recyclerAdapter;
     private IBasketPresenter presenter;
+
 
     public BasketFragment() {
 
@@ -56,26 +60,34 @@ public class BasketFragment extends Fragment implements IBasketFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         btnToMain = (Button) view.findViewById(R.id.btnToMain);
+        tvPrice = (TextView)view.findViewById(R.id.tvPrice);
         btnToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack(); //нажатие кнопки назад
             }
         });
-        tvMessage = (TextView)view.findViewById(R.id.tvCartMessage);
+        btnCheckout = (Button)view.findViewById(R.id.btnCheckout);
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        tvMessage = (TextView)view.findViewById(R.id.tvCartMessage);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVbasketAdapter(view.getContext());
         recyclerView.setAdapter(recyclerAdapter);
+        frameCheckout = (FrameLayout)view.findViewById(R.id.frameCheckout);
 
         if (presenter ==null){
             presenter = new BasketPresenter(this);
         }
         presenter.getDataForbasket();
-
         return view;
     }
 
@@ -88,18 +100,23 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     @Override
     public void showItemsInBasket(List<Item> items) {
         recyclerAdapter.setData(items);
-
     }
 
     @Override
     public void makeMessageInvisible(boolean b) {
-
         if (b){
             btnToMain.setVisibility(View.INVISIBLE);
             tvMessage.setVisibility(View.INVISIBLE);
+            frameCheckout.setVisibility(View.VISIBLE);
         }else {
             btnToMain.setVisibility(View.VISIBLE);
             tvMessage.setVisibility(View.VISIBLE);
+            frameCheckout.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void showPrice(String price) {
+        tvPrice.setText(price);
     }
 }

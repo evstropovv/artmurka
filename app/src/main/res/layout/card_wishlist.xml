@@ -20,11 +20,10 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
 
-            android:paddingBottom="2dp"
-            android:src="@drawable/splash"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            />
+            android:paddingBottom="2dp"
+            android:src="@drawable/splash" />
 
         <TextView
             android:id="@+id/tvCategoryName"
@@ -37,15 +36,6 @@
             android:text="Білі штуковини на гойдальці"
             android:textAlignment="center"
             android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/ivDeleteFromWish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            card_view:srcCompat="@drawable/delete_empty" />
 
         <TextView
             android:id="@+id/tvPrice"
@@ -62,10 +52,23 @@
             android:id="@+id/ivToBasket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
+            card_view:srcCompat="@drawable/basketfill"
+            android:layout_below="@+id/ivItemPhoto"
             android:layout_alignParentRight="true"
-            card_view:srcCompat="@drawable/basketfill" />
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:id="@+id/ivDeleteFromWish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            card_view:srcCompat="@drawable/delete_empty"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="14dp"
+            android:layout_marginEnd="14dp" />
 
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>

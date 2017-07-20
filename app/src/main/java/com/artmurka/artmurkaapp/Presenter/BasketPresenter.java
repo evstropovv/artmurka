@@ -25,7 +25,7 @@ public class BasketPresenter implements IBasketPresenter {
     @Override
     public void getDataForbasket() {
 
-        IBasket basket = new BasketRequest();
+        final IBasket basket = new BasketRequest();
         Observable<BasketItems> observable = basket.getItemInBasket();
         observable.subscribe(new Observer<BasketItems>() {
             @Override
@@ -35,6 +35,8 @@ public class BasketPresenter implements IBasketPresenter {
             public void onNext(BasketItems value) {
                 fragment.showItemsInBasket(value.getSuccess().getBasket().getItems());
                 fragment.makeMessageInvisible(true);
+                fragment.showPrice(value.getSuccess().getBasket().getTotal() + " грн.");
+
             }
             @Override
             public void onError(Throwable e) {
