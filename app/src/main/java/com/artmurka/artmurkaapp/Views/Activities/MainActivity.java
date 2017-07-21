@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             fragCategory = (CategoryFragment) fragment;
         }
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();

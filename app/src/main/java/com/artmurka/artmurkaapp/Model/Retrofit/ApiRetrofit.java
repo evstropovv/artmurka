@@ -3,6 +3,7 @@ package com.artmurka.artmurkaapp.Model.Retrofit;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.*;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 
@@ -47,5 +48,8 @@ public interface ApiRetrofit {
 
     @GET("uapi/shop/request")
     Call<WishList> getWishList(@QueryMap HashMap<String, String> map);
+
+    @GET("uapi/shop/checkout/")
+    Call<CheckoutAllGoods> getCheckout(@QueryMap HashMap<String, String> param);
 
 }

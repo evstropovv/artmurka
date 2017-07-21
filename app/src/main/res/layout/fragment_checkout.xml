@@ -5,9 +5,9 @@
     tools:context="com.artmurka.artmurkaapp.Views.Fragments.CheckoutFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/rvCheckout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/cardView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -19,9 +19,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/cardView"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="135dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Загальна сумма: "
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSumPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="50000"
+            android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -40,6 +55,15 @@
                 android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
 
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:text="Оформити заказ"
+            android:textAlignment="center" />
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="match_parent"
@@ -54,20 +78,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayout"
                 android:layout_weight="1"
-                android:hint="example@google.com" />
-
+                android:hint="email"
+                android:inputType="textEmailAddress" />
 
 
         </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:text="Button"
-            android:textAlignment="center" />
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

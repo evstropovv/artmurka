@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCategoryName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="dsfdf sfs df sdf sdsfdf sfs df sdf sdsfdf sfs df sdf sdsfdf sfs df sdf sdsfdf sfs df sdf sdsfdf sfs df sdf sdsfdf sfs df sdf sdsfdf sfs df sdf s"
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="1200 грн/шт"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivPlus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    card_view:srcCompat="@drawable/plus_circle_outline" />
+
+                <ImageView
+                    android:id="@+id/ivMinus"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    card_view:srcCompat="@drawable/minus_circle_outline" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSumPrice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="400 грн/шт"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/ivDeleteFromWish"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/tvPrice"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                card_view:srcCompat="@drawable/delete_empty" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
