@@ -67,35 +67,26 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
                 //при клике увеличиваем количество на 1
                 int cnt = Integer.parseInt(orderList.get(position).getCnt());
                 refreshItemCnt(++cnt, position);
+                refreshItemRequest(cnt, position);
+
             }
         });
         holder.ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int cnt = Integer.parseInt(orderList.get(position).getCnt());
-                refreshItemCnt(--cnt, position);
+                --cnt;
+                if (cnt <1) cnt=1;
+                refreshItemCnt(cnt, position);
+                refreshItemRequest(cnt, position);
+
             }
         });
         holder.ivDeleteFromCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ICheckoutRequest request = new CheckoutRequest();
-                Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), "0");
-                call.enqueue(new Callback<CheckoutAllGoods>() {
-                    @Override
-                    public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                        Log.d("Log.d", "url= "+response.raw().request().url());
-
-                        Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
-                    }
-
-                    @Override
-                    public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
-
-                    }
-                });
-
+                refreshItemRequest(0, position);  // 0  = delete
                 orderList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, orderList.size());
@@ -108,8 +99,9 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
     }
 
     private void refreshItemCnt(int cnt, int position){
+        if (cnt<1) cnt=1;
         Long price = orderList.get(position).getPrice().getPriceRaw();
-        orderList.get(position).setCnt(String.valueOf(cnt>1?cnt : 1));
+        orderList.get(position).setCnt(String.valueOf(cnt));
         orderList.get(position).getSum().setSumRaw(cnt * price);
         notifyItemChanged(position);
 
@@ -127,6 +119,26 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
             sumPrice = sumPrice +  orderList.get(i).getSum().getSumRaw().intValue();
         }
         fragment.refreshSumPrice(String.valueOf(sumPrice) + " грн");
+    }
+
+    private void refreshItemRequest(int cnt, int position){
+
+        ICheckoutRequest request = new CheckoutRequest();
+        Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), String.valueOf(cnt));
+        call.enqueue(new Callback<CheckoutAllGoods>() {
+            @Override
+            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+                Log.d("Log.d", "url= "+response.raw().request().url());
+
+                Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
+
+            }
+        });
+
     }
 
 
