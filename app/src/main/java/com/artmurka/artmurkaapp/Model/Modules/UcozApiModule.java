@@ -117,8 +117,6 @@ public class UcozApiModule {
         String time = getTime();
 
         HashMap<String, String> answerMap = new HashMap<>();
-        Log.d("Log.d", "url " + config.get("url"));
-
         TreeMap<String,String> list = new TreeMap<>();
 
         list.put("oauth_consumer_key=",CONSUMER_KEY);

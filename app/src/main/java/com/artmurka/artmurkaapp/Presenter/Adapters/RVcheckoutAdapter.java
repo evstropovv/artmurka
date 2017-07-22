@@ -79,17 +79,14 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
         holder.ivDeleteFromCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, orderList.size());
-                refreshItemCnt();
-
 
                 ICheckoutRequest request = new CheckoutRequest();
-                Call<CheckoutAllGoods> call = request.recountCheckoutData(String.valueOf(position), "0");
+                Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), "0");
                 call.enqueue(new Callback<CheckoutAllGoods>() {
                     @Override
                     public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+                        Log.d("Log.d", "url= "+response.raw().request().url());
+
                         Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
                     }
 
@@ -99,8 +96,15 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
                     }
                 });
 
+                orderList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, orderList.size());
+                refreshItemCnt();
+
             }
         });
+
+
     }
 
     private void refreshItemCnt(int cnt, int position){

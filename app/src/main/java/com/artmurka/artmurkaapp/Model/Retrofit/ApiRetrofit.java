@@ -8,10 +8,12 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -55,5 +57,5 @@ public interface ApiRetrofit {
 
     @FormUrlEncoded
     @PUT("uapi/shop/checkout/")
-    Call<CheckoutAllGoods> recountCheckoutData(@QueryMap HashMap<String, String> param);
+    Call<CheckoutAllGoods> recountCheckoutData(@FieldMap HashMap<String, String> param);
 }
