@@ -20,6 +20,14 @@ public class Sum {
     public String getSum() {
         return sum;
     }
+    public void setSum(String sum){
+        this.sum = sum;
+    }
+
+    public void setSumRaw(Long sumRaw){
+        this.sumRaw = sumRaw;
+    }
+
 
 
 }

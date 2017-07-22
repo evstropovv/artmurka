@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ICheckoutFragment {
     void showCheckout(List<OrderDesc> list);
+    void refreshSumPrice(String price);
 
 }

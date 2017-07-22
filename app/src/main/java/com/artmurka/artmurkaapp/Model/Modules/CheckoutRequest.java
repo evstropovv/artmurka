@@ -19,4 +19,16 @@ public class CheckoutRequest implements ICheckoutRequest {
 
         return ApiModule.getClient().getCheckout(confForRequest);
     }
+
+    @Override
+    public Call<CheckoutAllGoods> recountCheckoutData(String position, String cnt) {
+        UcozApiModule ucoz = new UcozApiModule();
+        HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
+        mapForUcozModule.put("method", "PUT");
+        mapForUcozModule.put("url", "uapi/shop/checkout/");
+        mapForUcozModule.put("mode", "recalc");
+        mapForUcozModule.put("cnt_"+position, cnt);
+        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        return ApiModule.getClient().getCheckout(confForRequest);
+    }
 }

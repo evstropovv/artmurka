@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcheckoutAdapter;
@@ -24,12 +25,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     ICheckoutPresenter presenter;
     private RecyclerView recyclerView;
     private RVcheckoutAdapter adapter;
-
+    private TextView tvSumPrice;
 
     public CheckoutFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +45,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     }
 
     private void setUI(View view) {
+        tvSumPrice = (TextView)view.findViewById(R.id.tvSumPrice);
         recyclerView = (RecyclerView) view.findViewById(R.id.rvCheckout);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
-        adapter = new RVcheckoutAdapter(view.getContext());
+        adapter = new RVcheckoutAdapter(view.getContext(), this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -56,5 +57,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     public void showCheckout(List<OrderDesc> list) {
         Log.d("Log.d", "checkout answer " + list);
         adapter.setData(list);
+    }
+
+    @Override
+    public void refreshSumPrice(String price) {
+        tvSumPrice.setText(price);
+
     }
 }

@@ -80,7 +80,7 @@
                 android:textSize="12sp" />
 
             <ImageView
-                android:id="@+id/ivDeleteFromWish"
+                android:id="@+id/ivDeleteFromCheckout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_alignTop="@+id/tvPrice"

@@ -8,4 +8,5 @@ import retrofit2.Call;
 
 public interface ICheckoutRequest {
     Call<CheckoutAllGoods> getCheckoutData();
+    Call<CheckoutAllGoods> recountCheckoutData(String position, String cnt);
 }

@@ -16,6 +16,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.QueryMap;
 
 public interface ApiRetrofit {
@@ -52,4 +53,7 @@ public interface ApiRetrofit {
     @GET("uapi/shop/checkout/")
     Call<CheckoutAllGoods> getCheckout(@QueryMap HashMap<String, String> param);
 
+    @FormUrlEncoded
+    @PUT("uapi/shop/checkout/")
+    Call<CheckoutAllGoods> recountCheckoutData(@QueryMap HashMap<String, String> param);
 }

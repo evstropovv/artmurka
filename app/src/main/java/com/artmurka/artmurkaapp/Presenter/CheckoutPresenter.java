@@ -34,6 +34,7 @@ public class CheckoutPresenter implements ICheckoutPresenter{
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
 
                 fragment.showCheckout(getList(response.body().getSuccess().getOrderContent().getOrderGoods()));
+                fragment.refreshSumPrice(response.body().getSuccess().getOrderData().getOrderAmount().getAmountRaw().toString() + " грн");
             }
 
             @Override
@@ -46,7 +47,9 @@ public class CheckoutPresenter implements ICheckoutPresenter{
     private List<OrderDesc> getList(HashMap<String, OrderDesc> map) {
         List<OrderDesc> answerList = new ArrayList<>();
         for (String key : map.keySet()) {
-            answerList.add(map.get(key));
+            OrderDesc desc = map.get(key);
+            desc.setOrderPosition(key);
+            answerList.add(desc);
         }
         return answerList;
     }

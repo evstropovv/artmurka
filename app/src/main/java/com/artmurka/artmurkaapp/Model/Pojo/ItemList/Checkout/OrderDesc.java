@@ -25,6 +25,15 @@ public class OrderDesc {
     @Expose
     private Price price;
 
+    private String orderPosition;
+
+    public String getOrderPosition(){
+        return orderPosition;
+    }
+    public void setOrderPosition(String orderPosition){
+        this.orderPosition = orderPosition;
+    }
+
     public String getCnt() {
         return cnt;
     }
