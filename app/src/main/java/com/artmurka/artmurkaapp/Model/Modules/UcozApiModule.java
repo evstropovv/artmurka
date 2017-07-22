@@ -4,6 +4,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -91,7 +92,7 @@ public class UcozApiModule {
                 }
             }
 
-            baseString = method + "&" + URLEncoder.encode(url, "UTF-8") + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
+            baseString = method + "&" + URLEncoder.encode(URL + url, "UTF-8") + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
             Log.d("Log.d", "baseString " + baseString);
 
         } catch (UnsupportedEncodingException e) {
@@ -107,7 +108,7 @@ public class UcozApiModule {
         return a;
     }
 
-    public HashMap<String, String> get(Map<String, String> config) {
+    public HashMap<String, String> get(String method, String url, Map<String, String> config) {
         //Map<string, string> config -> MUST have:
         // 'method' ("GET"/"PUT")
         // 'url' in format "uapi/shop/request"
@@ -126,30 +127,13 @@ public class UcozApiModule {
         list.put("oauth_timestamp=",time);
         list.put("oauth_token=",OAUTH_TOKEN);
         list.put("oauth_version=",OAUTH_VERSION);
-        if (config.get("page")!=null){
-            list.put("page=",config.get("page"));
-            answerMap.put("page", config.get("page"));
-        }
-        if (config.get("id")!=null) {
-            list.put("id=",config.get("id"));
-            answerMap.put("id", config.get("id"));
-        }
-        if (config.get("cat_uri")!=null) list.put("cat_uri=",config.get("cat_uri"));
-        if (config.get("pnum")!=null){
-            list.put("pnum=",config.get("pnum"));
-            answerMap.put("pnum", config.get("pnum"));
-        }
-        if (config.get("goodId")!=null) list.put("goodId=",config.get("goodId"));
-        if (config.get("goods_id")!=null){
-            list.put("goods_id=", config.get("goods_id"));
-            answerMap.put("goods_id", config.get("goods_id"));
-        }
-        if (config.get("mode") != null) {
-            list.put("mode=", config.get("mode"));
-            answerMap.put("mode", config.get("mode"));
+
+        for (String key : config.keySet()) {
+            list.put(key+"=", config.get(key));
+            answerMap.put(key, config.get(key));
         }
 
-        answerMap.put("oauth_signature", getSignature(config.get("method"), URL + config.get("url"), list));
+        answerMap.put("oauth_signature", getSignature(method, url, list));
         answerMap.put("oauth_signature_method", OAUTH_SIGNATURE_METHOD);
         answerMap.put("oauth_version", OAUTH_VERSION);
         answerMap.put("oauth_consumer_key", CONSUMER_KEY);

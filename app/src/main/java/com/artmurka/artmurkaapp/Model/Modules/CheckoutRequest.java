@@ -13,9 +13,7 @@ public class CheckoutRequest implements ICheckoutRequest {
     public Call<CheckoutAllGoods> getCheckoutData() {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/checkout/");
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/checkout/",mapForUcozModule);
 
         return ApiModule.getClient().getCheckout(confForRequest);
     }
@@ -24,11 +22,9 @@ public class CheckoutRequest implements ICheckoutRequest {
     public Call<CheckoutAllGoods> recountCheckoutData(String position, String cnt) {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("method", "PUT");
-        mapForUcozModule.put("url", "uapi/shop/checkout/");
         mapForUcozModule.put("mode", "recalc");
         mapForUcozModule.put("cnt_"+position, cnt);
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("PUT", "uapi/shop/checkout/", mapForUcozModule);
         return ApiModule.getClient().getCheckout(confForRequest);
     }
 }

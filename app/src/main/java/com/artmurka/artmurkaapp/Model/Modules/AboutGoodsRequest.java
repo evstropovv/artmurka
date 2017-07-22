@@ -19,12 +19,10 @@ public class AboutGoodsRequest implements IAboutGoods {
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("page", "viewgoods");
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/request");
         mapForUcozModule.put("id", id);
 
         //Getting all token for autorization.
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/request" ,mapForUcozModule);
         confForRequest.put("page", mapForUcozModule.get("page"));
 
         return ApiModule.getClient().getGoodDescription(confForRequest);
@@ -38,11 +36,9 @@ public class AboutGoodsRequest implements IAboutGoods {
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("cat_uri", page);
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/cat");
         mapForUcozModule.put("pnum", pageNumber);
 
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/cat" ,mapForUcozModule);
         confForRequest.put("cat_uri", page);
 
         return ApiModule.getClient().getItemList(confForRequest)

@@ -19,11 +19,9 @@ public class BasketRequest implements IBasket {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("id", goodId);
-        mapForUcozModule.put("method", "POST");
         mapForUcozModule.put("mode", "add");
-        mapForUcozModule.put("url", "uapi/shop/basket");
 
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("POST", "uapi/shop/basket", mapForUcozModule);
 
         return ApiModule.getClient().addToBasket(confForRequest)
                 .subscribeOn(Schedulers.newThread())
@@ -35,10 +33,7 @@ public class BasketRequest implements IBasket {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/basket/");
-
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/basket/", mapForUcozModule);
 
         return ApiModule.getClient().getGoodsInBasket(confForRequest)
                 .subscribeOn(Schedulers.newThread())
@@ -50,11 +45,8 @@ public class BasketRequest implements IBasket {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("method", "DELETE");
-        mapForUcozModule.put("url", "uapi/shop/basket/");
         mapForUcozModule.put("goodId", goodId);
-
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("DELETE","uapi/shop/basket/",mapForUcozModule);
 
         return ApiModule.getClient().deleteItemInBasket(confForRequest);
 //                .subscribeOn(Schedulers.newThread())

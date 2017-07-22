@@ -17,13 +17,10 @@ public class AllRequestOvservers implements IAllRequestObservers {
         UcozApiModule ucoz = new UcozApiModule();
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
-        mapForUcozModule.put("page", "categories");
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/request");
 
-        //Getting all token for autorization.
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
-        confForRequest.put("page", mapForUcozModule.get("page"));
+        mapForUcozModule.put("page", "categories");
+
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/request" ,mapForUcozModule);
 
         return ApiModule.getClient().getShopCategories(confForRequest)
                 .subscribeOn(Schedulers.newThread())

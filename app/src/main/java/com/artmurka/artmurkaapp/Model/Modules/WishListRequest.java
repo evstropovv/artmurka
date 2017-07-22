@@ -16,10 +16,7 @@ public class WishListRequest implements IWishList {
 
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("goods_id", goods_id);
-        mapForUcozModule.put("method", "POST");
-        mapForUcozModule.put("url", "uapi/shop/wishlisth");
-
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("POST","uapi/shop/wishlisth",mapForUcozModule);
 
         return ApiModule.getClient().addToWishList(confForRequest);
 //                .subscribeOn(Schedulers.newThread())
@@ -32,11 +29,7 @@ public class WishListRequest implements IWishList {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("page", "wishlist");
-        mapForUcozModule.put("method", "GET");
-        mapForUcozModule.put("url", "uapi/shop/request");
-
-        HashMap<String, String> confForRequest = ucoz.get(mapForUcozModule);
-
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/request",mapForUcozModule);
         return ApiModule.getClient().getWishList(confForRequest);
     }
 }
