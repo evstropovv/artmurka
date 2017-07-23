@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Presenter.Adapters.PagerAdapter;
 import com.artmurka.artmurkaapp.R;
@@ -54,6 +56,14 @@ public class CheckoutActivity extends AppCompatActivity implements ICheckoutActi
             checkoutFragment = (CheckoutFragment) fragment;
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

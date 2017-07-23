@@ -39,7 +39,7 @@ public class BasketPresenter implements IBasketPresenter {
             }
             @Override
             public void onError(Throwable e) {
-                Log.d("Log.d", "onError " + e.toString());
+
             }
             @Override
             public void onComplete() {

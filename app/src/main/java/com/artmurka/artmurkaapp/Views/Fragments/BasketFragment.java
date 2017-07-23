@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     private RecyclerView recyclerView;
     private RVbasketAdapter recyclerAdapter;
     private IBasketPresenter presenter;
+    private LinearLayout linLayout;
 
 
     public BasketFragment() {
@@ -61,8 +63,10 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        frameCheckout = (FrameLayout)view.findViewById(R.id.frameCheckout);
         btnToMain = (Button) view.findViewById(R.id.btnToMain);
         tvPrice = (TextView)view.findViewById(R.id.tvPrice);
+        linLayout = (LinearLayout)view.findViewById(R.id.linLayout);
         btnToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,13 +83,12 @@ public class BasketFragment extends Fragment implements IBasketFragment {
         });
 
         tvMessage = (TextView)view.findViewById(R.id.tvCartMessage);
-
+        makeMessageInvisible(false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVbasketAdapter(view.getContext());
         recyclerView.setAdapter(recyclerAdapter);
-        frameCheckout = (FrameLayout)view.findViewById(R.id.frameCheckout);
 
         if (presenter ==null){
             presenter = new BasketPresenter(this);
@@ -111,10 +114,12 @@ public class BasketFragment extends Fragment implements IBasketFragment {
             btnToMain.setVisibility(View.INVISIBLE);
             tvMessage.setVisibility(View.INVISIBLE);
             frameCheckout.setVisibility(View.VISIBLE);
+
         }else {
             btnToMain.setVisibility(View.VISIBLE);
             tvMessage.setVisibility(View.VISIBLE);
             frameCheckout.setVisibility(View.INVISIBLE);
+
         }
     }
 
