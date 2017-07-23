@@ -21,6 +21,7 @@ import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
+import com.artmurka.artmurkaapp.Views.Fragments.OrderFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.WishFragment;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener{
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             fragCategory = new CategoryFragment();
             fm.beginTransaction()
                     .replace(R.id.mainFrame, fragCategory, TAG)
-                    .addToBackStack(TAG)
+                    //without backstacktrace
                     .commit();
             fm.executePendingTransactions();
         } else {
@@ -140,8 +141,15 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                         .commit();
                 fm.executePendingTransactions();
                 break;
+            case 105:
+                OrderFragment orderFragment = new OrderFragment();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, orderFragment)
+                        .addToBackStack("orderFragment")
+                        .commit();
+                fm.executePendingTransactions();
+                break;
         }
-
     }
 
     @Override
@@ -157,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         } else if (id == R.id.nav_desires) { //желания
             changeFragment(Const.WISH_FRAGMENT,null);
         } else if (id == R.id.nav_orders) { // мои заказы
-
+            changeFragment(Const.ORDER_FRAGMENT, null);
         } else if (id == R.id.nav_settings) { //настройки
             Intent intent = new Intent(this, PrefActivity.class);
             startActivity(intent);

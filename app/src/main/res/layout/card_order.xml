@@ -12,7 +12,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="229dp"
+        android:layout_height="61dp"
         android:layout_gravity="center">
 
         <TextView
@@ -31,16 +31,6 @@
             android:text="В обробці"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ivItemPhoto"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-
-            android:paddingBottom="2dp"
-            android:src="@drawable/splash"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
@@ -56,12 +46,12 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:text="500 грн."
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

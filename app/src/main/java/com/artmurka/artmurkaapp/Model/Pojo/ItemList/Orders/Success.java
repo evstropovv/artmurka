@@ -1,6 +1,7 @@
 
 package com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders;
 
+import java.util.HashMap;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -18,7 +19,7 @@ public class Success {
     private Long pagesCnt;
     @SerializedName("order_hide")
     @Expose
-    private OrderHide orderHide;
+    private HashMap<String, String> orderHide;
     @SerializedName("count")
     @Expose
     private String count;
@@ -39,7 +40,7 @@ public class Success {
     private OrderFields orderFields;
     @SerializedName("order_status")
     @Expose
-    private OrderStatus orderStatus;
+    private HashMap<String, String> orderStatus;
 
     public Long getPage() {
         return page;
@@ -65,11 +66,11 @@ public class Success {
         this.pagesCnt = pagesCnt;
     }
 
-    public OrderHide getOrderHide() {
+    public HashMap<String, String> getOrderHide() {
         return orderHide;
     }
 
-    public void setOrderHide(OrderHide orderHide) {
+    public void setOrderHide(HashMap<String, String> orderHide) {
         this.orderHide = orderHide;
     }
 
@@ -121,11 +122,11 @@ public class Success {
         this.orderFields = orderFields;
     }
 
-    public OrderStatus getOrderStatus() {
+    public HashMap<String, String> getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(HashMap<String, String> orderStatus) {
         this.orderStatus = orderStatus;
     }
 
