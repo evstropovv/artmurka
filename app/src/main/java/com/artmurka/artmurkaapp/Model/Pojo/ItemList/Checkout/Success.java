@@ -1,10 +1,16 @@
 
 package com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout;
 
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Payment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
+
 public class Success {
+    @SerializedName("payment_list")
+    @Expose
+    private HashMap<String, PaymentDescription> paymentList;
 
     @SerializedName("order_data")
     @Expose
@@ -21,6 +27,13 @@ public class Success {
     @SerializedName("order_content")
     @Expose
     private OrderContent orderContent;
+
+    public HashMap <String, PaymentDescription> getPaymentList(){
+        return paymentList;
+    }
+    public void setPaymentList(HashMap<String, PaymentDescription> map){
+        this.paymentList = map;
+    }
 
     public OrderData getOrderData() {
         return orderData;

@@ -6,6 +6,8 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
+import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 
 import java.util.HashMap;
@@ -62,4 +64,9 @@ public interface ApiRetrofit {
 
     @GET("uapi/shop/invoices/")
     Call<Orders> getInvoises(@QueryMap HashMap<String, String> param);
+
+    @FormUrlEncoded
+    @POST("uapi/shop/checkout/")
+    Call<Success> postCheckout(@FieldMap HashMap<String, String> map);
+
 }

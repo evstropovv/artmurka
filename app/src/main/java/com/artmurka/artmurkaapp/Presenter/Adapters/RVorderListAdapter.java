@@ -69,7 +69,6 @@ public class RVorderListAdapter extends RecyclerView.Adapter<RVorderListAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         public TextView tvOrderNumber, tvStatus, tvName, tvPrice;
         public ViewHolder(View itemView) {
             super(itemView);

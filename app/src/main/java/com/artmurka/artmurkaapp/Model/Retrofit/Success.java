@@ -13,6 +13,11 @@ public class Success implements Parcelable {
     @SerializedName("cat_id")
     @Expose
     private String catId;
+
+    @SerializedName("msg")
+    @Expose
+    private String msg;
+
     @SerializedName("cat_descr")
     @Expose
     private String catDescr;
@@ -29,9 +34,18 @@ public class Success implements Parcelable {
     @SerializedName("childs")
     @Expose
     private String childs;
+
     @SerializedName("cat_url")
     @Expose
     private String catUrl;
+
+    public String getMsg(){
+        return msg;
+    }
+
+    public void setMsg(String msg){
+        this.msg = msg;
+    }
 
     public String getCatId() {
         return catId;
