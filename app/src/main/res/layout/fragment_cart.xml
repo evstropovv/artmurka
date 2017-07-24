@@ -38,7 +38,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:foregroundGravity="center"
-                android:text="PRICE"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />

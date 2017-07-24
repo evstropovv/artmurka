@@ -15,6 +15,7 @@ import io.reactivex.disposables.Disposable;
 
 
 public class BasketPresenter implements IBasketPresenter {
+
     IBasketFragment fragment;
 
     public BasketPresenter(IBasketFragment fragment){

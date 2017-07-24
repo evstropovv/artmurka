@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RVitemListAdapterAboutGoods extends RecyclerView.Adapter<RVitemListAdapterAboutGoods.ViewHolder> {
     private ArrayList<GoodsProperties> successList;
@@ -69,8 +72,7 @@ public class RVitemListAdapterAboutGoods extends RecyclerView.Adapter<RVitemList
                                 //в корзину
                                 IBasket basket = new BasketRequest();
                                 Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
-
-                                observable.subscribe(new Observer<BasketItems>() {
+                                                             observable.subscribe(new Observer<BasketItems>() {
                                     @Override
                                     public void onSubscribe(Disposable d) {}
 

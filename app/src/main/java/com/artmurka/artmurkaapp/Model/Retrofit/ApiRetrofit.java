@@ -1,6 +1,8 @@
 package com.artmurka.artmurkaapp.Model.Retrofit;
 
 
+import com.artmurka.artmurkaapp.Model.FormOrder.AdrAndEmail;
+import com.artmurka.artmurkaapp.Model.FormOrder.FormOrder;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.*;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
@@ -15,13 +17,18 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 public interface ApiRetrofit {
@@ -65,8 +72,7 @@ public interface ApiRetrofit {
     @GET("uapi/shop/invoices/")
     Call<Orders> getInvoises(@QueryMap HashMap<String, String> param);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("uapi/shop/checkout/")
-    Call<Success> postCheckout(@FieldMap HashMap<String, String> map);
-
+    Call<Success> postCheckout(@PartMap HashMap<String, String> map, @Part("fl2") String fld2, @Part("fld3") String fld3);
 }

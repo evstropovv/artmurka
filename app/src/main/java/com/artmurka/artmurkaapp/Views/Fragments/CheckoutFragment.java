@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +39,6 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private Spinner spinnerDelivery, spinnerPayment;
     ArrayList<String> deliveryList;
     ArrayList<String> paymentList;
-    String[] data = {"one", "two", "three", "four", "five"};
     public CheckoutFragment() {
 
     }
@@ -76,7 +76,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.postCheckout(etPhone.getText().toString(), etMsg.getText().toString(), etEmail.getText().toString());
+                int payPos = spinnerPayment.getSelectedItemPosition()+1;
+                int delPos = spinnerDelivery.getSelectedItemPosition()+1;
+                Log.d("Log.d","payment select: " + payPos);
+                Log.d("Log.d","delivery select: " + delPos);
+                presenter.postCheckout(etPhone.getText().toString(), etMsg.getText().toString(), etEmail.getText().toString(), String.valueOf(payPos), String.valueOf(delPos));
             }
         });
     }
@@ -104,11 +108,16 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         spinnerDeliveryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<String> spinnerPaymentAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, paymentList);
-        spinnerDeliveryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPaymentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerDelivery.setAdapter(spinnerDeliveryAdapter);
         spinnerPayment.setAdapter(spinnerPaymentAdapter);
 
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -118,7 +127,4 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }

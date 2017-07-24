@@ -21,6 +21,7 @@ public class Success implements Parcelable {
     @SerializedName("cat_descr")
     @Expose
     private String catDescr;
+
     @SerializedName("goods_count")
     @Expose
     private int goodsCount;
@@ -86,7 +87,6 @@ public class Success implements Parcelable {
     public void setCatName(String catName) {
         this.catName = catName;
     }
-
 
     public String getChilds() {
         return childs;

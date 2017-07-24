@@ -12,6 +12,10 @@ public class Success {
     @Expose
     private HashMap<String, PaymentDescription> paymentList;
 
+    @SerializedName("delivery_list")
+    @Expose
+    private HashMap<String, DeliveryDescription> deliveryList;
+
     @SerializedName("order_data")
     @Expose
     private OrderData orderData;
@@ -28,10 +32,11 @@ public class Success {
     @Expose
     private OrderContent orderContent;
 
-    public HashMap <String, PaymentDescription> getPaymentList(){
+    public HashMap<String, PaymentDescription> getPaymentList() {
         return paymentList;
     }
-    public void setPaymentList(HashMap<String, PaymentDescription> map){
+
+    public void setPaymentList(HashMap<String, PaymentDescription> map) {
         this.paymentList = map;
     }
 
@@ -73,6 +78,14 @@ public class Success {
 
     public void setOrderContent(OrderContent orderContent) {
         this.orderContent = orderContent;
+    }
+
+    public HashMap<String, DeliveryDescription> getDeliveryList() {
+        return deliveryList;
+    }
+
+    public void setDeliveryList(HashMap<String, DeliveryDescription> deliveryList) {
+        this.deliveryList = deliveryList;
     }
 
 }
