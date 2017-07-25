@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.FormOrder.AdrAndEmail;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
 public class CheckoutRequest implements ICheckoutRequest {
@@ -49,12 +51,39 @@ public class CheckoutRequest implements ICheckoutRequest {
 //        String st2 = msg.esc("^@(.+)$", "repl");
 //        String st3 = email.replace("^@(.+)$", "repl");
         mapForUcozModule.put("fld1", telephone);
-        mapForUcozModule.put("fld2", msg);
-        mapForUcozModule.put("fld3", email);
+//        mapForUcozModule.put("fld2", msg);
+//        mapForUcozModule.put("fld3", email);
+
 
         HashMap<String, String> confForRequest2 = ucoz.get("POST", "uapi/shop/checkout/", mapForUcozModule);
         Log.d("Log.d", new Gson().toJson(confForRequest2));
-        return ApiModule.getClient().postCheckout(confForRequest2, "sdfsdf", "dsfsdf");
+
+
+        HashMap<String, RequestBody> reqBodyMap = new HashMap<>();
+        reqBodyMap.put("oauth_signature", createPartFromString(confForRequest2.get("oauth_signature")));
+        reqBodyMap.put("oauth_signature_method", createPartFromString(confForRequest2.get("oauth_signature_method")));
+        reqBodyMap.put("oauth_version", createPartFromString(confForRequest2.get("oauth_version")));
+        reqBodyMap.put("oauth_consumer_key", createPartFromString(confForRequest2.get("oauth_consumer_key")));
+        reqBodyMap.put("oauth_token", createPartFromString(confForRequest2.get("oauth_token")));
+        reqBodyMap.put("oauth_nonce", createPartFromString(confForRequest2.get("oauth_nonce")));
+        reqBodyMap.put("oauth_timestamp", createPartFromString(confForRequest2.get("oauth_timestamp")));
+
+        reqBodyMap.put("mode", createPartFromString("order"));
+        reqBodyMap.put("payment_id", createPartFromString(pay));
+        reqBodyMap.put("delivery_id", createPartFromString(delivery));
+        reqBodyMap.put("fld1", createPartFromString(telephone));
+        RequestBody msgRequest = createPartFromString(msg);
+        RequestBody emailRequest = createPartFromString(email);
+
+
+        return ApiModule.getClient().postCheckout(reqBodyMap, emailRequest, msgRequest);
 
     }
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
+    }
+
 }

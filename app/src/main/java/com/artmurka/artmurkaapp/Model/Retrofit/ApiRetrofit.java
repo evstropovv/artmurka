@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -72,7 +73,8 @@ public interface ApiRetrofit {
     @GET("uapi/shop/invoices/")
     Call<Orders> getInvoises(@QueryMap HashMap<String, String> param);
 
+  //  @Headers("Content-Type: application/json")
     @Multipart
     @POST("uapi/shop/checkout/")
-    Call<Success> postCheckout(@PartMap HashMap<String, String> map, @Part("fl2") String fld2, @Part("fld3") String fld3);
+    Call<Success> postCheckout(@PartMap HashMap<String, RequestBody> map, @Part("fld2") RequestBody fld2, @Part("fld3") RequestBody fld3);
 }
