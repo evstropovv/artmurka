@@ -9,6 +9,8 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -50,9 +52,16 @@ public class CheckoutRequest implements ICheckoutRequest {
 //                "-._~", false);
 //        String st2 = msg.esc("^@(.+)$", "repl");
 //        String st3 = email.replace("^@(.+)$", "repl");
+
         mapForUcozModule.put("fld1", telephone);
-//        mapForUcozModule.put("fld2", msg);
-//        mapForUcozModule.put("fld3", email);
+        mapForUcozModule.put("fld2", email);
+        mapForUcozModule.put("fld3", msg);
+
+//        try{
+//            mapForUcozModule.put("fld2", URLEncoder.encode(newEmail, "UTF-8"));
+//            mapForUcozModule.put("fld3", URLEncoder.encode(newMsg, "UTF-8"));
+//        } catch (UnsupportedEncodingException e){}
+
 
 
         HashMap<String, String> confForRequest2 = ucoz.get("POST", "uapi/shop/checkout/", mapForUcozModule);
@@ -72,18 +81,14 @@ public class CheckoutRequest implements ICheckoutRequest {
         reqBodyMap.put("payment_id", createPartFromString(pay));
         reqBodyMap.put("delivery_id", createPartFromString(delivery));
         reqBodyMap.put("fld1", createPartFromString(telephone));
-        RequestBody msgRequest = createPartFromString(msg);
-        RequestBody emailRequest = createPartFromString(email);
+//        reqBodyMap.put("fld2", createPartFromString(email));
+//        reqBodyMap.put("fld3", createPartFromString(msg));
 
-
-        return ApiModule.getClient().postCheckout(reqBodyMap, emailRequest, msgRequest);
-
+        return ApiModule.getClient().postCheckout(confForRequest2);
     }
 
     @NonNull
     private RequestBody createPartFromString(String descriptionString) {
-        return RequestBody.create(
-                okhttp3.MultipartBody.FORM, descriptionString);
+        return RequestBody.create(okhttp3.MultipartBody.FORM, descriptionString);
     }
-
 }

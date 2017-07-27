@@ -24,6 +24,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -73,8 +74,13 @@ public interface ApiRetrofit {
     @GET("uapi/shop/invoices/")
     Call<Orders> getInvoises(@QueryMap HashMap<String, String> param);
 
-  //  @Headers("Content-Type: application/json")
-    @Multipart
+    //  @Headers("Content-Type: application/json")
+
+//    @Multipart
+//    @POST("uapi/shop/checkout/")
+//    Call<Success> postCheckout(@PartMap HashMap<String, RequestBody> map);
+
+    @FormUrlEncoded
     @POST("uapi/shop/checkout/")
-    Call<Success> postCheckout(@PartMap HashMap<String, RequestBody> map, @Part("fld2") RequestBody fld2, @Part("fld3") RequestBody fld3);
+    Call<Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
 }
