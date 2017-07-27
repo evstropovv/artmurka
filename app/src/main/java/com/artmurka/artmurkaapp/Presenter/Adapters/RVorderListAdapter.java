@@ -58,8 +58,13 @@ public class RVorderListAdapter extends RecyclerView.Adapter<RVorderListAdapter.
 
         String curHide = orderList.get(position).getHide();
         holder.tvName.setText(orders.getSuccess().getOrderHide().get(curHide));
-
         holder.tvPrice.setText(orderList.get(position).getPayment().getTopay());
+        holder.tvPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
@@ -76,6 +81,7 @@ public class RVorderListAdapter extends RecyclerView.Adapter<RVorderListAdapter.
             tvStatus = (TextView) itemView.findViewById(R.id.tvStatus);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
