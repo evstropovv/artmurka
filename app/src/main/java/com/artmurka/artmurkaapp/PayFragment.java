@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import ua.privatbank.paylibliqpay.ErrorCode;
 import ua.privatbank.paylibliqpay.LiqPay;
 import ua.privatbank.paylibliqpay.LiqPayCallBack;
+import ua.privatbank.paylibliqpay.LiqPayUtil;
 
 
 public class PayFragment extends Fragment {
@@ -28,7 +30,6 @@ public class PayFragment extends Fragment {
     private TextView tvSumToPay;
     private EditText etCardNumber, etYear, etMonth, etCvv;
     private Button btnPay;
-
 
     public PayFragment() {
         // Required empty public constructor
@@ -48,6 +49,8 @@ public class PayFragment extends Fragment {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Thread t = new Thread(new Runnable() {
                     public void run() {
                         try {
@@ -58,15 +61,42 @@ public class PayFragment extends Fragment {
                             map.put("amount", "1"); //сумма платежа
                             map.put("currency", "UAH");  //валюта
                             map.put("description", "Тестовая оплата"); //Описание
-                            map.put("order_id", "123456");  //уникальный ИД покупки в магазине (с сайта)
+                            map.put("order_id",  String.valueOf(Math.random()*999999));  //уникальный ИД покупки в магазине (с сайта)
                             map.put("language", "ru"); //язык
                             map.put("server_url", "https://artmurka.com");
-                            map.put("card", etCardNumber.getText().toString());
-                            map.put("card_exp_month", etMonth.getText().toString());
-                            map.put("card_exp_year", etYear.getText().toString());
-                            map.put("card_exp_cvv", etCvv.getText().toString());
+                       //   map.put("card", etCardNumber.getText().toString());
+                            map.put("card", "4119976003028165");
+                                     //  map.put("card_exp_month", etMonth.getText().toString());
+                            map.put("card_exp_month", "");
+                         //   map.put("card_exp_year", etYear.getText().toString());
+                            map.put("card_exp_year", "");
+                            //  map.put("card_exp_cvv", etCvv.getText().toString());
+                            map.put("card_exp_cvv", "");
+                            LiqPay.api(getContext().getApplicationContext(), "auth", map, privatePayKey, new LiqPayCallBack() {
+                                @Override
+                                public void onResponseSuccess(String s) {
+                                    JSONObject object = null;
+                                    try {
+                                        object = new JSONObject(s);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if ("success".equals(object.optString("status"))) {
+                                        // успех
+                                        String cardToken = object.optString("card_token");
+                                        Log.d("Log.d", "card_token " + cardToken);
+                                    } else {
+                                        Log.d("Log.d", "card pay Error ");
+                                        Log.d("Log.d", object.toString());
+                                    }
+                                }
 
-                            LiqPay.api(getContext().getApplicationContext(), "auth", map, privatePayKey, callBack);
+                                @Override
+                                public void onResponceError(ErrorCode errorCode) {
+
+                                }
+                            });
+
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -74,33 +104,8 @@ public class PayFragment extends Fragment {
                     }
                 });
                 t.start();
-
             }
         });
-
         return view;
     }
-
-    LiqPayCallBack callBack = new LiqPayCallBack() {
-        @Override
-        public void onResponseSuccess(final String resp) {
-            JSONObject object = null;
-            try {
-                object = new JSONObject(resp);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if ("success".equals(object.optString("status"))) {
-                // успех
-                String cardToken = object.optString("card_token");
-                Log.d("Log.d", "card_token " + cardToken);
-            } else {
-                Log.d("Log.d", "card pay Error ");
-            }
-        }
-
-        @Override
-        public void onResponceError(final ErrorCode errorCode) {
-        }
-    };
 }
