@@ -35,6 +35,10 @@ import retrofit2.http.QueryMap;
 
 public interface ApiRetrofit {
 
+    @FormUrlEncoded
+    @POST("http://uapi.ucoz.com/accounts/OAuthGetRequestToken")
+    Call<String> oAuthGetRequestToken(@FieldMap HashMap<String, String> map);
+
     @GET("uapi/shop/request")
     Observable<Example> getShopCategories(@QueryMap HashMap<String, String> map);
 

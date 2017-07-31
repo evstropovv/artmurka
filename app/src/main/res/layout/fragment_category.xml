@@ -1,17 +1,37 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Views.Fragments.CategoryFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Views.Fragments.CategoryFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_gravity="center_horizontal"
         android:id="@+id/recyclerView"
-        android:scrollbars="vertical"
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e4e4e4"/>
-</FrameLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.50"
+        android:background="#e4e4e4"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/btnCall" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true">
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:drawableLeft="@drawable/phoneclassic"
+            android:text="Зателефонувати нам :)" />
+    </LinearLayout>
+
+</RelativeLayout>
