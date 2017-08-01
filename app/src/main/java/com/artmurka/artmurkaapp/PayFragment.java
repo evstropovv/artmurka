@@ -23,8 +23,6 @@ import java.util.HashMap;
 import ua.privatbank.paylibliqpay.ErrorCode;
 import ua.privatbank.paylibliqpay.LiqPay;
 import ua.privatbank.paylibliqpay.LiqPayCallBack;
-import ua.privatbank.paylibliqpay.LiqPayUtil;
-
 
 public class PayFragment extends Fragment {
     private String publicPayKey = BuildConfig.PUBLIC_PAY_KEY;
@@ -55,46 +53,34 @@ public class PayFragment extends Fragment {
                     @Override
                     public void run() {
                         HashMap<String, String> map = new HashMap<>();
-                        map.put("version", "3"); //версия АПИ, последняя вроде бы как - 3
-                        map.put("public_key", publicPayKey); //паблик ключ
-                        map.put("action", "auth"); //тип оплаты
-                        map.put("amount", "1"); //сумма платежа
-                        map.put("currency", "UAH");  //валюта
-                        map.put("description", "Тестовая оплата"); //Описание
-                        map.put("order_id", String.valueOf(Math.random() * 999999));  //уникальный ИД покупки в магазине (с сайта)
-                        map.put("language", "ru"); //язык
-                        //   map.put("card", etCardNumber.getText().toString());
-                        map.put("card", "4119976003028165=");
-                        //  map.put("card_exp_month", etMonth.getText().toString());
-                        map.put("card_exp_month", "");
-                        //   map.put("card_exp_year", etYear.getText().toString());
-                        map.put("card_exp_year", "");
-                        //  map.put("card_exp_cvv", etCvv.getText().toString());
-                        map.put("card_exp_cvv", "");
+                        map.put("version", "3");
+                        map.put("public_key", publicPayKey);
+                        map.put("action", "pay");
+                        map.put("amount", "1");
+                        map.put("currency", "UAH");
+                        map.put("description", "account top-up");
+                        map.put("order_id", "sdfsdf"+Math.random());
+                        map.put("language", "uk");
 
-                        LiqPay.api(getContext().getApplicationContext(), "auth", map, privatePayKey, new LiqPayCallBack() {
+                        map.put("server_url", "https://www.liqpay.ua/ru/checkout/card/i32727180241");
+                        LiqPay.checkout(v.getContext().getApplicationContext(), map, privatePayKey, new LiqPayCallBack() {
                             @Override
                             public void onResponseSuccess(String s) {
-                                JSONObject object = null;
-                                try {
-                                    object = new JSONObject(s);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                if ("success".equals(object.optString("status"))) {
-                                    // успех
-                                    String cardToken = object.optString("card_token");
-                                    Log.d("Log.d", "card_token " + cardToken);
-                                } else {
-                                    Log.d("Log.d", "card pay Error ");
-                                    Log.d("Log.d", object.toString());
-                                }
+                                Log.v("tag_order", s);
                             }
 
                             @Override
                             public void onResponceError(ErrorCode errorCode) {
+                                Log.v("tag_liqpay", errorCode.toString());
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                    }
+                                }).start();
+
                             }
                         });
+
                     }
                 };
                 Thread thread = new Thread(runnable);

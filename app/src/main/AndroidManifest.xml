@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".Views.Activities.PrefActivity" />
         <activity android:name=".Views.Activities.SelectedGood" />
-        <activity android:name=".Views.Activities.CheckoutActivity"></activity>
+        <activity android:name="ua.privatbank.paylibliqpay.CheckoutActivity"/>
     </application>
 
 </manifest>

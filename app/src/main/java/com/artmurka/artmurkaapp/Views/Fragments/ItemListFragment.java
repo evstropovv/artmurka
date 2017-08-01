@@ -1,6 +1,9 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
 
+import android.animation.Animator;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -9,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -36,11 +40,10 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_item_list, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         Bundle bundle = getArguments();
-        if (bundle!=null){
-            if (bundle.getString("url")!=null){
+        if (bundle != null) {
+            if (bundle.getString("url") != null) {
                 url = bundle.getString("url");
             }
         }
@@ -62,19 +65,24 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                 int visibleItemCount = recyclerLayoutManager.getChildCount();//смотрим сколько элементов на экране
                 int totalItemCount = recyclerLayoutManager.getItemCount();//сколько всего элементов
 
-                Toast.makeText(getContext(), "vItemCount="+visibleItemCount + " totalItemCount="+totalItemCount,Toast.LENGTH_SHORT).show();
-                if (totalItemCount - visibleItemCount<8){
+                Toast.makeText(getContext(), "vItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount, Toast.LENGTH_SHORT).show();
+                if (totalItemCount - visibleItemCount < 8) {
                     presenter.getCategoriesData(++curPage);
                 }
             }
         });
 
 
-        if (presenter ==null){
+        if (presenter == null) {
             presenter = new ItemListPresenter(this, url);
         }
         presenter.getCategoriesData(curPage);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -93,13 +101,12 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     }
 
     @Override
-    public void showError(String error){
-       Snackbar.make(getView(),error, Snackbar.LENGTH_LONG)
-               .setAction("Угу...", new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
+    public void showError(String error) {
+        Snackbar.make(getView(), error, Snackbar.LENGTH_LONG)
+                .setAction("Угу...", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                   }
-               }).show();
+                    }}).show();
     }
 }
