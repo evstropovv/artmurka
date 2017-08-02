@@ -16,17 +16,17 @@ tools:context=".Views.Fragments.CategoryFragment">
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/btnCall" />
+        android:layout_above="@+id/llCall" />
 
     <LinearLayout
         android:layout_alignParentBottom="true"
-        android:id="@+id/btnCall"
+        android:id="@+id/llCall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="true">
 
         <Button
-            android:id="@+id/btn_confirm"
+            android:id="@+id/btnCall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.50"

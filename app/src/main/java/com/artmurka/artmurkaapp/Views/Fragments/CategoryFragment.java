@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,9 +14,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 
+import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.R;
@@ -32,6 +36,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     ICategoryPresenter presenter;
     RecyclerView recyclerView;
     RVcategoryAdapter recyclerAdapter;
+    Button btnCall;
 
     public CategoryFragment() {
     }
@@ -40,6 +45,15 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
+        btnCall = (Button) view.findViewById(R.id.btnCall);
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri call = Uri.parse("tel:" + Const.TEL_NUMBER);
+                Intent surf = new Intent(Intent.ACTION_DIAL, call);
+                startActivity(surf);
+            }
+        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
@@ -49,9 +63,9 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         if (presenter == null) {
             presenter = new CategoryPresenter(this);
         }
-        if(!isOnline()){
+        if (!isOnline()) {
             showError("Відсутній інтернет. Перезавантажити ?", view);
-        }else{
+        } else {
             presenter.getCategoriesData(true);
         }
         return view;
@@ -62,6 +76,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         super.onResume();
 
     }
+
     public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -82,7 +97,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
     @Override
     public void showError(String error) {
-        if (getView()!=null){
+        if (getView() != null) {
             Snackbar.make(getView(), error, Snackbar.LENGTH_INDEFINITE)
                     .setAction("Так", new View.OnClickListener() {
                         @Override
@@ -93,7 +108,8 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
                     }).show();
         }
     }
-    private void showError(String error, View view){
+
+    private void showError(String error, View view) {
         Snackbar.make(view, error, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Так", new View.OnClickListener() {
                     @Override

@@ -21,11 +21,11 @@
         <activity android:name=".Views.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Views.Activities.PrefActivity" />
+        <activity android:name=".Views.Activities.CheckoutActivity" />
         <activity android:name=".Views.Activities.SelectedGood" />
         <activity android:name="ua.privatbank.paylibliqpay.CheckoutActivity"/>
     </application>

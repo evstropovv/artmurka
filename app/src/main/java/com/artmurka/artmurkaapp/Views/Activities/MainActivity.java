@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.artmurka.artmurkaapp.PayFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
 import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
@@ -151,12 +150,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.executePendingTransactions();
                 break;
             case 111:
-                PayFragment payFragment = new PayFragment();
-                fm.beginTransaction()
-                        .replace(R.id.mainFrame, payFragment)
-                        .addToBackStack("payFragment")
-                        .commit();
-                fm.executePendingTransactions();
+
                 break;
         }
     }
@@ -180,10 +174,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             startActivity(intent);
         } else if (id == R.id.nav_individual) { // індивідуальний заказ
             changeFragment(Const.PAY_FRAGMENT, null);
-
         } else if (id == R.id.nav_consulting) { // подзвонити нам
-            String number = "7777777777";
-            Uri call = Uri.parse("tel:" + number);
+            Uri call = Uri.parse("tel:" + Const.TEL_NUMBER);
             Intent surf = new Intent(Intent.ACTION_DIAL, call);
             startActivity(surf);
         }

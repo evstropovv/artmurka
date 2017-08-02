@@ -13,12 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
+import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
 
 import com.artmurka.artmurkaapp.R;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -70,43 +74,10 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
 
                             case R.id.delete_from_basket:
                                 //Удалить с козинки
-                                IBasket basket = new BasketRequest();
-                                Call<BasketItems> observable = basket.deleteItemFromBasket(basketItemList.get(position).getEntryId());//
-                                observable.enqueue(new Callback<BasketItems>() {
-                                    @Override
-                                    public void onResponse(Call<BasketItems> call, Response<BasketItems> response) {
-                                        Log.d("Log.d", response.raw().request().url().toString());
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<BasketItems> call, Throwable t) {
-
-                                    }
-                                });
-
-//                                observable.subscribe(new Observer<BasketItems>() {
-//                                    @Override
-//                                    public void onSubscribe(Disposable d) {}
-//
-//                                    @Override
-//                                    public void onNext(BasketItems value) {
-//                                        Log.d("Log.d", new Gson().toJson(value));
-//                                    }
-//                                    @Override
-//                                    public void onError(Throwable e) {
-//                                        Log.d("Log.d", "onError. Delete From Basket " + e.toString());
-//                                    }
-//                                    @Override
-//                                    public void onComplete() {
-//
-//                                    }
-//                                });
-
-                                basketItemList.clear();
-                                notifyDataSetChanged();
-
-                             // Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " повинно бути видалено :)", Toast.LENGTH_SHORT).show();
-
+                                refreshItemRequest(0, position);  // 0  = delete
+                                basketItemList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, basketItemList.size());
                                 break;
                             case R.id.wish_wad:
                                 //в список бажань
@@ -125,6 +96,23 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
             }
         });
 
+    }
+
+    private void refreshItemRequest(int cnt, int position){
+
+        ICheckoutRequest request = new CheckoutRequest();
+        Call<CheckoutAllGoods> call = request.recountCheckoutData(basketItemList.get(position).getId(), String.valueOf(cnt));
+        call.enqueue(new Callback<CheckoutAllGoods>() {
+            @Override
+            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+                Log.d("Log.d", "url= "+response.raw().request().url());
+                Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
+            }
+        });
     }
 
     @Override

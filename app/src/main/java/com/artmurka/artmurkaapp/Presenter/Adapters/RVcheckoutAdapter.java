@@ -86,6 +86,7 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
         holder.ivDeleteFromCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 refreshItemRequest(0, position);  // 0  = delete
                 orderList.remove(position);
                 notifyItemRemoved(position);
@@ -125,22 +126,17 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
 
         ICheckoutRequest request = new CheckoutRequest();
         Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), String.valueOf(cnt));
+        Log.d("Log.d", "delete position: "+orderList.get(position).getOrderPosition());
         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
                 Log.d("Log.d", "url= "+response.raw().request().url());
-
                 Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
             }
-
             @Override
             public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
-
-            }
-        });
-
+            }});
     }
-
 
     @Override
     public int getItemCount() {

@@ -8,45 +8,94 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
+import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
+import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
+import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-public class RVwishListAdapter  extends RecyclerView.Adapter<RVwishListAdapter.ViewHolder>{
-        private Context ctx;
-        List<GoodsListDescription> wishList;
-        public RVwishListAdapter(Context context) {
-            this.ctx = context;
-            wishList = new ArrayList<>();
+public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.ViewHolder> {
+    private Context ctx;
+    List<GoodsListDescription> wishList;
+
+    public RVwishListAdapter(Context context) {
+        this.ctx = context;
+        wishList = new ArrayList<>();
+    }
+
+    public void setData(List<GoodsListDescription> list) {
+        if (wishList != null && list.size() > 0) {
+            this.wishList.clear();
+            this.wishList.addAll(list);
+            notifyDataSetChanged();
         }
-
-        public void setData(List<GoodsListDescription> list) {
-            if (wishList != null && list.size() > 0) {
-                this.wishList.clear();
-                this.wishList.addAll(list);
-                notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            final View view = LayoutInflater.from(ctx).inflate(R.layout.card_wishlist, parent, false);
-            final ViewHolder vh = new ViewHolder(view);
-            return vh;
-        }
+    }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.d("Log.d", wishList.get(position).getEntryPhoto().getDefPhoto().getPhoto() +" " +wishList.get(position).getEntryPhoto().getDefPhoto().getThumb());
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(ctx).inflate(R.layout.card_wishlist, parent, false);
+        final ViewHolder vh = new ViewHolder(view);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        Log.d("Log.d", wishList.get(position).getEntryPhoto().getDefPhoto().getPhoto() + " " + wishList.get(position).getEntryPhoto().getDefPhoto().getThumb());
         Picasso.with(ctx).load(wishList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
         holder.tvCategoryName.setText(wishList.get(position).getEntryTitle());
         holder.tvPrice.setText(wishList.get(position).getEntryPrice().getPrice());
         holder.ivToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (wishList.get(position).getEntryIsInBasket() == 0) {
+                    //в корзину
+                    IBasket basket = new BasketRequest();
+                    Observable<BasketItems> observable = basket.toBasket(wishList.get(position).getEntryId());
+
+                    observable.subscribe(new Observer<BasketItems>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                        }
+
+                        @Override
+                        public void onNext(BasketItems value) {
+                            Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
+                            Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика. Id=" + wishList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d("Log.d", "onError " + e.toString());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+                }
 
             }
         });
@@ -54,27 +103,47 @@ public class RVwishListAdapter  extends RecyclerView.Adapter<RVwishListAdapter.V
             @Override
             public void onClick(View v) {
 
+                String goodsId = wishList.get(position).getEntryId();
+                deleteFromWish(goodsId);
+                wishList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, wishList.size());
+
             }
         });
     }
 
-        @Override
-        public int getItemCount() {
-            return wishList.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView tvCategoryName, tvPrice;
-            public ImageView ivItemPhoto, ivToBasket, ivDeleteFromWish;
-
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                tvCategoryName = (TextView) itemView.findViewById(R.id.tvCategoryName);
-                tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
-                ivItemPhoto = (ImageView)itemView.findViewById(R.id.ivItemPhoto);
-                ivToBasket = (ImageView)itemView.findViewById(R.id.ivToBasket);
-                ivDeleteFromWish = (ImageView)itemView.findViewById(R.id.ivDeleteFromWish);
+    private void deleteFromWish(String goodsId) {
+        IWishList iWishList = new WishListRequest();
+        Call<WishList> obs = iWishList.toWishList(goodsId); //здесь по запросу toWishList - или удаляется если она есть, или добавляется если позиции в списке нет
+        obs.enqueue(new Callback<WishList>() {
+            @Override
+            public void onResponse(Call<WishList> call, Response<WishList> response) {
+                Log.d("Log.d", new Gson().toJson(response.body().getSuccess().getGoodsList()));
             }
+            @Override
+            public void onFailure(Call<WishList> call, Throwable t) {}
+        });
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return wishList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvCategoryName, tvPrice;
+        public ImageView ivItemPhoto, ivToBasket, ivDeleteFromWish;
+
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tvCategoryName = (TextView) itemView.findViewById(R.id.tvCategoryName);
+            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+            ivItemPhoto = (ImageView) itemView.findViewById(R.id.ivItemPhoto);
+            ivToBasket = (ImageView) itemView.findViewById(R.id.ivToBasket);
+            ivDeleteFromWish = (ImageView) itemView.findViewById(R.id.ivDeleteFromWish);
         }
+    }
 }
