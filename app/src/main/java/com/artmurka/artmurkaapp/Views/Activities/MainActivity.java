@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.artmurka.artmurkaapp.Other.PayLiq;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
 import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.executePendingTransactions();
                 break;
             case 111:
-
+                new PayLiq(getBaseContext(),null).start();
                 break;
         }
     }
