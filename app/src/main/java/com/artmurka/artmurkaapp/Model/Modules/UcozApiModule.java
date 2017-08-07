@@ -47,7 +47,7 @@ public class UcozApiModule {
     }
 
     //random similar as php -> mt_rand();
-    public static String getRandom() {
+    private static String getRandom() {
         int x = (int) (Math.random() * 1234567890) + 75000000;
         return String.valueOf(x);
     }
@@ -92,7 +92,10 @@ public class UcozApiModule {
                 }
             }
 
-            baseString = method + "&" + URLEncoder.encode(URL + url, "UTF-8") + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
+
+            baseString = method + "&" + (url.contains("uapi.ucoz.com")?
+                    URLEncoder.encode(url, "UTF-8"):
+                    URLEncoder.encode(URL + url, "UTF-8")) + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
             Log.d("Log.d", "baseString " + baseString);
 
         } catch (UnsupportedEncodingException e) {
