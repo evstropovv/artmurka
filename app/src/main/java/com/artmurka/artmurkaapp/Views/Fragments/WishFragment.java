@@ -28,7 +28,7 @@ import retrofit2.Call;
 
 
 public class WishFragment extends Fragment implements IWishFragment {
-
+//фрагмент страницы желаний
     private IWishPresenter presenter;
     private RecyclerView recyclerView;
     private RVwishListAdapter recyclerAdapter;

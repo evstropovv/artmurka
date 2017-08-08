@@ -69,7 +69,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/emailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -80,7 +80,8 @@
             android:layout_weight="1"
             android:hint="example@..."
             android:inputType="textEmailAddress"
-            android:text="example@google.com" />
+
+            />
     </android.support.design.widget.TextInputLayout>
 
 

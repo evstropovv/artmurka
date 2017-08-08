@@ -180,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             Intent surf = new Intent(Intent.ACTION_DIAL, call);
             startActivity(surf);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

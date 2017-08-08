@@ -3,6 +3,7 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,20 +26,29 @@ import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
+import com.jakewharton.rxbinding2.widget.RxTextView;
+
+import org.reactivestreams.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class CheckoutFragment extends Fragment implements ICheckoutFragment {
-    ICheckoutPresenter presenter;
+
+    private ICheckoutPresenter presenter;
+    private TextInputLayout emailLayout;
     private RecyclerView recyclerView;
     private RVcheckoutAdapter adapter;
     private TextView tvSumPrice;
     private Button btnPostCheckout;
     private EditText etPhone, etMsg, etEmail;
     private Spinner spinnerDelivery, spinnerPayment;
-    ArrayList<String> deliveryList;
-    ArrayList<String> paymentList;
+    private ArrayList<String> deliveryList;
+    private ArrayList<String> paymentList;
     public CheckoutFragment() {
 
     }
@@ -71,7 +81,16 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         btnPostCheckout = (Button)view.findViewById(R.id.btnPostCheckout);
         etMsg = (EditText) view.findViewById(R.id.etMsg);
         etPhone = (EditText)view.findViewById(R.id.etPhone);
+        emailLayout = (TextInputLayout)view.findViewById(R.id.emailLayout);
+
+        emailLayout.setError("Невірний email");
         etEmail = (EditText)view.findViewById(R.id.etEmail);
+        io.reactivex.Observable<Boolean> emailObservable = RxTextView.textChanges(etEmail)
+                .map(inputText -> (inputText.length() == 0))
+                .distinctUntilChanged();
+
+        emailObservable.subscribe(isValid -> emailLayout.setErrorEnabled(isValid));
+
 
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override

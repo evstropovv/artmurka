@@ -25,7 +25,6 @@ public class WishListRequest implements IWishList {
 
     @Override
     public Call<WishList> getWishList() {
-
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("page", "wishlist");

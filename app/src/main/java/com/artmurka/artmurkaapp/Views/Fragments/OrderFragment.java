@@ -22,19 +22,19 @@ import java.util.List;
 
 
 public class OrderFragment extends Fragment implements IOrderFragment {
+
+    //фрагмент страницы заказов
+
     private IOrderPresenter presenter;
     private RecyclerView rvOrder;
     private RVorderListAdapter adapter;
 
     public OrderFragment() {
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         if (presenter ==null) presenter = new OrdersPresenter(this);
         rvOrder = (RecyclerView) view.findViewById(R.id.rvOrder);
