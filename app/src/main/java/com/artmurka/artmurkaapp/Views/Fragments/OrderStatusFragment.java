@@ -9,7 +9,6 @@ import android.os.Bundle;
 public class OrderStatusFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();

@@ -54,47 +54,41 @@ public class CheckoutRequest implements ICheckoutRequest {
 //        String st3 = email.replace("^@(.+)$", "repl");
 
         mapForUcozModule.put("fld1", telephone);
-        mapForUcozModule.put("fld2", email);
-        mapForUcozModule.put("fld3", msg);
-
-//        try{
-//            mapForUcozModule.put("fld2", URLEncoder.encode(newEmail, "UTF-8"));
-//            mapForUcozModule.put("fld3", URLEncoder.encode(newMsg, "UTF-8"));
-//        } catch (UnsupportedEncodingException e){}
-
-
+        String encodeEmail = null;
+        String encodeMsg = null;
+        String msgTrim =msg.replace(" ",""); //убираем пробелы
+        try {
+            encodeEmail = URLEncoder.encode(email, "UTF-8");
+            encodeMsg = URLEncoder.encode(msgTrim, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        mapForUcozModule.put("fld2", encodeMsg);
+        mapForUcozModule.put("fld3", encodeEmail);
 
         HashMap<String, String> confForRequest2 = ucoz.get("POST", "uapi/shop/checkout/", mapForUcozModule);
         Log.d("Log.d", new Gson().toJson(confForRequest2));
 
 
-        HashMap<String, RequestBody> reqBodyMap = new HashMap<>();
-        reqBodyMap.put("oauth_signature", createPartFromString(confForRequest2.get("oauth_signature")));
-        reqBodyMap.put("oauth_signature_method", createPartFromString(confForRequest2.get("oauth_signature_method")));
-        reqBodyMap.put("oauth_version", createPartFromString(confForRequest2.get("oauth_version")));
-        reqBodyMap.put("oauth_consumer_key", createPartFromString(confForRequest2.get("oauth_consumer_key")));
-        reqBodyMap.put("oauth_token", createPartFromString(confForRequest2.get("oauth_token")));
-        reqBodyMap.put("oauth_nonce", createPartFromString(confForRequest2.get("oauth_nonce")));
-        reqBodyMap.put("oauth_timestamp", createPartFromString(confForRequest2.get("oauth_timestamp")));
+        HashMap<String, String> reqBodyMap = new HashMap<>();
+        reqBodyMap.put("oauth_signature", (confForRequest2.get("oauth_signature")));
+        reqBodyMap.put("oauth_signature_method", (confForRequest2.get("oauth_signature_method")));
+        reqBodyMap.put("oauth_version", (confForRequest2.get("oauth_version")));
+        reqBodyMap.put("oauth_consumer_key", (confForRequest2.get("oauth_consumer_key")));
+        reqBodyMap.put("oauth_token", (confForRequest2.get("oauth_token")));
+        reqBodyMap.put("oauth_nonce", confForRequest2.get("oauth_nonce"));
+        reqBodyMap.put("oauth_timestamp", confForRequest2.get("oauth_timestamp"));
 
-        reqBodyMap.put("mode", createPartFromString("order"));
-        reqBodyMap.put("payment_id", createPartFromString(pay));
-        reqBodyMap.put("delivery_id", createPartFromString(delivery));
-        reqBodyMap.put("fld1", createPartFromString(telephone));
-        reqBodyMap.put("fld2", createPartFromString(email));
-        reqBodyMap.put("fld3", createPartFromString(msg));
+        reqBodyMap.put("mode", "order");
+        reqBodyMap.put("payment_id", pay);
+        reqBodyMap.put("delivery_id", delivery);
+
+        reqBodyMap.put("fld1", telephone);
+        reqBodyMap.put("fld2", encodeMsg);
+        reqBodyMap.put("fld3", encodeEmail);
 
         return ApiModule.getClient().postCheckout(confForRequest2);
     }
 
-    @NonNull
-    private RequestBody createPartFromString(String descriptionString) {
-        String encodedMsg = null;
-        try {
-             encodedMsg = URLEncoder.encode(descriptionString, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return RequestBody.create(okhttp3.MultipartBody.FORM, encodedMsg);
-    }
+
 }
