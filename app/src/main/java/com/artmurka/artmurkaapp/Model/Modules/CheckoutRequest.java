@@ -81,14 +81,20 @@ public class CheckoutRequest implements ICheckoutRequest {
         reqBodyMap.put("payment_id", createPartFromString(pay));
         reqBodyMap.put("delivery_id", createPartFromString(delivery));
         reqBodyMap.put("fld1", createPartFromString(telephone));
-//        reqBodyMap.put("fld2", createPartFromString(email));
-//        reqBodyMap.put("fld3", createPartFromString(msg));
+        reqBodyMap.put("fld2", createPartFromString(email));
+        reqBodyMap.put("fld3", createPartFromString(msg));
 
         return ApiModule.getClient().postCheckout(confForRequest2);
     }
 
     @NonNull
     private RequestBody createPartFromString(String descriptionString) {
-        return RequestBody.create(okhttp3.MultipartBody.FORM, descriptionString);
+        String encodedMsg = null;
+        try {
+             encodedMsg = URLEncoder.encode(descriptionString, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return RequestBody.create(okhttp3.MultipartBody.FORM, encodedMsg);
     }
 }
