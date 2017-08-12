@@ -13,6 +13,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.PaymentDescription;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.facebook.Profile;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
     @Override
     public void getData() {
+
         Call<CheckoutAllGoods> call = request.getCheckoutData();
         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override

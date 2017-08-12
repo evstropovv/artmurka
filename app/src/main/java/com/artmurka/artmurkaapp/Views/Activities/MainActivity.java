@@ -1,6 +1,9 @@
 package com.artmurka.artmurkaapp.Views.Activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -13,8 +16,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Other.PayLiq;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
@@ -24,23 +31,56 @@ import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.OrderFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.WishFragment;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener{
 
     CategoryFragment fragCategory;
     private final String TAG = "Storage_category_fragment";
+    private CallbackManager callbackManager;
+    private ProfileTracker profileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         loadShopFragment();
         setUI();
-
+        loadProfileTracker();
+        if (Profile.getCurrentProfile()!=null) Toast.makeText(this, Profile.getCurrentProfile().getFirstName(), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void loadProfileTracker() {
+        callbackManager = CallbackManager.Factory.create();
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(
+                    Profile oldProfile,
+                    Profile currentProfile) {
+                // App code
+
+            }
+        };
+    }
 
     private void loadShopFragment() {
         FragmentManager fm = getSupportFragmentManager();
@@ -61,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        profileTracker.stopTracking();
     }
 
     @Override
@@ -91,6 +137,33 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        //логин фейсбук
+        LoginButton lb = (LoginButton)header.findViewById(R.id.login_button);
+        lb.setReadPermissions("email");
+        lb.setReadPermissions("public_profile");
+        CallbackManager callbackManager = CallbackManager.Factory.create();
+
+        lb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("Log.d","facebook access token: " + loginResult.getAccessToken());
+                Profile profile = Profile.getCurrentProfile();
+                Log.d("Log.d", profile.getFirstName()+ " "+profile.getLastName()+ " "+ profile.getId() );
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("Log.d","facebook onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("Log.d","facebook onError");
+            }
+        });
+
 
     }
 
@@ -194,4 +267,5 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             super.onBackPressed();
         }
     }
+
 }

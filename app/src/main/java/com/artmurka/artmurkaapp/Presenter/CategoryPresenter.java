@@ -1,14 +1,11 @@
 package com.artmurka.artmurkaapp.Presenter;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.Modules.AllRequestOvservers;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
 import com.artmurka.artmurkaapp.Model.Retrofit.Example;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
-import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
