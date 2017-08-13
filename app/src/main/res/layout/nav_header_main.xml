@@ -31,18 +31,20 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvProfileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="artmurka.com" />
+
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_weight="0.26" />
     </LinearLayout>
 
 

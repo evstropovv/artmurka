@@ -23,10 +23,6 @@
     <item android:title="Додатково">
         <menu>
             <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/settings"
-                android:title="Налаштування"/>
-            <item
                 android:id="@+id/nav_individual"
                 android:icon="@drawable/feather"
                 android:title="Індивідуальний заказ"/>

@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Other.PayLiq;
@@ -35,6 +36,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
@@ -138,33 +140,33 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
+        TextView tvProfileName = (TextView)header.findViewById(R.id.tvProfileName);
+
         //логин фейсбук
         LoginButton lb = (LoginButton)header.findViewById(R.id.login_button);
         lb.setReadPermissions("email");
         lb.setReadPermissions("public_profile");
-        CallbackManager callbackManager = CallbackManager.Factory.create();
+//        CallbackManager callbackManager = CallbackManager.Factory.create();
+//        lb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d("Log.d","facebook access token: " + loginResult.getAccessToken());
+//                Profile profile = Profile.getCurrentProfile();
+//                tvProfileName.setText(profile.getName());
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                Log.d("Log.d","facebook onCancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d("Log.d","facebook onError");
+//            }
+//        });
 
-        lb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("Log.d","facebook access token: " + loginResult.getAccessToken());
-                Profile profile = Profile.getCurrentProfile();
-                Log.d("Log.d", profile.getFirstName()+ " "+profile.getLastName()+ " "+ profile.getId() );
-
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d("Log.d","facebook onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("Log.d","facebook onError");
-            }
-        });
-
-
+        if (Profile.getCurrentProfile()!=null) tvProfileName.setText(Profile.getCurrentProfile().getName());
     }
 
     @Override
@@ -243,9 +245,6 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             changeFragment(Const.WISH_FRAGMENT,null);
         } else if (id == R.id.nav_orders) { // мои заказы
             changeFragment(Const.ORDER_FRAGMENT, null);
-        } else if (id == R.id.nav_settings) { //настройки
-            Intent intent = new Intent(this, PrefActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_individual) { // індивідуальний заказ
             changeFragment(Const.PAY_FRAGMENT, null);
         } else if (id == R.id.nav_consulting) { // подзвонити нам
