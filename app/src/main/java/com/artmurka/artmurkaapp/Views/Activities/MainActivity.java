@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_catalog) { //каталог
             changeFragment(Const.CATEGORY_FRAGMENT, null);
             // Handle the camera action
