@@ -32,6 +32,13 @@ tools:context=".Views.Fragments.CategoryFragment">
             android:layout_weight="0.50"
             android:drawableLeft="@drawable/phoneclassic"
             android:text="Зателефонувати нам :)" />
+
+        <Button
+            android:id="@+id/btnTestRequest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:text="Request)" />
     </LinearLayout>
 
 </RelativeLayout>

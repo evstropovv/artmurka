@@ -23,7 +23,6 @@ public class Preferences {
         editor = preferences.edit();
     }
 
-
     public static void setOauthToken(String oauthToken){
         if (preferences == null) {
             init();

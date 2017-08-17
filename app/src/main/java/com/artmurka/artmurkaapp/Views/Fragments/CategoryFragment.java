@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 
 import com.artmurka.artmurkaapp.Other.Const;
+import com.artmurka.artmurkaapp.Presenter.Adapters.OneLeggedApi10;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.R;
@@ -27,16 +29,27 @@ import com.artmurka.artmurkaapp.Presenter.*;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
+import com.wuman.android.auth.OAuthManager;
+
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.SignatureType;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
 import java.util.ArrayList;
 
 
 public class CategoryFragment extends Fragment implements ICategoryFragment {
 
 
-    ICategoryPresenter presenter;
-    RecyclerView recyclerView;
-    RVcategoryAdapter recyclerAdapter;
-    Button btnCall;
+    private ICategoryPresenter presenter;
+    private RecyclerView recyclerView;
+    private RVcategoryAdapter recyclerAdapter;
+    private Button btnCall;
+    private Button btnTestRequest;
+
 
     public CategoryFragment() {
     }
@@ -54,6 +67,43 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
                 startActivity(surf);
             }
         });
+        btnTestRequest = (Button)view.findViewById(R.id.btnTestRequest);
+        btnTestRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String RESOURCE_URL = "http://uapi.ucoz.com/accounts/OAuthGetRequestToken";
+                String SCOPE = "*"; //all permissions
+                OAuthRequest request;
+                OAuthService service = new ServiceBuilder().provider(OneLeggedApi10.class)
+                        .apiKey("murka1")
+                        .apiSecret("DqUQJzeCPmwD9CRqbHo6sGBzKCb5U4")
+                        .signatureType(SignatureType.QueryString)
+                        .debug()
+                /*.scope(SCOPE).*/
+                        .build();
+
+                request = new OAuthRequest(Verb.GET, RESOURCE_URL);
+                service.signRequest(new Token("", ""), request);
+
+                // Now let's go and ask for a protected resource!
+                Log.d("scribe","Now we're going to access a protected resource...");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            Response response = request.send();
+                            if (response.isSuccessful()) {
+                                final String responsebody = response.getBody();
+                                Log.d("Log.d", "response body : " +responsebody);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
