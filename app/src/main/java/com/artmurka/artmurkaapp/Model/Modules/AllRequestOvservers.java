@@ -2,8 +2,6 @@ package com.artmurka.artmurkaapp.Model.Modules;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
 import com.artmurka.artmurkaapp.Model.Retrofit.Example;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.oauth.OAuthService;
 
 import java.util.HashMap;
 

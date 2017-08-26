@@ -4,6 +4,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 
 import java.io.UnsupportedEncodingException;
@@ -22,10 +23,12 @@ import javax.crypto.spec.SecretKeySpec;
 public class UcozApiModule {
 
     private final String URL = BuildConfig.URL; //artmurka
-    private final String CONSUMER_KEY = BuildConfig.CONSUMER_KEY;
-    private final String CONSUMER_SECRET = BuildConfig.CONSUMER_SECRET;
-    private final String OAUTH_TOKEN = BuildConfig.OAUTH_TOKEN;
-    private final String OAUTH_TOKEN_SECRET = BuildConfig.OAUTH_TOKEN_SECRET;
+
+    private String CONSUMER_KEY;
+    private String CONSUMER_SECRET;
+    private String OAUTH_TOKEN;
+    private String OAUTH_TOKEN_SECRET;
+
     private final String OAUTH_VERSION = BuildConfig.OAUTH_VERSION;
     private final String OAUTH_SIGNATURE_METHOD = BuildConfig.OAUTH_SIGNATURE_METHOD;
 
@@ -112,6 +115,12 @@ public class UcozApiModule {
         // 'method' ("GET"/"PUT")
         // 'url' in format "uapi/shop/request"
         //'id' or 'page'
+
+        CONSUMER_KEY = Preferences.getConsumerKey();
+        CONSUMER_SECRET = Preferences.getConsumerSecret();
+        OAUTH_TOKEN = Preferences.getOauthToken();
+        OAUTH_TOKEN_SECRET = Preferences.getOauthTokenSecret();
+
         String oauth_nonce = oauth_nonce();
         String time = getTime();
 

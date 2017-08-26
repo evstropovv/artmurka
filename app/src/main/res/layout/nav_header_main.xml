@@ -45,6 +45,13 @@
             android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
             android:layout_weight="0.26" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
     </LinearLayout>
 
 

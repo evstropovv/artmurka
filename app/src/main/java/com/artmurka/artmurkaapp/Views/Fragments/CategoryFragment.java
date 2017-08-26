@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+
+
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -71,36 +73,8 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         btnTestRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String RESOURCE_URL = "http://uapi.ucoz.com/accounts/OAuthGetRequestToken";
-                String SCOPE = "*"; //all permissions
-                OAuthRequest request;
-                OAuthService service = new ServiceBuilder().provider(OneLeggedApi10.class)
-                        .apiKey("murka1")
-                        .apiSecret("DqUQJzeCPmwD9CRqbHo6sGBzKCb5U4")
-                        .signatureType(SignatureType.QueryString)
-                        .debug()
-                /*.scope(SCOPE).*/
-                        .build();
 
-                request = new OAuthRequest(Verb.GET, RESOURCE_URL);
-                service.signRequest(new Token("", ""), request);
-
-                // Now let's go and ask for a protected resource!
-                Log.d("scribe","Now we're going to access a protected resource...");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            Response response = request.send();
-                            if (response.isSuccessful()) {
-                                final String responsebody = response.getBody();
-                                Log.d("Log.d", "response body : " +responsebody);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+                
             }
         });
 

@@ -21,9 +21,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Other.PayLiq;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
 import com.artmurka.artmurkaapp.Other.Const;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Preferences.init(this);
         loadShopFragment();
         setUI();
         loadProfileTracker();
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             protected void onCurrentProfileChanged(
                     Profile oldProfile,
                     Profile currentProfile) {
-                // App code
+                      // App code
 
             }
         };
@@ -138,6 +141,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         TextView tvProfileName = (TextView)header.findViewById(R.id.tvProfileName);
+        Button btnLogin = (Button)header.findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //логин фейсбук
         LoginButton lb = (LoginButton)header.findViewById(R.id.login_button);

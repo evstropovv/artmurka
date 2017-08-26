@@ -38,8 +38,6 @@ public class CategoryPresenter implements ICategoryPresenter {
         }
     }
 
-
-
     private void resetData() {
 
         exampleObservable = model.getCategories();
