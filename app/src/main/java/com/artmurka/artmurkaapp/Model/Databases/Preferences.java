@@ -88,4 +88,40 @@ public class Preferences {
         }
         return preferences.getString("oauth_token_secret", OAUTH_TOKEN_SECRET);
     }
+
+    public static void setName(String name){
+        if (preferences == null) { init(); }
+        editor.putString("name", name);
+        editor.commit();
+    }
+
+    public static String getName(){
+        if (preferences ==null){ init(); }
+        return preferences.getString("name", "Арт-Мурка");
+    }
+
+    public static void setEmail(String email){
+        if (preferences == null) { init(); }
+        editor.putString("email", email);
+        editor.commit();
+    }
+
+    public static String getEmail(){
+        if (preferences ==null){ init(); }
+        return preferences.getString("email", "artmurka.com");
+    }
+
+    public static void setIsLogin(Boolean isLogin){
+        if (preferences == null) { init(); }
+        editor.putBoolean("isLogin", isLogin);
+        editor.commit();
+    }
+
+    public static Boolean getIsLogin(){
+        if (preferences ==null){ init(); }
+        return preferences.getBoolean("isLogin", false);
+    }
+
+
+
 }

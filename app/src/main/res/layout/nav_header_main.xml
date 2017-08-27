@@ -19,6 +19,7 @@
         android:src="@drawable/cat" />
 
     <TextView
+        android:id="@+id/tvBigName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -31,27 +32,19 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvProfileName"
+            android:id="@+id/tvSmallName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="artmurka.com" />
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="0.26" />
-
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
+            android:background="@null"
+            android:layout_weight="1.01"
+            android:text="Увійти" />
     </LinearLayout>
 
 

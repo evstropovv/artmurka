@@ -25,8 +25,8 @@ import java.util.List;
 
 public class RVorderListAdapter extends RecyclerView.Adapter<RVorderListAdapter.ViewHolder> {
     private Context ctx;
-    List<Order> orderList;
-    Orders orders;
+    private List<Order> orderList;
+    private Orders orders;
 
     public RVorderListAdapter(Context context) {
         this.ctx = context;
@@ -35,11 +35,13 @@ public class RVorderListAdapter extends RecyclerView.Adapter<RVorderListAdapter.
 
     public void setData(Orders orders) {
         this.orders = orders;
-
         this.orderList.clear();
-        this.orderList.addAll(orders.getSuccess().getOrders());
+        try{
+            this.orderList.addAll(orders.getSuccess().getOrders());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         notifyDataSetChanged();
-
     }
 
     @Override
