@@ -63,19 +63,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-//                int visibleItemCount = recyclerLayoutManager.getChildCount();//смотрим сколько элементов на экране
-//                int totalItemCount = recyclerLayoutManager.getItemCount();//сколько всего элементов
-//                int firstVisibleItems = recyclerLayoutManager.findFirstVisibleItemPosition();//какая позиция первого элемента
-//                    if ( (visibleItemCount+firstVisibleItems) >= totalItemCount) {
-//
-//                        if(loadingListener != null){
-//                            loadingListener.loadMoreItems(totalItemCount);//тут я использовал калбэк который просто говорит наружу что нужно еще элементов и с какой позиции начинать загрузку
-//                            presenter.getCategoriesData(++curPage);
-//                        }
-//                    }
-
                     presenter.getCategoriesData(++curPage);
-
             }
         });
 
