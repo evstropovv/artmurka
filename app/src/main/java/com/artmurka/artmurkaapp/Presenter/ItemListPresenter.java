@@ -33,8 +33,7 @@ public class ItemListPresenter implements IPresenterItemList {
 
     @Override
     public void getCategoriesData(int curPage) {
-
-        if (!isFull){
+        if (!isFull) {
             RequestItemList model = new RequestItemList();
             exampleObservable = model.getItemList(url, String.valueOf(curPage));
             exampleObservable.subscribe(new Observer<SuccessExample>() {
@@ -45,18 +44,16 @@ public class ItemListPresenter implements IPresenterItemList {
 
                 @Override
                 public void onNext(SuccessExample value) {
-
                     Log.d("Log.d", "URL " + new Gson().toJson(value));
                     int i = (value.getSuccess().getGoodsList().size());
-                    Log.d("Log.d", "goodList.size() "+i);
+                    Log.d("Log.d", "goodList.size() " + i);
                     fragment.showItemList(getList(value.getSuccess().getGoodsList()));
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     Log.d("Log.d", "onError " + e.toString());
-                    fragment.showError("Щось пішло не так. Можливо проблеми з інтернетом. ");
-                    isFull=false;
+                    isFull = true;
                 }
 
                 @Override

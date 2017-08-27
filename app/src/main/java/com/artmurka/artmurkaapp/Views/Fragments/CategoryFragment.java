@@ -50,8 +50,6 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     private RecyclerView recyclerView;
     private RVcategoryAdapter recyclerAdapter;
     private Button btnCall;
-    private Button btnTestRequest;
-
 
     public CategoryFragment() {
     }
@@ -67,14 +65,6 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
                 Uri call = Uri.parse("tel:" + Const.TEL_NUMBER);
                 Intent surf = new Intent(Intent.ACTION_DIAL, call);
                 startActivity(surf);
-            }
-        });
-        btnTestRequest = (Button)view.findViewById(R.id.btnTestRequest);
-        btnTestRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                
             }
         });
 

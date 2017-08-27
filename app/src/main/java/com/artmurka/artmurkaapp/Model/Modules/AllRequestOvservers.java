@@ -17,7 +17,7 @@ public class AllRequestOvservers implements IAllRequestObservers {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         mapForUcozModule.put("page", "categories");
-        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/request" ,mapForUcozModule);
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/request", mapForUcozModule);
 
         return ApiModule.getClient().getShopCategories(confForRequest)
                 .subscribeOn(Schedulers.newThread())

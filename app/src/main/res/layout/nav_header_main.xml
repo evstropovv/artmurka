@@ -35,7 +35,7 @@
             android:id="@+id/tvSmallName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:text="artmurka.com" />
 
         <Button
@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_weight="1.01"
+            android:textAllCaps="false"
             android:text="Увійти" />
     </LinearLayout>
 

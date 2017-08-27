@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:background="#e4e4e4"
         android:padding="8dp"
         android:scrollbars="vertical"
         android:layout_alignParentTop="true"
@@ -49,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.8"
+                android:background="@null"
                 android:text="Оформити заказ" />
 
         </LinearLayout>
@@ -67,10 +67,12 @@
 
     <Button
         android:id="@+id/btnToMain"
-        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="На головну" />
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:text="На головну"
+        android:textStyle="bold" />
 
 </RelativeLayout>

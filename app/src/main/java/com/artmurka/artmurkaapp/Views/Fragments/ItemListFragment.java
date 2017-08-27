@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -62,13 +63,19 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int visibleItemCount = recyclerLayoutManager.getChildCount();//смотрим сколько элементов на экране
-                int totalItemCount = recyclerLayoutManager.getItemCount();//сколько всего элементов
+//                int visibleItemCount = recyclerLayoutManager.getChildCount();//смотрим сколько элементов на экране
+//                int totalItemCount = recyclerLayoutManager.getItemCount();//сколько всего элементов
+//                int firstVisibleItems = recyclerLayoutManager.findFirstVisibleItemPosition();//какая позиция первого элемента
+//                    if ( (visibleItemCount+firstVisibleItems) >= totalItemCount) {
+//
+//                        if(loadingListener != null){
+//                            loadingListener.loadMoreItems(totalItemCount);//тут я использовал калбэк который просто говорит наружу что нужно еще элементов и с какой позиции начинать загрузку
+//                            presenter.getCategoriesData(++curPage);
+//                        }
+//                    }
 
-                Toast.makeText(getContext(), "vItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount, Toast.LENGTH_SHORT).show();
-                if (totalItemCount - visibleItemCount < 8) {
                     presenter.getCategoriesData(++curPage);
-                }
+
             }
         });
 
@@ -103,7 +110,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     @Override
     public void showError(String error) {
         Snackbar.make(getView(), error, Snackbar.LENGTH_LONG)
-                .setAction("Угу...", new View.OnClickListener() {
+                .setAction("Якась помилка...", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

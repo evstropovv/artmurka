@@ -73,7 +73,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.to_card:
-
                                 //проверяем, есть ли такой товар в корзине
                                 if (successList.get(position).getEntryIsInBasket()==0) {
                                     //в корзину
@@ -88,7 +87,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                                         public void onNext(BasketItems value) {
                                             Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
                                             Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
-
                                         }
                                         @Override
                                         public void onError(Throwable e) {
