@@ -1,17 +1,20 @@
 package com.artmurka.artmurkaapp.Views.Activities;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     private final String TAG = "Storage_category_fragment";
     private Button btnLogin;
     boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Preferences.init(this);
-        loadShopFragment();
-        setUI();
+        runtimePermission();
     }
 
     @Override
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             fm.beginTransaction()
                     .replace(R.id.mainFrame, fragCategory, TAG)
                     //without backstacktrace
-                    .commit();
+                    .commitAllowingStateLoss();
             fm.executePendingTransactions();
         } else {
             fragCategory = (CategoryFragment) fragment;
@@ -129,18 +132,18 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         tvBigName = (TextView) header.findViewById(R.id.tvBigName);
         tvBigName.setText(Preferences.getName());
         btnLogin = (Button) header.findViewById(R.id.btnLogin);
-        btnLogin.setText(Preferences.getIsLogin()?"Вийти":"Увійти");
+        btnLogin.setText(Preferences.getIsLogin() ? "Вийти" : "Увійти");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (!Preferences.getIsLogin()){
+                if (!Preferences.getIsLogin()) {
                     btnLogin.setText("Увійти");
                     Intent intent = new Intent(v.getContext(), LoginActivity.class);
                     startActivityForResult(intent, 1);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage(Preferences.getName()+", Ви впевнені що хочете вийти з акаунта?")
+                    builder.setMessage(Preferences.getName() + ", Ви впевнені що хочете вийти з акаунта?")
                             .setPositiveButton("Так", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Preferences.setConsumerKey(BuildConfig.CONSUMER_KEY);
@@ -224,10 +227,57 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.executePendingTransactions();
                 break;
             case 111:
+
                 new PayLiq(getBaseContext(), null).start();
                 break;
         }
     }
+
+    private boolean runtimePermission() { //запрос у пользователя разрешений
+
+        if (Build.VERSION.SDK_INT >= 23
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.INTERNET,
+                            Manifest.permission.ACCESS_NETWORK_STATE,
+                            Manifest.permission.ACCESS_WIFI_STATE,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.CALL_PHONE
+                            },
+                    100);
+            return true;
+        } else {
+            loadShopFragment();
+            setUI();
+        }
+
+
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //перехват ответа на разрешения
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[2] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[3] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[4] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[5] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[6] == PackageManager.PERMISSION_GRANTED ) {
+
+                loadShopFragment();
+                setUI();
+            } else { //показываем окно, пока не получим разрешения.
+                runtimePermission();
+            }
+        }
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -242,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             changeFragment(Const.WISH_FRAGMENT, null);
         } else if (id == R.id.nav_orders) { // мои заказы
             changeFragment(Const.ORDER_FRAGMENT, null);
-        } else if (id == R.id.nav_individual) { // індивідуальний заказ
+        } else if (id == R.id.nav_individual) { // індивідуальний заказ, зараз - тестова оплата на 1 грн
             changeFragment(Const.PAY_FRAGMENT, null);
         } else if (id == R.id.nav_consulting) { // подзвонити нам
             Uri call = Uri.parse("tel:" + Const.TEL_NUMBER);
