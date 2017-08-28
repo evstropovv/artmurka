@@ -125,7 +125,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     }
 
     private void showError(String error, View view) {
-        Snackbar.make(view, error, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(getActivity().findViewById(android.R.id.content), error, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Так", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
