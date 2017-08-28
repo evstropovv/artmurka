@@ -15,12 +15,15 @@ import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
+import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
+import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
 
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
 
 import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
@@ -75,15 +78,28 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                         switch (item.getItemId()){
 
                             case R.id.delete_from_basket:
-                                //Удалить с козинки
+                                //delete from basket
                                 refreshItemRequest(0, position);  // 0  = delete
                                 basketItemList.remove(position);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, basketItemList.size());
                                 break;
                             case R.id.wish_wad:
-                                //в список бажань
-                                Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " додано в бажання", Toast.LENGTH_SHORT).show();
+                                //add to wishList
+                                Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
+                                IWishList iWishList = new WishListRequest();
+                                Call<WishList> obs = iWishList.toWishList(basketItemList.get(position).getEntryId());
+                                obs.enqueue(new Callback<WishList>() {
+                                    @Override
+                                    public void onResponse(Call<WishList> call, Response<WishList> response) {
+                                        Log.d("Log.d", new Gson().toJson(response.body()));
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<WishList> call, Throwable t) {
+
+                                    }
+                                });
 
                                 break;
                             default:
