@@ -121,7 +121,4 @@ public class Preferences {
         if (preferences ==null){ init(); }
         return preferences.getBoolean("isLogin", false);
     }
-
-
-
 }

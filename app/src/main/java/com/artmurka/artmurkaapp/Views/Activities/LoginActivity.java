@@ -169,7 +169,9 @@ public class LoginActivity extends AppCompatActivity {
                     Preferences.setEmail(user.getEmail());
                     intent.putExtra("name", user.getNickname());
                     intent.putExtra("email", user.getEmail());
+
                 } else {
+
                     intent.putExtra("name", "Арт-Мурка");
                     intent.putExtra("email", "artmurka.com");
                 }

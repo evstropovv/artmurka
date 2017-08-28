@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         tvBigName = (TextView) header.findViewById(R.id.tvBigName);
         tvBigName.setText(Preferences.getName());
         btnLogin = (Button) header.findViewById(R.id.btnLogin);
+        btnLogin.setText(Preferences.getIsLogin()?"Вийти":"Увійти");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                                     Preferences.setConsumerSecret(BuildConfig.CONSUMER_SECRET);
                                     Preferences.setOauthToken(BuildConfig.OAUTH_TOKEN);
                                     Preferences.setOauthTokenSecret(BuildConfig.OAUTH_TOKEN_SECRET);
+                                    Preferences.setName("Арт-Мурка");
+                                    Preferences.setEmail("artmurka.com");
                                     tvBigName.setText("Арт-Мурка");
                                     tvSmallName.setText("artmurka.com");
                                     Preferences.setIsLogin(false);
