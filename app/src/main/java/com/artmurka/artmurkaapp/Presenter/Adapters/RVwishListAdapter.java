@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.ViewHolder> {
     private Context ctx;
-    List<GoodsListDescription> wishList;
+    private List<GoodsListDescription> wishList;
 
     public RVwishListAdapter(Context context) {
         this.ctx = context;
@@ -82,7 +82,12 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
                         @Override
                         public void onNext(BasketItems value) {
                             Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                            Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика. Id=" + wishList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
+                            String goodsId = wishList.get(position).getEntryId();
+                            deleteFromWishOnline(goodsId);
+                            wishList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, wishList.size());
 
                         }
 
@@ -93,6 +98,7 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
 
                         @Override
                         public void onComplete() {
+
                         }
                     });
                 }
@@ -102,18 +108,18 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
         holder.ivDeleteFromWish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String goodsId = wishList.get(position).getEntryId();
-                deleteFromWish(goodsId);
+                deleteFromWishOnline(goodsId);
                 wishList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, wishList.size());
-
             }
         });
     }
 
-    private void deleteFromWish(String goodsId) {
+
+    private void deleteFromWishOnline(String goodsId) {
+        //delete from wishlist online
         IWishList iWishList = new WishListRequest();
         Call<WishList> obs = iWishList.toWishList(goodsId); //здесь по запросу toWishList - или удаляется если она есть, или добавляется если позиции в списке нет
         obs.enqueue(new Callback<WishList>() {
