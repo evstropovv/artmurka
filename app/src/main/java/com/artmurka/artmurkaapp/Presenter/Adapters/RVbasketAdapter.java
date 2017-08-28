@@ -58,8 +58,8 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.goodName.setText(basketItemList.get(position).getEntryTitle());
-        holder.goodDescription.setText(basketItemList.get(position).getSumm().getSumm());
-        holder.goodPrice.setText(basketItemList.get(position).getEntryPrice().getPrice());
+        holder.goodDescription.setText(basketItemList.get(position).getCnt() + " шт. " +basketItemList.get(position).getEntryPrice().getPrice());
+        holder.goodPrice.setText( basketItemList.get(position).getSumm().getSumm());
         Picasso.with(ctx).load(basketItemList.get(position).getEntryPhoto().getThumb()).into(holder.itemPhoto);
 
         holder.basketMenu.setOnClickListener(new View.OnClickListener() {

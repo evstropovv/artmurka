@@ -88,7 +88,6 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
                             wishList.remove(position);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, wishList.size());
-
                         }
 
                         @Override
