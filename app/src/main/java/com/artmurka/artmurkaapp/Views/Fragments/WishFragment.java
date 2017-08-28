@@ -56,7 +56,6 @@ public class WishFragment extends Fragment implements IWishFragment {
         return view;
     }
 
-
     @Override
     public void showWishList(List<GoodsListDescription> list) {
         recyclerAdapter.setData(list);

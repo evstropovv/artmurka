@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -149,6 +151,19 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
             ivItemPhoto = (ImageView) itemView.findViewById(R.id.ivItemPhoto);
             ivToBasket = (ImageView) itemView.findViewById(R.id.ivToBasket);
             ivDeleteFromWish = (ImageView) itemView.findViewById(R.id.ivDeleteFromWish);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),wishList.get(getAdapterPosition()) +"\n", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
+                    String id = wishList.get(getAdapterPosition()).getEntryId();
+                    intent.putExtra("id",id);
+                    intent.putExtra("inWish", wishList.get(getAdapterPosition()).getEntryIsInWishlist());
+                    intent.putExtra("inBasket", wishList.get(getAdapterPosition()).getEntryIsInBasket());
+                    itemView.getContext().startActivity(intent);
+
+                }
+            });
         }
     }
 }

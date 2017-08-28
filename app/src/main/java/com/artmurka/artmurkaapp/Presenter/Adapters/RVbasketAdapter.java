@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
 
 import com.artmurka.artmurkaapp.R;
 
+import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -132,6 +134,18 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
             goodPrice = (TextView) itemView.findViewById(R.id.price);
             itemPhoto = (ImageView) itemView.findViewById(R.id.ivItemPhoto);
             basketMenu = (ImageView) itemView.findViewById(R.id.basket_menu);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),basketItemList.get(getAdapterPosition()) +"\n", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
+                    String id = basketItemList.get(getAdapterPosition()).getEntryId();
+                    intent.putExtra("id",id);
+                    intent.putExtra("inWish", basketItemList.get(getAdapterPosition()).getEntryIsInWishlist());
+                    itemView.getContext().startActivity(intent);
+
+                }
+            });
         }
     }
 }
