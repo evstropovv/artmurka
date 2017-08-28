@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
     private RecyclerView recyclerView;
     private RVitemListAdapter recyclerAdapter;
-    private String url = "vushivki";
+    private String url = "";
     private IPresenterItemList presenter;
     private int curPage = 1;
 
@@ -85,10 +86,6 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void showItemList(ArrayList<GoodsProperties> goodsProperties) {
@@ -103,5 +100,10 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                     public void onClick(View v) {
 
                     }}).show();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
     }
 }

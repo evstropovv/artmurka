@@ -3,6 +3,7 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,5 +50,11 @@ public class OrderFragment extends Fragment implements IOrderFragment {
     @Override
     public void showOrders(Orders list) {
         adapter.setData(list);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Мої закази");
     }
 }

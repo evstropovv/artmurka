@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -95,6 +96,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     @Override
     public void setName(String name) {
         tvName.setText(name);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(name);
     }
 
     @Override

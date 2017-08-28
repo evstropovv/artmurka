@@ -48,6 +48,7 @@ public class ItemListPresenter implements IPresenterItemList {
                     int i = (value.getSuccess().getGoodsList().size());
                     Log.d("Log.d", "goodList.size() " + i);
                     fragment.showItemList(getList(value.getSuccess().getGoodsList()));
+                    fragment.setTitle(value.getSuccess().getCatName());
                 }
 
                 @Override
