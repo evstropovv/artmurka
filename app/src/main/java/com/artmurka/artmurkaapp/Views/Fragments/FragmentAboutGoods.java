@@ -96,7 +96,12 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     @Override
     public void setName(String name) {
         tvName.setText(name);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(name);
+        try{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(name);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override

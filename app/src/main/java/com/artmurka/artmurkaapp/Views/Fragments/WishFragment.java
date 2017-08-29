@@ -64,6 +64,9 @@ public class WishFragment extends Fragment implements IWishFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Мої бажання");
+        try{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Мої бажання");
+        }catch ( NullPointerException e){e.printStackTrace();}
+
     }
 }

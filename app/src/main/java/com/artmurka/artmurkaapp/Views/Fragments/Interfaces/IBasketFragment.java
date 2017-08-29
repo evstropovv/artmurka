@@ -10,5 +10,5 @@ public interface IBasketFragment {
     void showError(String error);
     void showItemsInBasket(List<Item> items);
     void makeMessageInvisible(boolean b);
-    void showPrice(String price);
+    void showPrice(Integer price);
 }

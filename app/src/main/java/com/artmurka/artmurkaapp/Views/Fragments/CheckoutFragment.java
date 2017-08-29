@@ -135,7 +135,9 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Оформлення заказу");
+        try{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Оформлення заказу");
+        }catch ( NullPointerException e){e.printStackTrace();}
     }
 
     @Override
@@ -146,7 +148,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Toast.makeText(getContext(),"asdf", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Home pressed", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

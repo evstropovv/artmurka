@@ -55,6 +55,8 @@ public class OrderFragment extends Fragment implements IOrderFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Мої закази");
+        try{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Мої замовлення");
+        }catch ( NullPointerException e){e.printStackTrace();}
     }
 }

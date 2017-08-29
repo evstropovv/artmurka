@@ -36,7 +36,6 @@ import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment implements ICategoryFragment {
 
-
     private ICategoryPresenter presenter;
     private RecyclerView recyclerView;
     private RVcategoryAdapter recyclerAdapter;
@@ -79,7 +78,9 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Каталог товарів");
+        try{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Каталог товарів");
+        }catch ( NullPointerException e){e.printStackTrace();}
     }
 
     public boolean isOnline() {

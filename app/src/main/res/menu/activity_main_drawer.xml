@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/reorderhorizontal"
-            android:title="Мої закази"/>
+            android:title="Мої замовлення"/>
     </group>
 
     <item android:title="Додатково">
@@ -25,11 +25,11 @@
             <item
                 android:id="@+id/nav_individual"
                 android:icon="@drawable/feather"
-                android:title="Індивідуальний заказ"/>
+                android:title="Індивідуальне замовлення"/>
             <item
                 android:id="@+id/nav_consulting"
                 android:icon="@drawable/phoneclassic"
-                android:title="Подзвонити нам :)"/>
+                android:title="Зателефонувати нам :)"/>
         </menu>
     </item>
 

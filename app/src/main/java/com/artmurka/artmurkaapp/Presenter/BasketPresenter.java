@@ -36,7 +36,7 @@ public class BasketPresenter implements IBasketPresenter {
             public void onNext(BasketItems value) {
                 fragment.showItemsInBasket(value.getSuccess().getBasket().getItems());
                 fragment.makeMessageInvisible(true);
-                fragment.showPrice(value.getSuccess().getBasket().getTotal() + " грн.");
+                fragment.showPrice(value.getSuccess().getBasket().getTotal());
             }
             @Override
             public void onError(Throwable e) {

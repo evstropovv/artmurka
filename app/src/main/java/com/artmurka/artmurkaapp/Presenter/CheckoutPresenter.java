@@ -72,9 +72,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                         if (payMap.get(String.valueOf(i)) != null){
                             paymentList.add(payMap.get(String.valueOf(i)).getName());
                         }
-
                     }
-
                     fragment.setDataSpinner(deliveryList, paymentList);
                 }
             }

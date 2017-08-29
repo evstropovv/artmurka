@@ -104,6 +104,8 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
     @Override
     public void setTitle(String title) {
+        try{
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
+    }catch ( NullPointerException e){e.printStackTrace();}
     }
 }

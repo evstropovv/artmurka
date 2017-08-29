@@ -27,6 +27,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
 
 import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
+import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IBasketFragment;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -40,8 +41,10 @@ import retrofit2.Response;
 public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHolder> {
     private Context ctx;
     List<Item> basketItemList;
-    public RVbasketAdapter(Context context) {
+    IBasketFragment fragment ;
+    public RVbasketAdapter(Context context, IBasketFragment fragment) {
         this.ctx = context;
+        this.fragment = fragment;
         basketItemList = new ArrayList<>();
     }
 
@@ -83,6 +86,8 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                                 basketItemList.remove(position);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, basketItemList.size());
+                                changePrice();
+
                                 break;
                             case R.id.wish_wad:
                                 //add to wishList
@@ -97,7 +102,6 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
 
                                     @Override
                                     public void onFailure(Call<WishList> call, Throwable t) {
-
                                     }
                                 });
 
@@ -114,6 +118,16 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
             }
         });
 
+    }
+
+    private void changePrice() {
+        int sum = 0;
+        if (basketItemList.size()>0) {
+            for (int i = 0; i < basketItemList.size(); i++) {
+                sum = sum + basketItemList.get(i).getEntryPrice().getPriceRaw();
+            }
+        }
+        fragment.showPrice(sum);
     }
 
     private void refreshItemRequest(int cnt, int position){

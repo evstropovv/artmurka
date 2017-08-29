@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 break;
             case 111:
 
-                new PayLiq(getBaseContext(), null).start();
+               //induvidual ...
                 break;
         }
     }

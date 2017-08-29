@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -65,34 +66,34 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        frameCheckout = (FrameLayout)view.findViewById(R.id.frameCheckout);
+        frameCheckout = (FrameLayout) view.findViewById(R.id.frameCheckout);
         btnToMain = (Button) view.findViewById(R.id.btnToMain);
-        tvPrice = (TextView)view.findViewById(R.id.tvPrice);
-        linLayout = (LinearLayout)view.findViewById(R.id.linLayout);
+        tvPrice = (TextView) view.findViewById(R.id.tvPrice);
+        linLayout = (LinearLayout) view.findViewById(R.id.linLayout);
         btnToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack(); //нажатие кнопки назад
+                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); //back button pressed.
             }
         });
-        btnCheckout = (Button)view.findViewById(R.id.btnCheckout);
+        btnCheckout = (Button) view.findViewById(R.id.btnCheckout);
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(getContext(), CheckoutActivity.class);
+                Intent intent = new Intent(getContext(), CheckoutActivity.class);
                 startActivity(intent);
             }
         });
 
-        tvMessage = (TextView)view.findViewById(R.id.tvCartMessage);
+        tvMessage = (TextView) view.findViewById(R.id.tvCartMessage);
         makeMessageInvisible(false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
-        recyclerAdapter = new RVbasketAdapter(view.getContext());
+        recyclerAdapter = new RVbasketAdapter(view.getContext(), this);
         recyclerView.setAdapter(recyclerAdapter);
 
-        if (presenter ==null){
+        if (presenter == null) {
             presenter = new BasketPresenter(this);
         }
         presenter.getDataForbasket();
@@ -104,7 +105,9 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Корзинка");
+        try{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Корзинка");
+        }catch ( NullPointerException e){e.printStackTrace();}
     }
 
     @Override
@@ -119,12 +122,12 @@ public class BasketFragment extends Fragment implements IBasketFragment {
 
     @Override
     public void makeMessageInvisible(boolean b) {
-        if (b){
+        if (b) {
             btnToMain.setVisibility(View.INVISIBLE);
             tvMessage.setVisibility(View.INVISIBLE);
             frameCheckout.setVisibility(View.VISIBLE);
 
-        }else {
+        } else {
             btnToMain.setVisibility(View.VISIBLE);
             tvMessage.setVisibility(View.VISIBLE);
             frameCheckout.setVisibility(View.INVISIBLE);
@@ -133,7 +136,14 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     }
 
     @Override
-    public void showPrice(String price) {
-        tvPrice.setText(price);
+    public void showPrice(Integer price) {
+        if (price > 0) {
+            tvPrice.setText(price + " грн.");
+        } else {
+            tvPrice.setText(price + " грн.");
+            btnCheckout.setVisibility(View.INVISIBLE);
+            btnToMain.setVisibility(View.VISIBLE);
+        }
+
     }
 }
