@@ -27,10 +27,10 @@ tools:context=".Views.Fragments.CategoryFragment">
 
         <Button
             android:id="@+id/btnCall"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.50"
-            android:background="@null"
             android:drawableLeft="@drawable/phoneclassic"
             android:text="Зателефонувати нам :)" />
 

@@ -1,10 +1,13 @@
 package com.artmurka.artmurkaapp.Presenter;
 
+import android.util.Log;
+
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IOrderRequest;
 import com.artmurka.artmurkaapp.Model.Modules.OrdersRequests;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IOrderPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IOrderFragment;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +28,7 @@ public class OrdersPresenter implements IOrderPresenter{
         orders.enqueue(new Callback<Orders>() {
             @Override
             public void onResponse(Call<Orders> call, Response<Orders> response) {
+                Log.d("Log.d", "orderJson "+new Gson().toJson(response.body().getSuccess()));
                 fragment.showOrders(response.body());
             }
 

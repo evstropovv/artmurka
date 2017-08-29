@@ -187,6 +187,7 @@
                         android:layout_marginLeft="44dp"
                         android:layout_marginStart="44dp"
                         android:layout_toRightOf="@+id/ivWish"
+                        style="@style/Widget.AppCompat.Button.Colored"
                         android:text="Купити зараз" />
                 </RelativeLayout>
 

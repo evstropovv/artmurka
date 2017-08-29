@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -86,11 +88,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
         emailLayout.setError("Невірний email");
         etEmail = (EditText)view.findViewById(R.id.etEmail);
-        io.reactivex.Observable<Boolean> emailObservable = RxTextView.textChanges(etEmail)
-                .map(inputText -> (inputText.length() == 0))
-                .distinctUntilChanged();
 
-        emailObservable.subscribe(isValid -> emailLayout.setErrorEnabled(isValid));
 
 
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +129,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         spinnerDelivery.setAdapter(spinnerDeliveryAdapter);
         spinnerPayment.setAdapter(spinnerPaymentAdapter);
 
+
     }
 
     @Override
@@ -151,4 +150,5 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

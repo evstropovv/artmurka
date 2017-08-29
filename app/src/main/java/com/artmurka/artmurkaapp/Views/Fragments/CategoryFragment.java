@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
 
 import com.artmurka.artmurkaapp.Other.Const;
-import com.artmurka.artmurkaapp.Presenter.Adapters.OneLeggedApi10;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.R;
@@ -32,15 +31,6 @@ import com.artmurka.artmurkaapp.Presenter.*;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
-import com.wuman.android.auth.OAuthManager;
-
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
-import org.scribe.model.SignatureType;
-import org.scribe.model.Token;
-import org.scribe.model.Verb;
-import org.scribe.oauth.OAuthService;
 import java.util.ArrayList;
 
 

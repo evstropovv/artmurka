@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     app:behavior_hideable="false"
     app:behavior_peekHeight="100dp"
+    android:background="@android:drawable/dialog_holo_light_frame"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <TextView
@@ -28,6 +28,7 @@
         android:textStyle="bold" />
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/btnPostCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

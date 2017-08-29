@@ -1,9 +1,7 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.artmurka.artmurkaapp.Model.FormOrder.AdrAndEmail;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Retrofit.Success;
@@ -15,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 
 public class CheckoutRequest implements ICheckoutRequest {
