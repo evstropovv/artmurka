@@ -19,14 +19,15 @@ import io.reactivex.disposables.Disposable;
 public class ItemListPresenter implements IPresenterItemList {
     private IItemListFragment fragment;
     private static Observable<SuccessExample> exampleObservable;
-    private String url;
+    private String url, sort, order;
     private ArrayList<GoodsProperties> goodsProperties;
     private boolean isFull = false;
 
-
-    public ItemListPresenter(IItemListFragment fragment, String url) {
+    public ItemListPresenter(IItemListFragment fragment, String url, String sort, String order) {
         this.fragment = fragment;
         this.url = url;
+        this.sort = sort;
+        this.order = order;
         goodsProperties = new ArrayList<>();
     }
 
@@ -35,7 +36,7 @@ public class ItemListPresenter implements IPresenterItemList {
     public void getCategoriesData(int curPage) {
         if (!isFull) {
             RequestItemList model = new RequestItemList();
-            exampleObservable = model.getItemList(url, String.valueOf(curPage));
+            exampleObservable = model.getItemList(url, String.valueOf(curPage), sort, order);
             exampleObservable.subscribe(new Observer<SuccessExample>() {
                 @Override
                 public void onSubscribe(Disposable d) {

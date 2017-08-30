@@ -10,6 +10,7 @@ public class Const {
     public static final int WISH_FRAGMENT = 104;
     public static final int ORDER_FRAGMENT = 105;
     public static final int PAY_FRAGMENT = 111;
+    public static final int CATEGORY_SETTINGS_FRAGMENT = 106;
 
 
 }

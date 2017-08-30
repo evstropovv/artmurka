@@ -6,5 +6,5 @@ import io.reactivex.Observable;
 
 
 public interface IRequestItemList {
-    Observable<SuccessExample> getItemList(String page, String pageNumber);
+    Observable<SuccessExample> getItemList(String page, String pageNumber, String sort, String order);
 }

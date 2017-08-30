@@ -36,6 +36,7 @@ import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Other.PayLiq;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
 import com.artmurka.artmurkaapp.Other.Const;
+import com.artmurka.artmurkaapp.Views.Fragments.CategorySettings;
 import com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
@@ -108,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.card) {
             changeFragment(Const.BASKET_FRAGMENT, null);
+        }
+        if (item.getItemId() == R.id.sort){
+            changeFragment(Const.CATEGORY_SETTINGS_FRAGMENT, null);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -223,6 +227,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, orderFragment)
                         .addToBackStack("orderFragment")
+                        .commit();
+                fm.executePendingTransactions();
+                break;
+            case 106:
+                CategorySettings categorySettingsFragment = new CategorySettings();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, categorySettingsFragment)
+                        .addToBackStack("categorySettingsFragment")
                         .commit();
                 fm.executePendingTransactions();
                 break;

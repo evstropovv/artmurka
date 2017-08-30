@@ -13,11 +13,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
@@ -35,6 +39,8 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     private String url = "";
     private IPresenterItemList presenter;
     private int curPage = 1;
+    private String sort = "name";
+    private String order = "asc";
 
     public ItemListFragment() {
     }
@@ -47,6 +53,12 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
         if (bundle != null) {
             if (bundle.getString("url") != null) {
                 url = bundle.getString("url");
+            }
+            if (bundle.getString("sort")!=null){
+                sort = bundle.getString("sort");
+            }
+            if (bundle.getString("order")!=null){
+                order= bundle.getString("order");
             }
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -64,13 +76,14 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                    presenter.getCategoriesData(++curPage);
+                presenter.getCategoriesData(++curPage);
             }
         });
 
 
         if (presenter == null) {
-            presenter = new ItemListPresenter(this, url);
+            presenter = new ItemListPresenter(this, url, sort, order);
+            Preferences.setListUrl(url);
         }
         presenter.getCategoriesData(curPage);
         return view;
@@ -84,6 +97,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true); //for menu
     }
 
 
@@ -99,13 +113,25 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                     @Override
                     public void onClick(View v) {
 
-                    }}).show();
+                    }
+                }).show();
     }
 
     @Override
     public void setTitle(String title) {
-        try{
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
-    }catch ( NullPointerException e){e.printStackTrace();}
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(title);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.sort).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
     }
 }

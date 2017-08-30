@@ -1,0 +1,125 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.artmurka.artmurkaapp.Views.Fragments.CategorySettings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Сортування:"
+                    android:textAlignment="center" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/rbName"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp">
+
+                    <RadioButton
+                        android:id="@+id/rbName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Найменування" />
+
+                    <RadioButton
+                        android:id="@+id/rbLowCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Спочатку дешеві" />
+
+                    <RadioButton
+                        android:id="@+id/rbExpensive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Спочатку дорогі" />
+
+                    <RadioButton
+                        android:id="@+id/rvNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Нещодавно додані" />
+
+                    <RadioButton
+                        android:id="@+id/rbOld"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Давно додані" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5   ">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.08"
+                    android:text="Вид списку:"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/view_list" />
+
+                    <ImageView
+                        android:id="@+id/ivMicrosoft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/microsoft" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/btnApply"
+            style="@style/Base.TextAppearance.AppCompat.Widget.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Застосувати" />
+    </LinearLayout>
+
+</RelativeLayout>

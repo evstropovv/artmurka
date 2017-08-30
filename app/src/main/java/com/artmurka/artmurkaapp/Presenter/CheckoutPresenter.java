@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.Presenter;
 
+import android.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -89,7 +90,9 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         call.enqueue(new Callback<Success>() {
             @Override
             public void onResponse(Call<Success> call, Response<Success> response) {
-                Log.d("Log.d", "postCheckout: " + new Gson().toJson(response.code()));
+                if (response.code()==200){
+                    fragment.showOrderIsProcessed(response.message());
+                }
             }
 
             @Override

@@ -1,7 +1,10 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -19,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +32,7 @@ import com.artmurka.artmurkaapp.Presenter.Adapters.RVcheckoutAdapter;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -52,6 +57,9 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private Spinner spinnerDelivery, spinnerPayment;
     private ArrayList<String> deliveryList;
     private ArrayList<String> paymentList;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private LinearLayout llBottomSheet;
+
     public CheckoutFragment() {
 
     }
@@ -72,31 +80,37 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     }
 
     private void setUI(View view) {
-        spinnerDelivery = (Spinner)view.findViewById(R.id.spinnerDelivery);
-        spinnerPayment = (Spinner)view.findViewById(R.id.spinnerPayment);
+        spinnerDelivery = (Spinner) view.findViewById(R.id.spinnerDelivery);
+        spinnerPayment = (Spinner) view.findViewById(R.id.spinnerPayment);
 
-        tvSumPrice = (TextView)view.findViewById(R.id.tvSumPrice);
+        llBottomSheet = (LinearLayout) view.findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
+
+        tvSumPrice = (TextView) view.findViewById(R.id.tvSumPrice);
         recyclerView = (RecyclerView) view.findViewById(R.id.rvCheckout);
         final RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
         adapter = new RVcheckoutAdapter(view.getContext(), this);
         recyclerView.setAdapter(adapter);
-        btnPostCheckout = (Button)view.findViewById(R.id.btnPostCheckout);
+        btnPostCheckout = (Button) view.findViewById(R.id.btnPostCheckout);
         etMsg = (EditText) view.findViewById(R.id.etMsg);
-        etPhone = (EditText)view.findViewById(R.id.etPhone);
-        emailLayout = (TextInputLayout)view.findViewById(R.id.emailLayout);
+        etPhone = (EditText) view.findViewById(R.id.etPhone);
+        emailLayout = (TextInputLayout) view.findViewById(R.id.emailLayout);
 
         emailLayout.setError("Невірний email");
-        etEmail = (EditText)view.findViewById(R.id.etEmail);
-
-
+        etEmail = (EditText) view.findViewById(R.id.etEmail);
 
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int payPos = spinnerPayment.getSelectedItemPosition()+1;
-                int delPos = spinnerDelivery.getSelectedItemPosition()+1;
-                presenter.postCheckout(etPhone.getText().toString(), etMsg.getText().toString(), etEmail.getText().toString(), String.valueOf(payPos), String.valueOf(delPos));
+
+                if (etEmail.getText().toString().matches("") || etPhone.getText().toString().matches("") ||  etPhone.getText().toString().matches("")) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                } else {
+                    int payPos = spinnerPayment.getSelectedItemPosition() + 1;
+                    int delPos = spinnerDelivery.getSelectedItemPosition() + 1;
+                    presenter.postCheckout(etPhone.getText().toString(), etMsg.getText().toString(), etEmail.getText().toString(), String.valueOf(payPos), String.valueOf(delPos));
+                }
             }
         });
     }
@@ -113,7 +127,9 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
     @Override
     public void showOrderIsProcessed(String msg) {
-        Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(getContext().getApplicationContext(), "Заказ успішно сформовано", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -135,9 +151,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     @Override
     public void onResume() {
         super.onResume();
-        try{
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Оформлення заказу");
-        }catch ( NullPointerException e){e.printStackTrace();}
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Оформлення заказу");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -148,7 +166,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Toast.makeText(getContext(),"Home pressed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Home pressed", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
