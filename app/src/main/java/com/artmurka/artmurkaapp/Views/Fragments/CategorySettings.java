@@ -114,7 +114,7 @@ public class CategorySettings extends Fragment implements ICategorySettings {
                 itemList.setArguments(bundle);
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, itemList)
-                        .addToBackStack("a")
+                        .addToBackStack(null)
                         .commit();
                 fm.executePendingTransactions();
             }

@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 CategorySettings categorySettingsFragment = new CategorySettings();
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, categorySettingsFragment)
-                        .addToBackStack("categorySettingsFragment")
+                        .addToBackStack(null)
                         .commit();
                 fm.executePendingTransactions();
                 break;

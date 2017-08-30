@@ -18,40 +18,59 @@
 
         <TextView
             android:id="@+id/item_name"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/ivItemPhoto"
-            android:layout_toLeftOf="@+id/item_iv"
-            android:layout_toStartOf="@+id/item_iv"
             android:lineSpacingExtra="2sp"
-            android:maxLines="2"
+            android:maxLines="3"
             android:paddingTop="2dp"
             android:text="@string/app_name"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/ivItemPhoto"
+            android:layout_toEndOf="@+id/ivItemPhoto" />
 
         <ImageView
             android:id="@+id/ivItemPhoto"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
             android:paddingBottom="2dp"
-            android:src="@drawable/splash" />
+            android:src="@drawable/splash"
+            android:layout_alignParentTop="true" />
 
         <ImageView
-            android:id="@+id/item_iv"
+            android:id="@+id/ivToBasket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            card_view:srcCompat="@drawable/basketfill"
             android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/ivToWish"
+            android:layout_toStartOf="@+id/ivToWish"
+            android:layout_marginRight="47dp"
+            android:layout_marginEnd="47dp" />
+
+        <ImageView
+            android:id="@+id/ivToWish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:srcCompat="@drawable/heartoutlinebig"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/ivItemPhoto"
-            android:foregroundGravity="right"
-            card_view:srcCompat="@drawable/ic_menu" />
+            android:layout_centerVertical="true"
+            android:text="TextView" />
 
     </RelativeLayout>
 

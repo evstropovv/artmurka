@@ -87,7 +87,6 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, basketItemList.size());
                                 changePrice();
-
                                 break;
                             case R.id.wish_wad:
                                 //add to wishList
@@ -140,10 +139,8 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                 Log.d("Log.d", "url= "+response.raw().request().url());
                 Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
             }
-
             @Override
-            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
-            }
+            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}
         });
     }
 

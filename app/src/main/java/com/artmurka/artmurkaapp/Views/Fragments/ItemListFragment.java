@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,10 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterList;
 import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IPresenterItemList;
@@ -36,6 +39,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
     private RecyclerView recyclerView;
     private RVitemListAdapter recyclerAdapter;
+    private RVitemListAdapterList recyclerAdapterList;
     private String url = "";
     private IPresenterItemList presenter;
     private int curPage = 1;
@@ -62,23 +66,48 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             }
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        final RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
-        recyclerView.setLayoutManager(recyclerLayoutManager);
-        recyclerAdapter = new RVitemListAdapter(view.getContext());
-        recyclerView.setAdapter(recyclerAdapter);
+        if (Preferences.getListSettings()==1){
 
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
+            final RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+            recyclerView.setLayoutManager(recyclerLayoutManager);
+            recyclerAdapter = new RVitemListAdapter(view.getContext());
+            recyclerView.setAdapter(recyclerAdapter);
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                presenter.getCategoriesData(++curPage);
-            }
-        });
+            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    presenter.getCategoriesData(++curPage);
+                }
+            });
+
+        } else {
+            final LinearLayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
+            recyclerLayoutManager.setOrientation(LinearLayout.VERTICAL);
+            recyclerView.setLayoutManager(recyclerLayoutManager);
+            recyclerAdapterList = new RVitemListAdapterList(view.getContext());
+            recyclerView.setAdapter(recyclerAdapterList);
+
+            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    presenter.getCategoriesData(++curPage);
+                }
+            });
+
+        }
+
 
 
         if (presenter == null) {
@@ -103,7 +132,12 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
     @Override
     public void showItemList(ArrayList<GoodsProperties> goodsProperties) {
-        recyclerAdapter.setData(goodsProperties);
+        if (Preferences.getListSettings()==1){
+            recyclerAdapter.setData(goodsProperties);
+        } else {
+            recyclerAdapterList.setData(goodsProperties);
+        }
+
     }
 
     @Override

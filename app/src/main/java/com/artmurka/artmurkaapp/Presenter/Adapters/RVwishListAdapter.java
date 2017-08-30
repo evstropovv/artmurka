@@ -154,7 +154,6 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),wishList.get(getAdapterPosition()) +"\n", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
                     String id = wishList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id",id);
