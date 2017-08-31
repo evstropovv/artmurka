@@ -36,7 +36,8 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerHorizontal="true"
-                        android:textSize="18sp" />
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -81,7 +82,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center">
 
                     <TextView
@@ -179,16 +180,6 @@
                         android:layout_toEndOf="@+id/ivBasket"
                         android:layout_toRightOf="@+id/ivBasket"/>
 
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/ivWish"
-                        android:layout_marginLeft="44dp"
-                        android:layout_marginStart="44dp"
-                        android:layout_toRightOf="@+id/ivWish"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:text="Купити зараз" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>

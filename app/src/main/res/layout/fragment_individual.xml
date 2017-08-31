@@ -49,11 +49,11 @@
 
                 <EditText
                     android:id="@+id/etMsg"
-                    android:inputType="textMultiLine"
                     android:layout_width="match_parent"
                     android:layout_height="162dp"
-                    android:hint="Хочу заказати..."
-                    android:text=""/>
+                    android:hint="Схожий на равлика, але з ногами..."
+                    android:inputType="textMultiLine"
+                    android:text="" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -88,12 +88,12 @@
                 android:layout_below="@+id/textView">
 
                 <EditText
-                    android:id="@+id/etPhone"
+                    android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="+380..."
-                    android:inputType="phone"
+                    android:hint="Ваше ім'я"
+                    android:inputType="text"
                     android:text="" />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>

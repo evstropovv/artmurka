@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcheckoutAdapter;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
@@ -41,9 +42,12 @@ import org.reactivestreams.Subscriber;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.regex.Matcher;
 
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+
+import static com.artmurka.artmurkaapp.Other.Const.VALID_EMAIL_ADDRESS_REGEX;
 
 public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
@@ -97,9 +101,9 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         etPhone = (EditText) view.findViewById(R.id.etPhone);
         emailLayout = (TextInputLayout) view.findViewById(R.id.emailLayout);
 
-        emailLayout.setError("Невірний email");
-        etEmail = (EditText) view.findViewById(R.id.etEmail);
 
+        etEmail = (EditText) view.findViewById(R.id.etEmail);
+        etEmail.setText(Preferences.getEmail().matches("artmurka.com")?"":Preferences.getEmail());
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,5 +174,6 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

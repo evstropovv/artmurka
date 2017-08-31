@@ -101,7 +101,6 @@ public class CategorySettings extends Fragment implements ICategorySettings {
                         settings.put("order", "ask");
                         break;
                 }
-//                settings.put("list", ); //list
                 presenter.applyChanges(settings, currentSelect);
                 Preferences.setListSettings(currentSelect);
                 FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -145,8 +144,6 @@ public class CategorySettings extends Fragment implements ICategorySettings {
         super.onResume();
         try {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Фільтри");
-//            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

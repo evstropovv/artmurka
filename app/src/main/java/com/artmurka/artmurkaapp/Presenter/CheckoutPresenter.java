@@ -99,7 +99,6 @@ public class CheckoutPresenter implements ICheckoutPresenter {
             public void onFailure(Call<Success> call, Throwable t) {
             }
         });
-
     }
 
     private List<OrderDesc> getList(HashMap<String, OrderDesc> map) {

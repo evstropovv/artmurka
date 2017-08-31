@@ -15,6 +15,4 @@
         android:title="Card"
         android:icon="@drawable/cart_outline"
         app:showAsAction="ifRoom"/>
-
-
 </menu>
