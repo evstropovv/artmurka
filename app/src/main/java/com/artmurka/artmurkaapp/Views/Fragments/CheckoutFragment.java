@@ -136,11 +136,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     public void setDataSpinner(ArrayList<String> deliveryList, ArrayList<String> paymentList) {
         this.deliveryList = deliveryList;
         this.paymentList = paymentList;
-        ArrayAdapter<String> spinnerDeliveryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, deliveryList);
-        spinnerDeliveryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> spinnerDeliveryAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, deliveryList);
+        spinnerDeliveryAdapter.setDropDownViewResource(R.layout.spinner_item);
 
-        ArrayAdapter<String> spinnerPaymentAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, paymentList);
-        spinnerPaymentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> spinnerPaymentAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, paymentList);
+        spinnerPaymentAdapter.setDropDownViewResource(R.layout.spinner_item);
 
         spinnerDelivery.setAdapter(spinnerDeliveryAdapter);
         spinnerPayment.setAdapter(spinnerPaymentAdapter);

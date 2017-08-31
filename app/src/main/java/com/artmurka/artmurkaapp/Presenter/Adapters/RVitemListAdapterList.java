@@ -68,10 +68,7 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
         holder.tvPrice.setText(successList.get(position).getEntryPrice().getPrice() + "");
         Picasso.with(ctx).load(successList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
         Log.d("Log.d", successList.get(position).getEntryIsInBasket()+"");
-        holder.ivToBasket.setImageResource(
-                successList.get(position).getEntryIsInBasket() == 1 ?
-                        R.drawable.basketfill_small_orange :
-                        R.drawable.basketfill_small_grey);
+        holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey);
 
         holder.ivToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +92,9 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                         @Override
                         public void onNext(BasketItems value) {
                             Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
+                            successList.get(position).setEntryIsInBasket(1);
                             Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id=" + successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
 
-                            holder.ivToBasket.setImageResource(R.drawable.basketfill_small_orange);
                         }
 
                         @Override
@@ -116,8 +113,8 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                     call.enqueue(new Callback<CheckoutAllGoods>() {
                         @Override
                         public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                            Log.d("Log.d", "url= "+response.raw().request().url());
-                            Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
+                            successList.get(position).setEntryIsInBasket(0);
+                            Toast.makeText(view.getContext(), "Видалено з корзини", Toast.LENGTH_LONG).show();
                         }
                         @Override
                         public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}

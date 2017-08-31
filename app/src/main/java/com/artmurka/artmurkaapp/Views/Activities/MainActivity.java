@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.IndividualFragment;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Other.PayLiq;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
@@ -239,8 +240,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.executePendingTransactions();
                 break;
             case 111:
+                //induvidual ...
+                IndividualFragment individualFragment = new IndividualFragment();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, individualFragment)
+                        .addToBackStack(null)
+                        .commit();
+                fm.executePendingTransactions();
 
-               //induvidual ...
                 break;
         }
     }

@@ -12,8 +12,7 @@
         android:layout_above="@+id/cardView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary" />
+        android:layout_alignParentTop="true" />
 
     <include layout="@layout/bottom_sheet" />
 
