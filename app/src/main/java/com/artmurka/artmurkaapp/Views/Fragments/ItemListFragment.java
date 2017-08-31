@@ -1,9 +1,6 @@
 package com.artmurka.artmurkaapp.Views.Fragments;
 
 
-import android.animation.Animator;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -12,19 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterList;
 import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;

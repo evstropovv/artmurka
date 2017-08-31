@@ -1,12 +1,10 @@
 
-package com.artmurka.artmurkaapp.Model.Pojo.ItemList;
+package com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Success {
 

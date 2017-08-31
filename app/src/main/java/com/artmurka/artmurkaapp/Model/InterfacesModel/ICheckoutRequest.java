@@ -1,12 +1,8 @@
 package com.artmurka.artmurkaapp.Model.InterfacesModel;
 
-import com.artmurka.artmurkaapp.Model.FormOrder.FormOrder;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
-import java.util.HashMap;
-
-import io.reactivex.Observable;
 import retrofit2.Call;
 
 public interface ICheckoutRequest {

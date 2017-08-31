@@ -28,7 +28,6 @@ public class OrdersPresenter implements IOrderPresenter{
         orders.enqueue(new Callback<Orders>() {
             @Override
             public void onResponse(Call<Orders> call, Response<Orders> response) {
-                Log.d("Log.d", "orderJson "+new Gson().toJson(response.body().getSuccess()));
                 fragment.showOrders(response.body());
             }
 

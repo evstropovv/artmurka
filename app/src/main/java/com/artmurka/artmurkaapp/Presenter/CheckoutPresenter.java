@@ -1,8 +1,5 @@
 package com.artmurka.artmurkaapp.Presenter;
 
-import android.app.FragmentManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
@@ -13,18 +10,14 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.PaymentDescription;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,8 +42,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                Log.d("Log.d", new Gson().toJson(response.body()));
-                //отображаем все заказы
+                  //отображаем все заказы
                 fragment.showCheckout(getList(response.body().getSuccess().getOrderContent().getOrderGoods()));
                 //обновляем сумму заказа
                 fragment.refreshSumPrice(response.body().getSuccess().getOrderData().getOrderAmount().getAmountRaw().toString() + " грн");

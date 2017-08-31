@@ -2,7 +2,7 @@ package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,12 +126,9 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
 
         ICheckoutRequest request = new CheckoutRequest();
         Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), String.valueOf(cnt));
-        Log.d("Log.d", "delete position: "+orderList.get(position).getOrderPosition());
-        call.enqueue(new Callback<CheckoutAllGoods>() {
+         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                Log.d("Log.d", "url= "+response.raw().request().url());
-                Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
             }
             @Override
             public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {

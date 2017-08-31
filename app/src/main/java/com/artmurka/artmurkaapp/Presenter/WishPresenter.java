@@ -4,12 +4,10 @@ import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IWishPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IWishFragment;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +36,6 @@ public class WishPresenter implements IWishPresenter {
             }
             @Override
             public void onFailure(Call<WishList> call, Throwable t) {
-                Log.d("Log.d","onFailure WishList FALSE " + t.toString());
             }
         });
     }

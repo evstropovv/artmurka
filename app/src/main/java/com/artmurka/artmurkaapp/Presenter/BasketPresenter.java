@@ -1,6 +1,5 @@
 package com.artmurka.artmurkaapp.Presenter;
 
-import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;

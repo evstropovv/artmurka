@@ -23,6 +23,11 @@
     <item android:title="Додатково">
         <menu>
             <item
+                android:id="@+id/delivery"
+                android:icon="@drawable/delivery"
+                android:title="Доставка та оплата"/>
+
+            <item
                 android:id="@+id/nav_individual"
                 android:icon="@drawable/feather"
                 android:title="Індивідуальне замовлення"/>

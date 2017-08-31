@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp;
+package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.Manifest;
@@ -24,18 +24,16 @@ import android.widget.Toast;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ISendEmailPresenter;
 import com.artmurka.artmurkaapp.Presenter.SendEmailPresenter;
+import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ISendEmailFragment;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 
 import static android.app.Activity.RESULT_OK;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class IndividualFragment extends Fragment implements ISendEmailFragment {
     Button btnAddPhoto, btnSend;
-    EditText etPhone, etEmail, etMsg;
+    EditText etName, etEmail, etMsg;
     TextView tvChosingPhoto;
     String photoUri = null;
     ISendEmailPresenter presenter;
@@ -53,7 +51,7 @@ public class IndividualFragment extends Fragment implements ISendEmailFragment {
         presenter = new SendEmailPresenter(this, getContext());
         btnAddPhoto = (Button) view.findViewById(R.id.btnAddPhoto);
         btnSend = (Button) view.findViewById(R.id.btnSend);
-        etPhone = (EditText) view.findViewById(R.id.etPhone);
+        etName = (EditText) view.findViewById(R.id.etName);
         etEmail = (EditText) view.findViewById(R.id.etEmail);
         etEmail.setText(Preferences.getEmail().matches("artmurka.com")?"":Preferences.getEmail());
         etMsg = (EditText) view.findViewById(R.id.etMsg);
@@ -72,17 +70,17 @@ public class IndividualFragment extends Fragment implements ISendEmailFragment {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etEmail.getText().toString().matches("")||etMsg.getText().toString().matches("")||etPhone.getText().toString().matches("")){
+                if (etEmail.getText().toString().matches("")||etMsg.getText().toString().matches("")||etName.getText().toString().matches("")){
                     Toast.makeText(getContext(), "Заповніть, будь-ласка, всі поля", Toast.LENGTH_SHORT).show();
                 }else {
                     if (photoUri == null) {
                         presenter.sendEmail(etEmail.getText().toString() + " -email "
-                                + etPhone.getText().toString() + " -phone. " +
+                                + etName.getText().toString() + " -name. " +
                                 "" + etMsg.getText().toString());
                     } else {
 
                         presenter.sendEmail(etEmail.getText().toString() + " -email "
-                                + etPhone.getText().toString() + " -phone. " +
+                                + etName.getText().toString() + " -name. " +
                                 "" + etMsg.getText().toString(), photoUri);
                     }
                 }
@@ -155,7 +153,7 @@ public class IndividualFragment extends Fragment implements ISendEmailFragment {
 
     @Override
     public void clear() {
-        etPhone.setText("");
+        etName.setText("");
         etMsg.setText("");
         etEmail.setText("");
         tvChosingPhoto.setText("");

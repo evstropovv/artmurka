@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;

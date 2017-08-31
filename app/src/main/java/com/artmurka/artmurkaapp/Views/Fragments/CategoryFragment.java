@@ -14,14 +14,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
 import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;

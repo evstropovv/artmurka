@@ -1,5 +1,5 @@
 
-package com.artmurka.artmurkaapp.Model.Pojo.ItemList;
+package com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

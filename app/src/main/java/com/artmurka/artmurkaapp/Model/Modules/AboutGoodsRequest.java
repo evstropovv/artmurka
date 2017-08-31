@@ -2,7 +2,7 @@ package com.artmurka.artmurkaapp.Model.Modules;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 
 import java.util.HashMap;
 
@@ -26,8 +26,6 @@ public class AboutGoodsRequest implements IAboutGoods {
         confForRequest.put("page", mapForUcozModule.get("page"));
 
         return ApiModule.getClient().getGoodDescription(confForRequest);
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
@@ -85,12 +84,11 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
 
                                         @Override
                                         public void onNext(BasketItems value) {
-                                            Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
                                         }
                                         @Override
                                         public void onError(Throwable e) {
-                                            Log.d("Log.d", "onError " + e.toString());
+                                          ;
                                         }
                                         @Override
                                         public void onComplete() {
@@ -107,7 +105,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                                 obs.enqueue(new Callback<WishList>() {
                                     @Override
                                     public void onResponse(Call<WishList> call, Response<WishList> response) {
-                                        Log.d("Log.d", new Gson().toJson(response.body()));
                                     }
 
                                     @Override

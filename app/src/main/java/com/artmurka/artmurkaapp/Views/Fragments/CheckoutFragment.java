@@ -5,16 +5,12 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,19 +31,10 @@ import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
-import com.jakewharton.rxbinding2.widget.RxTextView;
-
-import org.reactivestreams.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.regex.Matcher;
 
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-
-import static com.artmurka.artmurkaapp.Other.Const.VALID_EMAIL_ADDRESS_REGEX;
 
 public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
@@ -103,12 +90,12 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
 
         etEmail = (EditText) view.findViewById(R.id.etEmail);
-        etEmail.setText(Preferences.getEmail().matches("artmurka.com")?"":Preferences.getEmail());
+        etEmail.setText(Preferences.getEmail().matches("artmurka.com") ? "" : Preferences.getEmail());
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (etEmail.getText().toString().matches("") || etPhone.getText().toString().matches("") ||  etPhone.getText().toString().matches("")) {
+                if (etEmail.getText().toString().matches("") || etPhone.getText().toString().matches("") || etPhone.getText().toString().matches("")) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 } else {
                     int payPos = spinnerPayment.getSelectedItemPosition() + 1;

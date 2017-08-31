@@ -1,8 +1,6 @@
 package com.artmurka.artmurkaapp.Presenter;
 
 import android.text.Html;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
@@ -13,10 +11,9 @@ import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.SizePhoto;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.Success;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
@@ -26,7 +23,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -59,9 +55,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.setPrice(aboutGood.getEntryPrice().getPrice());
                 fragment.setPhoto(getImageList(aboutGood.getEntryPhoto().getOthersPhoto()));
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
-                Log.d("Log.d", "about good " + new Gson().toJson(aboutGood));
                 fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
-                Log.d("Log.d", "in basket = " +aboutGood.getEntryIsInBasket());
                 fragment.setBasketButton(aboutGood.getEntryIsInBasket() > 0 ? true : false);
             }
 
@@ -83,7 +77,6 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
             @Override
             public void onNext(SuccessExample value) {
-                Log.d("Log.d", new Gson().toJson(value.getSuccess()));
                 fragment.setDataForRecyclerView(getGoodsList(value.getSuccess().getGoodsList()));
             }
 
@@ -143,7 +136,6 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Log.d", "onError " + e.toString());
                     }
 
                     @Override

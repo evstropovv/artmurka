@@ -1,7 +1,6 @@
 package com.artmurka.artmurkaapp.Views.Fragments.Interfaces;
 
-import com.artmurka.artmurkaapp.Model.Retrofit.Example;
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
 import java.util.ArrayList;
 

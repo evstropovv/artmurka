@@ -1,11 +1,9 @@
 package com.artmurka.artmurkaapp.Presenter;
 
-import android.util.Log;
-
 import com.artmurka.artmurkaapp.Model.Modules.AllRequestOvservers;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
-import com.artmurka.artmurkaapp.Model.Retrofit.Example;
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Example;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
@@ -59,7 +57,6 @@ public class CategoryPresenter implements ICategoryPresenter {
             }
             @Override
             public void onComplete() {
-                Log.d("Log.d", "onComplete");
             }
         });
     }

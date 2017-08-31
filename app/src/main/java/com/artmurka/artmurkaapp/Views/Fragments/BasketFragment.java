@@ -4,14 +4,11 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,31 +16,15 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
-import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.Item;
-import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVbasketAdapter;
-import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
 import com.artmurka.artmurkaapp.Presenter.BasketPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IBasketPresenter;
-import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IPresenterItemList;
-import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.CheckoutActivity;
-import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IBasketFragment;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 public class BasketFragment extends Fragment implements IBasketFragment {
     private Button btnToMain, btnCheckout;

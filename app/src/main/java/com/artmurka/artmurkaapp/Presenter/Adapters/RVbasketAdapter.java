@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,7 +96,6 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                                 obs.enqueue(new Callback<WishList>() {
                                     @Override
                                     public void onResponse(Call<WishList> call, Response<WishList> response) {
-                                        Log.d("Log.d", new Gson().toJson(response.body()));
                                     }
 
                                     @Override
@@ -136,8 +135,7 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                Log.d("Log.d", "url= "+response.raw().request().url());
-                Log.d("Log.d", "recontCheckout " + new Gson().toJson(response.body()));
+
             }
             @Override
             public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}

@@ -1,23 +1,23 @@
 
-package com.artmurka.artmurkaapp.Model.Pojo.ItemList;
+package com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EntryPrice {
+public class EntryPriceIn {
 
     @SerializedName("price_raw")
     @Expose
-    private int priceRaw;
+    private String priceRaw;
     @SerializedName("price")
     @Expose
     private String price;
 
-    public int getPriceRaw() {
+    public String getPriceRaw() {
         return priceRaw;
     }
 
-    public void setPriceRaw(int priceRaw) {
+    public void setPriceRaw(String priceRaw) {
         this.priceRaw = priceRaw;
     }
 

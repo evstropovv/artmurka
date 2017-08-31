@@ -3,7 +3,6 @@ package com.artmurka.artmurkaapp.Presenter.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 import com.artmurka.artmurkaapp.R;
@@ -67,7 +66,6 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
         holder.tvItemName.setText(successList.get(position).getEntryTitle());
         holder.tvPrice.setText(successList.get(position).getEntryPrice().getPrice() + "");
         Picasso.with(ctx).load(successList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
-        Log.d("Log.d", successList.get(position).getEntryIsInBasket()+"");
         holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey);
 
         holder.ivToBasket.setOnClickListener(new View.OnClickListener() {
@@ -91,16 +89,14 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
 
                         @Override
                         public void onNext(BasketItems value) {
-                            Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                            successList.get(position).setEntryIsInBasket(1);
+                           successList.get(position).setEntryIsInBasket(1);
                             Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id=" + successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
 
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.d("Log.d", "onError " + e.toString());
-                        }
+                           }
 
                         @Override
                         public void onComplete() {

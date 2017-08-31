@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -90,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
                 Uri uri = Uri.parse(url);
                 if (url.contains("oauth_verifier")) {
                     webView.setVisibility(webView.GONE);
-                    Log.d("Log.d", url);
                     verifier = uri.getQueryParameter("oauth_verifier");
                     Toast.makeText(getApplicationContext(), verifier, Toast.LENGTH_SHORT).show();
                     getAccessToken();
@@ -144,11 +142,6 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    Log.d("Log.d", response.getBody().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.Model.InterfacesModel;
 
-import com.artmurka.artmurkaapp.Model.Retrofit.Example;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Example;
 
 import io.reactivex.Observable;
 

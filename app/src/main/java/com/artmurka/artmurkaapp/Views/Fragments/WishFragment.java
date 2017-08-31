@@ -6,26 +6,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.GoodsListDescription;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
-import com.artmurka.artmurkaapp.Presenter.Adapters.RVbasketAdapter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVwishListAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IWishPresenter;
 import com.artmurka.artmurkaapp.Presenter.WishPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IWishFragment;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
 
 
 public class WishFragment extends Fragment implements IWishFragment {

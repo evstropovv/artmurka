@@ -26,32 +26,27 @@ public class LoaderAboutGoods extends AsyncTaskLoader<String> {
         if (mWord == null) {
             return null;
         }
-        Log.d(TAG, "loadInBackground");
         return generateString(mWord);
     }
 
     @Override
     public void forceLoad() {
-        Log.d(TAG, "forceLoad");
         super.forceLoad();
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        Log.d(TAG, "onStartLoading");
         forceLoad();
     }
 
     @Override
     protected void onStopLoading() {
         super.onStopLoading();
-        Log.d(TAG, "onStopLoading");
     }
 
     @Override
     public void deliverResult(String data) {
-        Log.d(TAG, "deliverResult");
         super.deliverResult(data);
     }
 

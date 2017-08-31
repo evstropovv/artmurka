@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
-import com.artmurka.artmurkaapp.Model.Retrofit.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;

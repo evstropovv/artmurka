@@ -3,7 +3,6 @@ package com.artmurka.artmurkaapp.Presenter.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +63,6 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Log.d("Log.d", wishList.get(position).getEntryPhoto().getDefPhoto().getPhoto() + " " + wishList.get(position).getEntryPhoto().getDefPhoto().getThumb());
         Picasso.with(ctx).load(wishList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
         holder.tvCategoryName.setText(wishList.get(position).getEntryTitle());
         holder.tvPrice.setText(wishList.get(position).getEntryPrice().getPrice());
@@ -83,8 +81,7 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
 
                         @Override
                         public void onNext(BasketItems value) {
-                            Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                            Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
+                             Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
                             String goodsId = wishList.get(position).getEntryId();
                             deleteFromWishOnline(goodsId);
                             wishList.remove(position);
@@ -94,7 +91,7 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.d("Log.d", "onError " + e.toString());
+
                         }
 
                         @Override
@@ -126,7 +123,6 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
         obs.enqueue(new Callback<WishList>() {
             @Override
             public void onResponse(Call<WishList> call, Response<WishList> response) {
-                Log.d("Log.d", new Gson().toJson(response.body().getSuccess().getGoodsList()));
             }
             @Override
             public void onFailure(Call<WishList> call, Throwable t) {}

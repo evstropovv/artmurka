@@ -1,7 +1,7 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IRequestItemList;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 
 import java.util.HashMap;
 

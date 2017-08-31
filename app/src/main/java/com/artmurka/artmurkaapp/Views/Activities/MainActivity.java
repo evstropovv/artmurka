@@ -3,9 +3,7 @@ package com.artmurka.artmurkaapp.Views.Activities;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -22,8 +20,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,9 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.BuildConfig;
-import com.artmurka.artmurkaapp.IndividualFragment;
+import com.artmurka.artmurkaapp.Views.Fragments.DeliveryFragment;
+import com.artmurka.artmurkaapp.Views.Fragments.IndividualFragment;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
-import com.artmurka.artmurkaapp.Other.PayLiq;
 import com.artmurka.artmurkaapp.Views.Fragments.BasketFragment;
 import com.artmurka.artmurkaapp.Other.Const;
 import com.artmurka.artmurkaapp.Views.Fragments.CategorySettings;
@@ -111,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         if (item.getItemId() == R.id.card) {
             changeFragment(Const.BASKET_FRAGMENT, null);
         }
-        if (item.getItemId() == R.id.sort){
+        if (item.getItemId() == R.id.sort) {
             changeFragment(Const.CATEGORY_SETTINGS_FRAGMENT, null);
         }
         return super.onOptionsItemSelected(item);
@@ -249,6 +245,15 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.executePendingTransactions();
 
                 break;
+            case 112:
+                //delivery ...
+                DeliveryFragment deliveryFragment = new DeliveryFragment();
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, deliveryFragment)
+                        .addToBackStack(null)
+                        .commit();
+                fm.executePendingTransactions();
+                break;
         }
     }
 
@@ -263,9 +268,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                             Manifest.permission.INTERNET,
                             Manifest.permission.ACCESS_NETWORK_STATE,
                             Manifest.permission.ACCESS_WIFI_STATE,
-                    Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.CALL_PHONE
-                            },
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.CALL_PHONE
+                    },
                     100);
             return true;
         } else {
@@ -287,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                     grantResults[3] == PackageManager.PERMISSION_GRANTED &&
                     grantResults[4] == PackageManager.PERMISSION_GRANTED &&
                     grantResults[5] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[6] == PackageManager.PERMISSION_GRANTED ) {
+                    grantResults[6] == PackageManager.PERMISSION_GRANTED) {
 
                 loadShopFragment();
                 setUI();
@@ -317,6 +322,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
             Uri call = Uri.parse("tel:" + Const.TEL_NUMBER);
             Intent surf = new Intent(Intent.ACTION_DIAL, call);
             startActivity(surf);
+        } else if (id == R.id.delivery) { // індивідуальний заказ, зараз - тестова оплата на 1 грн
+            changeFragment(Const.DELIVERY, null);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

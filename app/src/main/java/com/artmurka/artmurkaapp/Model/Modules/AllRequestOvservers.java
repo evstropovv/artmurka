@@ -1,7 +1,7 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
-import com.artmurka.artmurkaapp.Model.Retrofit.Example;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Example;
 
 import java.util.HashMap;
 

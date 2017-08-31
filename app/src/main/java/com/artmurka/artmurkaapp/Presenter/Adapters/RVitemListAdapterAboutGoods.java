@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.SelectedGood;
@@ -27,9 +27,6 @@ import java.util.ArrayList;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RVitemListAdapterAboutGoods extends RecyclerView.Adapter<RVitemListAdapterAboutGoods.ViewHolder> {
     private ArrayList<GoodsProperties> successList;

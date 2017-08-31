@@ -3,8 +3,8 @@ package com.artmurka.artmurkaapp.Presenter;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.Modules.RequestItemList;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.GoodsProperties;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IPresenterItemList;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IItemListFragment;
 import com.google.gson.Gson;
@@ -40,27 +40,22 @@ public class ItemListPresenter implements IPresenterItemList {
             exampleObservable.subscribe(new Observer<SuccessExample>() {
                 @Override
                 public void onSubscribe(Disposable d) {
-                    Log.d("Log.d", "onSubscribe " + d.toString());
-                }
+                   }
 
                 @Override
                 public void onNext(SuccessExample value) {
-                    Log.d("Log.d", "URL " + new Gson().toJson(value));
-                    int i = (value.getSuccess().getGoodsList().size());
-                    Log.d("Log.d", "goodList.size() " + i);
-                    fragment.showItemList(getList(value.getSuccess().getGoodsList()));
+                     int i = (value.getSuccess().getGoodsList().size());
+                      fragment.showItemList(getList(value.getSuccess().getGoodsList()));
                     fragment.setTitle(value.getSuccess().getCatName());
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    Log.d("Log.d", "onError " + e.toString());
-                    isFull = true;
+                      isFull = true;
                 }
 
                 @Override
                 public void onComplete() {
-                    Log.d("Log.d", "onComplete ");
                 }
             });
         }
