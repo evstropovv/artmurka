@@ -76,7 +76,7 @@ public class RVitemListAdapterAboutGoods extends RecyclerView.Adapter<RVitemList
                                     @Override
                                     public void onNext(BasketItems value) {
                                         Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id="+successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
                                     }
                                     @Override
                                     public void onError(Throwable e) {

@@ -26,7 +26,6 @@ private String currentId;
     private void setUI() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
-              //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -36,7 +35,7 @@ private String currentId;
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         tabLayout.addTab(tabLayout.newTab().setText("Опис"));
 
-        tabLayout.addTab(tabLayout.newTab().setText("Характеристики"));
+        tabLayout.addTab(tabLayout.newTab().setText("Доставка-оплата"));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter tabAdapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount(), currentId);

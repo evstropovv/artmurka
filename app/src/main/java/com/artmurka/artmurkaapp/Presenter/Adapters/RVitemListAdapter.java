@@ -145,7 +145,6 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     //to aboutGoods activity
-                    Toast.makeText(v.getContext(),successList.get(getAdapterPosition()) +"\n", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
                     String id = successList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id",id);

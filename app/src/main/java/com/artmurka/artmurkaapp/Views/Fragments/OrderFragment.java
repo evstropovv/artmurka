@@ -2,6 +2,7 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVorderListAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IOrderPresenter;
 import com.artmurka.artmurkaapp.Presenter.OrdersPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IOrderFragment;
-import com.google.gson.Gson;
-
-import java.util.List;
-
 
 public class OrderFragment extends Fragment implements IOrderFragment {
 
@@ -42,7 +40,16 @@ public class OrderFragment extends Fragment implements IOrderFragment {
         rvOrder.setLayoutManager(recyclerLayoutManager);
         adapter = new RVorderListAdapter(view.getContext());
         rvOrder.setAdapter(adapter);
-        presenter.getOrders();
+
+        if (Preferences.getIsLogin()){
+            presenter.getOrders();
+        }else {
+            Snackbar snackbar = Snackbar.make(view, "Будь-ласка, зареєструйтесь/увійдій у аккаунт для відображення Ваших замовлень", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null);
+            snackbar.setDuration(8000); // 8 секунд
+            snackbar.show();
+        }
+
         return view;
     }
 

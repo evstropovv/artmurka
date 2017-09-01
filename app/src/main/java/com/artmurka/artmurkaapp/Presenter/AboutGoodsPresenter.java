@@ -52,7 +52,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 Success aboutGood = response.body().getSuccess();
                 fragment.setName(aboutGood.getEntryTitle());
                 fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
-                fragment.setPrice(aboutGood.getEntryPrice().getPrice());
+                fragment.setPrice(aboutGood.getEntryPrice().getPriceRaw() + " грн.");
                 fragment.setPhoto(getImageList(aboutGood.getEntryPhoto().getOthersPhoto()));
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
                 fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);

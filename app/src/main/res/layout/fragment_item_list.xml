@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e4e4e4"
+
     tools:context="com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment">
 
     <!-- TODO: Update blank fragment layout -->

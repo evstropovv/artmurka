@@ -64,7 +64,7 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvItemName.setText(successList.get(position).getEntryTitle());
-        holder.tvPrice.setText(successList.get(position).getEntryPrice().getPrice() + "");
+        holder.tvPrice.setText(successList.get(position).getEntryPrice().getPriceRaw()+ " грн.");
         Picasso.with(ctx).load(successList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
         holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey);
 
@@ -90,7 +90,7 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                         @Override
                         public void onNext(BasketItems value) {
                            successList.get(position).setEntryIsInBasket(1);
-                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика. Id=" + successList.get(position).getEntryId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика." , Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -181,7 +181,6 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                 @Override
                 public void onClick(View v) {
                     //to aboutGoods activity
-                    Toast.makeText(v.getContext(), successList.get(getAdapterPosition()) + "\n", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
                     String id = successList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id", id);

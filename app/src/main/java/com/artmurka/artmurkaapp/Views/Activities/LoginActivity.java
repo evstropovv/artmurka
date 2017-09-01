@@ -6,15 +6,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.Toast;
 
+
+import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Presenter.LoginUcoz.UcozApi;
 import com.artmurka.artmurkaapp.Presenter.LoginUcoz.User;
@@ -28,10 +27,8 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -51,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
-        service = new ServiceBuilder("murka1")
-                .apiSecret("DqUQJzeCPmwD9CRqbHo6sGBzKCb5U4")
+        service = new ServiceBuilder(BuildConfig.LOGIN_CONSUMER_KEY)
+                .apiSecret(BuildConfig.LOGIN_CONSUMER_SECRET)
                 .debug()
                 .build(UcozApi.instance());
 
@@ -90,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (url.contains("oauth_verifier")) {
                     webView.setVisibility(webView.GONE);
                     verifier = uri.getQueryParameter("oauth_verifier");
-                    Toast.makeText(getApplicationContext(), verifier, Toast.LENGTH_SHORT).show();
                     getAccessToken();
                 }
                 return false;
@@ -153,9 +149,8 @@ public class LoginActivity extends AppCompatActivity {
             protected void onPostExecute(OAuth1AccessToken result) {
                 Intent intent = new Intent();
                 if (result.getToken() != null) {
-                    Toast.makeText(getApplicationContext(), "Token = " + result.getToken() + "Secret = " + result.getTokenSecret(), Toast.LENGTH_LONG).show();
-                    Preferences.setConsumerKey("murka1");
-                    Preferences.setConsumerSecret("DqUQJzeCPmwD9CRqbHo6sGBzKCb5U4");
+                    Preferences.setConsumerKey(BuildConfig.LOGIN_CONSUMER_KEY);
+                    Preferences.setConsumerSecret(BuildConfig.LOGIN_CONSUMER_SECRET);
                     Preferences.setOauthToken(result.getToken());
                     Preferences.setOauthTokenSecret(result.getTokenSecret());
                     Preferences.setName(user.getNickname());
