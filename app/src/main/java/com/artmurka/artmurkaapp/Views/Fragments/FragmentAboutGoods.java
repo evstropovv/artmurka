@@ -43,7 +43,6 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
 
     public FragmentAboutGoods() {
         // Required empty public constructor
-
     }
 
 

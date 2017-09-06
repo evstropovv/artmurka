@@ -11,11 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,17 +25,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
+import com.artmurka.artmurkaapp.Model.Modules.ApiModuleNovaPoshta;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcheckoutAdapter;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CheckoutFragment extends Fragment implements ICheckoutFragment {
@@ -44,13 +57,16 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private RVcheckoutAdapter adapter;
     private TextView tvSumPrice;
     private Button btnPostCheckout;
-    private EditText etPhone, etMsg, etEmail;
+    private Button btnTest;
+    private AutoCompleteTextView etMsg;
+    private EditText etPhone, etEmail;
     private Spinner spinnerDelivery, spinnerPayment;
     private ArrayList<String> deliveryList;
     private ArrayList<String> paymentList;
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayout llBottomSheet;
-
+    private List<String> countries;
+    private ArrayAdapter<String> cityAdapter;
     public CheckoutFragment() {
 
     }
@@ -60,10 +76,10 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
-        setUI(view);
+        countries = new ArrayList<>();
         deliveryList = new ArrayList<>();
         paymentList = new ArrayList<>();
-
+        setUI(view);
         if (presenter == null) presenter = new CheckoutPresenter(this);
         presenter.getData();
 
@@ -84,7 +100,44 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         adapter = new RVcheckoutAdapter(view.getContext(), this);
         recyclerView.setAdapter(adapter);
         btnPostCheckout = (Button) view.findViewById(R.id.btnPostCheckout);
-        etMsg = (EditText) view.findViewById(R.id.etMsg);
+
+
+        etMsg = (AutoCompleteTextView) view.findViewById(R.id.etMsg);
+        cityAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, countries);
+        etMsg.setAdapter(cityAdapter);
+        btnTest = (Button)view.findViewById(R.id.btnTest);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if (!etMsg.getText().toString().matches("")){
+                   City city = new City();
+                   city.setApiKey(BuildConfig.NP_API_KEY);
+                   city.setCalledMethod("searchSettlements");
+                   city.setMethodProperties(new MethodProperties(etMsg.getText().toString()+"", 5));
+                   city.setModelName("Address");
+                   Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
+                   cityResponse.enqueue(new Callback<CityResponse>() {
+                       @Override
+                       public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
+                           Log.d("Log.d", new Gson().toJson(response.body().getData().get(0).getAddresses()));
+                           List<String> cities = new ArrayList<String>();
+                           for (int i = 0; i <response.body().getData().get(0).getAddresses().size(); i++) {
+                               cities.add(response.body().getData().get(0).getAddresses().get(i).getMainDescription());
+                           }
+                           Log.d("Log.d", new Gson().toJson(cities));
+                           setSityes(cities);
+                       }
+
+                       @Override
+                       public void onFailure(Call<CityResponse> call, Throwable t) {
+
+                       }
+                   });
+               }
+            }
+        });
+
         etPhone = (EditText) view.findViewById(R.id.etPhone);
         emailLayout = (TextInputLayout) view.findViewById(R.id.emailLayout);
 
@@ -137,6 +190,13 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         spinnerPayment.setAdapter(spinnerPaymentAdapter);
 
 
+    }
+
+    @Override
+    public void setSityes(List<String> sityes) {
+        countries.clear();
+        countries.addAll(sityes);
+        cityAdapter.notifyDataSetChanged();
     }
 
     @Override

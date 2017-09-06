@@ -11,5 +11,6 @@ public interface ICheckoutFragment {
     void refreshSumPrice(String price);
     void showOrderIsProcessed(String msg);
     void setDataSpinner(ArrayList<String> delivery, ArrayList<String> payment);
+    void setSityes(List<String> sityes);
     void showMessage(String message);
 }

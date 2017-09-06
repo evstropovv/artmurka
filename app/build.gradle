@@ -36,6 +36,8 @@ android {
 
         it.buildConfigField 'String', 'LOGIN_CONSUMER_KEY', login_consumer_key
         it.buildConfigField 'String', 'LOGIN_CONSUMER_SECRET', login_consumer_secret
+        it.buildConfigField 'String', 'NP_API_KEY', np_api_key
+
     }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'

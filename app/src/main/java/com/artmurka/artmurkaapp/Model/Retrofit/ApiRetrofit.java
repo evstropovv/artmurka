@@ -6,6 +6,8 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.*;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
@@ -14,6 +16,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -23,10 +26,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.QueryMap;
 
 public interface ApiRetrofit {
-
-    @FormUrlEncoded
-    @POST("http://uapi.ucoz.com/accounts/OAuthGetRequestToken")
-    Call<String> oAuthGetRequestToken(@FieldMap HashMap<String, String> map);
 
     @GET("uapi/shop/request")
     Observable<Example> getShopCategories(@QueryMap HashMap<String, String> map);
@@ -70,4 +69,8 @@ public interface ApiRetrofit {
     @FormUrlEncoded
     @POST("uapi/shop/checkout/")
     Call<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
+
+
+    @POST("v2.0/json/")
+    Call<CityResponse> searhCity(@Body City body);
 }
