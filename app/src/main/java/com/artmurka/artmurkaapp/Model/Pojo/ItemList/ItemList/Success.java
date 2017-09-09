@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Success {
 
@@ -21,7 +22,7 @@ public class Success {
 
     @SerializedName("goods_list")
     @Expose
-    private HashMap<String, GoodsProperties> goodsList;
+    private TreeMap<String, GoodsProperties> goodsList;
 
 
     @SerializedName("duplicate")
@@ -76,7 +77,7 @@ public class Success {
         this.catId = catId;
     }
 
-    public HashMap<String, GoodsProperties> getGoodsList() {
+    public TreeMap<String, GoodsProperties> getGoodsList() {
         return goodsList;
     }
 

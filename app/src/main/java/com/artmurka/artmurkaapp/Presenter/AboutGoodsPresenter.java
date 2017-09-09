@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -166,7 +167,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
     }
 
 
-    private ArrayList<GoodsProperties> getGoodsList(HashMap<String, GoodsProperties> map) {
+    private ArrayList<GoodsProperties> getGoodsList(TreeMap<String, GoodsProperties> map) {
         ArrayList<GoodsProperties> goodsProperties = new ArrayList<>();
         for (String key : map.keySet()) {
             goodsProperties.add(map.get(key));

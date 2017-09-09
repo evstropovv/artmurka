@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -62,8 +63,9 @@ public class ItemListPresenter implements IPresenterItemList {
         }
     }
 
-    private ArrayList<GoodsProperties> getList(HashMap<String, GoodsProperties> map) {
+    private ArrayList<GoodsProperties> getList(TreeMap<String, GoodsProperties> map) {
         for (String key : map.keySet()) {
+            Log.d("Log.d", key + " " +map.get(key).getEntryPrice().getPriceRaw());
             goodsProperties.add(map.get(key));
         }
         return goodsProperties;
