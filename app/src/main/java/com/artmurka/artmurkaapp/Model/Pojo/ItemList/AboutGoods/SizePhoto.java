@@ -16,6 +16,10 @@ public class SizePhoto {
     @Expose
     private String small;
 
+    public SizePhoto(String photo){
+        this.photo = photo;
+    }
+
     public String getThumb() {
         return thumb;
     }

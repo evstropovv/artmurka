@@ -4,6 +4,8 @@ package com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 public class Success {
 
     @SerializedName("entry_stock")
@@ -123,6 +125,9 @@ public class Success {
     @SerializedName("entry_added_time")
     @Expose
     private String entryAddedTime;
+
+    public Success(String others_photo, Map<String, SizePhoto> tags) {
+    }
 
     public EntryStock getEntryStock() {
         return entryStock;

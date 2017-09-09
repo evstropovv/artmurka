@@ -127,10 +127,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textInputLayout"
                     android:layout_weight="1"
-                    android:hint="адреса доставки"
-                    android:inputType="textEmailAddress" />
-
-
+                    android:completionHint="Введите город"
+                    android:completionThreshold="1"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 

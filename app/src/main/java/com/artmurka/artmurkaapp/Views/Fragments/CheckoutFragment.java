@@ -66,6 +66,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayout llBottomSheet;
     private List<String> countries;
+    private String[] cities = {"Киев", "Кременчуг", "Траттата", "Комсомольск", "Горішні ПлАвні", "Мукачеве", "New York", "Toronto"}; // for test, will be delete
     private ArrayAdapter<String> cityAdapter;
     public CheckoutFragment() {
 
@@ -103,8 +104,9 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
 
         etMsg = (AutoCompleteTextView) view.findViewById(R.id.etMsg);
-        cityAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, countries);
+
+        cityAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, cities);
         etMsg.setAdapter(cityAdapter);
         btnTest = (Button)view.findViewById(R.id.btnTest);
         btnTest.setOnClickListener(new View.OnClickListener() {

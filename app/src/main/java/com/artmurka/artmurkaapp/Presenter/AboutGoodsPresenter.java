@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.Presenter;
 
 import android.text.Html;
+import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
@@ -44,6 +45,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
     @Override
     public void getDataAboutGoods(String id) {
         this.goodsId = id;
+        Log.d("Log.d", "id "+id);
         IAboutGoods model = new AboutGoodsRequest();
         Call<AboutGood> observable = model.getDataAboutGood(id);
         observable.enqueue(new Callback<AboutGood>() {
@@ -53,7 +55,9 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.setName(aboutGood.getEntryTitle());
                 fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
                 fragment.setPrice(aboutGood.getEntryPrice().getPriceRaw() + " грн.");
-                fragment.setPhoto(getImageList(aboutGood.getEntryPhoto().getOthersPhoto()));
+                HashMap<String, SizePhoto> map = aboutGood.getEntryPhoto().getOthersPhoto();
+                map.put(aboutGood.getEntryPhoto().getNumPhotos()+"", new SizePhoto(aboutGood.getEntryPhoto().getDefPhoto().getPhoto()));
+                fragment.setPhoto(getImageList(map));
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
                 fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
                 fragment.setBasketButton(aboutGood.getEntryIsInBasket() > 0 ? true : false);
@@ -61,6 +65,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
             @Override
             public void onFailure(Call<AboutGood> call, Throwable t) {
+                Log.d("Log.d", "error "+t.getMessage());
 
             }
         });
