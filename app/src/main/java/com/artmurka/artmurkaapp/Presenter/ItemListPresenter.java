@@ -40,18 +40,19 @@ public class ItemListPresenter implements IPresenterItemList {
             exampleObservable.subscribe(new Observer<SuccessExample>() {
                 @Override
                 public void onSubscribe(Disposable d) {
-                   }
+                }
 
                 @Override
                 public void onNext(SuccessExample value) {
-                     int i = (value.getSuccess().getGoodsList().size());
-                      fragment.showItemList(getList(value.getSuccess().getGoodsList()));
+                    int i = (value.getSuccess().getGoodsList().size());
+                    fragment.showItemList(getList(value.getSuccess().getGoodsList()));
                     fragment.setTitle(value.getSuccess().getCatName());
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                      isFull = true;
+                    isFull = true;
+                    Log.d("Log.d", e.getMessage());
                 }
 
                 @Override

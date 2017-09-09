@@ -67,7 +67,7 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.goodName.setText(basketItemList.get(position).getEntryTitle());
         holder.goodDescription.setText(basketItemList.get(position).getCnt() + " шт. " +basketItemList.get(position).getEntryPrice().getPrice());
-        holder.goodPrice.setText( basketItemList.get(position).getSumm().getSumm());
+        holder.goodPrice.setText( basketItemList.get(position).getEntryPrice().getPriceRaw()+ " грн.");
         Picasso.with(ctx).load(basketItemList.get(position).getEntryPhoto().getThumb()).into(holder.itemPhoto);
 
         holder.basketMenu.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +162,6 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),basketItemList.get(getAdapterPosition()) +"\n", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
                     String id = basketItemList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id",id);

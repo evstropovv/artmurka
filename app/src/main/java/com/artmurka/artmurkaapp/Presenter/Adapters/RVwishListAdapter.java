@@ -65,7 +65,7 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Picasso.with(ctx).load(wishList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
         holder.tvCategoryName.setText(wishList.get(position).getEntryTitle());
-        holder.tvPrice.setText(wishList.get(position).getEntryPrice().getPrice());
+        holder.tvPrice.setText(wishList.get(position).getEntryPrice().getPriceRaw()+ " грн.");
         holder.ivToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
