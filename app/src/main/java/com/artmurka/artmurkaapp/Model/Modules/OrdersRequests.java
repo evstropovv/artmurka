@@ -14,6 +14,8 @@ public class OrdersRequests implements IOrderRequest {
     public Call<Orders> getOrders() {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
+        mapForUcozModule.put("sort", "id");
+        mapForUcozModule.put("order", "desc");
         HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/invoices/" ,mapForUcozModule);
         return ApiModule.getClient().getInvoises(confForRequest);
     }

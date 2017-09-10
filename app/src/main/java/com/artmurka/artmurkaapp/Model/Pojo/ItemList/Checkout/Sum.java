@@ -8,12 +8,12 @@ public class Sum {
 
     @SerializedName("sum_raw")
     @Expose
-    private Long sumRaw;
+    private Float sumRaw;
     @SerializedName("name")
     @Expose
     private String sum;
 
-    public Long getSumRaw() {
+    public Float getSumRaw() {
         return sumRaw;
     }
 
@@ -24,10 +24,8 @@ public class Sum {
         this.sum = sum;
     }
 
-    public void setSumRaw(Long sumRaw){
+    public void setSumRaw(Float sumRaw){
         this.sumRaw = sumRaw;
     }
-
-
 
 }

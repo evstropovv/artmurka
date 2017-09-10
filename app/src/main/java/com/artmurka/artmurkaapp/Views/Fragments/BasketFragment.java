@@ -117,8 +117,8 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     }
 
     @Override
-    public void showPrice(Integer price) {
-        if (price > 0) {
+    public void showPrice(String price) {
+        if (Float.parseFloat(price) > 0) {
             tvPrice.setText(price + " грн.");
         } else {
             tvPrice.setText(price + " грн.");

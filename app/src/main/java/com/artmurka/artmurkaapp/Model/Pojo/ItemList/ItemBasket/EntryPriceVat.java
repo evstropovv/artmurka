@@ -11,7 +11,7 @@ public class EntryPriceVat {
     private String price;
     @SerializedName("price_raw")
     @Expose
-    private int priceRaw;
+    private String priceRaw;
 
     public String getPrice() {
         return price;
@@ -21,11 +21,11 @@ public class EntryPriceVat {
         this.price = price;
     }
 
-    public int getPriceRaw() {
+    public String getPriceRaw() {
         return priceRaw;
     }
 
-    public void setPriceRaw(int priceRaw) {
+    public void setPriceRaw(String priceRaw) {
         this.priceRaw = priceRaw;
     }
 

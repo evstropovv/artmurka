@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,10 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.Model.InterfacesModel.IBasket;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IWishList;
-import com.artmurka.artmurkaapp.Model.Modules.BasketRequest;
 import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
@@ -67,8 +66,9 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.goodName.setText(basketItemList.get(position).getEntryTitle());
         holder.goodDescription.setText(basketItemList.get(position).getCnt() + " шт. " +basketItemList.get(position).getEntryPrice().getPrice());
-        holder.goodPrice.setText( basketItemList.get(position).getEntryPrice().getPriceRaw()+ " грн.");
+        holder.goodPrice.setText( basketItemList.get(position).getSumm().getSummRaw()+ " грн.");
         Picasso.with(ctx).load(basketItemList.get(position).getEntryPhoto().getThumb()).into(holder.itemPhoto);
+        Log.d("Log.d", new Gson().toJson(basketItemList.get(position)));
 
         holder.basketMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,13 +119,13 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
     }
 
     private void changePrice() {
-        int sum = 0;
+        float sum = 0;
         if (basketItemList.size()>0) {
             for (int i = 0; i < basketItemList.size(); i++) {
-                sum = sum + basketItemList.get(i).getEntryPrice().getPriceRaw();
+                sum = sum + Float.parseFloat(basketItemList.get(i).getEntryPrice().getPriceRaw());
             }
         }
-        fragment.showPrice(sum);
+        fragment.showPrice(sum+"");
     }
 
     private void refreshItemRequest(int cnt, int position){

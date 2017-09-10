@@ -11,7 +11,7 @@ public class Summ {
     private String summ;
     @SerializedName("summ_raw")
     @Expose
-    private int summRaw;
+    private String summRaw;
 
     public String getSumm() {
         return summ;
@@ -21,11 +21,11 @@ public class Summ {
         this.summ = summ;
     }
 
-    public int getSummRaw() {
+    public String getSummRaw() {
         return summRaw;
     }
 
-    public void setSummRaw(int summRaw) {
+    public void setSummRaw(String summRaw) {
         this.summRaw = summRaw;
     }
 

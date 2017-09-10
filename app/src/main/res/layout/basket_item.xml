@@ -25,7 +25,6 @@
             android:layout_toRightOf="@+id/ivItemPhoto"
             android:maxLines="2"
             android:paddingTop="2dp"
-            android:text="Білі голубки"
             android:textAlignment="viewStart"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -49,7 +48,6 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/good_name"
             android:layout_toRightOf="@+id/ivItemPhoto"
-            android:text="Опис віаіва іваі ваів аіва іва іва іваіва іва @android:string/defaultMsisdnAlphaTag"
             android:textAlignment="viewStart" />
 
         <TextView

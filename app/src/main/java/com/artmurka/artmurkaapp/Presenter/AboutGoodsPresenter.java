@@ -77,6 +77,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
         observable.enqueue(new Callback<Good>() {
             @Override
             public void onResponse(Call<Good> call, Response<Good> response) {
+
                 com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Success aboutGood = response.body().getSuccess();
                 fragment.setName(aboutGood.getEntryTitle());
                 fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
@@ -91,7 +92,6 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
             @Override
             public void onFailure(Call<Good> call, Throwable t) {
-
             }
         });
     }
@@ -177,8 +177,6 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
             default:
                 break;
         }
-
-
     }
 
     private ArrayList<String> getImageList(HashMap<String, SizePhoto> map) {

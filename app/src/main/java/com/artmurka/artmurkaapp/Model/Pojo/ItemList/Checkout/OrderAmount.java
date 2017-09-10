@@ -11,7 +11,7 @@ public class OrderAmount {
     private String amount;
     @SerializedName("amount_raw")
     @Expose
-    private Long amountRaw;
+    private Float amountRaw;
 
     public String getAmount() {
         return amount;
@@ -21,11 +21,11 @@ public class OrderAmount {
         this.amount = amount;
     }
 
-    public Long getAmountRaw() {
+    public Float getAmountRaw() {
         return amountRaw;
     }
 
-    public void setAmountRaw(Long amountRaw) {
+    public void setAmountRaw(Float amountRaw) {
         this.amountRaw = amountRaw;
     }
 

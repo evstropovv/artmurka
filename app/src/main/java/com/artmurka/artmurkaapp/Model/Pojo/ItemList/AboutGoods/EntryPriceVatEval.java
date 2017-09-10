@@ -8,16 +8,16 @@ public class EntryPriceVatEval {
 
     @SerializedName("price_raw")
     @Expose
-    private int priceRaw;
+    private String priceRaw;
     @SerializedName("price")
     @Expose
     private String price;
 
-    public int getPriceRaw() {
+    public String getPriceRaw() {
         return priceRaw;
     }
 
-    public void setPriceRaw(int priceRaw) {
+    public void setPriceRaw(String priceRaw) {
         this.priceRaw = priceRaw;
     }
 

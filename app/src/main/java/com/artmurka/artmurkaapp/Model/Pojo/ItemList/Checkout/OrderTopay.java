@@ -14,7 +14,7 @@ public class OrderTopay {
     private String topayCurr;
     @SerializedName("topay_raw")
     @Expose
-    private Long topayRaw;
+    private Float topayRaw;
 
     public String getTopay() {
         return topay;
@@ -32,11 +32,11 @@ public class OrderTopay {
         this.topayCurr = topayCurr;
     }
 
-    public Long getTopayRaw() {
+    public Float getTopayRaw() {
         return topayRaw;
     }
 
-    public void setTopayRaw(Long topayRaw) {
+    public void setTopayRaw(Float topayRaw) {
         this.topayRaw = topayRaw;
     }
 

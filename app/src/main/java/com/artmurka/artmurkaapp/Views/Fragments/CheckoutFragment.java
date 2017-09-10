@@ -60,7 +60,6 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private RVcheckoutAdapter adapter;
     private TextView tvSumPrice;
     private Button btnPostCheckout;
-    private Button btnTest;
     private AutoCompleteTextView etMsg;
     private EditText etPhone, etEmail;
     private Spinner spinnerDelivery, spinnerPayment;
@@ -68,7 +67,6 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private ArrayList<String> paymentList;
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayout llBottomSheet;
-    private String[] cities = {"Київ","Харків","Полтава","Львів"}; // for test, will be delete
     private ArrayAdapter<String> cityAdapter;
     public CheckoutFragment() {
 
@@ -106,8 +104,6 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
         etMsg = (AutoCompleteTextView) view.findViewById(R.id.etMsg);
 
-
-        btnTest = (Button)view.findViewById(R.id.btnTest);
         etMsg.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

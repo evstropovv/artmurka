@@ -101,9 +101,9 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
 
     private void refreshItemCnt(int cnt, int position){
         if (cnt<1) cnt=1;
-        Long price = orderList.get(position).getPrice().getPriceRaw();
+        Float price = orderList.get(position).getPrice().getPriceRaw();
         orderList.get(position).setCnt(String.valueOf(cnt));
-        orderList.get(position).getSum().setSumRaw(cnt * price);
+        orderList.get(position).getSum().setSumRaw(Float.parseFloat(cnt * price+""));
         notifyItemChanged(position);
 
         int sumPrice =0;

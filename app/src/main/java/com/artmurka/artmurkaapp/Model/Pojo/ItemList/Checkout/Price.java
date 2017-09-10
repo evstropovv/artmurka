@@ -12,13 +12,13 @@ public class Price {
 
     @SerializedName("price_raw")
     @Expose
-    private Long priceRaw;
+    private Float priceRaw;
 
     public String getPrice() {
         return price;
     }
 
-    public Long getPriceRaw() {
+    public Float getPriceRaw() {
         return priceRaw;
     }
 

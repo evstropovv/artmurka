@@ -11,7 +11,7 @@ public class OrderTotal {
     private String total;
     @SerializedName("total_raw")
     @Expose
-    private Long totalRaw;
+    private Float totalRaw;
 
     public String getTotal() {
         return total;
@@ -21,11 +21,11 @@ public class OrderTotal {
         this.total = total;
     }
 
-    public Long getTotalRaw() {
+    public Float getTotalRaw() {
         return totalRaw;
     }
 
-    public void setTotalRaw(Long totalRaw) {
+    public void setTotalRaw(Float totalRaw) {
         this.totalRaw = totalRaw;
     }
 

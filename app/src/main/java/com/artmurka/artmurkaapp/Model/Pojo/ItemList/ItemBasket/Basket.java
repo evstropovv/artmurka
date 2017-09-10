@@ -12,7 +12,7 @@ public class Basket {
     private List<Item> items = null;
     @SerializedName("total")
     @Expose
-    private int total;
+    private String total;
     @SerializedName("weight")
     @Expose
     private String weight;
@@ -37,11 +37,11 @@ public class Basket {
         this.items = items;
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 
