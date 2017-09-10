@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -41,6 +43,7 @@ import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,8 +68,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     private ArrayList<String> paymentList;
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayout llBottomSheet;
-    private List<String> countries;
-    private String[] cities = {"Киев", "Кременчуг", "Траттата", "Комсомольск", "Горішні ПлАвні", "Мукачеве", "New York", "Toronto"}; // for test, will be delete
+    private String[] cities = {"Київ","Харків","Полтава","Львів"}; // for test, will be delete
     private ArrayAdapter<String> cityAdapter;
     public CheckoutFragment() {
 
@@ -77,7 +79,6 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
-        countries = new ArrayList<>();
         deliveryList = new ArrayList<>();
         paymentList = new ArrayList<>();
         setUI(view);
@@ -105,38 +106,24 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
         etMsg = (AutoCompleteTextView) view.findViewById(R.id.etMsg);
 
-        cityAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, cities);
-        etMsg.setAdapter(cityAdapter);
+
         btnTest = (Button)view.findViewById(R.id.btnTest);
-        btnTest.setOnClickListener(new View.OnClickListener() {
+        etMsg.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-               if (!etMsg.getText().toString().matches("")){
-                   City city = new City();
-                   city.setApiKey(BuildConfig.NP_API_KEY);
-                   city.setCalledMethod("searchSettlements");
-                   city.setMethodProperties(new MethodProperties(etMsg.getText().toString()+"", 5));
-                   city.setModelName("Address");
-                   Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
-                   cityResponse.enqueue(new Callback<CityResponse>() {
-                       @Override
-                       public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
-                           Log.d("Log.d", new Gson().toJson(response.body().getData().get(0).getAddresses()));
-                           List<String> cities = new ArrayList<String>();
-                           for (int i = 0; i <response.body().getData().get(0).getAddresses().size(); i++) {
-                               cities.add(response.body().getData().get(0).getAddresses().get(i).getMainDescription());
-                           }
-                           Log.d("Log.d", new Gson().toJson(cities));
-                           setSityes(cities);
-                       }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                       @Override
-                       public void onFailure(Call<CityResponse> call, Throwable t) {
+            }
 
-                       }
-                   });
-               }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().matches("")){
+                    presenter.cityChanged(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -195,10 +182,12 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     }
 
     @Override
-    public void setSityes(List<String> sityes) {
-        countries.clear();
-        countries.addAll(sityes);
-        cityAdapter.notifyDataSetChanged();
+    public void setSityes(String[] sityes) {
+        cityAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1);
+        etMsg.setAdapter(cityAdapter);
+        cityAdapter.addAll(sityes);
+        cityAdapter.setNotifyOnChange(true);
     }
 
     @Override

@@ -1,13 +1,22 @@
 package com.artmurka.artmurkaapp.Presenter;
 
 
+import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
+import com.artmurka.artmurkaapp.Model.Modules.ApiModuleNovaPoshta;
 import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.DeliveryDescription;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.PaymentDescription;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
@@ -24,11 +33,13 @@ import retrofit2.Response;
 
 public class CheckoutPresenter implements ICheckoutPresenter {
     private ICheckoutFragment fragment;
+    private boolean isTextChanged = false;
     private ICheckoutRequest request;
     private ArrayList<String> deliveryList;
     private ArrayList<String> paymentList;
     private HashMap<String, DeliveryDescription> deliveryMap;
     private HashMap<String, PaymentDescription> payMap;
+    private String cities[] = new String[4];
 
     public CheckoutPresenter(ICheckoutFragment fragment) {
         this.fragment = fragment;
@@ -42,7 +53,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                  //отображаем все заказы
+                //отображаем все заказы
                 fragment.showCheckout(getList(response.body().getSuccess().getOrderContent().getOrderGoods()));
                 //обновляем сумму заказа
                 fragment.refreshSumPrice(response.body().getSuccess().getOrderData().getOrderAmount().getAmountRaw().toString() + " грн");
@@ -55,14 +66,14 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                     deliveryMap = response.body().getSuccess().getDeliveryList();
                     payMap = response.body().getSuccess().getPaymentList();
 
-                    for (int i = 0; i < deliveryMap.size()+1; i++) {
-                        if (deliveryMap.get(String.valueOf(i)) != null){
+                    for (int i = 0; i < deliveryMap.size() + 1; i++) {
+                        if (deliveryMap.get(String.valueOf(i)) != null) {
                             deliveryList.add(deliveryMap.get(String.valueOf(i)).getName());
                         }
                     }
 
-                    for (int i = 0; i < payMap.size()+1; i++) {
-                        if (payMap.get(String.valueOf(i)) != null){
+                    for (int i = 0; i < payMap.size() + 1; i++) {
+                        if (payMap.get(String.valueOf(i)) != null) {
                             paymentList.add(payMap.get(String.valueOf(i)).getName());
                         }
                     }
@@ -82,7 +93,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         call.enqueue(new Callback<Success>() {
             @Override
             public void onResponse(Call<Success> call, Response<Success> response) {
-                if (response.code()==200){
+                if (response.code() == 200) {
                     fragment.showOrderIsProcessed(response.message());
                 }
             }
@@ -91,6 +102,52 @@ public class CheckoutPresenter implements ICheckoutPresenter {
             public void onFailure(Call<Success> call, Throwable t) {
             }
         });
+    }
+
+    @Override
+    public void cityChanged(String msg) {
+        if (!isTextChanged){
+            City city = new City();
+            city.setApiKey(BuildConfig.NP_API_KEY);
+            city.setCalledMethod("searchSettlements");
+            city.setMethodProperties(new MethodProperties(msg + "", 4));
+            city.setModelName("Address");
+            Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
+            cityResponse.enqueue(new Callback<CityResponse>() {
+                @Override
+                public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
+                    Log.d("Log.d", msg);
+                    Log.d("Log.d", new Gson().toJson(response.body().getData().get(0).getAddresses()));
+                    for (int i = 0; i < response.body().getData().get(0).getAddresses().size(); i++) {
+                        cities[i] = response.body().getData().get(0).getAddresses().get(i).getSettlementTypeCode()
+                                + response.body().getData().get(0).getAddresses().get(i).getMainDescription()
+                                + ", " + response.body().getData().get(0).getAddresses().get(i).getArea();
+                    }
+                    Log.d("Log.d", new Gson().toJson(cities));
+                    fragment.setSityes(cities);
+
+                    textChanged(1000); // refresh in milliseconds
+
+                }
+
+
+
+                @Override
+                public void onFailure(Call<CityResponse> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
+    private void textChanged(Integer ms) {
+        isTextChanged = true;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isTextChanged = false;
+            }
+        }, ms);
     }
 
     private List<OrderDesc> getList(HashMap<String, OrderDesc> map) {

@@ -12,6 +12,7 @@ import com.artmurka.artmurkaapp.Model.Modules.WishListRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.SizePhoto;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Good;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
@@ -46,7 +47,6 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
     @Override
     public void getDataAboutGoods(String id) {
         this.goodsId = id;
-        Log.d("Log.d", "id "+id);
         IAboutGoods model = new AboutGoodsRequest();
         Call<AboutGood> observable = model.getDataAboutGood(id);
         observable.enqueue(new Callback<AboutGood>() {
@@ -66,7 +66,31 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
 
             @Override
             public void onFailure(Call<AboutGood> call, Throwable t) {
-                Log.d("Log.d", "error "+t.getMessage());
+                try2(id);
+            }
+        });
+    }
+
+    private void try2(String id){
+        IAboutGoods model = new AboutGoodsRequest();
+        Call<Good> observable = model.getDataGood(id);
+        observable.enqueue(new Callback<Good>() {
+            @Override
+            public void onResponse(Call<Good> call, Response<Good> response) {
+                com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Success aboutGood = response.body().getSuccess();
+                fragment.setName(aboutGood.getEntryTitle());
+                fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
+                fragment.setPrice(aboutGood.getEntryPrice().getPriceRaw() + " грн.");
+                HashMap<String, SizePhoto> map = new HashMap<String, SizePhoto>();
+                map.put(aboutGood.getEntryPhoto().getNumPhotos()+"", new SizePhoto(aboutGood.getEntryPhoto().getDefPhoto().getPhoto()));
+                fragment.setPhoto(getImageList(map));
+                fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
+                fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
+                fragment.setBasketButton(aboutGood.getEntryIsInBasket() > 0 ? true : false);
+            }
+
+            @Override
+            public void onFailure(Call<Good> call, Throwable t) {
 
             }
         });

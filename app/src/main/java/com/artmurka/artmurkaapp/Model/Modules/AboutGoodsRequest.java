@@ -2,6 +2,7 @@ package com.artmurka.artmurkaapp.Model.Modules;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAboutGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Good;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 
 import java.util.HashMap;
@@ -26,6 +27,21 @@ public class AboutGoodsRequest implements IAboutGoods {
         confForRequest.put("page", mapForUcozModule.get("page"));
 
         return ApiModule.getClient().getGoodDescription(confForRequest);
+    }
+
+    @Override
+    public Call<Good> getDataGood(String id) {
+        UcozApiModule ucoz = new UcozApiModule();
+
+        HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
+        mapForUcozModule.put("page", "viewgoods");
+        mapForUcozModule.put("id", id);
+
+        //Getting all token for autorization.
+        HashMap<String, String> confForRequest = ucoz.get("GET","uapi/shop/request" ,mapForUcozModule);
+        confForRequest.put("page", mapForUcozModule.get("page"));
+
+        return ApiModule.getClient().getGood(confForRequest);
     }
 
     @Override

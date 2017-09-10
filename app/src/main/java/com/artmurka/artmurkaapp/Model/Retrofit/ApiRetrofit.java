@@ -4,6 +4,7 @@ package com.artmurka.artmurkaapp.Model.Retrofit;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.*;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Good;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
@@ -47,6 +48,9 @@ public interface ApiRetrofit {
 
     @GET("uapi/shop/request")
     Call<AboutGood> getGoodDescription(@QueryMap HashMap<String, String> map);
+
+    @GET("uapi/shop/request")
+    Call<Good> getGood(@QueryMap HashMap<String, String> map);
 
     //add to item to BASKET
     @FormUrlEncoded
