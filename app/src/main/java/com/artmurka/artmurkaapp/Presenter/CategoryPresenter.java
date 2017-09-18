@@ -1,9 +1,13 @@
 package com.artmurka.artmurkaapp.Presenter;
 
+import android.content.Context;
+import android.support.v4.app.FragmentManager;
+
 import com.artmurka.artmurkaapp.Model.Modules.AllRequestOvservers;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Example;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
+import com.artmurka.artmurkaapp.Other.SaveDataFragment;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
@@ -18,12 +22,13 @@ public class CategoryPresenter implements ICategoryPresenter {
 
     private ICategoryFragment catFragment;
     private IAllRequestObservers model;
-    private static ArrayList<Success> successList;
-    private static Observable<Example> exampleObservable;
+    private ArrayList<Success> successList;
+    private Observable<Example> exampleObservable;
+    private Context ctx;
 
-
-    public CategoryPresenter(ICategoryFragment fragment) {
+    public CategoryPresenter(ICategoryFragment fragment, Context context) {
         catFragment = fragment;
+        this.ctx = context;
         model = new AllRequestOvservers();
     }
 
@@ -55,6 +60,7 @@ public class CategoryPresenter implements ICategoryPresenter {
             public void onError(Throwable e) {
                 catFragment.showError("Щось пішло не так. Перезавантажити ?");
             }
+
             @Override
             public void onComplete() {
             }

@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
 import com.artmurka.artmurkaapp.Other.Const;
+import com.artmurka.artmurkaapp.Other.SaveDataFragment;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.R;
@@ -38,6 +41,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     private RecyclerView recyclerView;
     private RVcategoryAdapter recyclerAdapter;
     private Button btnCall;
+    private SaveDataFragment dataFragment;
 
     public CategoryFragment() {
     }
@@ -46,6 +50,16 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
+        FragmentManager fm = getFragmentManager();
+        dataFragment = (SaveDataFragment) fm.findFragmentByTag("data");
+
+        if (dataFragment == null) {
+            dataFragment = new SaveDataFragment();
+            fm.beginTransaction()
+                    .add(dataFragment, "data")
+                    .commit();
+        }
+
         btnCall = (Button) view.findViewById(R.id.btnCall);
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +76,23 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVcategoryAdapter(view.getContext());
         recyclerView.setAdapter(recyclerAdapter);
+
+
         if (presenter == null) {
-            presenter = new CategoryPresenter(this);
+            presenter = new CategoryPresenter(this, getContext());
         }
-        if (!isOnline()) {
-            showError("Відсутній інтернет. Перезавантажити ?", view);
+
+        if (dataFragment.getCategories() != null) {
+            Log.d("Log.d", "categories !=null");
+            showCategories(dataFragment.getCategories());
         } else {
-            presenter.getCategoriesData(true);
+            if (!isOnline()) {
+                Log.d("Log.d", "no internet");
+                showError("Відсутній інтернет. Перезавантажити ?", view);
+            } else {
+                Log.d("Log.d", "presenter . getCategories");
+                presenter.getCategoriesData(true);
+            }
         }
         return view;
     }
@@ -76,9 +100,11 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     @Override
     public void onResume() {
         super.onResume();
-        try{
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Каталог товарів");
-        }catch ( NullPointerException e){e.printStackTrace();}
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Каталог товарів");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isOnline() {
@@ -96,6 +122,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
     @Override
     public void showCategories(ArrayList<Success> categoriesList) {
+        dataFragment.setCategories(categoriesList);
         recyclerAdapter.setData(categoriesList);
     }
 

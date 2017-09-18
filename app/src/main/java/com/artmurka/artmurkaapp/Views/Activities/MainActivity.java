@@ -43,7 +43,7 @@ import com.artmurka.artmurkaapp.Views.Fragments.WishFragment;
 
 public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener {
     private TextView tvBigName, tvSmallName;
-    CategoryFragment fragCategory;
+    private CategoryFragment fragCategory;
     private final String TAG = "Storage_category_fragment";
     private Button btnLogin;
     boolean doubleBackToExitPressedOnce = false;
