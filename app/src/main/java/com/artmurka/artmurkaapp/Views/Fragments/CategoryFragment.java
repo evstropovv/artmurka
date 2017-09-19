@@ -83,14 +83,11 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         }
 
         if (dataFragment.getCategories() != null) {
-            Log.d("Log.d", "categories !=null");
             showCategories(dataFragment.getCategories());
         } else {
             if (!isOnline()) {
-                Log.d("Log.d", "no internet");
                 showError("Відсутній інтернет. Перезавантажити ?", view);
             } else {
-                Log.d("Log.d", "presenter . getCategories");
                 presenter.getCategoriesData(true);
             }
         }
