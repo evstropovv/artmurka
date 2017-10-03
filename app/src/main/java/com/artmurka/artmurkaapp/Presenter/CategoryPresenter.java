@@ -2,6 +2,7 @@ package com.artmurka.artmurkaapp.Presenter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.Modules.AllRequestOvservers;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IAllRequestObservers;
@@ -59,6 +60,7 @@ public class CategoryPresenter implements ICategoryPresenter {
             @Override
             public void onError(Throwable e) {
                 catFragment.showError("Щось пішло не так. Перезавантажити ?");
+                Log.d("Log.d", e.getMessage());
             }
 
             @Override

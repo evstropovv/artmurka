@@ -1,23 +1,31 @@
 package com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 
-public class Success implements Parcelable {
 
-    @SerializedName("cat_id")
+public class Success {
+
+    public Success(String catImg, List<Child> childs, String catDescr, int goodsCount, String catId, String catName, String catUrl) {
+        this.catImg = catImg;
+        this.childs = childs;
+        this.catDescr = catDescr;
+        this.goodsCount = goodsCount;
+        this.catId = catId;
+        this.catName = catName;
+        this.catUrl = catUrl;
+    }
+
+    @SerializedName("cat_img")
     @Expose
-    private String catId;
-
-    @SerializedName("msg")
+    private String catImg;
+    @SerializedName("childs")
     @Expose
-    private String msg;
-
+    private List<Child> childs = null;
     @SerializedName("cat_descr")
     @Expose
     private String catDescr;
@@ -25,35 +33,30 @@ public class Success implements Parcelable {
     @SerializedName("goods_count")
     @Expose
     private int goodsCount;
-    @SerializedName("cat_img")
+    @SerializedName("cat_id")
     @Expose
-    private String catImg;
+    private String catId;
     @SerializedName("cat_name")
     @Expose
     private String catName;
-
-    @SerializedName("childs")
-    @Expose
-    private String childs;
-
     @SerializedName("cat_url")
     @Expose
     private String catUrl;
 
-    public String getMsg(){
-        return msg;
+    public String getCatImg() {
+        return catImg;
     }
 
-    public void setMsg(String msg){
-        this.msg = msg;
+    public void setCatImg(String catImg) {
+        this.catImg = catImg;
     }
 
-    public String getCatId() {
-        return catId;
+    public List<Child> getChilds() {
+        return childs;
     }
 
-    public void setCatId(String catId) {
-        this.catId = catId;
+    public void setChilds(List<Child> childs) {
+        this.childs = childs;
     }
 
     public String getCatDescr() {
@@ -72,12 +75,12 @@ public class Success implements Parcelable {
         this.goodsCount = goodsCount;
     }
 
-    public String getCatImg() {
-        return catImg;
+    public String getCatId() {
+        return catId;
     }
 
-    public void setCatImg(String catImg) {
-        this.catImg = catImg;
+    public void setCatId(String catId) {
+        this.catId = catId;
     }
 
     public String getCatName() {
@@ -88,14 +91,6 @@ public class Success implements Parcelable {
         this.catName = catName;
     }
 
-    public String getChilds() {
-        return childs;
-    }
-
-    public void setChilds(String childs) {
-        this.childs = childs;
-    }
-
     public String getCatUrl() {
         return catUrl;
     }
@@ -104,47 +99,4 @@ public class Success implements Parcelable {
         this.catUrl = catUrl;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.catId);
-        dest.writeString(this.catDescr);
-        dest.writeInt(this.goodsCount);
-        dest.writeString(this.catImg);
-        dest.writeString(this.catName);
-
-        dest.writeString(this.childs);
-        dest.writeString(this.catUrl);
-    }
-
-    public Success() {
-    }
-
-    protected Success(Parcel in) {
-        this.catId = in.readString();
-        this.catDescr = in.readString();
-        this.goodsCount = in.readInt();
-        this.catImg = in.readString();
-        this.catName = in.readString();
-
-        this.childs = in.readString();
-        this.catUrl = in.readString();
-    }
-
-    public static final Parcelable.Creator<Success> CREATOR = new Parcelable.Creator<Success>() {
-        @Override
-        public Success createFromParcel(Parcel source) {
-            return new Success(source);
-        }
-
-        @Override
-        public Success[] newArray(int size) {
-            return new Success[size];
-        }
-    };
 }
