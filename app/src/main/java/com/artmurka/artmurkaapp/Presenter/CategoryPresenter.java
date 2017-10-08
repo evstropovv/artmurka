@@ -11,6 +11,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 import com.artmurka.artmurkaapp.Other.SaveDataFragment;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -55,12 +56,14 @@ public class CategoryPresenter implements ICategoryPresenter {
                 successList = value.getSuccess();
                 if (successList.isEmpty()) catFragment.showError("Error, succes list is Empty");
                 else catFragment.showCategories(successList);
+
+                Log.d("Log.d", new Gson().toJson(value.getSuccess()));
             }
 
             @Override
             public void onError(Throwable e) {
                 catFragment.showError("Щось пішло не так. Перезавантажити ?");
-                Log.d("Log.d", e.getMessage());
+
             }
 
             @Override
