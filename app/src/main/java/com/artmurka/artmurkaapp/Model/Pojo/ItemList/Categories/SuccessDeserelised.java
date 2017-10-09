@@ -27,9 +27,9 @@ public class SuccessDeserelised implements JsonDeserializer<Success>{
         final String catName = jObj.get("cat_name").getAsString();
         final String catUrl = jObj.get("cat_url").getAsString();
 
-        List<Child> childs = Collections.emptyList();
+        List<Success> childs = Collections.emptyList();
         if(jElement.isJsonArray()) {
-            childs = context.deserialize(jElement.getAsJsonArray(), new TypeToken<List<Child>>(){}.getType());
+            childs = context.deserialize(jElement.getAsJsonArray(), new TypeToken<List<Success>>(){}.getType());
         }
         return new Success(catImg, childs, catDescr,goodsCount,catId,catName, catUrl);
     }

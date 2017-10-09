@@ -89,7 +89,7 @@ public class UcozApiModule {
         try {
             StringBuilder builder = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                builder.append(entry.getKey() + entry.getValue());
+                builder.append(entry.getKey() + URLEncoder.encode( entry.getValue(), "UTF-8")); //URLEncoder.encode.. <-- для подгруп.
                 if (entry.getKey() != params.lastEntry().getKey()){
                     builder.append("&");
                 }

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.Views.Fragments.FragmentCategoryChilds;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 import com.artmurka.artmurkaapp.Views.Fragments.DeliveryFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.IndividualFragment;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
@@ -39,6 +42,9 @@ import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.OrderFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.WishFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener {
@@ -105,10 +111,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.card) {
-            changeFragment(Const.BASKET_FRAGMENT, null);
+            changeFragment(Const.BASKET_FRAGMENT, null, null, null);
         }
         if (item.getItemId() == R.id.sort) {
-            changeFragment(Const.CATEGORY_SETTINGS_FRAGMENT, null);
+            changeFragment(Const.CATEGORY_SETTINGS_FRAGMENT, null, null, null);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -180,9 +186,24 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
     }
 
     @Override
-    public void changeFragment(int fragment, String url) {
+    public void changeFragment(int fragment, String url, List<Success> childs, String catName) {
         FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
         switch (fragment) {
+            case 100:
+                FragmentCategoryChilds categoryChilds = new FragmentCategoryChilds();
+
+                bundle.putParcelableArrayList("childs", (ArrayList<? extends Parcelable>) childs);
+                bundle.putString("catName",catName);
+                categoryChilds.setArguments(bundle);
+
+                fm.beginTransaction()
+                        .replace(R.id.mainFrame, categoryChilds)
+                        .addToBackStack("categoryChilds")
+                        .commit();
+                fm.executePendingTransactions();
+                break;
+
             case 101:
                 CategoryFragment categoryFragment = new CategoryFragment();
                 fm.beginTransaction()
@@ -194,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
 
             case 102:
                 ItemListFragment itemList = new ItemListFragment();
-                Bundle bundle = new Bundle();
                 bundle.putString("url", url);
                 itemList.setArguments(bundle);
                 fm.beginTransaction()
@@ -308,22 +328,22 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_catalog) { //каталог
-            changeFragment(Const.CATEGORY_FRAGMENT, null);
+            changeFragment(Const.CATEGORY_FRAGMENT, null, null, null);
             // Handle the camera action
         } else if (id == R.id.nav_basket) { //корзинка
-            changeFragment(Const.BASKET_FRAGMENT, null);
+            changeFragment(Const.BASKET_FRAGMENT, null, null, null);
         } else if (id == R.id.nav_desires) { //желания
-            changeFragment(Const.WISH_FRAGMENT, null);
+            changeFragment(Const.WISH_FRAGMENT, null, null, null);
         } else if (id == R.id.nav_orders) { // мои заказы
-            changeFragment(Const.ORDER_FRAGMENT, null);
+            changeFragment(Const.ORDER_FRAGMENT, null, null, null);
         } else if (id == R.id.nav_individual) { // індивідуальний заказ, зараз - тестова оплата на 1 грн
-            changeFragment(Const.PAY_FRAGMENT, null);
+            changeFragment(Const.PAY_FRAGMENT, null, null, null);
         } else if (id == R.id.nav_consulting) { // подзвонити нам
             Uri call = Uri.parse("tel:" + Const.TEL_NUMBER);
             Intent surf = new Intent(Intent.ACTION_DIAL, call);
             startActivity(surf);
         } else if (id == R.id.delivery) { // індивідуальний заказ, зараз - тестова оплата на 1 грн
-            changeFragment(Const.DELIVERY, null);
+            changeFragment(Const.DELIVERY, null, null, null);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

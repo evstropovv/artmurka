@@ -19,12 +19,9 @@ public class Success {
     @Expose
     private String catId;
 
-
     @SerializedName("goods_list")
     @Expose
     private TreeMap<String, GoodsProperties> goodsList;
-
-
     @SerializedName("duplicate")
     @Expose
     private int duplicate;
@@ -37,9 +34,7 @@ public class Success {
     @SerializedName("cat_url")
     @Expose
     private String catUrl;
-    @SerializedName("parent_cat")
-    @Expose
-    private String parentCat;
+
     @SerializedName("goods_count")
     @Expose
     private int goodsCount;
@@ -49,9 +44,6 @@ public class Success {
     @SerializedName("paginator")
     @Expose
     private Paginator paginator;
-    @SerializedName("filters")
-    @Expose
-    private String filters;
 
     public Sort getSort() {
         return sort;
@@ -77,9 +69,7 @@ public class Success {
         this.catId = catId;
     }
 
-    public TreeMap<String, GoodsProperties> getGoodsList() {
-        return goodsList;
-    }
+    public TreeMap<String, GoodsProperties> getGoodsList() { return goodsList; }
 
     public int getDuplicate() {
         return duplicate;
@@ -113,14 +103,6 @@ public class Success {
         this.catUrl = catUrl;
     }
 
-    public String getParentCat() {
-        return parentCat;
-    }
-
-    public void setParentCat(String parentCat) {
-        this.parentCat = parentCat;
-    }
-
     public int getGoodsCount() {
         return goodsCount;
     }
@@ -143,14 +125,6 @@ public class Success {
 
     public void setPaginator(Paginator paginator) {
         this.paginator = paginator;
-    }
-
-    public String getFilters() {
-        return filters;
-    }
-
-    public void setFilters(String filters) {
-        this.filters = filters;
     }
 
 }

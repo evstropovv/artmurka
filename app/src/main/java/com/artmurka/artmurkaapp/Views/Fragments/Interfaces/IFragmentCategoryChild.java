@@ -1,8 +1,10 @@
 package com.artmurka.artmurkaapp.Views.Fragments.Interfaces;
 
-/**
- * Created by Вася on 08.10.2017.
- */
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
-public class IFragmentCategoryChild {
+import java.util.ArrayList;
+
+public interface IFragmentCategoryChild {
+    void showCategories(ArrayList<Success> categoriesList);
+    void showError(String msg);
 }

@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SaveDataFragment extends Fragment {
-    private ArrayList<Success> successList;
+    private List<Success> successList;
+    private List<Success> childs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -16,11 +18,20 @@ public class SaveDataFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    public ArrayList<Success> getCategories() {
+    public List<Success> getCategories() {
         return successList;
     }
 
-    public void setCategories(ArrayList<Success> list) {
+    public void setCategories(List<Success> list) {
         this.successList = list;
+        this.childs = null;
+    }
+
+    public List<Success> getChilds() {
+        return childs;
+    }
+
+    public void setChilds(List<Success> list) {
+        this.childs = list;
     }
 }

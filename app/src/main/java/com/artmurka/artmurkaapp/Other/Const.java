@@ -8,6 +8,7 @@ public class Const {
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    public static final int CATEGORY_CHILDS_FRAGMENT = 100;
     public static final int CATEGORY_FRAGMENT = 101;
     public static final int ITEM_LIST_FRAGMENT = 102;
     public static final int BASKET_FRAGMENT = 103;

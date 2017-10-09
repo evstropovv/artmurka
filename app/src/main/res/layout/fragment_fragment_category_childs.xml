@@ -2,12 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artmurka.artmurkaapp.FragmentCategoryChilds">
+    tools:context="com.artmurka.artmurkaapp.Views.Fragments.FragmentCategoryChilds">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.50"
+        android:background="#e4e4e4"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/llCall" />
 </FrameLayout>

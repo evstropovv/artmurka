@@ -33,6 +33,7 @@ import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICategoryFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CategoryFragment extends Fragment implements ICategoryFragment {
@@ -118,10 +119,13 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     }
 
     @Override
-    public void showCategories(ArrayList<Success> categoriesList) {
+    public void showCategories(List<Success> categoriesList) {
         dataFragment.setCategories(categoriesList);
         recyclerAdapter.setData(categoriesList);
     }
+
+    @Override
+    public void setToolBarName(String name) {}
 
     @Override
     public void showError(String error) {
@@ -147,5 +151,4 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
                     }
                 }).show();
     }
-
 }

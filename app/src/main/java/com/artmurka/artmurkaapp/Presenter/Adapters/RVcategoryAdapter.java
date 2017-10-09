@@ -46,7 +46,11 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvCategoryName.setText(successList.get(position).getCatName());
-        Picasso.with(ctx).load(successList.get(position).getCatImg()).into(holder.ivCategoryImage);
+        try{
+            Picasso.with(ctx).load(successList.get(position).getCatImg()).into(holder.ivCategoryImage);
+        } catch (IllegalArgumentException e){
+            e.getMessage();
+        }
     }
 
     @Override
@@ -66,10 +70,15 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     MainActivity activity = (MainActivity)v.getContext();
-                    activity.changeFragment(Const.ITEM_LIST_FRAGMENT,successList.get(getAdapterPosition()).getCatUrl());
-
+                    if (successList.get(getAdapterPosition()).getChilds().size()>0){
+                        //если есть под-категории - открывает фрагмент с подгатегориями
+                        activity.changeFragment(Const.CATEGORY_CHILDS_FRAGMENT,
+                                successList.get(getAdapterPosition()).getCatUrl(),
+                                successList.get(getAdapterPosition()).getChilds(),successList.get(getAdapterPosition()).getCatName());
+                    } else{
+                        activity.changeFragment(Const.ITEM_LIST_FRAGMENT, successList.get(getAdapterPosition()).getCatUrl(), null, null);
+                    }
                 }
             });
         }

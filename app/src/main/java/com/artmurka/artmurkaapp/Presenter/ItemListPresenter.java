@@ -45,7 +45,6 @@ public class ItemListPresenter implements IPresenterItemList {
 
                 @Override
                 public void onNext(SuccessExample value) {
-                    int i = (value.getSuccess().getGoodsList().size());
                     fragment.showItemList(getList(value.getSuccess().getGoodsList()));
                     fragment.setTitle(value.getSuccess().getCatName());
                 }
