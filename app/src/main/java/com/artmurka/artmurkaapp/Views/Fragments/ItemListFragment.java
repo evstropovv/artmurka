@@ -38,6 +38,9 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     private int curPage = 1;
     private String sort = "name";
     private String order = "asc";
+    private int visibleThreshold = 4;
+    private Boolean isLoading = false;
+    private int totalItemCount, lastVisibleItem;
 
     public ItemListFragment() {
     }
@@ -87,19 +90,20 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             recyclerAdapterList = new RVitemListAdapterList(view.getContext());
             recyclerView.setAdapter(recyclerAdapterList);
 
-            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                }
-
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
-                    presenter.getCategoriesData(++curPage);
+                    totalItemCount = recyclerLayoutManager.getItemCount();
+                    Log.d("Log.d", totalItemCount + "");
+                    lastVisibleItem = ((LinearLayoutManager) recyclerLayoutManager).findLastVisibleItemPosition();
+                    Log.d("Log.d", lastVisibleItem + "");
+                    if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                        presenter.getCategoriesData(++curPage);
+                        isLoading = true;
+                    }
                 }
             });
-
         }
 
 
@@ -131,7 +135,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
         } else {
             recyclerAdapterList.setData(goodsProperties);
         }
-
+        isLoading = false;
     }
 
     @Override

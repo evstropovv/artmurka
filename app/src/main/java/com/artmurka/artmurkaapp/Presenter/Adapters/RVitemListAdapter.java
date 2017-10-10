@@ -98,15 +98,13 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
                                 break;
                             case R.id.wish_wad:
                                 //в список пожеланий
-
-                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
                                 IWishList iWishList = new WishListRequest();
                                 Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
                                 obs.enqueue(new Callback<WishList>() {
                                     @Override
                                     public void onResponse(Call<WishList> call, Response<WishList> response) {
+                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
                                     }
-
                                     @Override
                                     public void onFailure(Call<WishList> call, Throwable t) {
 

@@ -3,6 +3,7 @@ package com.artmurka.artmurkaapp.Presenter.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvItemName.setText(successList.get(position).getEntryTitle());
-        holder.tvPrice.setText(successList.get(position).getEntryPrice().getPriceRaw()+ " грн.");
+        holder.tvPrice.setText(successList.get(position).getEntryPrice().getPriceRaw() + " грн.");
         Picasso.with(ctx).load(successList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
         holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey);
 
@@ -89,20 +90,19 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
 
                         @Override
                         public void onNext(BasketItems value) {
-                           successList.get(position).setEntryIsInBasket(1);
-                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика." , Toast.LENGTH_SHORT).show();
-
+                            successList.get(position).setEntryIsInBasket(1);
+                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                           }
+                        }
 
                         @Override
                         public void onComplete() {
                         }
                     });
-                }else {
+                } else {
 
                     ICheckoutRequest request = new CheckoutRequest();
                     Call<CheckoutAllGoods> call = request.recountCheckoutData(successList.get(position).getEntryId(), "0");
@@ -112,8 +112,10 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                             successList.get(position).setEntryIsInBasket(0);
                             Toast.makeText(view.getContext(), "Видалено з корзини", Toast.LENGTH_LONG).show();
                         }
+
                         @Override
-                        public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}
+                        public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
+                        }
                     });
 
                 }
@@ -148,12 +150,13 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                         } else {
                             successList.get(position).setEntryIsInWishlist(1);
                             holder.ivToWish.setImageResource(R.drawable.heart_small_orange);
+
                         }
                     }
 
                     @Override
                     public void onFailure(Call<WishList> call, Throwable t) {
-
+                        Log.d("Log.d", "toWishList " + t.getMessage());
                     }
                 });
             }

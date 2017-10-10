@@ -30,9 +30,7 @@ public class Success {
     @SerializedName("msg")
     @Expose
     private String msg;
-    @SerializedName("filters")
-    @Expose
-    private String filters;
+
     @SerializedName("paginator")
     @Expose
     private Paginator paginator;
@@ -83,14 +81,6 @@ public class Success {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public String getFilters() {
-        return filters;
-    }
-
-    public void setFilters(String filters) {
-        this.filters = filters;
     }
 
     public Paginator getPaginator() {
