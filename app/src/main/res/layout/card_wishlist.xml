@@ -29,6 +29,7 @@
 
         <TextView
             android:id="@+id/tvCategoryName"
+            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/tvPrice"
@@ -41,6 +42,7 @@
 
         <TextView
             android:id="@+id/tvPrice"
+            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

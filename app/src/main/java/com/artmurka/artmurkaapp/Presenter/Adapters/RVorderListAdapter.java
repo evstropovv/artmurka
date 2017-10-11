@@ -61,20 +61,23 @@ public class RVorderListAdapter extends RecyclerView.Adapter<RVorderListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvOrderNumber.setText(orderList.get(position).getNom());
+        try{
+            holder.tvOrderNumber.setText(orderList.get(position).getNom());
+            String curentStatus = orderList.get(position).getStatus();
+            holder.tvStatus.setText(orders.getSuccess().getOrderStatus().get(curentStatus));
+            String curHide = orderList.get(position).getHide();
+            holder.tvName.setText(orders.getSuccess().getOrderHide().get(curHide));
+            holder.tvPrice.setText(orderList.get(position).getPayment().getTopay());
+            holder.tvPrice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        String curentStatus = orderList.get(position).getStatus();
-        holder.tvStatus.setText(orders.getSuccess().getOrderStatus().get(curentStatus));
+                }
+            });
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
-        String curHide = orderList.get(position).getHide();
-        holder.tvName.setText(orders.getSuccess().getOrderHide().get(curHide));
-        holder.tvPrice.setText(orderList.get(position).getPayment().getTopay());
-        holder.tvPrice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         //if order status is new, and deliver
         if (orderList.get(position).getPayment().getId().equals("2") && Integer.parseInt(orderList.get(position).getStatus()) <= 1) {
