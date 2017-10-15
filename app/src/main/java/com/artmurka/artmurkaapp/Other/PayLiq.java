@@ -32,7 +32,7 @@ public class PayLiq extends Thread {
         map.put("action", "auth"); //тип оплаты
         map.put("amount", parametrs.get("amount")); //сумма платежа
         map.put("currency", "UAH");  //валюта
-        map.put("description", "Оплата товару. Номер заказу" + parametrs.get("order_id")); //Описание
+        map.put("description", "Оплата товару. Номер заказу " + parametrs.get("order_id")); //Описание
         map.put("order_id",  parametrs.get("order_id"));  //уникальный ИД покупки в магазине (с сайта)
         map.put("language", "ru"); //язык
         //   map.put("card", etCardNumber.getText().toString());
