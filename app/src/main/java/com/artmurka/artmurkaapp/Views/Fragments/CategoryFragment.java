@@ -14,12 +14,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
@@ -43,6 +45,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     private RVcategoryAdapter recyclerAdapter;
     private Button btnCall;
     private SaveDataFragment dataFragment;
+    private ProgressBar progressBar;
 
     public CategoryFragment() {
     }
@@ -53,6 +56,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         FragmentManager fm = getFragmentManager();
         dataFragment = (SaveDataFragment) fm.findFragmentByTag("data");
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar2);
 
         if (dataFragment == null) {
             dataFragment = new SaveDataFragment();
@@ -73,7 +77,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+        RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVcategoryAdapter(view.getContext());
         recyclerView.setAdapter(recyclerAdapter);
@@ -85,11 +89,13 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
 
         if (dataFragment.getCategories() != null) {
             showCategories(dataFragment.getCategories());
+
         } else {
             if (!isOnline()) {
-                showError("Відсутній інтернет. Перезавантажити ?", view);
+                showError("Відсутній інтернет. Перезавантажити ?");
             } else {
                 presenter.getCategoriesData(true);
+                progressBar.setVisibility(View.VISIBLE);
             }
         }
         return view;
@@ -122,6 +128,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
     public void showCategories(List<Success> categoriesList) {
         dataFragment.setCategories(categoriesList);
         recyclerAdapter.setData(categoriesList);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -139,16 +146,7 @@ public class CategoryFragment extends Fragment implements ICategoryFragment {
                         }
                     }).show();
         }
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void showError(String error, View view) {
-        Snackbar.make(getActivity().findViewById(android.R.id.content), error, Snackbar.LENGTH_INDEFINITE)
-                .setAction("Так", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        getActivity().finish();
-                    }
-                }).show();
-    }
 }

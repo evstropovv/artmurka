@@ -6,13 +6,28 @@
 
     tools:context="com.artmurka.artmurkaapp.Views.Fragments.ItemListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/recyclerView"
-        android:scrollbars="vertical"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#e4e4e4"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llCall"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.50"
+            android:background="#e4e4e4"
+            android:padding="2dp"
+            android:scrollbars="vertical" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="false"
+            android:visibility="invisible" />
+
+
 </FrameLayout>

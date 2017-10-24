@@ -8,4 +8,5 @@ public interface IItemListFragment {
     void showItemList(ArrayList<GoodsProperties> goodsProperties); //какой то эррейлист
     void showError(String error);
     void setTitle(String title);
+    void stopProgressBar();
 }

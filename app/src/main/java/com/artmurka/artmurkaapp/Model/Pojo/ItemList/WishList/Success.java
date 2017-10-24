@@ -16,8 +16,7 @@ public class Success {
     @SerializedName("goods_list")
     @Expose
     private HashMap<String, GoodsListDescription> goodsList;
-
-
+    
     @SerializedName("goods_count")
     @Expose
     private Long goodsCount;

@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
@@ -41,6 +42,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     private int visibleThreshold = 4;
     private Boolean isLoading = false;
     private int totalItemCount, lastVisibleItem;
+    private ProgressBar progressBar;
 
     public ItemListFragment() {
     }
@@ -49,6 +51,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar2);
         Log.d("Log.d", "itemListFragment ");
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -100,6 +103,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                     Log.d("Log.d", lastVisibleItem + "");
                     if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                         presenter.getCategoriesData(++curPage);
+                        progressBar.setVisibility(View.VISIBLE);
                         isLoading = true;
                     }
                 }
@@ -113,6 +117,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             Preferences.setListUrl(url);
         }
         presenter.getCategoriesData(curPage);
+        progressBar.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -135,6 +140,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
         } else {
             recyclerAdapterList.setData(goodsProperties);
         }
+        progressBar.setVisibility(View.INVISIBLE);
         isLoading = false;
     }
 
@@ -147,6 +153,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
                     }
                 }).show();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -159,6 +166,10 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
         }
     }
 
+    @Override
+    public void stopProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 
 
     @Override

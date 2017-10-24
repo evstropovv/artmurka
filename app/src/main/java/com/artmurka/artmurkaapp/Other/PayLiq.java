@@ -42,13 +42,9 @@ public class PayLiq extends Thread {
             public void onResponseSuccess(String s) {
                 Log.v("Log.d", s);
             }
-
             @Override
             public void onResponceError(ErrorCode errorCode) {
-                Log.v("Log.d","error liqpay: "+ errorCode.toString());
-            }
+                Log.v("Log.d","error liqpay: "+ errorCode.toString());}
         });
-
-
     }
 }

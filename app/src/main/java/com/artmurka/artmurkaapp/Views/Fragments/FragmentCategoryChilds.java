@@ -9,11 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
@@ -32,7 +34,6 @@ public class FragmentCategoryChilds extends Fragment implements ICategoryFragmen
     private RVcategoryAdapter recyclerAdapter;
     private SaveDataFragment dataFragment;
     private List<Success> childs;
-
     public FragmentCategoryChilds() {
         // Required empty public constructor
     }
@@ -61,7 +62,7 @@ public class FragmentCategoryChilds extends Fragment implements ICategoryFragmen
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+        RecyclerView.LayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerAdapter = new RVcategoryAdapter(view.getContext());
         recyclerView.setAdapter(recyclerAdapter);
@@ -106,6 +107,7 @@ public class FragmentCategoryChilds extends Fragment implements ICategoryFragmen
     @Override
     public void showError(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+
     }
 }
 

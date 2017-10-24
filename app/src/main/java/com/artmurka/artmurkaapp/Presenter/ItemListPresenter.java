@@ -47,18 +47,23 @@ public class ItemListPresenter implements IPresenterItemList {
                 public void onNext(SuccessExample value) {
                     fragment.showItemList(getList(value.getSuccess().getGoodsList()));
                     fragment.setTitle(value.getSuccess().getCatName());
+                    fragment.stopProgressBar();
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     isFull = true;
+                    fragment.stopProgressBar();
                     Log.d("Log.d", e.getMessage());
                 }
 
                 @Override
                 public void onComplete() {
+                    fragment.stopProgressBar();
                 }
             });
+        }else {
+            fragment.stopProgressBar();
         }
     }
 

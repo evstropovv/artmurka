@@ -4,19 +4,30 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Views.Fragments.CategoryFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.50"
-        android:background="#e4e4e4"
-        android:padding="8dp"
-        android:scrollbars="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/llCall" />
+        android:layout_above="@+id/llCall">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llCall"
+            android:layout_gravity="center_horizontal"
+            android:background="#e4e4e4"
+            android:padding="2dp"
+            android:scrollbars="vertical" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="false"
+            android:visibility="invisible" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_alignParentBottom="true"
