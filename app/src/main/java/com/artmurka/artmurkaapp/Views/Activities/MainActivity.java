@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.Views.Activities;
+﻿package com.artmurka.artmurkaapp.Views.Activities;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
 
                 break;
             case 112:
-                //delivery ...
+                //delivery ... 
                 DeliveryFragment deliveryFragment = new DeliveryFragment();
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, deliveryFragment)
