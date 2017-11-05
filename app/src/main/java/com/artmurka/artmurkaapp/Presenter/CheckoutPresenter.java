@@ -1,9 +1,6 @@
 package com.artmurka.artmurkaapp.Presenter;
 
-
-import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
@@ -21,11 +18,11 @@ import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,6 +86,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
     @Override
     public void postCheckout(String telephone, String message, String email, String pay, String delivery) {
+        Log.d("Log.d", "postCheckout");
         Call<Success> call = request.postCheckout(telephone, message, email, pay, delivery);
         call.enqueue(new Callback<Success>() {
             @Override
@@ -97,7 +95,6 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                     fragment.showOrderIsProcessed(response.message());
                 }
             }
-
             @Override
             public void onFailure(Call<Success> call, Throwable t) {
             }
@@ -125,10 +122,33 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
             @Override
             public void onFailure(Call<CityResponse> call, Throwable t) {
-
             }
         });
     }
+
+    @Override
+    public Boolean isEmailValid(String email) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            return matcher.matches();
+    }
+
+    @Override
+    public boolean isValidPhone(String phone) {
+        String expression = "^([0-9\\+]|\\(\\d{1,3}\\))[0-9\\-\\. ]{8,15}$";
+        CharSequence inputString = phone;
+        Pattern pattern = Pattern.compile(expression);
+        Matcher matcher = pattern.matcher(inputString);
+        if (matcher.matches())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
     private List<OrderDesc> getList(HashMap<String, OrderDesc> map) {
         List<OrderDesc> answerList = new ArrayList<>();

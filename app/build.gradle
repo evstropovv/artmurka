@@ -27,7 +27,6 @@ android {
         it.buildConfigField 'String', 'OAUTH_TOKEN', oauth_token
         it.buildConfigField 'String', 'OAUTH_TOKEN_SECRET', oauth_token_secret
         it.buildConfigField 'String', 'OAUTH_VERSION', oauth_version
-        it.buildConfigField 'String', 'OAUTH_SIGNATURE_METHOD', oauth_signature_method
         it.buildConfigField 'String', 'PUBLIC_PAY_KEY', public_pay_key
         it.buildConfigField 'String', 'PRIVATE_PAY_KEY', private_pay_key
         it.buildConfigField 'String', 'APPLICATION_EMAIL', application_email

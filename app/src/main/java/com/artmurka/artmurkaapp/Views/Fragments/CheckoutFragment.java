@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -112,7 +113,8 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!charSequence.toString().matches("")){
+                etMsg.setError(null);
+                if (charSequence.toString().toCharArray().length>2){
                     presenter.cityChanged(charSequence.toString());
                 }
             }
@@ -124,16 +126,44 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         });
 
         etPhone = (EditText) view.findViewById(R.id.etPhone);
+        etPhone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                etEmail.setError(null);
+                return false;
+            }
+        });
         emailLayout = (TextInputLayout) view.findViewById(R.id.emailLayout);
-
-
         etEmail = (EditText) view.findViewById(R.id.etEmail);
+        etEmail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                etEmail.setError(null);
+                return false;
+            }
+        });
         etEmail.setText(Preferences.getEmail().matches("artmurka.com") ? "" : Preferences.getEmail());
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean post = true;
 
-                if (etEmail.getText().toString().matches("") || etPhone.getText().toString().matches("") || etPhone.getText().toString().matches("")) {
+                //check for valid email
+                if (!presenter.isEmailValid(etEmail.getText().toString())){
+                    etEmail.setError(getResources().getString(R.string.email_error));
+                    post = false;
+                }
+                //check for valid phone
+                if (!presenter.isValidPhone(etPhone.getText().toString())){
+                    etPhone.setError(getResources().getString(R.string.phone_error));
+                    post = false;
+                }
+                //check for length Msg with city
+                if (etMsg.getText().toString().toCharArray().length<4){
+                    etMsg.setError(getResources().getString(R.string.city_error));
+                }
+
+                if (!post) { //if any check if false = nothing
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 } else {
                     int payPos = spinnerPayment.getSelectedItemPosition() + 1;

@@ -30,7 +30,7 @@ public class UcozApiModule {
     private String OAUTH_TOKEN_SECRET;
 
     private final String OAUTH_VERSION = BuildConfig.OAUTH_VERSION;
-    private final String OAUTH_SIGNATURE_METHOD = BuildConfig.OAUTH_SIGNATURE_METHOD;
+    private final String OAUTH_SIGNATURE_METHOD = "HMAC-SHA1";
 
     // in PHP -> time();
     //in this method we get current time in SEC, from 1 jan 1970
