@@ -95,6 +95,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                     fragment.showOrderIsProcessed(response.message());
                 }
             }
+
             @Override
             public void onFailure(Call<Success> call, Throwable t) {
             }
@@ -112,12 +113,15 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         cityResponse.enqueue(new Callback<CityResponse>() {
             @Override
             public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
-                for (int i = 0; i < response.body().getData().get(0).getAddresses().size(); i++) {
-                    cities[i] = response.body().getData().get(0).getAddresses().get(i).getSettlementTypeCode()
-                            + response.body().getData().get(0).getAddresses().get(i).getMainDescription()
-                            + ", " + response.body().getData().get(0).getAddresses().get(i).getArea();
+                try {
+                    for (int i = 0; i < response.body().getData().get(0).getAddresses().size(); i++) {
+                        cities[i] = response.body().getData().get(0).getAddresses().get(i).getSettlementTypeCode()
+                                + response.body().getData().get(0).getAddresses().get(i).getMainDescription()
+                                + ", " + response.body().getData().get(0).getAddresses().get(i).getArea();
+                    }
+                    fragment.setSityes(cities);
+                } catch (IndexOutOfBoundsException e) {
                 }
-                fragment.setSityes(cities);
             }
 
             @Override
@@ -128,10 +132,10 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
     @Override
     public Boolean isEmailValid(String email) {
-            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(email);
-            return matcher.matches();
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     @Override
@@ -140,11 +144,9 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         CharSequence inputString = phone;
         Pattern pattern = Pattern.compile(expression);
         Matcher matcher = pattern.matcher(inputString);
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

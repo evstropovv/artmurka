@@ -44,13 +44,8 @@ public class CheckoutRequest implements ICheckoutRequest {
         mapForUcozModule.put("mode", "order");
         mapForUcozModule.put("payment_id", pay); //1 -
         mapForUcozModule.put("delivery_id", delivery);
-
-//        private static final PercentEscaper percentEncoder = new PercentEscaper(
-//                "-._~", false);
-//        String st2 = msg.esc("^@(.+)$", "repl");
-//        String st3 = email.replace("^@(.+)$", "repl");
-
         mapForUcozModule.put("fld1", telephone);
+
         String encodeEmail = null;
         String encodeMsg = null;
         String msgTrim =msg.replace(" ",""); //убираем пробелы
@@ -84,7 +79,7 @@ public class CheckoutRequest implements ICheckoutRequest {
         reqBodyMap.put("fld2", encodeMsg);
         reqBodyMap.put("fld3", encodeEmail);
 
-        return ApiModule.getClient().postCheckout(confForRequest2);
+        return ApiModule.getClient().postCheckout(reqBodyMap);
     }
 
 
