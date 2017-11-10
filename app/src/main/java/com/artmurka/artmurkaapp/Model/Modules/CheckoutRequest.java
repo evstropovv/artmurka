@@ -62,24 +62,24 @@ public class CheckoutRequest implements ICheckoutRequest {
         Log.d("Log.d", new Gson().toJson(confForRequest2));
 
 
-        HashMap<String, String> reqBodyMap = new HashMap<>();
-        reqBodyMap.put("oauth_signature", (confForRequest2.get("oauth_signature")));
-        reqBodyMap.put("oauth_signature_method", (confForRequest2.get("oauth_signature_method")));
-        reqBodyMap.put("oauth_version", (confForRequest2.get("oauth_version")));
-        reqBodyMap.put("oauth_consumer_key", (confForRequest2.get("oauth_consumer_key")));
-        reqBodyMap.put("oauth_token", (confForRequest2.get("oauth_token")));
-        reqBodyMap.put("oauth_nonce", confForRequest2.get("oauth_nonce"));
-        reqBodyMap.put("oauth_timestamp", confForRequest2.get("oauth_timestamp"));
+//        HashMap<String, String> reqBodyMap = new HashMap<>();
+//        reqBodyMap.put("oauth_signature", (confForRequest2.get("oauth_signature")));
+//        reqBodyMap.put("oauth_signature_method", (confForRequest2.get("oauth_signature_method")));
+//        reqBodyMap.put("oauth_version", (confForRequest2.get("oauth_version")));
+//        reqBodyMap.put("oauth_consumer_key", (confForRequest2.get("oauth_consumer_key")));
+//        reqBodyMap.put("oauth_token", (confForRequest2.get("oauth_token")));
+//        reqBodyMap.put("oauth_nonce", confForRequest2.get("oauth_nonce"));
+//        reqBodyMap.put("oauth_timestamp", confForRequest2.get("oauth_timestamp"));
+//
+//        reqBodyMap.put("mode", "order");
+//        reqBodyMap.put("payment_id", pay);
+//        reqBodyMap.put("delivery_id", delivery);
+//
+//        reqBodyMap.put("fld1", telephone);
+//        reqBodyMap.put("fld2", encodeMsg);
+//        reqBodyMap.put("fld3", encodeEmail);
 
-        reqBodyMap.put("mode", "order");
-        reqBodyMap.put("payment_id", pay);
-        reqBodyMap.put("delivery_id", delivery);
-
-        reqBodyMap.put("fld1", telephone);
-        reqBodyMap.put("fld2", encodeMsg);
-        reqBodyMap.put("fld3", encodeEmail);
-
-        return ApiModule.getClient().postCheckout(reqBodyMap);
+        return ApiModule.getClient().postCheckout(confForRequest2);
     }
 
 

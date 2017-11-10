@@ -9,4 +9,8 @@
     <string name="email_error">Невірний email</string>
     <string name="phone_error">Невірний формат номеру телефону</string>
     <string name="city_error">Введіть місто доставки</string>
+    <string name="summ_to_pay">Загальна сумма:</string>
+    <string name="pay">Спосіб оплати:</string>
+    <string name="delivery">Спосіб доставки:</string>
+
 </resources>

@@ -24,7 +24,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Загальна сумма: "
+                android:paddingTop="5dp"
+
+                android:text="@string/summ_to_pay"
                 android:textAlignment="center"
                 android:textStyle="bold" />
 
@@ -32,8 +34,8 @@
                 android:id="@+id/tvSumPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:textSize="18sp"
+                android:paddingLeft="5dp"
                 android:textStyle="bold" />
 
             <Button
@@ -44,11 +46,19 @@
                 android:text="Оформити заказ"
                 android:textAlignment="center" />
 
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray" />
+
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/textView6"
+                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Спосіб оплати:"
+                android:text="@string/delivery"
                 android:textSize="14sp" />
 
             <Spinner
@@ -62,9 +72,10 @@
 
             <TextView
                 android:id="@+id/textView3"
+                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Спосіб доставки:"
+                android:text="@string/pay"
                 android:textSize="14sp" />
 
             <Spinner
@@ -75,6 +86,11 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp" />
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout"
