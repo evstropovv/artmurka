@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.Views.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private OAuth1AccessToken accessToken;
     private User user = null;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

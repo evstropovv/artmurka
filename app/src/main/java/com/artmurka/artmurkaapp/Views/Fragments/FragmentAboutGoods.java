@@ -4,6 +4,7 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -121,6 +122,8 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     public void setPhoto(ArrayList<String> urles) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(view.getContext(), urles);
         viewPager.setAdapter(viewPagerAdapter);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager, true);
     }
 
     @Override
