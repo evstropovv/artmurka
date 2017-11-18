@@ -62,11 +62,14 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
                 fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
                 fragment.setBasketButton(aboutGood.getEntryIsInBasket() > 0 ? true : false);
+                Log.d("Log.d", "getdata - success");
             }
 
             @Override
             public void onFailure(Call<AboutGood> call, Throwable t) {
                 try2(id);
+                Log.d("Log.d", "getdata - fail");
+                Log.d("Log.d", t.getMessage());
             }
         });
     }
@@ -88,10 +91,13 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                 fragment.getDataForRecyclerView(response.body().getSuccess().getEntryCat().getUrl());
                 fragment.setWishButton(aboutGood.getEntryIsInWishlist() == 1 ? true : false);
                 fragment.setBasketButton(aboutGood.getEntryIsInBasket() > 0 ? true : false);
+                Log.d("Log.d", "getdata2 - success");
             }
 
             @Override
             public void onFailure(Call<Good> call, Throwable t) {
+                Log.d("Log.d", "getdata2 - fail");
+                Log.d("Log.d", t.getMessage());
             }
         });
     }
@@ -169,9 +175,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
                     }
 
                     @Override
-                    public void onComplete() {
-
-                    }
+                    public void onComplete() {}
                 });
                 break;
             default:

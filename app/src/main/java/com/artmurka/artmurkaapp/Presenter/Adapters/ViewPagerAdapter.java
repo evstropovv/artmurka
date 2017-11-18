@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.support.v4.view.ViewPager;
 
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.artmurka.artmurkaapp.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,16 +20,16 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapter extends PagerAdapter {
     private  Context context;
-    private ArrayList<String> IMAGES = new ArrayList<>();
+    private ArrayList<String> images = new ArrayList<>();
 
     public ViewPagerAdapter(Context context, ArrayList<String> IMAGES) {
-        this.IMAGES = IMAGES;
+        this.images = IMAGES;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return IMAGES.size();
+        return images.size();
     }
 
     @Override
@@ -52,12 +54,23 @@ public class ViewPagerAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.image_pager_layout, null);
         ((ViewPager) collection).addView(view);
         final ImageView img = (ImageView) view.findViewById(R.id.img);
+        final ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.pbImage);
         Picasso.with(context)
-                .load(IMAGES.get(position))
+                .load(images.get(position))
                 .placeholder(R.drawable.splash)
                 .centerCrop()
                 .fit()
-                .into(img);
+                .into(img, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
         return view;
     }
 }

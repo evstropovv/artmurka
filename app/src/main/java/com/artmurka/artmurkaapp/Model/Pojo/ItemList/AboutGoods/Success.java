@@ -65,9 +65,7 @@ public class Success {
     @SerializedName("entry_brief")
     @Expose
     private String entryBrief;
-    @SerializedName("recommended_products")
-    @Expose
-    private RecommendedProducts recommendedProducts;
+
     @SerializedName("entry_meta_data")
     @Expose
     private EntryMetaData entryMetaData;
@@ -279,14 +277,6 @@ public class Success {
 
     public void setEntryBrief(String entryBrief) {
         this.entryBrief = entryBrief;
-    }
-
-    public RecommendedProducts getRecommendedProducts() {
-        return recommendedProducts;
-    }
-
-    public void setRecommendedProducts(RecommendedProducts recommendedProducts) {
-        this.recommendedProducts = recommendedProducts;
     }
 
     public EntryMetaData getEntryMetaData() {

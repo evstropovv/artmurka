@@ -38,7 +38,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerHorizontal="true"
-                        android:paddingLeft="5dp"
+                        android:paddingLeft="10dp"
                         android:textSize="24sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -57,6 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center">
+
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/viewPager"
@@ -83,7 +84,6 @@
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 card_view:cardCornerRadius="2dp"
-
                 card_view:cardElevation="4dp"
                 card_view:cardUseCompatPadding="true">
 
@@ -94,7 +94,7 @@
 
                     <TextView
                         android:id="@+id/tvPrice"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
@@ -113,7 +113,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 card_view:cardCornerRadius="2dp"
-
                 card_view:cardElevation="4dp"
                 card_view:cardUseCompatPadding="true">
 
@@ -124,7 +123,6 @@
 
                     <TextView
                         android:id="@+id/tvNameDescription"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -139,6 +137,7 @@
 
                     <TextView
                         android:id="@+id/tvDescription"
+                        android:paddingLeft="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentBottom="true"
@@ -206,6 +205,7 @@
                     android:layout_gravity="center">
 
                     <TextView
+                        android:paddingLeft="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentBottom="true"
