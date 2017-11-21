@@ -1,5 +1,5 @@
 # artmurka
-Android client for online store.
+Android client for online store http://artmurka.com 
 I am trying to build this project with MVP architecture :)
 
 In this project are uses:
