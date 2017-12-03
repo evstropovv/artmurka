@@ -89,12 +89,14 @@ public class UcozApiModule {
         try {
             StringBuilder builder = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                builder.append(entry.getKey() + URLEncoder.encode( entry.getValue(), "UTF-8")); //URLEncoder.encode.. <-- для подгруп.
+                builder.append(entry.getKey() + entry.getValue());
                 if (entry.getKey() != params.lastEntry().getKey()){
                     builder.append("&");
                 }
             }
             baseString = method + "&" + URLEncoder.encode(URL + url, "UTF-8") + "&" + URLEncoder.encode(builder.toString(), "UTF-8");
+            Log.d("Log.d", "baseString " + baseString);
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

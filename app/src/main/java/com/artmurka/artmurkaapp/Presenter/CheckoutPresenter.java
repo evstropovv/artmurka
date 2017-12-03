@@ -1,8 +1,10 @@
 package com.artmurka.artmurkaapp.Presenter;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Modules.ApiModuleNovaPoshta;
 import com.artmurka.artmurkaapp.Model.Modules.CheckoutRequest;
@@ -15,9 +17,18 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
+import com.artmurka.artmurkaapp.Presenter.LoginUcoz.UcozApi;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuth1AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Verb;
+import com.github.scribejava.core.oauth.OAuth10aService;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,6 +98,59 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     @Override
     public void postCheckout(String telephone, String message, String email, String pay, String delivery) {
         Log.d("Log.d", "postCheckout");
+//        String encodeEmail = null;
+//        String encodeMsg = null;
+//        String msgTrim = message.replace(" ", ""); //убираем пробелы
+//        try {
+//            encodeEmail = URLEncoder.encode(email, "UTF-8");
+//            encodeMsg = URLEncoder.encode(msgTrim, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        String finalEncodeMsg = encodeMsg;
+//        String finalEncodeEmail = encodeEmail;
+//        new AsyncTask<Void, Void, String>() {
+//
+//            @Override
+//            protected String doInBackground(Void... voids) {
+//
+//                OAuth10aService service = new ServiceBuilder(Preferences.getConsumerKey())
+//                        .apiSecret(Preferences.getConsumerSecret())
+//                        .debug()
+//                        .build(UcozApi.instance());
+//                OAuth1AccessToken token = new OAuth1AccessToken(Preferences.getOauthToken(), Preferences.getOauthTokenSecret());
+//                String url = "http://artmurka.com/uapi/shop/checkout/?mode=order&payment_id=" + pay +
+//                        "&delivery_id=" + delivery +
+//                        "&fld1=" + telephone ;
+////                        "&fld2=" + finalEncodeMsg +
+////                        "&fld3=" + finalEncodeEmail;
+//                Log.d("Log.d", url);
+//
+//               // String url = "http://artmurka.com/uapi/shop/request?page=categories";
+//                OAuthRequest request = new OAuthRequest(Verb.POST, url);
+//                com.github.scribejava.core.model.Response response = null;
+//                service.signRequest(token, request);
+//                try {
+//                    response=service.execute(request);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    Log.d("Log.d", response.getBody());
+//                    return response.getBody();
+//                } catch (IOException e) {
+//                    Log.d("Log.d", e.getMessage());
+//                }
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(String s) {
+//                super.onPostExecute(s);
+//                if(s!=null) fragment.showOrderIsProcessed(s);
+//            }
+//        }.execute();
+
         Call<Success> call = request.postCheckout(telephone, message, email, pay, delivery);
         call.enqueue(new Callback<Success>() {
             @Override

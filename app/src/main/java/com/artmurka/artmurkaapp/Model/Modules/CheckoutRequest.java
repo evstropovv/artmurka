@@ -44,8 +44,13 @@ public class CheckoutRequest implements ICheckoutRequest {
         mapForUcozModule.put("mode", "order");
         mapForUcozModule.put("payment_id", pay); //1 -
         mapForUcozModule.put("delivery_id", delivery);
-        mapForUcozModule.put("fld1", telephone);
 
+//        private static final PercentEscaper percentEncoder = new PercentEscaper(
+//                "-._~", false);
+//        String st2 = msg.esc("^@(.+)$", "repl");
+//        String st3 = email.replace("^@(.+)$", "repl");
+
+        mapForUcozModule.put("fld1", telephone);
         String encodeEmail = null;
         String encodeMsg = null;
         String msgTrim =msg.replace(" ",""); //убираем пробелы
@@ -62,22 +67,22 @@ public class CheckoutRequest implements ICheckoutRequest {
         Log.d("Log.d", new Gson().toJson(confForRequest2));
 
 
-//        HashMap<String, String> reqBodyMap = new HashMap<>();
-//        reqBodyMap.put("oauth_signature", (confForRequest2.get("oauth_signature")));
-//        reqBodyMap.put("oauth_signature_method", (confForRequest2.get("oauth_signature_method")));
-//        reqBodyMap.put("oauth_version", (confForRequest2.get("oauth_version")));
-//        reqBodyMap.put("oauth_consumer_key", (confForRequest2.get("oauth_consumer_key")));
-//        reqBodyMap.put("oauth_token", (confForRequest2.get("oauth_token")));
-//        reqBodyMap.put("oauth_nonce", confForRequest2.get("oauth_nonce"));
-//        reqBodyMap.put("oauth_timestamp", confForRequest2.get("oauth_timestamp"));
-//
-//        reqBodyMap.put("mode", "order");
-//        reqBodyMap.put("payment_id", pay);
-//        reqBodyMap.put("delivery_id", delivery);
-//
-//        reqBodyMap.put("fld1", telephone);
-//        reqBodyMap.put("fld2", encodeMsg);
-//        reqBodyMap.put("fld3", encodeEmail);
+        HashMap<String, String> reqBodyMap = new HashMap<>();
+        reqBodyMap.put("oauth_signature", (confForRequest2.get("oauth_signature")));
+        reqBodyMap.put("oauth_signature_method", (confForRequest2.get("oauth_signature_method")));
+        reqBodyMap.put("oauth_version", (confForRequest2.get("oauth_version")));
+        reqBodyMap.put("oauth_consumer_key", (confForRequest2.get("oauth_consumer_key")));
+        reqBodyMap.put("oauth_token", (confForRequest2.get("oauth_token")));
+        reqBodyMap.put("oauth_nonce", confForRequest2.get("oauth_nonce"));
+        reqBodyMap.put("oauth_timestamp", confForRequest2.get("oauth_timestamp"));
+
+        reqBodyMap.put("mode", "order");
+        reqBodyMap.put("payment_id", pay);
+        reqBodyMap.put("delivery_id", delivery);
+
+        reqBodyMap.put("fld1", telephone);
+        reqBodyMap.put("fld2", encodeMsg);
+        reqBodyMap.put("fld3", encodeEmail);
 
         return ApiModule.getClient().postCheckout(confForRequest2);
     }
