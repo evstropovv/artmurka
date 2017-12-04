@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -126,6 +127,8 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
         });
 
         etPhone = (EditText) view.findViewById(R.id.etPhone);
+
+        etPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         etPhone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -186,9 +189,10 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
     @Override
     public void showOrderIsProcessed(String msg) {
-        Toast.makeText(getContext().getApplicationContext(), "Заказ успішно сформовано", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
+        Toast.makeText(getContext().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext().getApplicationContext(), "Заказ успішно сформовано", Toast.LENGTH_LONG).show();
+//        Intent intent = new Intent(getContext(), MainActivity.class);
+//        startActivity(intent);
     }
 
     @Override
