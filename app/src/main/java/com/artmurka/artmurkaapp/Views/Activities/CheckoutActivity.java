@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.FragmenZakaz;
 import com.artmurka.artmurkaapp.Presenter.Adapters.PagerAdapter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
@@ -17,11 +18,13 @@ import com.artmurka.artmurkaapp.Views.Fragments.CheckoutFragment;
 
 public class CheckoutActivity extends AppCompatActivity implements ICheckoutActivity {
     CheckoutFragment checkoutFragment;
+    FragmenZakaz fragmenZakaz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        loadShopFragment();
+        //loadShopFragment();
+        loadTestFragment();
         setUI();
 
     }
@@ -41,7 +44,19 @@ public class CheckoutActivity extends AppCompatActivity implements ICheckoutActi
     public void changeFragment(int currentFragment) {
 
     }
-
+    private void loadTestFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag("ZAKAZ");
+        if (fragment == null) {
+            fragmenZakaz = new FragmenZakaz();
+            fm.beginTransaction()
+                    .replace(R.id.pager, fragmenZakaz, "ZAKAZ")
+                    .commit();
+            fm.executePendingTransactions();
+        } else {
+            fragmenZakaz = (FragmenZakaz) fragment;
+        }
+    }
 
     private void loadShopFragment() {
         FragmentManager fm = getSupportFragmentManager();

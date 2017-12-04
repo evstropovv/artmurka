@@ -12,5 +12,24 @@
     <string name="summ_to_pay">Загальна сумма:</string>
     <string name="pay">Спосіб оплати:</string>
     <string name="delivery">Спосіб доставки:</string>
+    <string name="button_zakaz">Оформити замовлення</string>
+    <string name="text_novaposhta_zakaz">Доставка до обранного відділення\n"Нової Пошти" (оплата за послуги перевезення при отриманні)</string>
+    <string name="text_pay_deliver">Сплата за вироби при отриманні</string>
+    <string name="text_zakaz_pikup">Самовивіз</string>
+    <string name="text_zakaz_liqpay">За допомогою сервісу LiqPay</string>
+    <string name="text_zakaz_pikup2">Самовивіз з м.Києва, метро Харківська</string>
 
+    <string name="text_novaposhta_zakaz2">Оберіть адресу доставки</string>
+
+    <string-array name="planets">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+        <item>Pluto</item>
+    </string-array>
 </resources>

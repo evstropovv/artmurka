@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:focusable="true" android:focusableInTouchMode="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ваш спосіб доставки:" />
+
+            <LinearLayout
+                android:id="@+id/linerPikup"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/zakaz_frame_style"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:text='@string/text_zakaz_pikup'
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvPikup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/text_zakaz_pikup2"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:id="@+id/linearNovaPoshta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/zakaz_frame_style"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:text='@string/text_novaposhta_zakaz'
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvChoseAdress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/text_novaposhta_zakaz2"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardRegion"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:elevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner
+                    android:id="@+id/spinnerRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/planets"
+                    app:hintText="Область" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:elevation="2dp"
+                android:visibility="gone"
+                android:id="@+id/cardCity"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner
+                    android:id="@+id/spinnerCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/planets"
+                    app:hintText="Місто" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                app:elevation="2dp"
+                android:visibility="gone"
+                android:id="@+id/cardPostOffice"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner
+                    android:id="@+id/spinnerPostOffice"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/planets"
+                    app:hintText="Відділення" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:translationY="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <EditText
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:background="@drawable/round_edit_text"
+                    android:id="@+id/etName"
+                    android:ems="40"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Ім'я"
+                    android:inputType="phone" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/emailLayout"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:background="@drawable/round_edit_text"
+                    android:id="@+id/etLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Прізвище"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout2"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/etPhone"
+                    android:background="@drawable/round_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textInputLayout"
+                    android:layout_weight="1"
+                    android:completionHint="Уведіть телефон"
+                    android:hint="Телефон"
+                    android:completionThreshold="1"/>
+            </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Спосіб оплати:" />
+
+
+            <LinearLayout
+                android:id="@+id/linerLiqPay"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/zakaz_frame_style"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:text='@string/text_zakaz_liqpay'
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvPikup555"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/text_zakaz_pikup2"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:id="@+id/linearPayReciever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/zakaz_frame_style"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView11555"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:text='@string/text_pay_deliver'
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvChoseAdress555"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/text_novaposhta_zakaz2"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+</LinearLayout>

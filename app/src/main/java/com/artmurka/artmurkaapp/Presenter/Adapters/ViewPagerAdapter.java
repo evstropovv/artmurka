@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 
 public class ViewPagerAdapter extends PagerAdapter {
-    private  Context context;
+    private  Context context;;
     private ArrayList<String> images = new ArrayList<>();
 
     public ViewPagerAdapter(Context context, ArrayList<String> IMAGES) {
