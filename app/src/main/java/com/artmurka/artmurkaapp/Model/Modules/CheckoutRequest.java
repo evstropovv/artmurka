@@ -86,6 +86,4 @@ public class CheckoutRequest implements ICheckoutRequest {
 
         return ApiModule.getClient().postCheckout(confForRequest2);
     }
-
-
 }

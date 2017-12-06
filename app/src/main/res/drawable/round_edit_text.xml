@@ -1,5 +1,5 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:top="10sp">
+    <item>
         <shape android:shape="rectangle">
             <solid android:color="#ffffff" />
             <corners android:radius="4dp" />
