@@ -33,6 +33,7 @@ import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Modules.ApiModuleNovaPoshta;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
@@ -233,6 +234,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     @Override
     public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setAreas(AreasResponse areas) {
+
     }
 
     @Override

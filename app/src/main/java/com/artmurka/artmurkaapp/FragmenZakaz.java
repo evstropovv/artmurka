@@ -8,12 +8,17 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
+import com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
@@ -25,12 +30,14 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     LinearLayout linearNovaPoshta, linerPikup, linearPayReciever, linerLiqPay;
     private TextView tvChoseAdress, tvPikup;
+    private SearchableSpinner spinnerRegion;
     private boolean npCheck = false;
     private boolean liqPayCheck = false;
     private CardView cardRegion, cardCity, cardPostOffice;
     private ICheckoutPresenter checkoutPresenter;
     private Button btnPostCheckout;
     private EditText etPhone, etName, etLastName;
+    private List<Datum> datumList;
     public FragmenZakaz() {
         // Required empty public constructor
     }
@@ -45,6 +52,8 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
 
         checkoutPresenter = new CheckoutPresenter(this);
+        checkoutPresenter.getAreas();
+
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +80,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         etPhone = (EditText)view.findViewById(R.id.etPhone);
         etName = (EditText)view.findViewById(R.id.etName);
         etLastName = (EditText)view.findViewById(R.id.etLastName);
+        spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
     }
 
     @Override
@@ -151,7 +161,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     @Override
     public void showOrderIsProcessed(String msg) {
-
+        
     }
 
     @Override
@@ -166,6 +176,31 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     @Override
     public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void setAreas(AreasResponse areas) {
+
+        datumList = areas.getData();
+
+
+        ArrayAdapter<Datum> adapter =
+                new ArrayAdapter<Datum>(getContext(), android.R.layout.simple_spinner_dropdown_item, datumList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerRegion.setAdapter(adapter);
+        spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 }

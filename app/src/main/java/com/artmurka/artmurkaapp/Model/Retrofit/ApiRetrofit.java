@@ -7,6 +7,8 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Good;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
@@ -74,7 +76,9 @@ public interface ApiRetrofit {
     @POST("uapi/shop/checkout/")
     Call<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
 
-
     @POST("v2.0/json/")
     Call<CityResponse> searhCity(@Body City body);
+
+    @POST("v2.0/json/")
+    Call<AreasResponse> getAreas(@Body AreasRequest body);
 }

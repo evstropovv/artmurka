@@ -13,6 +13,8 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.DeliveryDescription
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.PaymentDescription;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
@@ -213,6 +215,26 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void getAreas() {
+        AreasRequest areas = new AreasRequest();
+        areas.setApiKey(BuildConfig.NP_API_KEY);
+        areas.setCalledMethod("getAreas");
+        areas.setModelName("Address");
+        Call<AreasResponse> cityResponse = ApiModuleNovaPoshta.getClient().getAreas(areas);
+        cityResponse.enqueue(new Callback<AreasResponse>() {
+            @Override
+            public void onResponse(Call<AreasResponse> call, Response<AreasResponse> response) {
+                fragment.setAreas(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<AreasResponse> call, Throwable t) {
+
+            }
+        });
     }
 
 
