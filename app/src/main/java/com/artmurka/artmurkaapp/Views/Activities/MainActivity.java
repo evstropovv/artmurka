@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Preferences.init(this);
+        loadShopFragment();
+        setUI();
         runtimePermission();
     }
 
@@ -179,10 +181,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        if (fragCategory != null) {
-            outState.putString(TAG, fragCategory.getTag());
-        }
+//        super.onSaveInstanceState(outState, outPersistentState);
+//        if (fragCategory != null) {
+//            outState.putString(TAG, fragCategory.getTag());
+//        }
     }
 
     @Override
@@ -200,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, categoryChilds)
                         .addToBackStack("categoryChilds")
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
 
@@ -209,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, categoryFragment)
                         .addToBackStack(TAG)
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
 
@@ -220,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, itemList)
                         .addToBackStack("a")
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
             case 103:
@@ -228,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, cartFragment)
                         .addToBackStack("cartFragment")
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
             case 104:
@@ -236,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, wishFragment)
                         .addToBackStack("wishFragment")
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
             case 105:
@@ -244,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, orderFragment)
                         .addToBackStack("orderFragment")
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
             case 106:
@@ -252,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, categorySettingsFragment)
                         .addToBackStack(null)
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
             case 111:
@@ -261,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, individualFragment)
                         .addToBackStack(null)
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
 
                 break;
@@ -271,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 fm.beginTransaction()
                         .replace(R.id.mainFrame, deliveryFragment)
                         .addToBackStack(null)
-                        .commit();
+                        .commitAllowingStateLoss();
                 fm.executePendingTransactions();
                 break;
         }
@@ -294,10 +296,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                     100);
             return true;
         } else {
-            loadShopFragment();
-            setUI();
+            runtimePermission();
         }
-
 
         return false;
     }
