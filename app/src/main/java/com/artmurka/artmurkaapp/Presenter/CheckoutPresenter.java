@@ -170,30 +170,30 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
     @Override
     public void cityChanged(String msg) {
-        City city = new City();
-        city.setApiKey(BuildConfig.NP_API_KEY);
-        city.setCalledMethod("searchSettlements");
-        city.setMethodProperties(new MethodProperties(msg + "", 4));
-        city.setModelName("Address");
-        Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
-        cityResponse.enqueue(new Callback<CityResponse>() {
-            @Override
-            public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
-                try {
-                    for (int i = 0; i < response.body().getData().get(0).getAddresses().size(); i++) {
-                        cities[i] = response.body().getData().get(0).getAddresses().get(i).getSettlementTypeCode()
-                                + response.body().getData().get(0).getAddresses().get(i).getMainDescription()
-                                + ", " + response.body().getData().get(0).getAddresses().get(i).getArea();
-                    }
-                    fragment.setSityes(cities);
-                } catch (IndexOutOfBoundsException e) {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CityResponse> call, Throwable t) {
-            }
-        });
+//        City city = new City();
+//        city.setApiKey(BuildConfig.NP_API_KEY);
+//        city.setCalledMethod("searchSettlements");
+//       // city.setMethodProperties(new MethodProperties(msg + "", 4));
+//        city.setModelName("Address");
+//        Call<CityResponse> cityResponse =  ApiModuleNovaPoshta.getClient().searhCity(city);
+//        cityResponse.enqueue(new Callback<CityResponse>() {
+//            @Override
+//            public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
+//                try {
+//                    for (int i = 0; i < response.body().getData().get(0).getAddresses().size(); i++) {
+//                        cities[i] = response.body().getData().get(0).getAddresses().get(i).getSettlementTypeCode()
+//                                + response.body().getData().get(0).getAddresses().get(i).getMainDescription()
+//                                + ", " + response.body().getData().get(0).getAddresses().get(i).getArea();
+//                    }
+//                    fragment.setSityes(cities);
+//                } catch (IndexOutOfBoundsException e) {
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CityResponse> call, Throwable t) {
+//            }
+//        });
     }
 
     @Override

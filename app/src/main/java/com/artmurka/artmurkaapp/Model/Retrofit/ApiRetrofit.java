@@ -2,6 +2,7 @@ package com.artmurka.artmurkaapp.Model.Retrofit;
 
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Areas.Areas;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.*;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Good;
@@ -77,8 +78,9 @@ public interface ApiRetrofit {
     Call<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
 
     @POST("v2.0/json/")
-    Call<CityResponse> searhCity(@Body City body);
+    Call<Areas> searhCity(@Body City body);
 
     @POST("v2.0/json/")
     Call<AreasResponse> getAreas(@Body AreasRequest body);
+
 }

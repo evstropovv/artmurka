@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.artmurka.artmurkaapp.Model.Modules.ApiModuleNovaPoshta;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Areas.Areas;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
@@ -192,8 +204,27 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         spinnerRegion.setAdapter(adapter);
         spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                City city = new City();
+                city.setApiKey(BuildConfig.NP_API_KEY);
+                city.setCalledMethod("getSettlements");
+                Toast.makeText(getContext(),datumList.get(pos).getDescription(), Toast.LENGTH_LONG).show();
+                Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
+                city.setMethodProperties(new MethodProperties(datumList.get(pos).getRef()+ "")); //TODO
+                city.setModelName("AddressGeneral");
+                Call<Areas> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
+                cityResponse.enqueue(new Callback<Areas>() {
+                    @Override
+                    public void onResponse(Call<Areas> call, Response<Areas> response) {
 
+                        Log.d("Log.d", new Gson().toJson(response.body()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<Areas> call, Throwable t) {
+
+                    }
+                });
             }
 
             @Override

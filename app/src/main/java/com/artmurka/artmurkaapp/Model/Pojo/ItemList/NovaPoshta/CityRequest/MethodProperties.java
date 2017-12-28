@@ -6,31 +6,46 @@ import com.google.gson.annotations.SerializedName;
 
 public class MethodProperties {
 
-    @SerializedName("CityName")
+    //    @SerializedName("CityName")
+    @SerializedName("AreaRef")
     @Expose
-    private String cityName;
-    @SerializedName("Limit")
+    private String area;
+
+    @SerializedName("Page")
     @Expose
-    private Integer limit;
-    public MethodProperties(String cityName, Integer limit){
-        this.cityName = cityName;
-        this.limit = limit;
+    private String page;
+
+    @SerializedName("Warehouse")
+    @Expose
+    private String warehouse;
+
+    public MethodProperties(String area) {
+        this.area = area;
+        this.page = "1";
+        this.warehouse = "1";
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getPage() {
+        return page;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setPage(String page) {
+        this.page = page;
     }
 
-    public Integer getLimit() {
-        return limit;
+    public String getArea() {
+        return area;
     }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
+    public void setArea(String area) {
+        this.area = area;
     }
 
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
+    }
 }
