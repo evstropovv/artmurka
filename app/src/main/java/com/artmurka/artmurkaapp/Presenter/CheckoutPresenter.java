@@ -2,6 +2,7 @@ package com.artmurka.artmurkaapp.Presenter;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
@@ -15,22 +16,14 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.PaymentDescription;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
-import com.artmurka.artmurkaapp.Presenter.LoginUcoz.UcozApi;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth1AccessToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Verb;
-import com.github.scribejava.core.oauth.OAuth10aService;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +42,10 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     private ArrayList<String> paymentList;
     private HashMap<String, DeliveryDescription> deliveryMap;
     private HashMap<String, PaymentDescription> payMap;
-    private String cities[] = new String[4];
+
+
+    private List<Datum> datumList;
+    private List<com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Datum> cities;
 
     public CheckoutPresenter(ICheckoutFragment fragment) {
         this.fragment = fragment;
@@ -174,7 +170,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 //        city.setApiKey(BuildConfig.NP_API_KEY);
 //        city.setCalledMethod("searchSettlements");
 //       // city.setMethodProperties(new MethodProperties(msg + "", 4));
-//        city.setModelName("Address");
+//        city.setModelName("Info");
 //        Call<CityResponse> cityResponse =  ApiModuleNovaPoshta.getClient().searhCity(city);
 //        cityResponse.enqueue(new Callback<CityResponse>() {
 //            @Override
@@ -228,10 +224,34 @@ public class CheckoutPresenter implements ICheckoutPresenter {
             @Override
             public void onResponse(Call<AreasResponse> call, Response<AreasResponse> response) {
                 fragment.setAreas(response.body());
+                datumList = response.body().getData();
+                Log.d("Log.d", new Gson().toJson(response.body()));
             }
 
             @Override
             public void onFailure(Call<AreasResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getCities(int pos) {
+        City city = new City();
+        city.setApiKey(BuildConfig.NP_API_KEY);
+        city.setCalledMethod("getSettlements");
+        Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
+        city.setMethodProperties(new MethodProperties(datumList.get(pos).getAreasCenter()));
+        city.setModelName("AddressGeneral");
+        Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
+        cityResponse.enqueue(new Callback<CityResponse>() {
+            @Override
+            public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
+                fragment.setCities(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<CityResponse> call, Throwable t) {
 
             }
         });

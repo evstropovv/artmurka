@@ -29,31 +29,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
-import com.artmurka.artmurkaapp.Model.Modules.ApiModuleNovaPoshta;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcheckoutAdapter;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
-import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
@@ -238,6 +225,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
     @Override
     public void setAreas(AreasResponse areas) {
+
+    }
+
+    @Override
+    public void setCities(CityResponse cities) {
 
     }
 

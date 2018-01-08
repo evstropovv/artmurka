@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         Preferences.init(this);
         loadShopFragment();
         setUI();
+
         runtimePermission();
     }
 
@@ -295,10 +296,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                     },
                     100);
             return true;
-        } else {
-            runtimePermission();
         }
-
         return false;
     }
 

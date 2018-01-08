@@ -1,6 +1,5 @@
 package com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse;
 
-
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +8,7 @@ public class CityResponse {
 
     @SerializedName("success")
     @Expose
-    private Boolean success;
+    private boolean success;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
@@ -21,7 +20,7 @@ public class CityResponse {
     private List<Object> warnings = null;
     @SerializedName("info")
     @Expose
-    private List<Object> info = null;
+    private Info info;
     @SerializedName("messageCodes")
     @Expose
     private List<Object> messageCodes = null;
@@ -35,11 +34,11 @@ public class CityResponse {
     @Expose
     private List<Object> infoCodes = null;
 
-    public Boolean getSuccess() {
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(Boolean success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
@@ -67,11 +66,11 @@ public class CityResponse {
         this.warnings = warnings;
     }
 
-    public List<Object> getInfo() {
+    public Info getInfo() {
         return info;
     }
 
-    public void setInfo(List<Object> info) {
+    public void setInfo(Info info) {
         this.info = info;
     }
 

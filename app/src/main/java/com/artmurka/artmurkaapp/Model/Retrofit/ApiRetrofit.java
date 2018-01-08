@@ -78,7 +78,7 @@ public interface ApiRetrofit {
     Call<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
 
     @POST("v2.0/json/")
-    Call<Areas> searhCity(@Body City body);
+    Call<CityResponse> searhCity(@Body City body);
 
     @POST("v2.0/json/")
     Call<AreasResponse> getAreas(@Body AreasRequest body);

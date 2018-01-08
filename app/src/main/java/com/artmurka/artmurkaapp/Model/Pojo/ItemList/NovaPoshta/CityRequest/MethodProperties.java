@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class MethodProperties {
 
     //    @SerializedName("CityName")
-    @SerializedName("AreaRef")
+    @SerializedName("AreasCenter")
     @Expose
     private String area;
 
