@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <!--<com.artmurka.artmurkaapp.Other.ZoomableImageView-->
+        <!--android:id="@+id/zoomIV"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+    <com.artmurka.artmurkaapp.Other.ZoomImageView
+        android:id="@+id/zoomIV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:allowExcedLimitsWhenMovingImage="false"
+        custom:blockImageInTheMidleWhileIsSmallerThanView="true"
+        custom:doubleClickTimeInMillis="275"
+        custom:doubleClickZoomLevel="3"
+        custom:maximumZoomLevel="3"
+        />
+
+
+</RelativeLayout>

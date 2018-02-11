@@ -37,14 +37,15 @@
         <ImageView
             android:id="@+id/ivItemPhoto"
             android:layout_width="160dp"
-            android:layout_height="120dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_weight="1"
             android:paddingBottom="2dp"
-            android:src="@drawable/splash"
-            android:layout_alignParentTop="true" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/splash" />
 
         <ImageView
             android:id="@+id/ivToBasket"

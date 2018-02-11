@@ -2,13 +2,16 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterAboutGoods;
 import com.artmurka.artmurkaapp.Presenter.Adapters.ViewPagerAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.FullPhotoActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 
 import java.util.ArrayList;
@@ -38,9 +42,11 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     private TextView tvName, tvPrice, tvDescription;
     private ImageView ivPhoto, ivWish, ivBasket;
     private ViewPager viewPager;
+    private CardView cardView;
     private View view;
     private RecyclerView recyclerView;
     private RVitemListAdapterAboutGoods recyclerAdapter;
+
 
     public FragmentAboutGoods() {
         // Required empty public constructor
@@ -60,6 +66,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         ivPhoto = (ImageView) view.findViewById(R.id.ivItemPhoto);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+
         ivWish = (ImageView) view.findViewById(R.id.ivWish);
         ivWish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,3 +185,4 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
 
     }
 }
+

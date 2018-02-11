@@ -1,6 +1,8 @@
 package com.artmurka.artmurkaapp.Presenter.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.FullPhotoActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -71,6 +74,16 @@ public class ViewPagerAdapter extends PagerAdapter {
 
                     }
                 });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), FullPhotoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("image", images.get(position));
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
 }
