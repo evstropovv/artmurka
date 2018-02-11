@@ -23,8 +23,8 @@ public class CheckoutActivity extends AppCompatActivity implements ICheckoutActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        //loadShopFragment();
-        loadTestFragment();
+        loadShopFragment();
+        //loadTestFragment();
         setUI();
 
     }

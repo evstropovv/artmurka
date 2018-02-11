@@ -8,7 +8,7 @@
     android:layout_centerHorizontal="true"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="2dp"
+    card_view:cardCornerRadius="0dp"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true">
 
@@ -25,7 +25,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="4dp"
-            android:paddingTop="2dp"
+            android:paddingTop="0dp"
+            android:scaleType="fitXY"
             android:src="@drawable/splash" />
 
         <TextView
