@@ -9,16 +9,17 @@ import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.artmurka.artmurkaapp.R;
 
 
 public class ZoomImageView extends android.support.v7.widget.AppCompatImageView implements View.OnTouchListener {
 
-    final static String TAG = "es.slothdevelopers.zoomimageview";
     final static float MIN_DISTANCE_TO_MOVE = 10;
     final static float MIN_SEPARATION_TO_ZOOM = 10;
     final int NONE = 0;
@@ -369,6 +370,8 @@ public class ZoomImageView extends android.support.v7.widget.AppCompatImageView 
                 }
             }
         });
+
+     //   setLayoutParams(new RelativeLayout.LayoutParams(width, height));
     }
 
     private float spacing(MotionEvent event) {

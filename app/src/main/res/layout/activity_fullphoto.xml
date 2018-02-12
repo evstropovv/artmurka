@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    android:background="#000000">
 
-    <!--<com.artmurka.artmurkaapp.Other.ZoomableImageView-->
-        <!--android:id="@+id/zoomIV"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
-    <com.artmurka.artmurkaapp.Other.ZoomImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/zoomIV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        custom:allowExcedLimitsWhenMovingImage="false"
-        custom:blockImageInTheMidleWhileIsSmallerThanView="true"
-        custom:doubleClickTimeInMillis="275"
-        custom:doubleClickZoomLevel="3"
-        custom:maximumZoomLevel="3"
-        />
-
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

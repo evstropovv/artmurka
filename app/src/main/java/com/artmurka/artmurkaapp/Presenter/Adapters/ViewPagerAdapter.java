@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.artmurka.artmurkaapp.DialogZoomView;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.FullPhotoActivity;
 import com.squareup.picasso.Callback;
@@ -24,6 +25,11 @@ import java.util.ArrayList;
 public class ViewPagerAdapter extends PagerAdapter {
     private  Context context;;
     private ArrayList<String> images = new ArrayList<>();
+    private OpenZoomDialog listener;
+
+    public void setOpenZoomListener(OpenZoomDialog listener){
+        this.listener = listener;
+    }
 
     public ViewPagerAdapter(Context context, ArrayList<String> IMAGES) {
         this.images = IMAGES;
@@ -82,8 +88,15 @@ public class ViewPagerAdapter extends PagerAdapter {
                 bundle.putString("image", images.get(position));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
+
+//                if (listener!=null) listener.open(images.get(position));
+
             }
         });
         return view;
+    }
+
+    public interface OpenZoomDialog{
+        public void open(String stringUrl);
     }
 }

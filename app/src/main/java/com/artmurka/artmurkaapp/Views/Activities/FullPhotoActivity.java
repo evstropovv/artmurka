@@ -18,13 +18,12 @@ import java.util.ArrayList;
  */
 
 public class FullPhotoActivity extends AppCompatActivity {
-    private ZoomImageView imageView;
-    private ArrayList<String> images;
+    private com.github.chrisbanes.photoview.PhotoView imageView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullphoto);
-        imageView = (ZoomImageView) findViewById(R.id.zoomIV);
+        imageView = (com.github.chrisbanes.photoview.PhotoView) findViewById(R.id.zoomIV);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){

@@ -21,6 +21,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.artmurka.artmurkaapp.DialogZoomView;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterAboutGoods;
@@ -33,7 +34,7 @@ import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 import java.util.ArrayList;
 
 
-public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods {
+public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods, ViewPagerAdapter.OpenZoomDialog {
 
     IAboutGoodsPresenter presenter;
     private final String ID = "id";
@@ -128,6 +129,8 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     @Override
     public void setPhoto(ArrayList<String> urles) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(view.getContext(), urles);
+        viewPagerAdapter.setOpenZoomListener(this);
+
         viewPager.setAdapter(viewPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager, true);
@@ -183,6 +186,16 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
             }
         }
 
+    }
+
+    @Override
+    public void open(String stringUrl) {
+        Bundle bundle = new Bundle();
+        bundle.putString("image", stringUrl);
+
+        DialogZoomView dialogZoomView = new DialogZoomView();
+        dialogZoomView.setArguments(bundle);
+        dialogZoomView.show(getFragmentManager(), "zoomDialog");
     }
 }
 
