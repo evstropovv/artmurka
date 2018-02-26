@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.artmurka.artmurkaapp.Other.ZoomImageView;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +19,8 @@ import com.squareup.picasso.Picasso;
 
 public class DialogZoomView extends DialogFragment {
 
-    private PhotoView imageView;
+    private ImageView imageView;
+    private PhotoViewAttacher photoViewAttacher;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,8 +29,8 @@ public class DialogZoomView extends DialogFragment {
         v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
 
-        imageView = (PhotoView) v.findViewById(R.id.zoomIV);
-
+        imageView = (ImageView) v.findViewById(R.id.zoomIV);
+        photoViewAttacher = new PhotoViewAttacher(imageView);
         Picasso.with(v.getContext())
                 .load(getArguments().getString("image"))
                 .placeholder(R.drawable.splash)
@@ -37,6 +40,7 @@ public class DialogZoomView extends DialogFragment {
                     @Override
                     public void onSuccess() {
                         //progressBar.setVisibility(View.GONE);
+                        photoViewAttacher.update();
                     }
 
                     @Override
@@ -44,6 +48,7 @@ public class DialogZoomView extends DialogFragment {
 
                     }
                 });
+
         return v;
     }
 

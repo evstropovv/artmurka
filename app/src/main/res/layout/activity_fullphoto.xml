@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/zoomIV"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true" />
+        android:scaleType="centerInside" />
+
 
 </RelativeLayout>

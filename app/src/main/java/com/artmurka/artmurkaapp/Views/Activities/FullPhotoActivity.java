@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import com.artmurka.artmurkaapp.Other.ZoomImageView;
 import com.artmurka.artmurkaapp.R;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -18,24 +20,23 @@ import java.util.ArrayList;
  */
 
 public class FullPhotoActivity extends AppCompatActivity {
-    private com.github.chrisbanes.photoview.PhotoView imageView;
+    private PhotoView imageView;
+    private PhotoViewAttacher photoViewAttacher;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullphoto);
-        imageView = (com.github.chrisbanes.photoview.PhotoView) findViewById(R.id.zoomIV);
-
+        imageView = (PhotoView) findViewById(R.id.zoomIV);
         Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
+        if (bundle != null) {
             Picasso.with(this)
                     .load(bundle.getString("image"))
                     .placeholder(R.drawable.splash)
-                    .centerCrop()
-                    .fit()
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
-                            //progressBar.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -43,11 +44,6 @@ public class FullPhotoActivity extends AppCompatActivity {
 
                         }
                     });
-
-
         }
-
-
-
     }
 }
