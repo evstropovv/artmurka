@@ -20,6 +20,8 @@
 
         <TextView
             android:id="@+id/item_name"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -49,26 +51,33 @@
 
         <ImageView
             android:id="@+id/ivToBasket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             card_view:srcCompat="@drawable/basketfill"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/ivToWish"
             android:layout_toStartOf="@+id/ivToWish"
             android:layout_marginRight="47dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginEnd="47dp" />
 
         <ImageView
             android:id="@+id/ivToWish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             card_view:srcCompat="@drawable/heartoutlinebig"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
             android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/tvPrice"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

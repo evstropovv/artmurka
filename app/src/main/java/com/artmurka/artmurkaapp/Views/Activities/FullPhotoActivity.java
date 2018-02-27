@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 public class FullPhotoActivity extends AppCompatActivity {
     private PhotoView imageView;
-    private PhotoViewAttacher photoViewAttacher;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +35,7 @@ public class FullPhotoActivity extends AppCompatActivity {
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
+
                         }
 
                         @Override
