@@ -107,7 +107,6 @@ public class FragmentCategoryChilds extends Fragment implements ICategoryFragmen
     @Override
     public void showError(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
-
     }
 }
 

@@ -14,6 +14,7 @@ import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +23,13 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     private List<Success> successList;
     private Context ctx;
 
-    public RVcategoryAdapter(Context context){
+    public RVcategoryAdapter(Context context) {
         this.ctx = context;
         successList = new ArrayList<>();
     }
 
-    public void setData(List<Success> list){
-        if (list!=null && list.size()>0){
+    public void setData(List<Success> list) {
+        if (list != null && list.size() > 0) {
             this.successList.clear();
             this.successList.addAll(list);
             notifyDataSetChanged();
@@ -46,9 +47,9 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvCategoryName.setText(successList.get(position).getCatName());
-        try{
+        try {
             Picasso.with(ctx).load(successList.get(position).getCatImg()).into(holder.ivCategoryImage);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.getMessage();
         }
     }
@@ -62,22 +63,25 @@ public class RVcategoryAdapter extends RecyclerView.Adapter<RVcategoryAdapter.Vi
 
         public TextView tvCategoryName;
         public ImageView ivCategoryImage;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tvCategoryName = (TextView)itemView.findViewById(R.id.tvCategoryName);
-            ivCategoryImage = (ImageView)itemView.findViewById(R.id.ivItemPhoto);
+            tvCategoryName = (TextView) itemView.findViewById(R.id.tvCategoryName);
+            ivCategoryImage = (ImageView) itemView.findViewById(R.id.ivItemPhoto);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity activity = (MainActivity)v.getContext();
-                    if (successList.get(getAdapterPosition()).getChilds().size()>0){
+                    MainActivity activity = (MainActivity) v.getContext();
+                    if (successList.get(getAdapterPosition()).getChilds().size() > 0) {
                         //если есть под-категории - открывает фрагмент с подгатегориями
                         activity.changeFragment(Const.CATEGORY_CHILDS_FRAGMENT,
                                 successList.get(getAdapterPosition()).getCatUrl(),
-                                successList.get(getAdapterPosition()).getChilds(),successList.get(getAdapterPosition()).getCatName());
-                    } else{
+                                successList.get(getAdapterPosition()).getChilds(), successList.get(getAdapterPosition()).getCatName());
+                    } else {
+
                         activity.changeFragment(Const.ITEM_LIST_FRAGMENT, successList.get(getAdapterPosition()).getCatUrl(), null, null);
+
                     }
                 }
             });
