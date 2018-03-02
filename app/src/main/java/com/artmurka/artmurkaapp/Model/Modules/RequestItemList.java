@@ -1,12 +1,10 @@
 package com.artmurka.artmurkaapp.Model.Modules;
 
-import android.util.Log;
 
 import com.artmurka.artmurkaapp.Model.InterfacesModel.IRequestItemList;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.artmurka.artmurkaapp.Other.ZoomImageView;
@@ -21,12 +22,20 @@ import java.util.ArrayList;
 
 public class FullPhotoActivity extends AppCompatActivity {
     private PhotoView imageView;
+    private ImageView ivClose;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullphoto);
         imageView = (PhotoView) findViewById(R.id.zoomIV);
+        ivClose = (ImageView) findViewById(R.id.ivClose);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Picasso.with(this)

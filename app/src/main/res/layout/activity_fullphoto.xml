@@ -8,11 +8,20 @@
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/zoomIV"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:scaleType="centerInside" />
 
 
+    <ImageView
+        android:id="@+id/ivClose"
+        android:background="#56767676"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close_photo" />
 </RelativeLayout>

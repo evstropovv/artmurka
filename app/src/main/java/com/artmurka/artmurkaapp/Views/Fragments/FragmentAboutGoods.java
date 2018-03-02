@@ -2,7 +2,6 @@ package com.artmurka.artmurkaapp.Views.Fragments;
 
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,20 +19,18 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.DialogZoomView;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Presenter.AboutGoodsPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterAboutGoods;
 import com.artmurka.artmurkaapp.Presenter.Adapters.ViewPagerAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.Views.Activities.FullPhotoActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.IFragmentAboutGoods;
 
 import java.util.ArrayList;
 
 
-public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods, ViewPagerAdapter.OpenZoomDialog {
+public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods {
 
     IAboutGoodsPresenter presenter;
     private final String ID = "id";
@@ -129,7 +125,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods,
     @Override
     public void setPhoto(ArrayList<String> urles) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(view.getContext(), urles);
-        viewPagerAdapter.setOpenZoomListener(this);
+
 
         viewPager.setAdapter(viewPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
@@ -188,14 +184,5 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods,
 
     }
 
-    @Override
-    public void open(String stringUrl) {
-        Bundle bundle = new Bundle();
-        bundle.putString("image", stringUrl);
-
-        DialogZoomView dialogZoomView = new DialogZoomView();
-        dialogZoomView.setArguments(bundle);
-        dialogZoomView.show(getFragmentManager(), "zoomDialog");
-    }
 }
 
