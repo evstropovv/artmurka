@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">АртМурка</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -20,6 +20,37 @@
     <string name="text_zakaz_pikup2">Самовивіз з м.Києва, метро Харківська</string>
 
     <string name="text_novaposhta_zakaz2">Оберіть адресу доставки</string>
+
+
+    <string name="fragment_card_make_checkout">Оформити заказ</string>
+    <string name="fragment_card_empty_basket">Корзинка пуста. Але її завжди можна наповнити :)</string>
+    <string name="fragment_card_button_main">Каталог</string>
+    <string name="bottom_sheet_checkout">Оформити заказ</string>
+    <string name="bottom_sheet_et">Введіть місто</string>
+    <string name="card_order_button_pay">Сплатити</string>
+    <string name="fragment_category_button_call">Зателефонувати нам :)</string>
+    <string name="fragment_category_settings">Застосувати</string>
+    <string name="fragment_category_sort">Сортування:</string>
+    <string name="fragment_category_name">Найменування</string>
+    <string name="fragment_category_low">Спочатку дешеві</string>
+    <string name="fragment_category_rich">Спочатку дорогі</string>
+    <string name="fragment_category_new">Спочатку нові</string>
+    <string name="fragment_category_old">Давно додані</string>
+    <string name="fragment_category_vid_spiska">Вид списку:</string>
+
+    <string name="fragment_about_about">Опис</string>
+    <string name="fragment_other_category">Інші товари цієї категорії:</string>
+
+    <string name="fragment_individual_your_name">Ваше ім\'я</string>
+    <string name="fragment_individual_send">Відправити</string>
+    <string name="fragment_individual_add_photo">Додати фото</string>
+    <string name="fragment_individual_msg_hint">Схожий на равлика, але з ногами…</string>
+    <string name="fragment_individual_opus" >    Якщо Ви хочете замовити індивідуальний виріб якого немає в нашому каталозі, Вам необхідно заповнити поля у формі нижче. Ім'я, емейл, та максимально детальний опис Виробу який Ви бажаєте. При необхідності, додайте фотографію, натиснувши кнопку *Додати фото*</string>
+
+    <string name="fragment_zakaz_all_summ" >Всього до сплати:</string>
+    <string name="fragment_hint" >Ім'я</string>
+
+
 
     <string-array name="planets">
         <item>Mercury</item>

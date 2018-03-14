@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
-                android:text="    Якщо Ви хочете замовити індивідуальний виріб якого немає в нашому каталозі, Вам необхідно заповнити поля у формі нижче. Ім'я, емейл, та максимально детальний опис Виробу який Ви бажаєте. При необхідності, додайте фотографію, натиснувши кнопку *Додати фото*"
+                android:text="@string/fragment_individual_opus"
                 android:textAlignment="textStart" />
 
             <Button
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text=" Додати фото"
+                android:text="@string/fragment_individual_add_photo"
                 android:layout_below="@+id/textInputLayout3"
                 android:drawableLeft="@drawable/ic_add_a_photo_black_24dp"
                 android:background="@null"/>
@@ -52,7 +52,7 @@
                     android:id="@+id/etMsg"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
-                    android:hint="Схожий на равлика, але з ногами..."
+                    android:hint="@string/fragment_individual_msg_hint"
                     android:inputType="textMultiLine"
                     android:text="" />
             </android.support.design.widget.TextInputLayout>
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btnAddPhoto"
                 android:layout_centerHorizontal="true"
-                android:text="Відправити" />
+                android:text="@string/fragment_individual_send" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout2"
@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Ваше ім'я"
+                    android:hint="@string/fragment_individual_your_name"
                     android:inputType="text"
                     android:text="" />
             </android.support.design.widget.TextInputLayout>

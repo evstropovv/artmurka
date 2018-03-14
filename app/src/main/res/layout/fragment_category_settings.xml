@@ -10,7 +10,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Застосувати"
+        android:text="@string/fragment_category_settings"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -34,7 +34,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Сортування:"
+                    android:text="@string/fragment_category_sort"
                     android:textAlignment="center" />
 
                 <RadioGroup
@@ -49,31 +49,31 @@
                         android:id="@+id/rbName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Найменування" />
+                        android:text="@string/fragment_category_name" />
 
                     <RadioButton
                         android:id="@+id/rbLowCost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Спочатку дешеві" />
+                        android:text="@string/fragment_category_low" />
 
                     <RadioButton
                         android:id="@+id/rbExpensive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Спочатку дорогі" />
+                        android:text="@string/fragment_category_rich" />
 
                     <RadioButton
                         android:id="@+id/rvNew"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Нещодавно додані" />
+                        android:text="@string/fragment_category_new" />
 
                     <RadioButton
                         android:id="@+id/rbOld"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Давно додані" />
+                        android:text="@string/fragment_category_old" />
                 </RadioGroup>
 
             </LinearLayout>
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.08"
-                    android:text="Вид списку:"
+                    android:text="@string/fragment_category_vid_spiska"
                     android:textAlignment="center" />
 
                 <LinearLayout

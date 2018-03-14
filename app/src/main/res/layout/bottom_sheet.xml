@@ -44,7 +44,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Оформити заказ"
+                android:text="@string/bottom_sheet_checkout"
                 android:textAlignment="center" />
 
             <View
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textInputLayout"
                     android:layout_weight="1"
-                    android:completionHint="Введите город"
+                    android:completionHint="@string/bottom_sheet_et"
                     android:completionThreshold="1"
                     android:text="Kiev" />
             </android.support.design.widget.TextInputLayout>

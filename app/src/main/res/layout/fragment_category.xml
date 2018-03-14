@@ -43,7 +43,7 @@ tools:context=".Views.Fragments.CategoryFragment">
             android:layout_height="wrap_content"
             android:layout_weight="0.50"
             android:drawableLeft="@drawable/phoneclassic"
-            android:text="Зателефонувати нам :)" />
+            android:text="@string/fragment_category_button_call" />
 
     </LinearLayout>
 

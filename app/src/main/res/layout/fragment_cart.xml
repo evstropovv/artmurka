@@ -50,7 +50,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.8"
 
-                android:text="Оформити заказ" />
+                android:text="@string/fragment_card_make_checkout" />
 
         </LinearLayout>
 
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:text="Корзинка пуста. Але її завжди можна наповнити :)"
+        android:text="@string/fragment_card_empty_basket"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Каталог"
+        android:text="@string/fragment_card_button_main"
         android:textStyle="bold" />
 
 </RelativeLayout>

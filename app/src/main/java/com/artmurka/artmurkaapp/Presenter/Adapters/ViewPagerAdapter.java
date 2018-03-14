@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class ViewPagerAdapter extends PagerAdapter {
-    private  Context context;;
+    private Context context;
     private ArrayList<String> images = new ArrayList<>();
 
     public ViewPagerAdapter(Context context, ArrayList<String> IMAGES) {
@@ -57,7 +57,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.image_pager_layout, null);
         ((ViewPager) collection).addView(view);
         final ImageView img = (ImageView) view.findViewById(R.id.img);
-        final ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.pbImage);
+        final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.pbImage);
         Picasso.with(context)
                 .load(images.get(position))
                 .placeholder(R.drawable.splash)
