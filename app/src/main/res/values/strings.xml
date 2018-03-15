@@ -45,10 +45,10 @@
     <string name="fragment_individual_send">Відправити</string>
     <string name="fragment_individual_add_photo">Додати фото</string>
     <string name="fragment_individual_msg_hint">Схожий на равлика, але з ногами…</string>
-    <string name="fragment_individual_opus" >    Якщо Ви хочете замовити індивідуальний виріб якого немає в нашому каталозі, Вам необхідно заповнити поля у формі нижче. Ім'я, емейл, та максимально детальний опис Виробу який Ви бажаєте. При необхідності, додайте фотографію, натиснувши кнопку *Додати фото*</string>
+    <string name="fragment_individual_opus" >    Якщо Ви хочете замовити індивідуальний виріб якого немає в нашому каталозі, Вам необхідно заповнити поля у формі нижче. Ім\'я, емейл, та максимально детальний опис Виробу який Ви бажаєте. При необхідності, додайте фотографію, натиснувши кнопку *Додати фото*</string>
 
     <string name="fragment_zakaz_all_summ" >Всього до сплати:</string>
-    <string name="fragment_hint" >Ім'я</string>
+    <string name="fragment_hint" >Ім\'я</string>
 
 
 
