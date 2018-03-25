@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +62,8 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         call.enqueue(new Callback<CheckoutAllGoods>() {
             @Override
             public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+
+                Log.d("ResponsCheck", new Gson().toJson(response));
                 //отображаем все заказы
                 fragment.showCheckout(getList(response.body().getSuccess().getOrderContent().getOrderGoods()));
                 //обновляем сумму заказа
@@ -214,39 +219,43 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     }
 
     @Override
-    public void getAreas() {
+    public void getAreas() {  //TODO
         AreasRequest areas = new AreasRequest();
         areas.setApiKey(BuildConfig.NP_API_KEY);
         areas.setCalledMethod("getAreas");
         areas.setModelName("Address");
-        Call<AreasResponse> cityResponse = ApiModuleNovaPoshta.getClient().getAreas(areas);
-        cityResponse.enqueue(new Callback<AreasResponse>() {
+        Observable<AreasResponse> cityResponse = ApiModuleNovaPoshta.getClient().getAreas(areas);
+        cityResponse.subscribe(new Observer<AreasResponse>() {
             @Override
-            public void onResponse(Call<AreasResponse> call, Response<AreasResponse> response) {
-                fragment.setAreas(response.body());
-                datumList = response.body().getData();
-                Log.d("Log.d", new Gson().toJson(response.body()));
-            }
+            public void onSubscribe(Disposable d) { }
 
             @Override
-            public void onFailure(Call<AreasResponse> call, Throwable t) {
-
+            public void onNext(AreasResponse response) {
+                fragment.setAreas(response);
+                datumList = response.getData();
+                Log.d("Log.d", new Gson().toJson(response));
             }
+            @Override
+            public void onError(Throwable e) {}
+            @Override
+            public void onComplete() {}
         });
+
     }
 
     @Override
-    public void getCities(int pos) {
+    public void getCities(String cityName) { //TODO
         City city = new City();
         city.setApiKey(BuildConfig.NP_API_KEY);
-        city.setCalledMethod("getSettlements");
-        Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
-        city.setMethodProperties(new MethodProperties(datumList.get(pos).getAreasCenter()));
-        city.setModelName("AddressGeneral");
+        city.setCalledMethod("searchSettlements");
+       // Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
+        city.setMethodProperties(new MethodProperties(cityName));
+        city.setModelName("Address");
         Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
         cityResponse.enqueue(new Callback<CityResponse>() {
             @Override
             public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
+                Log.d("Log.d",new Gson().toJson( response.body().getData()));
                 fragment.setCities(response.body());
             }
 

@@ -8,7 +8,7 @@ public class CityResponse {
 
     @SerializedName("success")
     @Expose
-    private boolean success;
+    private Boolean success;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
@@ -20,7 +20,7 @@ public class CityResponse {
     private List<Object> warnings = null;
     @SerializedName("info")
     @Expose
-    private Info info;
+    private List<Object> info = null;
     @SerializedName("messageCodes")
     @Expose
     private List<Object> messageCodes = null;
@@ -34,11 +34,11 @@ public class CityResponse {
     @Expose
     private List<Object> infoCodes = null;
 
-    public boolean isSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(boolean success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 
@@ -66,11 +66,11 @@ public class CityResponse {
         this.warnings = warnings;
     }
 
-    public Info getInfo() {
+    public List<Object> getInfo() {
         return info;
     }
 
-    public void setInfo(Info info) {
+    public void setInfo(List<Object> info) {
         this.info = info;
     }
 

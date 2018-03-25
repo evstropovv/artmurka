@@ -8,5 +8,5 @@ public interface ICheckoutPresenter {
     Boolean isEmailValid(String email);
     boolean isValidPhone(String phone);
     void getAreas();
-    void getCities(int pos);
+    void getCities(String cityName);
 }

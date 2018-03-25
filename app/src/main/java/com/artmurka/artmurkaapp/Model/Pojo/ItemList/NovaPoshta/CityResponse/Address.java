@@ -8,7 +8,7 @@ public class Address {
 
     @SerializedName("Warehouses")
     @Expose
-    private Long warehouses;
+    private Integer warehouses;
     @SerializedName("MainDescription")
     @Expose
     private String mainDescription;
@@ -27,12 +27,15 @@ public class Address {
     @SerializedName("DeliveryCity")
     @Expose
     private String deliveryCity;
+    @SerializedName("StreetsAvailability")
+    @Expose
+    private Boolean streetsAvailability;
 
-    public Long getWarehouses() {
+    public Integer getWarehouses() {
         return warehouses;
     }
 
-    public void setWarehouses(Long warehouses) {
+    public void setWarehouses(Integer warehouses) {
         this.warehouses = warehouses;
     }
 
@@ -82,6 +85,14 @@ public class Address {
 
     public void setDeliveryCity(String deliveryCity) {
         this.deliveryCity = deliveryCity;
+    }
+
+    public Boolean getStreetsAvailability() {
+        return streetsAvailability;
+    }
+
+    public void setStreetsAvailability(Boolean streetsAvailability) {
+        this.streetsAvailability = streetsAvailability;
     }
 
 }

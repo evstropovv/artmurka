@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,21 +22,27 @@ import android.widget.TextView;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Address;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
+import com.google.gson.Gson;
+import com.jakewharton.rxbinding2.widget.RxAutoCompleteTextView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     LinearLayout linearNovaPoshta, linerPikup, linearPayReciever, linerLiqPay;
     private TextView tvChoseAdress, tvPikup;
-    private SearchableSpinner spinnerRegion, spinnerCity;
+    private SearchableSpinner spinnerRegion;
+    private AutoCompleteTextView spinnerCity;
     private boolean npCheck = false;
     private boolean liqPayCheck = false;
     private CardView cardRegion, cardCity, cardPostOffice;
@@ -40,7 +50,8 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private Button btnPostCheckout;
     private EditText etPhone, etName, etLastName;
     private List<Datum> datumList;
-    private List<com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Datum> cities;
+    private List<String> cities;
+
     public FragmenZakaz() {
         // Required empty public constructor
     }
@@ -61,9 +72,9 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             @Override
             public void onClick(View view) {
                 checkoutPresenter.postCheckout(etPhone.getText().toString(),
-                        etName.getText().toString() +" "+ etLastName.getText().toString(),
-                        "va.evstropov@gmail.com",  (npCheck?"2":"1"),(liqPayCheck?"2":"1")
-                        );
+                        etName.getText().toString() + " " + etLastName.getText().toString(),
+                        "va.evstropov@gmail.com", (npCheck ? "2" : "1"), (liqPayCheck ? "2" : "1")
+                );
             }
         });
         return view;
@@ -79,13 +90,19 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         cardPostOffice = (CardView) view.findViewById(R.id.cardPostOffice);
         linearPayReciever = (LinearLayout) view.findViewById(R.id.linearPayReciever);
         linerLiqPay = (LinearLayout) view.findViewById(R.id.linerLiqPay);
-        btnPostCheckout = (Button)view.findViewById(R.id.btnZakaz);
-        etPhone = (EditText)view.findViewById(R.id.etPhone);
-        etName = (EditText)view.findViewById(R.id.etName);
-        etLastName = (EditText)view.findViewById(R.id.etLastName);
+        btnPostCheckout = (Button) view.findViewById(R.id.btnZakaz);
+        etPhone = (EditText) view.findViewById(R.id.etPhone);
+        etName = (EditText) view.findViewById(R.id.etName);
+        etLastName = (EditText) view.findViewById(R.id.etLastName);
         spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
-        spinnerCity = (SearchableSpinner) view.findViewById(R.id.spinnerCity);
-        spinnerCity.setVisibility(View.GONE);
+        spinnerCity = (AutoCompleteTextView) view.findViewById(R.id.spinnerCity);
+//        RxAutoCompleteTextView.threshold(spinnerCity).
+        RxTextView.textChanges(spinnerCity).debounce(500, TimeUnit.MILLISECONDS).subscribe(text -> {
+            //spinnerCity.setText(text);
+            if (text.length() > 1) checkoutPresenter.getCities(text.toString());
+        });
+
+        //   spinnerCity.setVisibility(View.GONE);
     }
 
     @Override
@@ -166,7 +183,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     @Override
     public void showOrderIsProcessed(String msg) {
-        
+
     }
 
     @Override
@@ -196,7 +213,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                checkoutPresenter.getCities(pos);
+                //     checkoutPresenter.getCities(pos);
 
             }
 
@@ -209,13 +226,26 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     }
 
     @Override
-    public void setCities(CityResponse cities) {
+    public void setCities(CityResponse cityResponse) {
         spinnerCity.setVisibility(View.VISIBLE);
-        this.cities = cities.getData();
-        ArrayAdapter<com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Datum> adapter =
-                new ArrayAdapter<com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Datum>
-                        (getContext(), android.R.layout.simple_spinner_dropdown_item, this.cities);
+        cities = null;
+        cities = new ArrayList<String>();
+        List<Address> adressList = cityResponse.getData().get(0).getAddresses();
+        Log.d("Log.d List<Address>", new Gson().toJson(adressList));
+        if (adressList.size()>0){
+            for (int i = 0; i < adressList.size()-1; i++) {
+                cities.add(adressList.get(i).getSettlementTypeCode()+adressList.get(i).getMainDescription()+" ("+adressList.get(i).getArea()+")");
+            }
+        }
+
+        Log.d("Log.d-", new Gson().toJson(cities));
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>
+                        (getContext(), android.R.layout.simple_spinner_dropdown_item, cities);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCity.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
+

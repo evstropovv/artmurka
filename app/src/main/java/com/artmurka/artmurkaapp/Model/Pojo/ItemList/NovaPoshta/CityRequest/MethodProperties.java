@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class MethodProperties {
 
     //    @SerializedName("CityName")
-    @SerializedName("AreasCenter")
+    @SerializedName("CityName")
     @Expose
     private String area;
 
@@ -19,8 +19,8 @@ public class MethodProperties {
     @Expose
     private String warehouse;
 
-    public MethodProperties(String area) {
-        this.area = area;
+    public MethodProperties(String cityName) {
+        this.area = cityName;
         this.page = "1";
         this.warehouse = "1";
     }

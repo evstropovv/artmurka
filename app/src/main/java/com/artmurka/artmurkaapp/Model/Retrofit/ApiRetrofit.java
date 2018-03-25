@@ -81,6 +81,6 @@ public interface ApiRetrofit {
     Call<CityResponse> searhCity(@Body City body);
 
     @POST("v2.0/json/")
-    Call<AreasResponse> getAreas(@Body AreasRequest body);
+    Observable<AreasResponse> getAreas(@Body AreasRequest body);
 
 }

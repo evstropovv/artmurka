@@ -31,9 +31,7 @@ public class City {
         return modelName;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
+  public void setModelName(String modelName) {        this.modelName = modelName;    }
 
     public String getCalledMethod() {
         return calledMethod;
