@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
@@ -29,28 +30,31 @@ import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
-import com.jakewharton.rxbinding2.widget.RxAutoCompleteTextView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.disposables.Disposable;
+
 
 public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     LinearLayout linearNovaPoshta, linerPikup, linearPayReciever, linerLiqPay;
     private TextView tvChoseAdress, tvPikup;
-    private SearchableSpinner spinnerRegion;
+    private SearchableSpinner spinnerPostOffice;
     private AutoCompleteTextView spinnerCity;
     private boolean npCheck = false;
     private boolean liqPayCheck = false;
-    private CardView cardRegion, cardCity, cardPostOffice;
+    private CardView cardCity, cardPostOffice;
     private ICheckoutPresenter checkoutPresenter;
     private Button btnPostCheckout;
     private EditText etPhone, etName, etLastName;
-    private List<Datum> datumList;
+
+    private String selectCityId = "";
     private List<String> cities;
+    private Disposable citiesDisposable;
 
     public FragmenZakaz() {
         // Required empty public constructor
@@ -67,7 +71,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
         checkoutPresenter = new CheckoutPresenter(this);
         checkoutPresenter.getAreas();
-
+        spinnerPostOffice = (SearchableSpinner) view.findViewById(R.id.spinnerPostOffice);
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +89,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         linerPikup = (LinearLayout) view.findViewById(R.id.linerPikup);
         tvChoseAdress = (TextView) view.findViewById(R.id.tvChoseAdress);
         tvPikup = (TextView) view.findViewById(R.id.tvPikup);
-        cardRegion = (CardView) view.findViewById(R.id.cardRegion);
         cardCity = (CardView) view.findViewById(R.id.cardCity);
         cardPostOffice = (CardView) view.findViewById(R.id.cardPostOffice);
         linearPayReciever = (LinearLayout) view.findViewById(R.id.linearPayReciever);
@@ -94,15 +97,52 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         etPhone = (EditText) view.findViewById(R.id.etPhone);
         etName = (EditText) view.findViewById(R.id.etName);
         etLastName = (EditText) view.findViewById(R.id.etLastName);
-        spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
+        //   spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
         spinnerCity = (AutoCompleteTextView) view.findViewById(R.id.spinnerCity);
-//        RxAutoCompleteTextView.threshold(spinnerCity).
-        RxTextView.textChanges(spinnerCity).debounce(500, TimeUnit.MILLISECONDS).subscribe(text -> {
+        spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Toast.makeText(view.getContext(), cities.get(position).toString(), Toast.LENGTH_LONG).show();
+          //      setSpinnerCityChecked(true, datumList.get(position).getRef());
+            }
+        });
+        citiesDisposable = RxTextView.textChanges(spinnerCity).debounce(500, TimeUnit.MILLISECONDS).subscribe(text -> {
             //spinnerCity.setText(text);
-            if (text.length() > 1) checkoutPresenter.getCities(text.toString());
+            Log.d("Log.d", "" + text.length());
+            if (text.length() > 1) {
+                checkoutPresenter.getCities(text.toString());
+            }
+            if (text.length() == 0) {
+                Log.d("Log.d", "text.length() == 0 " + text.length());
+                getActivity().runOnUiThread(() -> setSpinnerCityChecked(false));
+            }
+
         });
 
         //   spinnerCity.setVisibility(View.GONE);
+    }
+
+    private void setSpinnerCityChecked(Boolean isChecked) {
+        if (isChecked) {
+            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_check));
+            cardPostOffice.setVisibility(View.VISIBLE);
+        } else {
+            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_not_check));
+            cardPostOffice.setVisibility(View.GONE);
+        }
+    }
+
+    private void setSpinnerCityChecked(Boolean isChecked, String id) {
+        this.selectCityId = id;
+        if (isChecked) {
+            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_check));
+            cardPostOffice.setVisibility(View.VISIBLE);
+        } else {
+            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_not_check));
+            cardPostOffice.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -140,13 +180,18 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (!citiesDisposable.isDisposed()) citiesDisposable.dispose();
+    }
+
     void setCheckNP(boolean check) {
         if (!check) {
             linearNovaPoshta.setBackground(getResources().getDrawable(R.drawable.zakaz_frame_style_check));
             linerPikup.setBackground(getResources().getDrawable(R.drawable.zakaz_frame_style));
             tvChoseAdress.setVisibility(View.VISIBLE);
             tvPikup.setVisibility(View.GONE);
-            cardRegion.setVisibility(View.VISIBLE);
             cardCity.setVisibility(View.VISIBLE);
             cardPostOffice.setVisibility(View.VISIBLE);
 
@@ -155,7 +200,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             linerPikup.setBackground(getResources().getDrawable(R.drawable.zakaz_frame_style_check));
             tvChoseAdress.setVisibility(View.GONE);
             tvPikup.setVisibility(View.VISIBLE);
-            cardRegion.setVisibility(View.GONE);
             cardCity.setVisibility(View.GONE);
             cardPostOffice.setVisibility(View.GONE);
         }
@@ -204,25 +248,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     @Override
     public void setAreas(AreasResponse areas) {
 
-        datumList = areas.getData();
-        ArrayAdapter<Datum> adapter =
-                new ArrayAdapter<Datum>(getContext(), android.R.layout.simple_spinner_dropdown_item, datumList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerRegion.setAdapter(adapter);
-        spinnerRegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                //     checkoutPresenter.getCities(pos);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
     }
 
     @Override
@@ -230,11 +255,12 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         spinnerCity.setVisibility(View.VISIBLE);
         cities = null;
         cities = new ArrayList<String>();
+
         List<Address> adressList = cityResponse.getData().get(0).getAddresses();
         Log.d("Log.d List<Address>", new Gson().toJson(adressList));
-        if (adressList.size()>0){
-            for (int i = 0; i < adressList.size()-1; i++) {
-                cities.add(adressList.get(i).getSettlementTypeCode()+adressList.get(i).getMainDescription()+" ("+adressList.get(i).getArea()+")");
+        if (adressList.size() > 0) {
+            for (int i = 0; i < adressList.size() - 1; i++) {
+                cities.add(adressList.get(i).getSettlementTypeCode() + adressList.get(i).getMainDescription() + " (" + adressList.get(i).getArea() + ")");
             }
         }
 

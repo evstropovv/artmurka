@@ -73,25 +73,6 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardRegion"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                app:elevation="2dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner
-                    android:id="@+id/spinnerRegion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:entries="@array/planets"
-                    app:hintText="Область" />
-            </android.support.v7.widget.CardView>
-
     <android.support.v7.widget.CardView
         android:id="@+id/cardCity"
         android:layout_width="match_parent"
@@ -107,28 +88,31 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:drawablePadding="20dp"
+            android:paddingLeft="33dp"
+            android:background="@drawable/spinner_not_check"
             android:entries="@array/planets"
             app:hintText="Місто" />
     </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                app:elevation="2dp"
-                android:visibility="gone"
-                android:id="@+id/cardPostOffice"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardPostOffice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:visibility="visible"
+        app:elevation="2dp">
 
-                <com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner
-                    android:id="@+id/spinnerPostOffice"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/planets"
-                    app:hintText="Відділення" />
-            </android.support.v7.widget.CardView>
+        <com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner
+            android:id="@+id/spinnerPostOffice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:entries="@array/planets"
+            app:hintText="Відділення" />
+    </android.support.v7.widget.CardView>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout"
