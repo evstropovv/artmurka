@@ -32,6 +32,8 @@ import android.widget.Toast;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Address;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVcheckoutAdapter;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
@@ -229,7 +231,7 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     }
 
     @Override
-    public void setCities(CityResponse cities) {
+    public void setCities(List<Address> cities) {
 
     }
 

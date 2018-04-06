@@ -81,6 +81,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
                 );
             }
         });
+
         return view;
     }
 
@@ -99,12 +100,13 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         etLastName = (EditText) view.findViewById(R.id.etLastName);
         //   spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
         spinnerCity = (AutoCompleteTextView) view.findViewById(R.id.spinnerCity);
+
         spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 Toast.makeText(view.getContext(), cities.get(position).toString(), Toast.LENGTH_LONG).show();
-          //      setSpinnerCityChecked(true, datumList.get(position).getRef());
+                //      setSpinnerCityChecked(true, datumList.get(position).getRef());
             }
         });
         citiesDisposable = RxTextView.textChanges(spinnerCity).debounce(500, TimeUnit.MILLISECONDS).subscribe(text -> {
@@ -124,13 +126,13 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     }
 
     private void setSpinnerCityChecked(Boolean isChecked) {
-        if (isChecked) {
-            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_check));
-            cardPostOffice.setVisibility(View.VISIBLE);
-        } else {
-            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_not_check));
-            cardPostOffice.setVisibility(View.GONE);
-        }
+//        if (isChecked) {
+//            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_check));
+//            cardPostOffice.setVisibility(View.VISIBLE);
+//        } else {
+//            spinnerCity.setBackground(getResources().getDrawable(R.drawable.spinner_not_check));
+//            cardPostOffice.setVisibility(View.GONE);
+//        }
     }
 
     private void setSpinnerCityChecked(Boolean isChecked, String id) {
@@ -251,19 +253,23 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     }
 
     @Override
-    public void setCities(CityResponse cityResponse) {
-        spinnerCity.setVisibility(View.VISIBLE);
-        cities = null;
-        cities = new ArrayList<String>();
+    public void setCities(List<Address> adressList) {
+       // spinnerCity.setVisibility(View.VISIBLE);
+        if (cities == null) {
+            cities = new ArrayList<String>();
+        } else {
+            cities.clear();
+        }
 
-        List<Address> adressList = cityResponse.getData().get(0).getAddresses();
+
         Log.d("Log.d List<Address>", new Gson().toJson(adressList));
         if (adressList.size() > 0) {
             for (int i = 0; i < adressList.size() - 1; i++) {
-                cities.add(adressList.get(i).getSettlementTypeCode() + adressList.get(i).getMainDescription() + " (" + adressList.get(i).getArea() + ")");
+                cities.add(adressList.get(i).getSettlementTypeCode() +
+                        adressList.get(i).getMainDescription() +
+                        " (" + adressList.get(i).getArea() + ")");
             }
         }
-
         Log.d("Log.d-", new Gson().toJson(cities));
 
         ArrayAdapter<String> adapter =

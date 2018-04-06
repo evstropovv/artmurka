@@ -19,6 +19,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasRespon
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Address;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
@@ -33,6 +34,7 @@ import java.util.regex.Pattern;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -251,19 +253,9 @@ public class CheckoutPresenter implements ICheckoutPresenter {
        // Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
         city.setMethodProperties(new MethodProperties(cityName));
         city.setModelName("Address");
-        Call<CityResponse> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city);
-        cityResponse.enqueue(new Callback<CityResponse>() {
-            @Override
-            public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
-                Log.d("Log.d",new Gson().toJson( response.body().getData()));
-                fragment.setCities(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<CityResponse> call, Throwable t) {
-
-            }
-        });
+        Observable<List<Address>> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city)
+                .map(datumList->datumList.getData().get(0).getAddresses());
+        cityResponse.subscribe(addresses -> fragment.setCities(addresses), throwable -> {});
     }
 
 

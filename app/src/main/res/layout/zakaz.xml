@@ -90,8 +90,6 @@
             android:layout_marginTop="10dp"
             android:drawablePadding="20dp"
             android:paddingLeft="33dp"
-            android:background="@drawable/spinner_not_check"
-            android:entries="@array/planets"
             app:hintText="Місто" />
     </android.support.v7.widget.CardView>
 
