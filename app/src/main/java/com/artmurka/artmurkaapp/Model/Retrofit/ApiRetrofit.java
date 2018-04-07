@@ -64,7 +64,7 @@ public interface ApiRetrofit {
     Call<WishList> getWishList(@QueryMap HashMap<String, String> map);
 
     @GET("uapi/shop/checkout/")
-    Call<CheckoutAllGoods> getCheckout(@QueryMap HashMap<String, String> param);
+    Observable<CheckoutAllGoods> getCheckout(@QueryMap HashMap<String, String> param);
 
     @FormUrlEncoded
     @PUT("uapi/shop/checkout/")

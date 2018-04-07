@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class MethodProperties {
 
-    @SerializedName("CityRef")
+    @SerializedName("CityName")
     @Expose
     private String cityRef;
 

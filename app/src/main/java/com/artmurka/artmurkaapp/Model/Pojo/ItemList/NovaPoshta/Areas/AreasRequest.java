@@ -21,11 +21,6 @@ public class AreasRequest {
     private String calledMethod;
 
 
-    //commit method proPerties TODO
-    @SerializedName("methodProperties")
-    @Expose
-    private MethodProperties methodProperties;
-
     public String getApiKey() {
         return apiKey;
     }
@@ -50,11 +45,11 @@ public class AreasRequest {
         this.calledMethod = calledMethod;
     }
 
-    public MethodProperties getMethodProperties() {
-        return methodProperties;
-    }
-
-    public void setMethodProperties(MethodProperties methodProperties) {
-        this.methodProperties = methodProperties;
-    }
+//    public MethodProperties getMethodProperties() {
+//        return methodProperties;
+//    }
+//
+//    public void setMethodProperties(MethodProperties methodProperties) {
+//        this.methodProperties = methodProperties;
+//    }
 }

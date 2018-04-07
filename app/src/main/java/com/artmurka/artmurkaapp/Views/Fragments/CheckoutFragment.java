@@ -231,9 +231,15 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
     }
 
     @Override
-    public void setCities(List<Address> cities) {
+    public void setCities(List<String> cities) {
 
     }
+
+    @Override
+    public void setWarehouses(List<String> warehouses) {
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

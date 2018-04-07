@@ -70,7 +70,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
 
         checkoutPresenter = new CheckoutPresenter(this);
-        checkoutPresenter.getAreas();
+       // checkoutPresenter.getAreas();
         autoCompleteWarehouse = (AutoCompleteTextView) view.findViewById(R.id.autocompleteWarehouse);
 
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
@@ -110,17 +110,22 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
                 //      setSpinnerCityChecked(true, datumList.get(position).getRef());
             }
         });
-        citiesDisposable = RxTextView.textChanges(autoCompleteCities).debounce(500, TimeUnit.MILLISECONDS).subscribe(text -> {
-            //spinnerCity.setText(text);
-            Log.d("Log.d", "" + text.length());
-            if (text.length() > 1) {
-                checkoutPresenter.getCities(text.toString());
+        autoCompleteCities.setThreshold(1);
+        autoCompleteCities.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String text = charSequence.toString();
+                Log.d("Log.d", "" + text.length());
+                if (text.length() > 1) {
+                    checkoutPresenter.getCities(text);
+                }
+                if (text.length() == 0) {
+                    Log.d("Log.d", "text.length() == 0 " + text.length());
+                    getActivity().runOnUiThread(() -> setSpinnerCityChecked(false));
+                }
             }
-            if (text.length() == 0) {
-                Log.d("Log.d", "text.length() == 0 " + text.length());
-                getActivity().runOnUiThread(() -> setSpinnerCityChecked(false));
-            }
-
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void afterTextChanged(Editable editable) { }
         });
     }
 
@@ -239,6 +244,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     @Override
     public void setCities(List<String> cityList) {
+        Log.d("Log.d", new Gson().toJson(cityList));
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>

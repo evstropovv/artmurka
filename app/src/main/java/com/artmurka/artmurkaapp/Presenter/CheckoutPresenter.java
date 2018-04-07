@@ -34,9 +34,12 @@ import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -170,7 +173,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         areas.setApiKey(BuildConfig.NP_API_KEY);
         areas.setCalledMethod("getWarehouses");
         areas.setModelName("AddressGeneral");
-        areas.setMethodProperties(new MethodProperties(cityRef));
+        //areas.setMethodProperties(new MethodProperties(cityRef));
 
         //
         Observable<AreasResponse> cityResponse = ApiModuleNovaPoshta.getClient().getWarehouses(areas);
@@ -180,37 +183,11 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     }
 
     @Override
-    public void getAreas() {  //TODO
-        AreasRequest areas = new AreasRequest();
-        areas.setApiKey(BuildConfig.NP_API_KEY);
-        areas.setCalledMethod("getAreas");
-        areas.setModelName("Address");
-        Observable<AreasResponse> cityResponse = ApiModuleNovaPoshta.getClient().getAreas(areas);
-        cityResponse.subscribe(new Observer<AreasResponse>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-
-            @Override
-            public void onNext(AreasResponse response) {
-                fragment.setAreas(response);
-                datumList = response.getData();
-                Log.d("Log.d", new Gson().toJson(response));
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onComplete() {
-            }
-        });
-
+    public void getAreas() {
     }
 
     @Override
-    public void getCities(String cityName) { //TODO
+    public void getCities(String cityName) {
         City city = new City();
         city.setApiKey(BuildConfig.NP_API_KEY);
         city.setCalledMethod("searchSettlements");
@@ -218,13 +195,16 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         city.setMethodProperties(new MethodProperties(cityName));
         city.setModelName("Address");
         Observable<List<Address>> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city)
-                .map(datumList -> datumList.getData().get(0).getAddresses());
+                .map(datumList -> datumList.getData().get(0).getAddresses())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
         cityResponse.subscribe(addresses -> {
                     cities = addresses;
                     if (cities.size() > 0) {
                         List<String> cityStringList = new ArrayList<>();
                         for (int i = 0; i < cities.size(); i++) {
-                            cityStringList.add(cities.get(i).getDeliveryCity());
+                            //отображаем города у которых 1+ склад новой почты
+                            cityStringList.add(cities.get(i).getMainDescription()+" "+cities.get(i).getWarehouses());
                         }
                         fragment.setCities(cityStringList);
                     }

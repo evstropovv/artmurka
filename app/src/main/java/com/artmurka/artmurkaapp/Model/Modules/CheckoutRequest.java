@@ -13,12 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 
 public class CheckoutRequest implements ICheckoutRequest {
 
     @Override
-    public Call<CheckoutAllGoods> getCheckoutData() {
+    public Observable<CheckoutAllGoods> getCheckoutData() {
         UcozApiModule ucoz = new UcozApiModule();
         HashMap<String, String> mapForUcozModule = new HashMap<String, String>();
         HashMap<String, String> confForRequest = ucoz.get("GET", "uapi/shop/checkout/", mapForUcozModule);
