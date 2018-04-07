@@ -18,5 +18,6 @@ public interface ICheckoutFragment {
     void setSityes(String[] sityes);
     void showMessage(String message);
     void setAreas(AreasResponse areas);
-    void setCities(List<Address> cities);
+    void setCities(List<String> cities);
+    void setWarehouses(List<String> warehouses);
 }

@@ -83,4 +83,7 @@ public interface ApiRetrofit {
     @POST("v2.0/json/")
     Observable<AreasResponse> getAreas(@Body AreasRequest body);
 
+    @POST("v2.0/json/")
+    Observable<AreasResponse> getWarehouses(@Body AreasRequest body);
+
 }

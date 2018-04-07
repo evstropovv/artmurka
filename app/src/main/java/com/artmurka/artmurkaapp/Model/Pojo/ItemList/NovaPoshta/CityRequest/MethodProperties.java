@@ -6,10 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class MethodProperties {
 
-    //    @SerializedName("CityName")
-    @SerializedName("CityName")
+    @SerializedName("CityRef")
     @Expose
-    private String area;
+    private String cityRef;
 
     @SerializedName("Page")
     @Expose
@@ -19,8 +18,8 @@ public class MethodProperties {
     @Expose
     private String warehouse;
 
-    public MethodProperties(String cityName) {
-        this.area = cityName;
+    public MethodProperties(String cityRef) {
+        this.cityRef = cityRef;
         this.page = "1";
         this.warehouse = "1";
     }
@@ -33,12 +32,12 @@ public class MethodProperties {
         this.page = page;
     }
 
-    public String getArea() {
-        return area;
+    public String getCityRef() {
+        return cityRef;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setCityRef(String area) {
+        this.cityRef = area;
     }
 
     public String getWarehouse() {

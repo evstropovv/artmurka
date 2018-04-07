@@ -49,6 +49,8 @@
 
     <string name="fragment_zakaz_all_summ" >Всього до сплати:</string>
     <string name="fragment_hint" >Ім\'я</string>
+    <string name="fragment_zakaz_warehouse" >Оберіть склад</string>
+    <string name="fragment_zakaz_city" >Місто</string>
 
 
 
