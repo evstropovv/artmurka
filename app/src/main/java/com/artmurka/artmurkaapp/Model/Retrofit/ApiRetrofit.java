@@ -12,12 +12,15 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasReques
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.WarehouseRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesResponse.WarehouseResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Orders.Orders;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.WishList.WishList;
 
 import java.util.HashMap;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -78,12 +81,12 @@ public interface ApiRetrofit {
     Call<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
 
     @POST("v2.0/json/")
-    Observable<CityResponse> searhCity(@Body City body);
+    Flowable<CityResponse> searhCity(@Body City body);
 
     @POST("v2.0/json/")
     Observable<AreasResponse> getAreas(@Body AreasRequest body);
 
     @POST("v2.0/json/")
-    Observable<AreasResponse> getWarehouses(@Body AreasRequest body);
+    Flowable<WarehouseResponse> getWarehouses(@Body WarehouseRequest body);
 
 }

@@ -21,10 +21,14 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.City;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityRequest.MethodProperties;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Address;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.WarehouseRequest;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesResponse.WarehouseResponse;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
 import com.google.gson.Gson;
+
+import org.reactivestreams.Publisher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,8 +36,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -169,17 +176,28 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     @Override
     public void selectCity(Integer cityPosition) {
         String cityRef = cities.get(cityPosition).getRef();
-        AreasRequest areas = new AreasRequest();
-        areas.setApiKey(BuildConfig.NP_API_KEY);
-        areas.setCalledMethod("getWarehouses");
-        areas.setModelName("AddressGeneral");
-        //areas.setMethodProperties(new MethodProperties(cityRef));
+        WarehouseRequest warehouseRequest = new WarehouseRequest();
+        warehouseRequest.setApiKey(BuildConfig.NP_API_KEY);
+        warehouseRequest.setCalledMethod("getSettlements");
+        warehouseRequest.setModelName("AddressGeneral");
+        warehouseRequest.setMethodProperties(
+                new com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.MethodProperties(cityRef));
 
         //
-        Observable<AreasResponse> cityResponse = ApiModuleNovaPoshta.getClient().getWarehouses(areas);
-        cityResponse.subscribe(response -> {
-            fragment.setWarehouses(new ArrayList<>()); //TODO change this
-        });
+        ApiModuleNovaPoshta.getClient().getWarehouses(warehouseRequest)
+                .map(warehouseResponse -> warehouseResponse.getData())
+                .flatMap(data -> Flowable.fromIterable(data))
+                .toSortedList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data -> {
+                    List<String> warehouses = new ArrayList<>();
+                    for (int i = 0; i < data.size() ; i++) {
+                        warehouses.add(data.get(i).getRegionsDescription());
+                    }
+                    fragment.setWarehouses(warehouses);
+
+                }, error -> {});
     }
 
     @Override
@@ -194,17 +212,22 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         // Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
         city.setMethodProperties(new MethodProperties(cityName));
         city.setModelName("Address");
-        Observable<List<Address>> cityResponse = ApiModuleNovaPoshta.getClient().searhCity(city)
+        ApiModuleNovaPoshta.getClient().searhCity(city)
                 .map(datumList -> datumList.getData().get(0).getAddresses())
+                .flatMap(addresses -> Flowable.fromIterable(addresses))
+                .filter(addres -> {
+                    return addres.getWarehouses() > 0;
+                })
+                .toSortedList()
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-        cityResponse.subscribe(addresses -> {
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(addresses -> {
                     cities = addresses;
                     if (cities.size() > 0) {
                         List<String> cityStringList = new ArrayList<>();
                         for (int i = 0; i < cities.size(); i++) {
                             //отображаем города у которых 1+ склад новой почты
-                            cityStringList.add(cities.get(i).getMainDescription()+" "+cities.get(i).getWarehouses());
+                            cityStringList.add(cities.get(i).getMainDescription() + " " + cities.get(i).getWarehouses());
                         }
                         fragment.setCities(cityStringList);
                     }
