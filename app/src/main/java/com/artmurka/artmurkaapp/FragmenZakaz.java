@@ -4,7 +4,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,19 +25,13 @@ import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.Address;
-import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.CityResponse.CityResponse;
-import com.artmurka.artmurkaapp.Other.Spinner.SearchableSpinner;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.disposables.Disposable;
 
@@ -70,7 +67,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
 
         checkoutPresenter = new CheckoutPresenter(this);
-       // checkoutPresenter.getAreas();
+
         autoCompleteWarehouse = (AutoCompleteTextView) view.findViewById(R.id.autocompleteWarehouse);
 
         btnPostCheckout.setOnClickListener(new View.OnClickListener() {
@@ -101,32 +98,44 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         etLastName = (EditText) view.findViewById(R.id.etLastName);
         //   spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
         autoCompleteCities = (AutoCompleteTextView) view.findViewById(R.id.spinnerCity);
-
-        autoCompleteCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        autoCompleteCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                checkoutPresenter.selectCity(position);
-                Toast.makeText(view.getContext(), cities.get(position).toString(), Toast.LENGTH_LONG).show();
-                //      setSpinnerCityChecked(true, datumList.get(position).getRef());
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                checkoutPresenter.selectCity(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-        autoCompleteCities.setThreshold(1);
         autoCompleteCities.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String text = charSequence.toString();
-                Log.d("Log.d", "" + text.length());
-                if (text.length() > 1) {
-                    checkoutPresenter.getCities(text);
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String newText = charSequence.toString();
+                Log.d("Log.d", "" + newText.length());
+                if (newText.length() > 1) {
+                    checkoutPresenter.getCities(newText);
                 }
-                if (text.length() == 0) {
-                    Log.d("Log.d", "text.length() == 0 " + text.length());
+                if (newText.length() == 0) {
+                    Log.d("Log.d", "text.length() == 0 " + newText.length());
                     getActivity().runOnUiThread(() -> setSpinnerCityChecked(false));
                 }
             }
-            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override public void afterTextChanged(Editable editable) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
+
+
+
     }
 
     private void setSpinnerCityChecked(Boolean isChecked) {
@@ -245,23 +254,27 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     @Override
     public void setCities(List<String> cityList) {
         Log.d("Log.d", new Gson().toJson(cityList));
-
+        this.cities = cityList;
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>
                         (getContext(), android.R.layout.simple_spinner_dropdown_item, cityList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         autoCompleteCities.setAdapter(adapter);
+
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void setWarehouses(List<String> warehouses) {
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>
-                        (getContext(), android.R.layout.simple_spinner_dropdown_item, warehouses);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        autoCompleteWarehouse.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        Log.d("Log.d", new Gson().toJson(warehouses));
+            ArrayAdapter<String> adapter =
+                    new ArrayAdapter<String>
+                            (getContext(), android.R.layout.simple_spinner_dropdown_item, warehouses);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            autoCompleteWarehouse.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
     }
 }
 

@@ -60,6 +60,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     private HashMap<String, DeliveryDescription> deliveryMap;
     private HashMap<String, PaymentDescription> payMap;
     private List<Address> cities;
+    private List<com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesResponse.Datum> warehouseList;
     private Boolean isViewDetached = false;
 
 
@@ -125,32 +126,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     }
 
     @Override
-    public void cityChanged(String msg) {
-//        City city = new City();
-//        city.setApiKey(BuildConfig.NP_API_KEY);
-//        city.setCalledMethod("searchSettlements");
-//       // city.setMethodProperties(new MethodProperties(msg + "", 4));
-//        city.setModelName("Info");
-//        Call<CityResponse> cityResponse =  ApiModuleNovaPoshta.getClient().searhCity(city);
-//        cityResponse.enqueue(new Callback<CityResponse>() {
-//            @Override
-//            public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
-//                try {
-//                    for (int i = 0; i < response.body().getData().get(0).getAddresses().size(); i++) {
-//                        cities[i] = response.body().getData().get(0).getAddresses().get(i).getSettlementTypeCode()
-//                                + response.body().getData().get(0).getAddresses().get(i).getMainDescription()
-//                                + ", " + response.body().getData().get(0).getAddresses().get(i).getArea();
-//                    }
-//                    fragment.setSityes(cities);
-//                } catch (IndexOutOfBoundsException e) {
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CityResponse> call, Throwable t) {
-//            }
-//        });
-    }
+    public void cityChanged(String msg) {    }
 
     @Override
     public Boolean isEmailValid(String email) {
@@ -178,7 +154,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         String cityRef = cities.get(cityPosition).getRef();
         WarehouseRequest warehouseRequest = new WarehouseRequest();
         warehouseRequest.setApiKey(BuildConfig.NP_API_KEY);
-        warehouseRequest.setCalledMethod("getSettlements");
+        warehouseRequest.setCalledMethod("getWarehouses");
         warehouseRequest.setModelName("AddressGeneral");
         warehouseRequest.setMethodProperties(
                 new com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.MethodProperties(cityRef));
@@ -186,18 +162,20 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         //
         ApiModuleNovaPoshta.getClient().getWarehouses(warehouseRequest)
                 .map(warehouseResponse -> warehouseResponse.getData())
-                .flatMap(data -> Flowable.fromIterable(data))
-                .toSortedList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
+                    this.warehouseList = data;
                     List<String> warehouses = new ArrayList<>();
-                    for (int i = 0; i < data.size() ; i++) {
-                        warehouses.add(data.get(i).getRegionsDescription());
+                    for (int i = 0; i < data.size(); i++) {
+                        warehouses.add(data.get(i).getDescription());
+
                     }
+                    Log.d("Log.d","setWarehouses " + new Gson().toJson(warehouses));
                     fragment.setWarehouses(warehouses);
 
-                }, error -> {});
+                }, error -> {
+                });
     }
 
     @Override
@@ -222,18 +200,23 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(addresses -> {
-                    cities = addresses;
-                    if (cities.size() > 0) {
-                        List<String> cityStringList = new ArrayList<>();
-                        for (int i = 0; i < cities.size(); i++) {
-                            //отображаем города у которых 1+ склад новой почты
-                            cityStringList.add(cities.get(i).getMainDescription() + " " + cities.get(i).getWarehouses());
+                            cities = addresses;
+                            if (cities.size() > 0) {
+                                List<String> cityStringList = new ArrayList<>();
+                                for (int i = 0; i < cities.size(); i++) {
+                                    //отображаем города у которых 1+ склад новой почты
+                                    cityStringList.add(cities.get(i).getMainDescription() + " " + cities.get(i).getWarehouses());
+                                }
+                                fragment.setCities(cityStringList);
+                            }
                         }
-                        fragment.setCities(cityStringList);
-                    }
-                }
-                , throwable -> {
-                });
+                        , throwable -> {
+                        });
+    }
+
+    @Override
+    public void selectWarehouse(Integer warehousePosition) {
+
     }
 
     @Override

@@ -10,5 +10,6 @@ public interface ICheckoutPresenter {
     void selectCity(Integer cityPostition);
     void getAreas();
     void getCities(String cityName);
+    void selectWarehouse(Integer warehousePosition);
     void detachView();
 }

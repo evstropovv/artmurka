@@ -84,6 +84,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/spinnerCity"
+            android:completionThreshold="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -102,6 +103,7 @@
         android:visibility="visible"
         app:elevation="2dp">
         <AutoCompleteTextView
+            android:completionThreshold="1"
             android:id="@+id/autocompleteWarehouse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -173,6 +175,8 @@
                     android:completionHint="Уведіть телефон"
                     android:hint="Телефон"
                     android:completionThreshold="1"/>
+
+
             </android.support.design.widget.TextInputLayout>
             <TextView
                 android:id="@+id/textView12"
