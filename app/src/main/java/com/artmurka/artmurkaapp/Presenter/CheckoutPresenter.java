@@ -151,10 +151,12 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
     @Override
     public void selectCity(Integer cityPosition) {
-        String cityRef = cities.get(cityPosition).getRef();
+        String cityRef = cities.get(cityPosition).getDeliveryCity();
+        Log.d("Log.d", "cityRef"+cityRef);
+
         WarehouseRequest warehouseRequest = new WarehouseRequest();
         warehouseRequest.setApiKey(BuildConfig.NP_API_KEY);
-        warehouseRequest.setCalledMethod("getWarehouses");
+        warehouseRequest.setCalledMethod("getWarehouses"); //getSettlements
         warehouseRequest.setModelName("AddressGeneral");
         warehouseRequest.setMethodProperties(
                 new com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.MethodProperties(cityRef));
@@ -168,7 +170,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                     this.warehouseList = data;
                     List<String> warehouses = new ArrayList<>();
                     for (int i = 0; i < data.size(); i++) {
-                        warehouses.add(data.get(i).getDescription());
+                        warehouses.add(data.get(i).getNumber()+" - "+data.get(i).getDescription());
 
                     }
                     Log.d("Log.d","setWarehouses " + new Gson().toJson(warehouses));
@@ -190,22 +192,26 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         // Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
         city.setMethodProperties(new MethodProperties(cityName));
         city.setModelName("Address");
+
         ApiModuleNovaPoshta.getClient().searhCity(city)
                 .map(datumList -> datumList.getData().get(0).getAddresses())
-                .flatMap(addresses -> Flowable.fromIterable(addresses))
-                .filter(addres -> {
-                    return addres.getWarehouses() > 0;
-                })
-                .toSortedList()
+                .doOnNext(addresses -> Log.d("Log.d","list address size " + addresses.size() + ""))
+//                .flatMap(addresses -> Flowable.fromIterable(addresses))
+//                .filter(addres -> {
+//                    return addres.getWarehouses() > 0;
+//                })
+//                .toSortedList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(addresses -> {
                             cities = addresses;
+                            Log.d("Log.d","list address size subscribe**" + addresses.size() + "");
+
                             if (cities.size() > 0) {
                                 List<String> cityStringList = new ArrayList<>();
-                                for (int i = 0; i < cities.size(); i++) {
+                                for (int i = 0; i < addresses.size(); i++) {
                                     //отображаем города у которых 1+ склад новой почты
-                                    cityStringList.add(cities.get(i).getMainDescription() + " " + cities.get(i).getWarehouses());
+                                    cityStringList.add(cities.get(i).getMainDescription());
                                 }
                                 fragment.setCities(cityStringList);
                             }

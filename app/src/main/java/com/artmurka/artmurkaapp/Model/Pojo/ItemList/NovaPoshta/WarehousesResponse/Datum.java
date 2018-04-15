@@ -5,6 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Datum {
+    @SerializedName("Number")
+    @Expose
+    public String number;
 
     @SerializedName("Ref")
     @Expose
@@ -401,6 +404,18 @@ public class Datum {
     public void setWarehouse(String warehouse) {
         this.warehouse = warehouse;
     }
+
+     public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+
+
+
 
     public Datum withWarehouse(String warehouse) {
         this.warehouse = warehouse;

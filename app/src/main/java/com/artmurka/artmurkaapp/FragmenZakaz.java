@@ -49,10 +49,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private Button btnPostCheckout;
     private EditText etPhone, etName, etLastName;
 
-    private String selectCityId = "";
-    private List<String> cities;
-    private Disposable citiesDisposable;
-
     public FragmenZakaz() {
         // Required empty public constructor
     }
@@ -74,7 +70,8 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             @Override
             public void onClick(View view) {
                 checkoutPresenter.postCheckout(etPhone.getText().toString(),
-                        etName.getText().toString() + " " + etLastName.getText().toString(),
+                        etName.getText().toString() + " " + etLastName.getText().toString()
+                                + autoCompleteCities.getText().toString()+autoCompleteWarehouse.getText().toString(),
                         "va.evstropov@gmail.com", (npCheck ? "2" : "1"), (liqPayCheck ? "2" : "1")
                 );
             }
@@ -98,15 +95,10 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         etLastName = (EditText) view.findViewById(R.id.etLastName);
         //   spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
         autoCompleteCities = (AutoCompleteTextView) view.findViewById(R.id.spinnerCity);
-        autoCompleteCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        autoCompleteCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 checkoutPresenter.selectCity(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         autoCompleteCities.addTextChangedListener(new TextWatcher() {
@@ -179,11 +171,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (!citiesDisposable.isDisposed()) citiesDisposable.dispose();
-    }
 
     void setCheckNP(boolean check) {
         if (!check) {
@@ -254,7 +241,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     @Override
     public void setCities(List<String> cityList) {
         Log.d("Log.d", new Gson().toJson(cityList));
-        this.cities = cityList;
+
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>
                         (getContext(), android.R.layout.simple_spinner_dropdown_item, cityList);
