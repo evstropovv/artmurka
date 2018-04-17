@@ -9,69 +9,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Ваш спосіб доставки:" />
 
-            <LinearLayout
-                android:id="@+id/linerPikup"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/zakaz_frame_style"
-                android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Ваш спосіб доставки:" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:padding="5dp"
-                    android:text='@string/text_zakaz_pikup'
-                    android:textColor="#000000" />
+    <LinearLayout
+        android:id="@+id/linerPikup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/zakaz_frame_style"
+        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvPikup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/text_zakaz_pikup2"
-                    android:visibility="gone" />
-            </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text='@string/text_zakaz_pikup'
+            android:textColor="#000000" />
 
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:id="@+id/linearNovaPoshta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/zakaz_frame_style"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvPikup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:paddingTop="8dp"
+            android:text="@string/text_zakaz_pikup2"
+            android:visibility="gone" />
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:padding="5dp"
-                    android:text='@string/text_novaposhta_zakaz'
-                    android:textColor="#000000" />
+    <LinearLayout
+        android:id="@+id/linearNovaPoshta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/zakaz_frame_style"
+        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvChoseAdress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/text_novaposhta_zakaz2"
-                    android:visibility="gone" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text='@string/text_novaposhta_zakaz'
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvChoseAdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:paddingTop="8dp"
+            android:text="@string/text_novaposhta_zakaz2"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardCity"
@@ -80,176 +81,289 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:visibility="visible"
-        app:elevation="2dp">
+        app:elevation="0dp">
 
-        <AutoCompleteTextView
-            android:id="@+id/spinnerCity"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/round_edit_text"
-            android:completionThreshold="1"
-            android:drawableLeft="@drawable/ic_city_unselect"
-            android:drawablePadding="20dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            app:hintText="@string/fragment_zakaz_city" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:text="Мысто доставки" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_edit_text">
+
+                <!-- INPUT -->
+
+                <AutoCompleteTextView
+                    android:id="@+id/spinnerCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/cityIcon"
+                    android:background="@null"
+                    android:completionThreshold="1"
+                    android:drawablePadding="15dp"
+                    android:padding="10dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp" />
+                <!-- ICON -->
+                <ImageView
+                    android:id="@+id/cityIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_city_unselect" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:text="Склад Новоъ пошти" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_edit_text">
+
+                <!-- INPUT -->
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocompleteWarehouse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/warehouseIcon"
+                    android:layout_toRightOf="@+id/warehouseIcon"
+                    android:background="@null"
+                    android:completionThreshold="1"
+                    android:drawablePadding="15dp"
+                    android:padding="10dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp" />
+                <!-- ICON -->
+
+                <ImageView
+                    android:id="@+id/warehouseIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_warehouse" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardPostOffice"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/emailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:clipChildren="false">
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_margin="3dp"
+            android:layout_marginLeft="-3dp"
+            android:layout_marginStart="-3dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_edit_text"
+            android:hint="Прізвище"
+
+            android:inputType="none"
+            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:translationY="3dp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
+
+        <EditText
+            android:id="@+id/etName"
+
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_margin="3dp"
+            android:layout_marginLeft="-3dp"
+            android:layout_marginStart="-3dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_edit_text"
+            android:ems="40"
+
+            android:hint="@string/fragment_hint"
+            android:inputType="text"
+            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+
+            android:translationY="3dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
+
+        <EditText
+            android:id="@+id/etPatronymic"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_margin="3dp"
+            android:layout_marginLeft="-3dp"
+            android:layout_marginStart="-3dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_edit_text"
+            android:ems="40"
+
+            android:hint="По батьковы"
+            android:inputType="text"
+            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+
+            android:translationY="3dp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:clipChildren="false">
+
+        <AutoCompleteTextView
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="-3dp"
+            android:layout_marginStart="-3dp"
+            android:layout_below="@+id/textInputLayout"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_edit_text"
+            android:completionHint="Уведіть телефон"
+            android:completionThreshold="1"
+
+            android:digits="0123456789+"
+            android:hint="Телефон"
+            android:inputType="phone"
+            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:translationY="3dp" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:text="Спосіб оплати:" />
+
+
+    <LinearLayout
+        android:id="@+id/linerLiqPay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:visibility="visible"
-        app:elevation="2dp">
-        <AutoCompleteTextView
-            android:completionThreshold="1"
-            android:background="@drawable/round_edit_text"
-            android:drawableLeft="@drawable/ic_warehouse"
-            android:id="@+id/autocompleteWarehouse"
+        android:background="@drawable/zakaz_frame_style"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="20dp"
-            android:paddingLeft="12dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text='@string/text_zakaz_liqpay'
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvPikup555"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            app:hintText="@string/fragment_zakaz_warehouse" />
+            android:text="@string/text_zakaz_pikup2"
+            android:visibility="gone" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearPayReciever"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/zakaz_frame_style"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/textView11555"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text='@string/text_pay_deliver'
+            android:textColor="#000000" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+        <TextView
+            android:id="@+id/tvChoseAdress555"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:paddingTop="8dp"
+            android:text="@string/text_novaposhta_zakaz2"
+            android:visibility="gone" />
+    </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etName"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_edit_text"
-                    android:ems="40"
-                    android:hint="@string/fragment_hint"
-                    android:inputType="text"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/emailLayout"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/etLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_edit_text"
-                    android:hint="Прізвище"
-                    android:inputType="none"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp" />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayout2"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:id="@+id/etPhone"
-                    android:background="@drawable/round_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"
-                    android:layout_below="@+id/textInputLayout"
-                    android:layout_weight="1"
-                    android:completionHint="Уведіть телефон"
-                    android:hint="Телефон"
-                    android:completionThreshold="1"/>
-
-
-            </android.support.design.widget.TextInputLayout>
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Спосіб оплати:" />
-
-
-            <LinearLayout
-                android:id="@+id/linerLiqPay"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/zakaz_frame_style"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:padding="5dp"
-                    android:text='@string/text_zakaz_liqpay'
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/tvPikup555"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/text_zakaz_pikup2"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:id="@+id/linearPayReciever"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/zakaz_frame_style"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView11555"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:padding="5dp"
-                    android:text='@string/text_pay_deliver'
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/tvChoseAdress555"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/text_novaposhta_zakaz2"
-                    android:visibility="gone" />
-            </LinearLayout>
 
 </LinearLayout>

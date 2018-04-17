@@ -1,19 +1,14 @@
 package com.artmurka.artmurkaapp.Views.Activities;
 
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.FragmenZakaz;
-import com.artmurka.artmurkaapp.Presenter.Adapters.PagerAdapter;
+import com.artmurka.artmurkaapp.Views.Fragments.FragmenZakaz;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.Views.Fragments.CategoryFragment;
 import com.artmurka.artmurkaapp.Views.Fragments.CheckoutFragment;
 
 public class CheckoutActivity extends AppCompatActivity implements ICheckoutActivity {

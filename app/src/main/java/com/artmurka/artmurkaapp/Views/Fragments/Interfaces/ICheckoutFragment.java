@@ -20,4 +20,5 @@ public interface ICheckoutFragment {
     void setAreas(AreasResponse areas);
     void setCities(List<String> cities);
     void setWarehouses(List<String> warehouses);
+    void showDialog(String msg);
 }

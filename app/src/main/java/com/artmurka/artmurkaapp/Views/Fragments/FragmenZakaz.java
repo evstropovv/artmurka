@@ -1,13 +1,13 @@
-package com.artmurka.artmurkaapp;
+package com.artmurka.artmurkaapp.Views.Fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,6 +27,9 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.ICheckoutPresenter;
+import com.artmurka.artmurkaapp.R;
+import com.artmurka.artmurkaapp.Views.Activities.IMainActivity;
+import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
 
@@ -44,7 +47,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private AutoCompleteTextView autoCompleteCities;
     private boolean npCheck = false;
     private boolean liqPayCheck = false;
-    private CardView cardCity, cardPostOffice;
+    private CardView cardCity;
     private ICheckoutPresenter checkoutPresenter;
     private Button btnPostCheckout;
     private EditText etPhone, etName, etLastName;
@@ -71,7 +74,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             public void onClick(View view) {
                 checkoutPresenter.postCheckout(etPhone.getText().toString(),
                         etName.getText().toString() + " " + etLastName.getText().toString()
-                                + autoCompleteCities.getText().toString()+autoCompleteWarehouse.getText().toString(),
+                                + autoCompleteCities.getText().toString() + autoCompleteWarehouse.getText().toString(),
                         "va.evstropov@gmail.com", (npCheck ? "2" : "1"), (liqPayCheck ? "2" : "1")
                 );
             }
@@ -86,7 +89,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         tvChoseAdress = (TextView) view.findViewById(R.id.tvChoseAdress);
         tvPikup = (TextView) view.findViewById(R.id.tvPikup);
         cardCity = (CardView) view.findViewById(R.id.cardCity);
-        cardPostOffice = (CardView) view.findViewById(R.id.cardPostOffice);
         linearPayReciever = (LinearLayout) view.findViewById(R.id.linearPayReciever);
         linerLiqPay = (LinearLayout) view.findViewById(R.id.linerLiqPay);
         btnPostCheckout = (Button) view.findViewById(R.id.btnZakaz);
@@ -127,13 +129,11 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         });
 
 
-
     }
 
     private void setSpinnerCityChecked(Boolean isChecked) {
 
     }
-
 
 
     @Override
@@ -179,7 +179,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             tvChoseAdress.setVisibility(View.VISIBLE);
             tvPikup.setVisibility(View.GONE);
             cardCity.setVisibility(View.VISIBLE);
-            cardPostOffice.setVisibility(View.VISIBLE);
 
         } else {
             linearNovaPoshta.setBackground(getResources().getDrawable(R.drawable.zakaz_frame_style));
@@ -187,7 +186,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             tvChoseAdress.setVisibility(View.GONE);
             tvPikup.setVisibility(View.VISIBLE);
             cardCity.setVisibility(View.GONE);
-            cardPostOffice.setVisibility(View.GONE);
         }
     }
 
@@ -213,7 +211,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
 
     @Override
     public void showOrderIsProcessed(String msg) {
-
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -255,13 +253,27 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     @Override
     public void setWarehouses(List<String> warehouses) {
         Log.d("Log.d", new Gson().toJson(warehouses));
-            ArrayAdapter<String> adapter =
-                    new ArrayAdapter<String>
-                            (getContext(), android.R.layout.simple_spinner_dropdown_item, warehouses);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>
+                        (getContext(), android.R.layout.simple_spinner_dropdown_item, warehouses);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            autoCompleteWarehouse.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+        autoCompleteWarehouse.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDialog(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(msg)
+                .setPositiveButton("На головну", (dialog, id) -> startMainActivity(null));
+         builder.create().show();
+    }
+
+
+    private void startMainActivity(String msg){
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
     }
 }
 

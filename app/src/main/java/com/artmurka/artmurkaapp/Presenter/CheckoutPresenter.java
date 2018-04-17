@@ -14,6 +14,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.DeliveryDescription
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.OrderDesc;
 
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.PaymentDescription;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.CheckoutResponse.CheckoutResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.Areas.Datum;
@@ -110,23 +111,30 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         Log.d("Log.d", "postCheckout");
 
 
-        Call<Success> call = request.postCheckout(telephone, message, email, pay, delivery);
-        call.enqueue(new Callback<Success>() {
+        Call<CheckoutResponse> call = request.postCheckout(telephone, message, email, pay, delivery);
+        call.enqueue(new Callback<CheckoutResponse>() {
             @Override
-            public void onResponse(Call<Success> call, Response<Success> response) {
+            public void onResponse(Call<CheckoutResponse> call, Response<CheckoutResponse> response) {
                 if (response.code() == 200) {
-                    fragment.showOrderIsProcessed(response.message());
+                    if (response.body().getError() != null) {
+                        fragment.showOrderIsProcessed(response.body().getError().getMsg());
+                    }
+
+                    if (response.body().getSuccess()!=null) {
+                        fragment.showDialog(dd response.body().getSuccess().getMsg());
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<Success> call, Throwable t) {
+            public void onFailure(Call<CheckoutResponse> call, Throwable t) {
             }
         });
     }
 
     @Override
-    public void cityChanged(String msg) {    }
+    public void cityChanged(String msg) {
+    }
 
     @Override
     public Boolean isEmailValid(String email) {
@@ -152,7 +160,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     @Override
     public void selectCity(Integer cityPosition) {
         String cityRef = cities.get(cityPosition).getDeliveryCity();
-        Log.d("Log.d", "cityRef"+cityRef);
+        Log.d("Log.d", "cityRef" + cityRef);
 
         WarehouseRequest warehouseRequest = new WarehouseRequest();
         warehouseRequest.setApiKey(BuildConfig.NP_API_KEY);
@@ -170,10 +178,10 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                     this.warehouseList = data;
                     List<String> warehouses = new ArrayList<>();
                     for (int i = 0; i < data.size(); i++) {
-                        warehouses.add(data.get(i).getNumber()+" - "+data.get(i).getDescription());
+                        warehouses.add(data.get(i).getNumber() + " - " + data.get(i).getDescription());
 
                     }
-                    Log.d("Log.d","setWarehouses " + new Gson().toJson(warehouses));
+                    Log.d("Log.d", "setWarehouses " + new Gson().toJson(warehouses));
                     fragment.setWarehouses(warehouses);
 
                 }, error -> {
@@ -195,7 +203,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
         ApiModuleNovaPoshta.getClient().searhCity(city)
                 .map(datumList -> datumList.getData().get(0).getAddresses())
-                .doOnNext(addresses -> Log.d("Log.d","list address size " + addresses.size() + ""))
+                .doOnNext(addresses -> Log.d("Log.d", "list address size " + addresses.size() + ""))
 //                .flatMap(addresses -> Flowable.fromIterable(addresses))
 //                .filter(addres -> {
 //                    return addres.getWarehouses() > 0;
@@ -205,7 +213,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(addresses -> {
                             cities = addresses;
-                            Log.d("Log.d","list address size subscribe**" + addresses.size() + "");
+                            Log.d("Log.d", "list address size subscribe**" + addresses.size() + "");
 
                             if (cities.size() > 0) {
                                 List<String> cityStringList = new ArrayList<>();

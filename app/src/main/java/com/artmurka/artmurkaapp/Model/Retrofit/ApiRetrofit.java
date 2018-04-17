@@ -5,6 +5,7 @@ import com.artmurka.artmurkaapp.Model.Pojo.ItemList.AboutGoods.AboutGood;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Areas.Areas;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.*;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.CheckoutResponse.CheckoutResponse;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Good.Good;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemBasket.BasketItems;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.SuccessExample;
@@ -78,7 +79,7 @@ public interface ApiRetrofit {
 
     @FormUrlEncoded
     @POST("uapi/shop/checkout/")
-    Call<com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
+    Call<CheckoutResponse> postCheckout(@FieldMap(encoded = true) HashMap<String, String> map);
 
     @POST("v2.0/json/")
     Flowable<CityResponse> searhCity(@Body City body);

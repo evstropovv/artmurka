@@ -4,6 +4,6 @@
     <gradient android:startColor="@color/colorPurpleLight"
         android:endColor="@color/colorPurpleLight"
         android:angle="270" />
-    <corners android:radius="4dp" />
-    <stroke android:width="3px" android:color="#7b7b7b" />
+    <corners android:radius="2dp" />
+    <stroke android:width="2px" android:color="#7b7b7b" />
 </shape>

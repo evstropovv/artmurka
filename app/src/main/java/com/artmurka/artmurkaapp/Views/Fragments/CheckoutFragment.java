@@ -240,6 +240,11 @@ public class CheckoutFragment extends Fragment implements ICheckoutFragment {
 
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

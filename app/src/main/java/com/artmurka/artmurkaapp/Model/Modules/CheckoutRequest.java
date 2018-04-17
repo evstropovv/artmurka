@@ -5,6 +5,7 @@ import android.util.Log;
 import com.artmurka.artmurkaapp.Model.InterfacesModel.ICheckoutRequest;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Checkout.CheckoutAllGoods;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.Categories.Success;
+import com.artmurka.artmurkaapp.Model.Pojo.ItemList.CheckoutResponse.CheckoutResponse;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -39,19 +40,14 @@ public class CheckoutRequest implements ICheckoutRequest {
 
 
     @Override
-    public Call<Success> postCheckout(String telephone, String msg, String email, String pay, String delivery) {
+    public Call<CheckoutResponse> postCheckout(String telephone, String msg, String email, String pay, String delivery) {
         UcozApiModule ucoz = new UcozApiModule();
         Map<String, String> mapForUcozModule = new TreeMap<>();
         mapForUcozModule.put("mode", "order");
         mapForUcozModule.put("payment_id", pay); //1 -
         mapForUcozModule.put("delivery_id", delivery);
-
-//        private static final PercentEscaper percentEncoder = new PercentEscaper(
-//                "-._~", false);
-//        String st2 = msg.esc("^@(.+)$", "repl");
-//        String st3 = email.replace("^@(.+)$", "repl");
-
         mapForUcozModule.put("fld1", telephone);
+
         String encodeEmail = null;
         String encodeMsg = null;
         String msgTrim =msg.replace(" ",""); //убираем пробелы
