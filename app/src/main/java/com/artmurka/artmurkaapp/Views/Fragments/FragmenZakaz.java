@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,11 +33,16 @@ import com.artmurka.artmurkaapp.Views.Activities.IMainActivity;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
+import com.jakewharton.rxbinding2.widget.AdapterViewItemClickEvent;
+import com.jakewharton.rxbinding2.widget.RxAutoCompleteTextView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class FragmenZakaz extends Fragment implements ICheckoutFragment {
@@ -50,10 +56,37 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private CardView cardCity;
     private ICheckoutPresenter checkoutPresenter;
     private Button btnPostCheckout;
-    private EditText etPhone, etName, etLastName;
+    private EditText etPhone, etName, etLastName, etPatr;
+    private Observable<AdapterViewItemClickEvent> obsCity;
+    private Observable<AdapterViewItemClickEvent> obsWarehouse;
+    private Observable<CharSequence> obsName;
+    private Observable<CharSequence> obsLastName;
+    private Observable<CharSequence> obsName2;
+    private Observable<CharSequence> obsPhone;
+    private Disposable checkoutButtonDisposable;
+
+    private void loadRxBindings() {
+        obsCity = RxAutoCompleteTextView.itemClickEvents(autoCompleteCities);
+        obsWarehouse = RxAutoCompleteTextView.itemClickEvents(autoCompleteWarehouse);
+        obsName = RxTextView.textChanges(etName);
+        obsLastName = RxTextView.textChanges(etLastName);
+        obsName2 = RxTextView.textChanges(etPatr);
+        obsPhone = RxTextView.textChanges(etPhone);
+
+        checkoutButtonDisposable =
+                Observable.combineLatest(obsCity, obsWarehouse, obsName, obsLastName, obsName2, obsPhone,
+                (city, warehouse, name, lastname, name2, phone) ->
+                        name.length() > 0).subscribe(aBoolean -> btnPostCheckout.setEnabled(aBoolean));
+    }
 
     public FragmenZakaz() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        checkoutButtonDisposable.dispose();
     }
 
     @Override
@@ -95,6 +128,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         etPhone = (EditText) view.findViewById(R.id.etPhone);
         etName = (EditText) view.findViewById(R.id.etName);
         etLastName = (EditText) view.findViewById(R.id.etLastName);
+        etPatr = (EditText) view.findViewById(R.id.etPatronymic);
         //   spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
         autoCompleteCities = (AutoCompleteTextView) view.findViewById(R.id.spinnerCity);
         autoCompleteCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -139,6 +173,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     @Override
     public void onResume() {
         super.onResume();
+        loadRxBindings();
         linearNovaPoshta.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -267,11 +302,12 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(msg)
                 .setPositiveButton("На головну", (dialog, id) -> startMainActivity(null));
-         builder.create().show();
+        builder.create().show();
     }
 
 
-    private void startMainActivity(String msg){
+    private void startMainActivity(String msg) {
+        getActivity().finish();
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }

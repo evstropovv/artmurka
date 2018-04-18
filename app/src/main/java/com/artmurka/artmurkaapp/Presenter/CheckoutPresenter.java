@@ -121,7 +121,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                     }
 
                     if (response.body().getSuccess()!=null) {
-                        fragment.showDialog(dd response.body().getSuccess().getMsg());
+                        fragment.showDialog(response.body().getSuccess().getMsg());
                     }
                 }
             }
