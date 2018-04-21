@@ -33,8 +33,6 @@ import com.artmurka.artmurkaapp.Views.Activities.IMainActivity;
 import com.artmurka.artmurkaapp.Views.Activities.MainActivity;
 import com.artmurka.artmurkaapp.Views.Fragments.Interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
-import com.jakewharton.rxbinding2.widget.AdapterViewItemClickEvent;
-import com.jakewharton.rxbinding2.widget.RxAutoCompleteTextView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
@@ -42,7 +40,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 public class FragmenZakaz extends Fragment implements ICheckoutFragment {
@@ -53,12 +50,13 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private AutoCompleteTextView autoCompleteCities;
     private boolean npCheck = false;
     private boolean liqPayCheck = false;
+    private boolean wasPayChoised = false;
     private CardView cardCity;
     private ICheckoutPresenter checkoutPresenter;
     private Button btnPostCheckout;
     private EditText etPhone, etName, etLastName, etPatr;
-    private Observable<AdapterViewItemClickEvent> obsCity;
-    private Observable<AdapterViewItemClickEvent> obsWarehouse;
+    private Observable<CharSequence> obsCity;
+    private Observable<CharSequence> obsWarehouse;
     private Observable<CharSequence> obsName;
     private Observable<CharSequence> obsLastName;
     private Observable<CharSequence> obsName2;
@@ -66,17 +64,26 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private Disposable checkoutButtonDisposable;
 
     private void loadRxBindings() {
-        obsCity = RxAutoCompleteTextView.itemClickEvents(autoCompleteCities);
-        obsWarehouse = RxAutoCompleteTextView.itemClickEvents(autoCompleteWarehouse);
+        obsCity = RxTextView.textChanges(autoCompleteCities);
+        obsWarehouse = RxTextView.textChanges(autoCompleteWarehouse);
         obsName = RxTextView.textChanges(etName);
         obsLastName = RxTextView.textChanges(etLastName);
         obsName2 = RxTextView.textChanges(etPatr);
         obsPhone = RxTextView.textChanges(etPhone);
 
-        checkoutButtonDisposable =
-                Observable.combineLatest(obsCity, obsWarehouse, obsName, obsLastName, obsName2, obsPhone,
-                (city, warehouse, name, lastname, name2, phone) ->
-                        name.length() > 0).subscribe(aBoolean -> btnPostCheckout.setEnabled(aBoolean));
+        Observable.combineLatest(obsName, obsLastName, obsName2, obsPhone, obsCity, obsWarehouse,
+                (name, lastname, obsName2, obsPhone, obsCity, obsWarehouse)
+                        ->
+                        ((name.length() > 1)
+                                && (lastname.length() > 1)
+                                && (obsName2.length() > 1)
+                                && (obsPhone.length() > 1)
+
+                                //if chosen delivery NP -> check city and warehouse length
+                                && (!npCheck || ((obsCity.length() > 1) && (obsWarehouse.length() > 0)))
+                                && wasPayChoised ))
+
+                .subscribe(aBoolean -> btnPostCheckout.setEnabled(aBoolean));
     }
 
     public FragmenZakaz() {
@@ -86,7 +93,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     @Override
     public void onStop() {
         super.onStop();
-        checkoutButtonDisposable.dispose();
+
     }
 
     @Override
@@ -194,6 +201,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             public void onClick(View view) {
                 liqPayCheck = true;
                 setLiqPaqCheck(liqPayCheck);
+                wasPayChoised = true;
             }
         });
         linearPayReciever.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +209,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             public void onClick(View view) {
                 liqPayCheck = false;
                 setLiqPaqCheck(liqPayCheck);
+                wasPayChoised = true;
             }
         });
 

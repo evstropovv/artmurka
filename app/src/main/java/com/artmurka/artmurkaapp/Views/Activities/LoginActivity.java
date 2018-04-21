@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
         webView.clearCache(true);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setUserAgentString("Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0");
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
         service = new ServiceBuilder(BuildConfig.LOGIN_CONSUMER_KEY)
