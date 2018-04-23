@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -68,7 +69,9 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         if (Preferences.getListSettings()==1){
 
-            final RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+       //     final RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
+            StaggeredGridLayoutManager recyclerLayoutManager =new StaggeredGridLayoutManager(2,
+                    StaggeredGridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(recyclerLayoutManager);
             recyclerAdapter = new RVitemListAdapter(view.getContext());
             recyclerView.setAdapter(recyclerAdapter);
