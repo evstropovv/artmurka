@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import com.artmurka.artmurkaapp.Model.Databases.Preferences;
 import com.artmurka.artmurkaapp.Model.Pojo.ItemList.ItemList.GoodsProperties;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapterList;
+import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListGridAdapter;
 import com.artmurka.artmurkaapp.Presenter.ItemListPresenter;
 import com.artmurka.artmurkaapp.Presenter.Adapters.RVitemListAdapter;
 import com.artmurka.artmurkaapp.Presenter.InterfacesPresenter.IPresenterItemList;
@@ -35,6 +36,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     private RecyclerView recyclerView;
     private RVitemListAdapter recyclerAdapter;
     private RVitemListAdapterList recyclerAdapterList;
+    private RVitemListGridAdapter recyclerGridAdapter;
     private String url = "";
     private IPresenterItemList presenter;
     private int curPage = 1;
@@ -52,26 +54,24 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        progressBar = (ProgressBar)view.findViewById(R.id.progressBar2);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar2);
         Log.d("Log.d", "itemListFragment ");
         Bundle bundle = getArguments();
         if (bundle != null) {
             if (bundle.getString("url") != null) {
                 url = bundle.getString("url");
             }
-            if (bundle.getString("sort")!=null){
+            if (bundle.getString("sort") != null) {
                 sort = bundle.getString("sort");
             }
-            if (bundle.getString("order")!=null){
-                order= bundle.getString("order");
+            if (bundle.getString("order") != null) {
+                order = bundle.getString("order");
             }
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        if (Preferences.getListSettings()==1){
+        if (Preferences.getListSettings() == 1) {
 
-       //     final RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
-            StaggeredGridLayoutManager recyclerLayoutManager =new StaggeredGridLayoutManager(2,
-                    StaggeredGridLayoutManager.VERTICAL);
+            RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
             recyclerView.setLayoutManager(recyclerLayoutManager);
             recyclerAdapter = new RVitemListAdapter(view.getContext());
             recyclerView.setAdapter(recyclerAdapter);
@@ -89,7 +89,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                 }
             });
 
-        } else {
+        } else if (Preferences.getListSettings() == 2) {
             final LinearLayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
             recyclerLayoutManager.setOrientation(LinearLayout.VERTICAL);
             recyclerView.setLayoutManager(recyclerLayoutManager);
@@ -111,9 +111,27 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                     }
                 }
             });
+        } else if (Preferences.getListSettings() == 3) {
+
+            StaggeredGridLayoutManager recyclerLayoutManager = new StaggeredGridLayoutManager(3,
+                    StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(recyclerLayoutManager);
+            recyclerGridAdapter = new RVitemListGridAdapter(view.getContext());
+            recyclerView.setAdapter(recyclerGridAdapter);
+
+            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    presenter.getCategoriesData(++curPage);
+                }
+            });
         }
-
-
 
         if (presenter == null) {
             presenter = new ItemListPresenter(this, url, sort, order);
@@ -138,10 +156,18 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
     @Override
     public void showItemList(ArrayList<GoodsProperties> goodsProperties) {
-        if (Preferences.getListSettings()==1){
-            recyclerAdapter.setData(goodsProperties);
-        } else {
-            recyclerAdapterList.setData(goodsProperties);
+        switch (Preferences.getListSettings()) {
+            case 1:
+                recyclerAdapter.setData(goodsProperties);
+                break;
+            case 2:
+                recyclerAdapterList.setData(goodsProperties);
+                break;
+            case 3:
+                recyclerGridAdapter.setData(goodsProperties);
+                break;
+            default:
+                break;
         }
         progressBar.setVisibility(View.INVISIBLE);
         isLoading = false;

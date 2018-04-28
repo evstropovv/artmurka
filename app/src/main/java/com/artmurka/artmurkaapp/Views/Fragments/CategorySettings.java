@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class CategorySettings extends Fragment implements ICategorySettings {
     private ICategorySettingsPresenter presenter;
-    private ImageView ivMicrosoft, ivList;
+    private ImageView ivMicrosoft, ivList, ivGrid;
     private Button btnApply;
     private RadioGroup radioGroup;
 
@@ -60,6 +60,7 @@ public class CategorySettings extends Fragment implements ICategorySettings {
         btnApply = (Button) view.findViewById(R.id.btnApply);
         ivList = (ImageView) view.findViewById(R.id.ivList);
         ivMicrosoft = (ImageView) view.findViewById(R.id.ivMicrosoft);
+        ivGrid = (ImageView) view.findViewById(R.id.ivGrid);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
         radioGroup.check(Preferences.getCheckedRadioButton());
         setIvListener();
@@ -136,6 +137,12 @@ public class CategorySettings extends Fragment implements ICategorySettings {
                 changeIconsColor(2);
             }
         });
+        ivGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeIconsColor(3);
+            }
+        });
 
     }
 
@@ -154,12 +161,27 @@ public class CategorySettings extends Fragment implements ICategorySettings {
 
         this.currentSelect = id;
 
-        if (id == 1) {
-            ivList.setImageDrawable(getResources().getDrawable(R.drawable.microsoft_pink));
-            ivMicrosoft.setImageDrawable(getResources().getDrawable(R.drawable.view_list));
-        } else {
-            ivList.setImageDrawable(getResources().getDrawable(R.drawable.microsoft));
-            ivMicrosoft.setImageDrawable(getResources().getDrawable(R.drawable.viewlist_pink));
+        switch (id){
+            case 1: {
+                ivList.setImageDrawable(getResources().getDrawable(R.drawable.microsoft_pink));
+                ivMicrosoft.setImageDrawable(getResources().getDrawable(R.drawable.view_list));
+                ivGrid.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid_grey));
+                break;
+            }
+
+            case 2: {
+                ivList.setImageDrawable(getResources().getDrawable(R.drawable.microsoft));
+                ivMicrosoft.setImageDrawable(getResources().getDrawable(R.drawable.viewlist_pink));
+                ivGrid.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid_grey));
+                break;
+            }
+
+            case 3: {
+                ivList.setImageDrawable(getResources().getDrawable(R.drawable.microsoft));
+                ivMicrosoft.setImageDrawable(getResources().getDrawable(R.drawable.view_list));
+                ivGrid.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid_pink));
+                break;
+            }
         }
     }
 }

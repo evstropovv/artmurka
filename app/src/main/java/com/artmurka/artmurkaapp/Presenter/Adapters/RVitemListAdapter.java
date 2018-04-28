@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,7 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
             this.successList.clear();
             this.successList.addAll(list);
             notifyDataSetChanged();
+            Log.d("Log.d","success list :" + new Gson().toJson(successList));
         }
     }
 
@@ -61,65 +63,59 @@ public class RVitemListAdapter extends RecyclerView.Adapter<RVitemListAdapter.Vi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvItemName.setText(successList.get(position).getEntryTitle());
         Picasso.with(ctx).load(successList.get(position).getEntryPhoto().getDefPhoto().getThumb()).into(holder.ivItemPhoto);
-        holder.ivMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(ctx, holder.ivMenu);
-                popupMenu.inflate(R.menu.item_menu);
+        holder.ivMenu.setOnClickListener((View v) -> {
+            PopupMenu popupMenu = new PopupMenu(ctx, holder.ivMenu);
+            popupMenu.inflate(R.menu.item_menu);
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.to_card:
-                                //проверяем, есть ли такой товар в корзине
-                                if (successList.get(position).getEntryIsInBasket()==0) {
-                                    //в корзину
-                                    IBasket basket = new BasketRequest();
-                                    Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()){
+                    case R.id.to_card:
+                        //проверяем, есть ли такой товар в корзине
+                        if (successList.get(position).getEntryIsInBasket()==0) {
+                            //в корзину
+                            IBasket basket = new BasketRequest();
+                            Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
 
-                                    observable.subscribe(new Observer<BasketItems>() {
-                                        @Override
-                                        public void onSubscribe(Disposable d) {}
+                            observable.subscribe(new Observer<BasketItems>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {}
 
-                                        @Override
-                                        public void onNext(BasketItems value) {
-                                                 Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
-                                        }
-                                        @Override
-                                        public void onError(Throwable e) {
-                                          ;
-                                        }
-                                        @Override
-                                        public void onComplete() {
-                                        }
-                                    });
+                                @Override
+                                public void onNext(BasketItems value) {
+                                         Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
                                 }
-                                break;
-                            case R.id.wish_wad:
-                                //в список пожеланий
-                                IWishList iWishList = new WishListRequest();
-                                Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
-                                obs.enqueue(new Callback<WishList>() {
-                                    @Override
-                                    public void onResponse(Call<WishList> call, Response<WishList> response) {
-                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
-                                    }
-                                    @Override
-                                    public void onFailure(Call<WishList> call, Throwable t) {
-
-                                    }
-                                });
-                                break;
-
-                            default:
-                                break;
+                                @Override
+                                public void onError(Throwable e) {
+                                  ;
+                                }
+                                @Override
+                                public void onComplete() {
+                                }
+                            });
                         }
-                        return false;
-                    }
-                });
-                popupMenu.show();
-            }
+                        break;
+                    case R.id.wish_wad:
+                        //в список пожеланий
+                        IWishList iWishList = new WishListRequest();
+                        Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
+                        obs.enqueue(new Callback<WishList>() {
+                            @Override
+                            public void onResponse(Call<WishList> call, Response<WishList> response) {
+                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
+                            }
+                            @Override
+                            public void onFailure(Call<WishList> call, Throwable t) {
+
+                            }
+                        });
+                        break;
+
+                    default:
+                        break;
+                }
+                return false;
+            });
+            popupMenu.show();
         });
     }
 
