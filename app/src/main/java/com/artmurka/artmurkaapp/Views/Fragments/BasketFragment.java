@@ -92,6 +92,12 @@ public class BasketFragment extends Fragment implements IBasketFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onDetach();
+    }
+
+    @Override
     public void showError(String error) {
 
     }

@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.artmurka.artmurkaapp.R;
+
 public class OrderStatusFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 
@@ -16,9 +18,9 @@ public class OrderStatusFragment extends DialogFragment implements DialogInterfa
         String message = bundle.getString("message");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Заказ: " + order)
+        builder.setTitle(getResources().getString(R.string.fragment_order_status_order) + order)
                 .setMessage(message);
-        builder.setPositiveButton("Добре", new DialogInterface.OnClickListener(){
+        builder.setPositiveButton(getResources().getString(R.string.fragment_order_status_ok), new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dismiss();

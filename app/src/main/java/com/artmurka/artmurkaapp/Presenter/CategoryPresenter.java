@@ -26,11 +26,11 @@ public class CategoryPresenter implements ICategoryPresenter {
     private IAllRequestObservers model;
     private ArrayList<Success> successList;
     private Observable<Example> exampleObservable;
-    private Context ctx;
+
 
     public CategoryPresenter(ICategoryFragment fragment, Context context) {
         catFragment = fragment;
-        this.ctx = context;
+
         model = new AllRequestOvservers();
     }
 

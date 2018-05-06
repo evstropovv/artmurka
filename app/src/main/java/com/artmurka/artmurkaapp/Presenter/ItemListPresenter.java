@@ -24,6 +24,12 @@ public class ItemListPresenter implements IPresenterItemList {
     private ArrayList<GoodsProperties> goodsProperties;
     private boolean isFull = false;
 
+
+    @Override
+    public void onDetach() {
+        fragment = null;
+    }
+
     public ItemListPresenter(IItemListFragment fragment, String url, String sort, String order) {
         this.fragment = fragment;
         this.url = url;
@@ -45,31 +51,35 @@ public class ItemListPresenter implements IPresenterItemList {
 
                 @Override
                 public void onNext(SuccessExample value) {
-                    fragment.showItemList(getList(value.getSuccess().getGoodsList()));
-                    fragment.setTitle(value.getSuccess().getCatName());
-                    fragment.stopProgressBar();
+                    if (fragment != null) {
+                        fragment.showItemList(getList(value.getSuccess().getGoodsList()));
+                        fragment.setTitle(value.getSuccess().getCatName());
+                        fragment.stopProgressBar();
+                    }
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    isFull = true;
-                    fragment.stopProgressBar();
-                    Log.d("Log.d", e.getMessage());
+                    if (fragment != null) {
+                        isFull = true;
+                        fragment.stopProgressBar();
+                        Log.d("Log.d", e.getMessage());
+                    }
                 }
 
                 @Override
                 public void onComplete() {
-                    fragment.stopProgressBar();
+                    if (fragment != null) fragment.stopProgressBar();
                 }
             });
-        }else {
-            fragment.stopProgressBar();
+        } else {
+            if (fragment != null) fragment.stopProgressBar();
         }
     }
 
     private ArrayList<GoodsProperties> getList(TreeMap<String, GoodsProperties> map) {
         for (String key : map.keySet()) {
-            Log.d("Log.d", key + " " +map.get(key).getEntryPrice().getPriceRaw());
+            Log.d("Log.d", key + " " + map.get(key).getEntryPrice().getPriceRaw());
             goodsProperties.add(map.get(key));
         }
         return goodsProperties;

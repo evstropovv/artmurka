@@ -160,7 +160,7 @@ public class FragmentAboutGoods extends Fragment implements IFragmentAboutGoods 
     public void setWishButton(boolean isInWish) {
         if (getView() != null) {
             if (!isInWish) {
-                ivWish.setImageDrawable(getResources().getDrawable(R.drawable.heartoutlinebig));
+                ivWish.setImageDrawable(getResources().getDrawable(R.drawable.heartoutline));
 
             } else {
                 ivWish.setImageDrawable(getResources().getDrawable(R.drawable.heart_black));

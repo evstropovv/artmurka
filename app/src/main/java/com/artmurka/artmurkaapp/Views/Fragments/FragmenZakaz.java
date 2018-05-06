@@ -48,6 +48,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     private TextView tvChoseAdress, tvPikup;
     private AutoCompleteTextView autoCompleteWarehouse;
     private AutoCompleteTextView autoCompleteCities;
+    private LinearLayout linearPib, linearPay;
     private boolean npCheck = false;
     private boolean liqPayCheck = false;
     private boolean wasPayChoised = false;
@@ -82,7 +83,6 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
                                 //if chosen delivery NP -> check city and warehouse length
                                 && (!npCheck || ((obsCity.length() > 1) && (obsWarehouse.length() > 0)))
                                 && wasPayChoised ))
-
                 .subscribe(aBoolean -> btnPostCheckout.setEnabled(aBoolean));
     }
 
@@ -124,6 +124,8 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
     }
 
     private void initUI(View view) {
+        linearPib = (LinearLayout)view.findViewById(R.id.linearPib);
+        linearPay = (LinearLayout)view.findViewById(R.id.linearPay);
         linearNovaPoshta = (LinearLayout) view.findViewById(R.id.linearNovaPoshta);
         linerPikup = (LinearLayout) view.findViewById(R.id.linerPikup);
         tvChoseAdress = (TextView) view.findViewById(R.id.tvChoseAdress);
@@ -231,6 +233,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             tvPikup.setVisibility(View.VISIBLE);
             cardCity.setVisibility(View.GONE);
         }
+        linearPay.setVisibility(View.VISIBLE);
     }
 
     public void setLiqPaqCheck(boolean liqPaqCheck) {
@@ -241,6 +244,7 @@ public class FragmenZakaz extends Fragment implements ICheckoutFragment {
             linearPayReciever.setBackground(getResources().getDrawable(R.drawable.zakaz_frame_style));
             linerLiqPay.setBackground(getResources().getDrawable(R.drawable.zakaz_frame_style_check));
         }
+        linearPib.setVisibility(View.VISIBLE);
     }
 
     @Override

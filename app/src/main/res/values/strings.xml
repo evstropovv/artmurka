@@ -51,6 +51,11 @@
     <string name="fragment_hint" >Ім\'я</string>
     <string name="fragment_zakaz_warehouse" >Оберіть склад</string>
     <string name="fragment_zakaz_city" >Місто</string>
+    <string name="fragment_order_status_order" >Замовлення: </string>
+    <string name="fragment_order_status_ok" >Добре </string>
+    <string name="fragment_order_status_toast_message" >Будь-ласка, зареєструйтесь/увійдій у аккаунт для відображення Ваших замовлень </string>
+    <string name="fragment_order_status_my_orders" >Мої замовлення </string>
+    <string name="any_error" >Якась помилка... </string>
 
 
 

@@ -138,8 +138,15 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             Preferences.setListUrl(url);
         }
         presenter.getCategoriesData(curPage);
+
         progressBar.setVisibility(View.VISIBLE);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onDetach(); // delete link for this fragment in presenter
     }
 
     @Override
@@ -176,7 +183,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
     @Override
     public void showError(String error) {
         Snackbar.make(getView(), error, Snackbar.LENGTH_LONG)
-                .setAction("Якась помилка...", new View.OnClickListener() {
+                .setAction(getResources().getString(R.string.any_error), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

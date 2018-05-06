@@ -44,7 +44,7 @@ public class OrderFragment extends Fragment implements IOrderFragment {
         if (Preferences.getIsLogin()){
             presenter.getOrders();
         }else {
-            Snackbar snackbar = Snackbar.make(view, "Будь-ласка, зареєструйтесь/увійдій у аккаунт для відображення Ваших замовлень", Snackbar.LENGTH_LONG)
+            Snackbar snackbar = Snackbar.make(view, getResources().getString(R.string.fragment_order_status_toast_message), Snackbar.LENGTH_LONG)
                     .setAction("Action", null);
             snackbar.setDuration(8000); // 8 секунд
             snackbar.show();
@@ -62,7 +62,7 @@ public class OrderFragment extends Fragment implements IOrderFragment {
     public void onResume() {
         super.onResume();
         try{
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Мої замовлення");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.fragment_order_status_my_orders));
         }catch ( NullPointerException e){e.printStackTrace();}
     }
 }

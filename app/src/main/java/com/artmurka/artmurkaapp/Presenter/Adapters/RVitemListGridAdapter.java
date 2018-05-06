@@ -74,7 +74,7 @@ public class RVitemListGridAdapter extends RecyclerView.Adapter<RVitemListGridAd
 
                     Activity activity = (Activity) ctx;
                     activity.startActivity(intent);
-                    activity.overridePendingTransition(R.drawable.fadein, R.drawable.fadeout);
+                 //   activity.overridePendingTransition(R.drawable.fadein, R.drawable.fadeout);
 
                 }
             });

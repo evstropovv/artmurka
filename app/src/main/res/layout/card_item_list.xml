@@ -67,7 +67,7 @@
             android:layout_height="22dp"
             android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
-            card_view:srcCompat="@drawable/heartoutlinebig"
+            card_view:srcCompat="@drawable/heartoutline"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"

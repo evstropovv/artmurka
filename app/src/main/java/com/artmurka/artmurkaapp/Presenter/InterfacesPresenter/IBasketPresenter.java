@@ -7,4 +7,6 @@ package com.artmurka.artmurkaapp.Presenter.InterfacesPresenter;
 public interface IBasketPresenter {
     void getDataForbasket();
 
+    void onDetach();
+
 }

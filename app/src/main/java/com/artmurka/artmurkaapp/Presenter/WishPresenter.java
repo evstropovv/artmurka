@@ -21,7 +21,7 @@ import retrofit2.Response;
 public class WishPresenter implements IWishPresenter {
     private IWishFragment fragment;
 
-    public WishPresenter(IWishFragment fragment){
+    public WishPresenter(IWishFragment fragment) {
         this.fragment = fragment;
     }
 
@@ -32,13 +32,19 @@ public class WishPresenter implements IWishPresenter {
         call.enqueue(new Callback<WishList>() {
             @Override
             public void onResponse(Call<WishList> call, Response<WishList> response) {
-                fragment.showWishList(getList(response.body().getSuccess().getGoodsList()));
+                try {
+                    fragment.showWishList(getList(response.body().getSuccess().getGoodsList()));
+                } catch (NullPointerException e) {
+                }
+
             }
+
             @Override
             public void onFailure(Call<WishList> call, Throwable t) {
             }
         });
     }
+
     private List<GoodsListDescription> getList(HashMap<String, GoodsListDescription> map) {
         List<GoodsListDescription> answerList = new ArrayList<>();
         for (String key : map.keySet()) {
