@@ -44,6 +44,7 @@ import io.reactivex.Observer;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
@@ -64,6 +65,8 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     private List<com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesResponse.Datum> warehouseList;
     private Boolean isViewDetached = false;
 
+    List<Disposable> disposables = new ArrayList<>();
+
 
     private List<Datum> datumList;
 
@@ -74,8 +77,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
     @Override
     public void getData() {
-        Observable<CheckoutAllGoods> checkoutObservable = request.getCheckoutData();
-        checkoutObservable.map(checkoutAllGoods -> checkoutAllGoods.getSuccess()).subscribe(success -> {
+        Disposable disposable = request.getCheckoutData().map(checkoutAllGoods -> checkoutAllGoods.getSuccess()).subscribe(success -> {
             Log.d("Log.d", "ResponsCheck");
             fragment.showCheckout(getList(success.getOrderContent().getOrderGoods()));
             fragment.refreshSumPrice(success.getOrderData().getOrderAmount().getAmountRaw().toString());
@@ -103,6 +105,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
             }
         }, throwable -> {
         });
+        disposables.add(disposable);
     }
 
 
@@ -120,7 +123,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                         fragment.showOrderIsProcessed(response.body().getError().getMsg());
                     }
 
-                    if (response.body().getSuccess()!=null) {
+                    if (response.body().getSuccess() != null) {
                         fragment.showDialog(response.body().getSuccess().getMsg());
                     }
                 }
@@ -170,7 +173,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                 new com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.MethodProperties(cityRef));
 
         //
-        ApiModuleNovaPoshta.getClient().getWarehouses(warehouseRequest)
+        Disposable disposable = ApiModuleNovaPoshta.getClient().getWarehouses(warehouseRequest)
                 .map(warehouseResponse -> warehouseResponse.getData())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -186,6 +189,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
 
                 }, error -> {
                 });
+        disposables.add(disposable);
     }
 
     @Override
@@ -201,7 +205,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         city.setMethodProperties(new MethodProperties(cityName));
         city.setModelName("Address");
 
-        ApiModuleNovaPoshta.getClient().searhCity(city)
+        Disposable disposable = ApiModuleNovaPoshta.getClient().searhCity(city)
                 .map(datumList -> datumList.getData().get(0).getAddresses())
                 .doOnNext(addresses -> Log.d("Log.d", "list address size " + addresses.size() + ""))
 //                .flatMap(addresses -> Flowable.fromIterable(addresses))
@@ -226,6 +230,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
                         }
                         , throwable -> {
                         });
+        disposables.add(disposable);
     }
 
     @Override
@@ -236,6 +241,11 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     @Override
     public void detachView() {
         isViewDetached = true;
+        for (int i = 0; i <disposables.size() ; i++) {
+            if ((disposables.get(i)!=null) && (!disposables.get(i).isDisposed())){
+                disposables.get(i).dispose();
+            }
+        }
     }
 
 
