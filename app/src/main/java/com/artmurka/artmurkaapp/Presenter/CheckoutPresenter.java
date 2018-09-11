@@ -171,8 +171,6 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         warehouseRequest.setModelName("AddressGeneral");
         warehouseRequest.setMethodProperties(
                 new com.artmurka.artmurkaapp.Model.Pojo.ItemList.NovaPoshta.WarehousesRequest.MethodProperties(cityRef));
-
-        //
         Disposable disposable = ApiModuleNovaPoshta.getClient().getWarehouses(warehouseRequest)
                 .map(warehouseResponse -> warehouseResponse.getData())
                 .subscribeOn(Schedulers.io())
@@ -258,6 +256,4 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         }
         return answerList;
     }
-
-
 }
