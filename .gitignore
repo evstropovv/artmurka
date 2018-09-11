@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.idea
 /gradle
 /gradle.properties
 .gradle.properties
