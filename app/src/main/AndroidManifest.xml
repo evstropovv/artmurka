@@ -20,17 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
 
-        <activity android:name=".Views.Activities.MainActivity">
+        <activity android:name=".views.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.Activities.CheckoutActivity" />
-        <activity android:name=".Views.Activities.SelectedGood" />
-        <activity android:name=".Views.Activities.FullPhotoActivity" />
+        <activity android:name=".views.activities.CheckoutActivity" />
+        <activity android:name=".views.activities.SelectedGood" />
+        <activity android:name=".views.activities.FullPhotoActivity" />
         <activity android:name="ua.privatbank.paylibliqpay.CheckoutActivity" />
-        <activity android:name=".Views.Activities.LoginActivity"></activity>
+        <activity android:name=".views.activities.LoginActivity"></activity>
     </application>
 
 </manifest>

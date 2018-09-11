@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artmurka.artmurkaapp.Views.Fragments.IndividualFragment">
+    tools:context="com.artmurka.artmurkaapp.views.fragments.IndividualFragment">
 
     <ScrollView
         android:layout_width="match_parent"
