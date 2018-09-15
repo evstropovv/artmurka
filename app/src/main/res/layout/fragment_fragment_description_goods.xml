@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.activities.SelectedGood">
+    tools:context=".android.views.activities.SelectedGood">
 
     <!-- TODO: Update blank fragment layout -->
 

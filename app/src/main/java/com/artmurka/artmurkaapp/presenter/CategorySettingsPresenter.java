@@ -1,7 +1,7 @@
 package com.artmurka.artmurkaapp.presenter;
 
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICategorySettingsPresenter;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.ICategorySettings;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICategorySettings;
 
 import java.util.HashMap;
 

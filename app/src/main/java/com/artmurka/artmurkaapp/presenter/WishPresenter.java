@@ -5,7 +5,7 @@ import com.artmurka.artmurkaapp.model.modules.WishListRequest;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IWishPresenter;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.IWishFragment;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IWishFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;

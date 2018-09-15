@@ -8,7 +8,7 @@ import com.artmurka.artmurkaapp.model.interfacesmodel.IAllRequestObservers;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Example;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICategoryPresenter;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.ICategoryFragment;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICategoryFragment;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

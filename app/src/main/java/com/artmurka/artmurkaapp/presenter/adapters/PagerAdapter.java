@@ -5,8 +5,8 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.artmurka.artmurkaapp.views.fragments.FragmentAboutGoods;
-import com.artmurka.artmurkaapp.views.fragments.FragmentDescriptionGoods;
+import com.artmurka.artmurkaapp.android.views.fragments.FragmentAboutGoods;
+import com.artmurka.artmurkaapp.android.views.fragments.FragmentDescriptionGoods;
 
 
 public class PagerAdapter extends FragmentStatePagerAdapter {

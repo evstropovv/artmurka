@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artmurka.artmurkaapp.views.activities.CheckoutActivity">
+    tools:context=".android.views.activities.CheckoutActivity">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

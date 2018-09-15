@@ -24,8 +24,8 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.Item;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.R;
 
-import com.artmurka.artmurkaapp.views.activities.SelectedGood;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.IBasketFragment;
+import com.artmurka.artmurkaapp.android.views.activities.SelectedGood;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragment;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 

@@ -25,7 +25,7 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.BasketItems;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.views.activities.SelectedGood;
+import com.artmurka.artmurkaapp.android.views.activities.SelectedGood;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

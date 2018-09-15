@@ -5,7 +5,7 @@ import com.artmurka.artmurkaapp.model.interfacesmodel.IBasket;
 import com.artmurka.artmurkaapp.model.modules.BasketRequest;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.BasketItems;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IBasketPresenter;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.IBasketFragment;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragment;
 
 
 import io.reactivex.Observable;

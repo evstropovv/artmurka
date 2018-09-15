@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ISendEmailPresenter;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.ISendEmailFragment;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ISendEmailFragment;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 
 

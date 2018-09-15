@@ -18,7 +18,7 @@ import com.artmurka.artmurkaapp.model.modules.BasketRequest;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.views.activities.SelectedGood;
+import com.artmurka.artmurkaapp.android.views.activities.SelectedGood;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 

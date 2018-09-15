@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#e4e4e4"
 
-    tools:context="com.artmurka.artmurkaapp.views.fragments.ItemListFragment">
+    tools:context=".android.views.fragments.ItemListFragment">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

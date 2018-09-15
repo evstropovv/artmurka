@@ -20,7 +20,7 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.GoodsListDescriptio
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.IFragmentAboutGoods;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods;
 
 import java.util.ArrayList;
 import java.util.HashMap;

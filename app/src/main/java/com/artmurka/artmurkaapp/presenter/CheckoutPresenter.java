@@ -17,7 +17,7 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.CityRequest.Metho
 import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.CityResponse.Address;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.WarehousesRequest.WarehouseRequest;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICheckoutPresenter;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.ICheckoutFragment;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ import com.artmurka.artmurkaapp.model.modules.RequestItemList;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.SuccessExample;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IPresenterItemList;
-import com.artmurka.artmurkaapp.views.fragments.interfaces.IItemListFragment;
+import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IItemListFragment;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
