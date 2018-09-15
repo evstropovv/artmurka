@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.SelectedGood;
+import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -66,7 +66,7 @@ public class RVitemListGridAdapter extends RecyclerView.Adapter<RVitemListGridAd
                 @Override
                 public void onClick(View v) {
                     //to aboutGoods activity
-                    Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
+                    Intent intent = new Intent(itemView.getContext(), SelectedGoodActivity.class);
                     String id = successList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id",id);
                     intent.putExtra("inWish", successList.get(getAdapterPosition()).getEntryIsInWishlist());

@@ -18,7 +18,7 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.BasketItems;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.SelectedGood;
+import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -145,7 +145,7 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), SelectedGood.class);
+                    Intent intent = new Intent(itemView.getContext(), SelectedGoodActivity.class);
                     String id = wishList.get(getAdapterPosition()).getEntryId();
                     intent.putExtra("id",id);
                     intent.putExtra("inWish", wishList.get(getAdapterPosition()).getEntryIsInWishlist());

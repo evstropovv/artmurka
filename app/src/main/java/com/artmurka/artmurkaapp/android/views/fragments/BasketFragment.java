@@ -22,7 +22,7 @@ import com.artmurka.artmurkaapp.presenter.adapters.RVbasketAdapter;
 import com.artmurka.artmurkaapp.presenter.BasketPresenter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IBasketPresenter;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.CheckoutActivity;
+import com.artmurka.artmurkaapp.android.views.activities.checkout.CheckoutActivity;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragment;
 import java.util.List;
 

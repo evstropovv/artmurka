@@ -27,7 +27,7 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.Areas.AreasRespon
 import com.artmurka.artmurkaapp.presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.MainActivity;
+import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.widget.RxTextView;

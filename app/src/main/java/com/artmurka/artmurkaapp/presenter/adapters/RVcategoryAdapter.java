@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.other.Const;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.MainActivity;
+import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

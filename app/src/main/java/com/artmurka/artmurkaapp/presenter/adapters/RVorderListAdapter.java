@@ -19,7 +19,7 @@ import com.artmurka.artmurkaapp.model.pojo.itemlist.orders.Orders;
 import com.artmurka.artmurkaapp.other.Const;
 import com.artmurka.artmurkaapp.other.PayLiq;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.MainActivity;
+import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity;
 import com.artmurka.artmurkaapp.android.views.fragments.OrderStatusFragment;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.android.views.activities;
+package com.artmurka.artmurkaapp.android.views.activities.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

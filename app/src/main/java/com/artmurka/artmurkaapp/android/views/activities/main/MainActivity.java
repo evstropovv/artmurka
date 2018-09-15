@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.android.views.activities;
+package com.artmurka.artmurkaapp.android.views.activities.main;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artmurka.artmurkaapp.BuildConfig;
+import com.artmurka.artmurkaapp.android.views.activities.login.LoginActivity;
 import com.artmurka.artmurkaapp.android.views.fragments.FragmentCategoryChilds;
 import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.android.views.fragments.DeliveryFragment;
@@ -46,8 +47,20 @@ import com.artmurka.artmurkaapp.android.views.fragments.WishFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener {
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+
+public class MainActivity extends AppCompatActivity implements IMainActivity, NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+
+
     private TextView tvBigName, tvSmallName;
     private CategoryFragment fragCategory;
     private final String TAG = "Storage_category_fragment";
@@ -56,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -197,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
                 FragmentCategoryChilds categoryChilds = new FragmentCategoryChilds();
 
                 bundle.putParcelableArrayList("childs", (ArrayList<? extends Parcelable>) childs);
-                bundle.putString("catName",catName);
+                bundle.putString("catName", catName);
                 categoryChilds.setArguments(bundle);
 
                 fm.beginTransaction()
@@ -372,4 +386,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         }
     }
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
 }

@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.android.views.activities;
+package com.artmurka.artmurkaapp.android.views.activities.selectedgood;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -6,11 +6,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.artmurka.artmurkaapp.presenter.adapters.PagerAdapter;
 import com.artmurka.artmurkaapp.R;
 
-public class SelectedGood extends AppCompatActivity {
+public class SelectedGoodActivity extends AppCompatActivity {
 
 private String currentId;
 

@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.activities.FullPhotoActivity;
+import com.artmurka.artmurkaapp.android.views.activities.fullphoto.FullPhotoActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.android.views.activities;
+package com.artmurka.artmurkaapp.android.views.activities.fullphoto;
 
 
 import android.os.Bundle;
