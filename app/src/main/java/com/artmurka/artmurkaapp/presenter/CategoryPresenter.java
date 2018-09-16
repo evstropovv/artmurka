@@ -3,10 +3,10 @@ package com.artmurka.artmurkaapp.presenter;
 import android.content.Context;
 import android.util.Log;
 
-import com.artmurka.artmurkaapp.model.modules.AllRequestOvservers;
-import com.artmurka.artmurkaapp.model.interfacesmodel.IAllRequestObservers;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Example;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
+import com.artmurka.artmurkaapp.data.model.modules.AllRequestOvservers;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IAllRequestObservers;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Example;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICategoryPresenter;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICategoryFragment;
 import com.google.gson.Gson;

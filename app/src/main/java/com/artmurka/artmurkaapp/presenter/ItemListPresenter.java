@@ -2,9 +2,9 @@ package com.artmurka.artmurkaapp.presenter;
 
 import android.util.Log;
 
-import com.artmurka.artmurkaapp.model.modules.RequestItemList;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.SuccessExample;
+import com.artmurka.artmurkaapp.data.model.modules.RequestItemList;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IPresenterItemList;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IItemListFragment;
 

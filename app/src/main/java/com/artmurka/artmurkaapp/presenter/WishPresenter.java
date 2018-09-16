@@ -1,9 +1,9 @@
 package com.artmurka.artmurkaapp.presenter;
 
-import com.artmurka.artmurkaapp.model.interfacesmodel.IWishList;
-import com.artmurka.artmurkaapp.model.modules.WishListRequest;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.GoodsListDescription;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList;
+import com.artmurka.artmurkaapp.data.model.modules.WishListRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IWishPresenter;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IWishFragment;
 

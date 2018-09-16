@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.Item;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Item;
 import com.artmurka.artmurkaapp.presenter.adapters.RVbasketAdapter;
 import com.artmurka.artmurkaapp.presenter.BasketPresenter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IBasketPresenter;

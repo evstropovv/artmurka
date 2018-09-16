@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success;
 
 import com.artmurka.artmurkaapp.other.Const;
 import com.artmurka.artmurkaapp.other.SaveDataFragment;

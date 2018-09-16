@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.GoodsListDescription;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription;
 import com.artmurka.artmurkaapp.presenter.adapters.RVwishListAdapter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IWishPresenter;
 import com.artmurka.artmurkaapp.presenter.WishPresenter;

@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.other.SaveDataFragment;
 import com.artmurka.artmurkaapp.presenter.adapters.RVcategoryAdapter;
 import com.artmurka.artmurkaapp.R;

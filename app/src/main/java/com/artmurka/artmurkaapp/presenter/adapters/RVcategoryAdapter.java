@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.other.Const;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity;

@@ -22,8 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.OrderDesc;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.Areas.AreasResponse;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.OrderDesc;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.Areas.AreasResponse;
 import com.artmurka.artmurkaapp.presenter.CheckoutPresenter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.R;

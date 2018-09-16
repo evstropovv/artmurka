@@ -11,10 +11,9 @@ import android.view.MenuItem;
 
 import com.artmurka.artmurkaapp.android.views.fragments.FragmenZakaz;
 import com.artmurka.artmurkaapp.R;
-import com.artmurka.artmurkaapp.android.views.fragments.CheckoutFragment;
 
 public class CheckoutActivity extends AppCompatActivity implements ICheckoutActivity {
-    CheckoutFragment checkoutFragment;
+
     FragmenZakaz fragmenZakaz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +52,6 @@ public class CheckoutActivity extends AppCompatActivity implements ICheckoutActi
         } else {
             fragmenZakaz = (FragmenZakaz) fragment;
         }
-    }
-
-    private void loadShopFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentByTag("CHECKOUT");
-        if (fragment == null) {
-            checkoutFragment = new CheckoutFragment();
-            fm.beginTransaction()
-                    .replace(R.id.pager, checkoutFragment, "CHECKOUT")
-                    .commit();
-            fm.executePendingTransactions();
-        } else {
-            checkoutFragment = (CheckoutFragment) fragment;
-        }
-
     }
 
     @Override

@@ -14,14 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.model.interfacesmodel.ICheckoutRequest;
-import com.artmurka.artmurkaapp.model.interfacesmodel.IWishList;
-import com.artmurka.artmurkaapp.model.modules.CheckoutRequest;
-import com.artmurka.artmurkaapp.model.modules.WishListRequest;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.CheckoutAllGoods;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.Item;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList;
+import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest;
+import com.artmurka.artmurkaapp.data.model.modules.WishListRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.CheckoutAllGoods;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Item;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.R;
 
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity;

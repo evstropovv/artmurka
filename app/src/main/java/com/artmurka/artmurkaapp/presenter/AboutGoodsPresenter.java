@@ -3,21 +3,21 @@ package com.artmurka.artmurkaapp.presenter;
 import android.text.Html;
 import android.util.Log;
 
-import com.artmurka.artmurkaapp.model.interfacesmodel.IAboutGoods;
-import com.artmurka.artmurkaapp.model.interfacesmodel.IBasket;
-import com.artmurka.artmurkaapp.model.interfacesmodel.IWishList;
-import com.artmurka.artmurkaapp.model.modules.AboutGoodsRequest;
-import com.artmurka.artmurkaapp.model.modules.BasketRequest;
-import com.artmurka.artmurkaapp.model.modules.WishListRequest;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.aboutgoods.AboutGood;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.aboutgoods.SizePhoto;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.aboutgoods.Success;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.good.Good;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.BasketItems;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.SuccessExample;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.GoodsListDescription;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.wishList.WishList;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IAboutGoods;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList;
+import com.artmurka.artmurkaapp.data.model.modules.AboutGoodsRequest;
+import com.artmurka.artmurkaapp.data.model.modules.BasketRequest;
+import com.artmurka.artmurkaapp.data.model.modules.WishListRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.AboutGood;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.SizePhoto;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.Success;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.good.Good;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods;
@@ -80,7 +80,7 @@ public class AboutGoodsPresenter implements IAboutGoodsPresenter {
             @Override
             public void onResponse(Call<Good> call, Response<Good> response) {
 
-                com.artmurka.artmurkaapp.model.pojo.itemlist.good.Success aboutGood = response.body().getSuccess();
+                com.artmurka.artmurkaapp.data.model.pojo.itemlist.good.Success aboutGood = response.body().getSuccess();
                 fragment.setName(aboutGood.getEntryTitle());
                 fragment.setDescription(Html.fromHtml(aboutGood.getEntryDescription()).toString());
                 fragment.setPrice(aboutGood.getEntryPrice().getPriceRaw() + " грн.");

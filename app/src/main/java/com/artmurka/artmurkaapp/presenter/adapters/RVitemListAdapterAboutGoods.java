@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.model.interfacesmodel.IBasket;
-import com.artmurka.artmurkaapp.model.modules.BasketRequest;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itembasket.BasketItems;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket;
+import com.artmurka.artmurkaapp.data.model.modules.BasketRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity;
 import com.google.gson.Gson;

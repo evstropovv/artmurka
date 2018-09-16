@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.artmurka.artmurkaapp.model.databases.Preferences;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
+import com.artmurka.artmurkaapp.data.model.databases.Preferences;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.presenter.adapters.RVitemListAdapterList;
 import com.artmurka.artmurkaapp.presenter.adapters.RVitemListGridAdapter;
 import com.artmurka.artmurkaapp.presenter.ItemListPresenter;
@@ -69,7 +69,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
             }
         }
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        if (Preferences.getListSettings() == 1) {
+        if (Preferences.INSTANCE.getListSettings() == 1) {
 
             RecyclerView.LayoutManager recyclerLayoutManager = new GridLayoutManager(view.getContext(), 2);
             recyclerView.setLayoutManager(recyclerLayoutManager);
@@ -89,7 +89,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                 }
             });
 
-        } else if (Preferences.getListSettings() == 2) {
+        } else if (Preferences.INSTANCE.getListSettings() == 2) {
             final LinearLayoutManager recyclerLayoutManager = new LinearLayoutManager(view.getContext());
             recyclerLayoutManager.setOrientation(LinearLayout.VERTICAL);
             recyclerView.setLayoutManager(recyclerLayoutManager);
@@ -111,7 +111,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
                     }
                 }
             });
-        } else if (Preferences.getListSettings() == 3) {
+        } else if (Preferences.INSTANCE.getListSettings() == 3) {
 
             StaggeredGridLayoutManager recyclerLayoutManager = new StaggeredGridLayoutManager(3,
                     StaggeredGridLayoutManager.VERTICAL);
@@ -163,7 +163,7 @@ public class ItemListFragment extends Fragment implements IItemListFragment {
 
     @Override
     public void showItemList(ArrayList<GoodsProperties> goodsProperties) {
-        switch (Preferences.getListSettings()) {
+        switch (Preferences.INSTANCE.getListSettings()) {
             case 1:
                 recyclerAdapter.setData(goodsProperties);
                 break;

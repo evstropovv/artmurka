@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.model.databases.Preferences;
+import com.artmurka.artmurkaapp.data.model.databases.Preferences;
 import com.artmurka.artmurkaapp.presenter.CategorySettingsPresenter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICategorySettingsPresenter;
 import com.artmurka.artmurkaapp.R;
@@ -52,9 +52,9 @@ public class CategorySettings extends Fragment implements ICategorySettings {
         ivMicrosoft = (ImageView) view.findViewById(R.id.ivMicrosoft);
         ivGrid = (ImageView) view.findViewById(R.id.ivGrid);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-        radioGroup.check(Preferences.getCheckedRadioButton());
+        radioGroup.check(Preferences.INSTANCE.getCheckedRadioButton());
         setIvListener();
-        changeIconsColor(Preferences.getListSettings());
+        changeIconsColor(Preferences.INSTANCE.getListSettings());
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +97,7 @@ public class CategorySettings extends Fragment implements ICategorySettings {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 ItemListFragment itemList = new ItemListFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("url", Preferences.getListUrl());
+                bundle.putString("url", Preferences.INSTANCE.getListUrl());
                 bundle.putString("sort", settings.get("sort"));
                 bundle.putString("order", settings.get("order"));
                 bundle.putInt("list", currentSelect);

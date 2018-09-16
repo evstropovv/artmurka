@@ -19,7 +19,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.itemlist.GoodsProperties;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.presenter.AboutGoodsPresenter;
 import com.artmurka.artmurkaapp.presenter.adapters.RVitemListAdapterAboutGoods;
 import com.artmurka.artmurkaapp.presenter.adapters.ViewPagerAdapter;

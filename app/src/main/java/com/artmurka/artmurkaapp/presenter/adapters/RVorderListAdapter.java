@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.orders.Order;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.orders.Orders;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Order;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Orders;
 import com.artmurka.artmurkaapp.other.Const;
 import com.artmurka.artmurkaapp.other.PayLiq;
 import com.artmurka.artmurkaapp.R;

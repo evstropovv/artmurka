@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.artmurka.artmurkaapp.model.interfacesmodel.ICheckoutRequest;
-import com.artmurka.artmurkaapp.model.modules.CheckoutRequest;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.CheckoutAllGoods;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.OrderDesc;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest;
+import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.CheckoutAllGoods;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.OrderDesc;
 import com.artmurka.artmurkaapp.R;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFragment;
 

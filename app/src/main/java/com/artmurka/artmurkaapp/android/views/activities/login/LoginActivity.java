@@ -15,7 +15,7 @@ import android.webkit.WebViewClient;
 
 
 import com.artmurka.artmurkaapp.BuildConfig;
-import com.artmurka.artmurkaapp.model.databases.Preferences;
+import com.artmurka.artmurkaapp.data.model.databases.Preferences;
 import com.artmurka.artmurkaapp.presenter.loginucoz.UcozApi;
 import com.artmurka.artmurkaapp.presenter.loginucoz.User;
 import com.artmurka.artmurkaapp.R;

@@ -31,10 +31,10 @@ import android.widget.Toast;
 import com.artmurka.artmurkaapp.BuildConfig;
 import com.artmurka.artmurkaapp.android.views.activities.login.LoginActivity;
 import com.artmurka.artmurkaapp.android.views.fragments.FragmentCategoryChilds;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success;
 import com.artmurka.artmurkaapp.android.views.fragments.DeliveryFragment;
 import com.artmurka.artmurkaapp.android.views.fragments.IndividualFragment;
-import com.artmurka.artmurkaapp.model.databases.Preferences;
+import com.artmurka.artmurkaapp.data.model.databases.Preferences;
 import com.artmurka.artmurkaapp.android.views.fragments.BasketFragment;
 import com.artmurka.artmurkaapp.other.Const;
 import com.artmurka.artmurkaapp.android.views.fragments.CategorySettings;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         setTheme(R.style.SplashTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Preferences.init(this);
+        Preferences.INSTANCE.init(this);
         loadShopFragment();
         setUI();
 
@@ -152,22 +152,22 @@ public class MainActivity extends AppCompatActivity implements IMainActivity, Na
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         tvSmallName = (TextView) header.findViewById(R.id.tvSmallName);
-        tvSmallName.setText(Preferences.getEmail());
+        tvSmallName.setText(Preferences.INSTANCE.getEmail());
         tvBigName = (TextView) header.findViewById(R.id.tvBigName);
-        tvBigName.setText(Preferences.getName());
+        tvBigName.setText(Preferences.INSTANCE.getName());
         btnLogin = (Button) header.findViewById(R.id.btnLogin);
-        btnLogin.setText(Preferences.getIsLogin() ? "?????" : "??????");
+        btnLogin.setText(Preferences.INSTANCE.getIsLogin() ? "?????" : "??????");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (!Preferences.getIsLogin()) {
+                if (!Preferences.INSTANCE.getIsLogin()) {
                     btnLogin.setText("??????");
                     Intent intent = new Intent(v.getContext(), LoginActivity.class);
                     startActivityForResult(intent, 1);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage(Preferences.getName() + ", ?? ???????? ?? ?????? ????? ? ????????")
+                    builder.setMessage(Preferences.INSTANCE.getName() + ", ?? ???????? ?? ?????? ????? ? ????????")
                             .setPositiveButton("???", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Preferences.setConsumerKey(BuildConfig.CONSUMER_KEY);

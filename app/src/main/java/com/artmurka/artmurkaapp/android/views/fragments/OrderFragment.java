@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.artmurka.artmurkaapp.model.databases.Preferences;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.orders.Orders;
+import com.artmurka.artmurkaapp.data.model.databases.Preferences;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Orders;
 import com.artmurka.artmurkaapp.presenter.adapters.RVorderListAdapter;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IOrderPresenter;
 import com.artmurka.artmurkaapp.presenter.OrdersPresenter;
@@ -41,7 +41,7 @@ public class OrderFragment extends Fragment implements IOrderFragment {
         adapter = new RVorderListAdapter(view.getContext());
         rvOrder.setAdapter(adapter);
 
-        if (Preferences.getIsLogin()){
+        if (Preferences.INSTANCE.getIsLogin()){
             presenter.getOrders();
         }else {
             Snackbar snackbar = Snackbar.make(view, getResources().getString(R.string.fragment_order_status_toast_message), Snackbar.LENGTH_LONG)

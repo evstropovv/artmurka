@@ -3,7 +3,7 @@ package com.artmurka.artmurkaapp.other;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.categories.Success;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success;
 
 import java.util.List;
 

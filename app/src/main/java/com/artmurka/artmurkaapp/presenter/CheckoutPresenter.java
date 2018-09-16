@@ -3,19 +3,19 @@ package com.artmurka.artmurkaapp.presenter;
 import android.util.Log;
 
 import com.artmurka.artmurkaapp.BuildConfig;
-import com.artmurka.artmurkaapp.model.interfacesmodel.ICheckoutRequest;
-import com.artmurka.artmurkaapp.model.modules.ApiModuleNovaPoshta;
-import com.artmurka.artmurkaapp.model.modules.CheckoutRequest;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.DeliveryDescription;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.OrderDesc;
+import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest;
+import com.artmurka.artmurkaapp.data.model.modules.ApiModuleNovaPoshta;
+import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.DeliveryDescription;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.OrderDesc;
 
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkout.PaymentDescription;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.checkoutresponse.CheckoutResponse;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.Areas.Datum;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.CityRequest.City;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.CityRequest.MethodProperties;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.CityResponse.Address;
-import com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.WarehousesRequest.WarehouseRequest;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.PaymentDescription;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkoutresponse.CheckoutResponse;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.Areas.Datum;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityRequest.City;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityRequest.MethodProperties;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityResponse.Address;
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.WarehousesRequest.WarehouseRequest;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICheckoutPresenter;
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFragment;
 import com.google.gson.Gson;
@@ -42,7 +42,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
     private HashMap<String, DeliveryDescription> deliveryMap;
     private HashMap<String, PaymentDescription> payMap;
     private List<Address> cities;
-    private List<com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.WarehousesResponse.Datum> warehouseList;
+    private List<com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.WarehousesResponse.Datum> warehouseList;
     private Boolean isViewDetached = false;
 
     List<Disposable> disposables = new ArrayList<>();
@@ -150,7 +150,7 @@ public class CheckoutPresenter implements ICheckoutPresenter {
         warehouseRequest.setCalledMethod("getWarehouses"); //getSettlements
         warehouseRequest.setModelName("AddressGeneral");
         warehouseRequest.setMethodProperties(
-                new com.artmurka.artmurkaapp.model.pojo.itemlist.novaposhta.WarehousesRequest.MethodProperties(cityRef));
+                new com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.WarehousesRequest.MethodProperties(cityRef));
         Disposable disposable = ApiModuleNovaPoshta.getClient().getWarehouses(warehouseRequest)
                 .map(warehouseResponse -> warehouseResponse.getData())
                 .subscribeOn(Schedulers.io())

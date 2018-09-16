@@ -6,6 +6,8 @@ import com.artmurka.artmurkaapp.android.di.module.ApplicationModule
 import com.artmurka.artmurkaapp.android.views.activities.checkout.di.MainActivityComponent
 import com.artmurka.artmurkaapp.android.views.activities.fullphoto.FullPhotoActivity
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity
+import com.artmurka.artmurkaapp.data.model.di.DataModule
+import com.artmurka.artmurkaapp.data.model.di.RequestModule
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -19,6 +21,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     (ApplicationModule::class),
+    (RequestModule::class),
     (AndroidSupportInjectionModule::class),
     (ApplicationComponent.ActivityBindingsModule::class),
     (ApplicationComponent.FragmentBindingsModule::class),

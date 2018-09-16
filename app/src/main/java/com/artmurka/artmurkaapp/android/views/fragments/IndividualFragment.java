@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.model.databases.Preferences;
+import com.artmurka.artmurkaapp.data.model.databases.Preferences;
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ISendEmailPresenter;
 import com.artmurka.artmurkaapp.presenter.SendEmailPresenter;
 import com.artmurka.artmurkaapp.R;
@@ -52,7 +52,7 @@ public class IndividualFragment extends Fragment implements ISendEmailFragment {
         btnSend = (Button) view.findViewById(R.id.btnSend);
         etName = (EditText) view.findViewById(R.id.etName);
         etEmail = (EditText) view.findViewById(R.id.etEmail);
-        etEmail.setText(Preferences.getEmail().matches("artmurka.com")?"":Preferences.getEmail());
+        etEmail.setText(Preferences.INSTANCE.getEmail().matches("artmurka.com")?"": Preferences.INSTANCE.getEmail());
         etMsg = (EditText) view.findViewById(R.id.etMsg);
         tvChosingPhoto = (TextView) view.findViewById(R.id.tvChosingFile);
 
