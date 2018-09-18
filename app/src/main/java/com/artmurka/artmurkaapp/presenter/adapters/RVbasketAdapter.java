@@ -29,6 +29,8 @@ import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragme
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
         basketItemList = new ArrayList<>();
     }
 
-    public void setData(List<Item> list) {
+    public void setData(@NotNull List<? extends Item>  list) {
         if (basketItemList != null && list.size() > 0) {
             this.basketItemList.clear();
             this.basketItemList.addAll(list);
@@ -90,17 +92,17 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
                             case R.id.wish_wad:
                                 //add to wishList
                                 Toast.makeText(ctx, basketItemList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
-                                IWishList iWishList = new WishListRequest();
-                                Call<WishList> obs = iWishList.toWishList(basketItemList.get(position).getEntryId());
-                                obs.enqueue(new Callback<WishList>() {
-                                    @Override
-                                    public void onResponse(Call<WishList> call, Response<WishList> response) {
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<WishList> call, Throwable t) {
-                                    }
-                                });
+//                                IWishList iWishList = new WishListRequest();
+//                                Call<WishList> obs = iWishList.toWishList(basketItemList.get(position).getEntryId());
+//                                obs.enqueue(new Callback<WishList>() {
+//                                    @Override
+//                                    public void onResponse(Call<WishList> call, Response<WishList> response) {
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<WishList> call, Throwable t) {
+//                                    }
+//                                });
 
                                 break;
                             default:
@@ -129,16 +131,16 @@ public class RVbasketAdapter extends RecyclerView.Adapter<RVbasketAdapter.ViewHo
 
     private void refreshItemRequest(int cnt, int position){
 
-        ICheckoutRequest request = new CheckoutRequest();
-        Call<CheckoutAllGoods> call = request.recountCheckoutData(basketItemList.get(position).getId(), String.valueOf(cnt));
-        call.enqueue(new Callback<CheckoutAllGoods>() {
-            @Override
-            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-
-            }
-            @Override
-            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}
-        });
+//        ICheckoutRequest request = new CheckoutRequest();
+//        Call<CheckoutAllGoods> call = request.recountCheckoutData(basketItemList.get(position).getId(), String.valueOf(cnt));
+//        call.enqueue(new Callback<CheckoutAllGoods>() {
+//            @Override
+//            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+//
+//            }
+//            @Override
+//            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}
+//        });
     }
 
     @Override
