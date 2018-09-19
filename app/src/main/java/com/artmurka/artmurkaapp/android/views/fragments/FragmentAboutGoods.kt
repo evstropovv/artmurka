@@ -24,7 +24,6 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsPropertie
 import com.artmurka.artmurkaapp.presenter.AboutGoodsPresenter
 import com.artmurka.artmurkaapp.presenter.adapters.RVitemListAdapterAboutGoods
 import com.artmurka.artmurkaapp.presenter.adapters.ViewPagerAdapter
-import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods
 import com.artmurka.artmurkaapp.presenter.Presenter
@@ -62,7 +61,7 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle): View? {
+                              savedInstanceState: Bundle?): View?{
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_fragment_about_goods, container, false)
 
