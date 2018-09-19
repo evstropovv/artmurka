@@ -61,8 +61,9 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
         super.onAttach(context)
     }
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle): View? {
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_fragment_about_goods, container, false)
 

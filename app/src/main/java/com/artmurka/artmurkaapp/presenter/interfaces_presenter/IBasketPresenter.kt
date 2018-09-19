@@ -6,7 +6,8 @@ import com.artmurka.artmurkaapp.presenter.BasePresenter
  * Created by Вася on 10.07.2017.
  */
 
-interface IBasketPresenter : BasePresenter<MainView>() {
+interface IBasketPresenter {
+
     fun getDataForbasket()
 
     fun onDetach()

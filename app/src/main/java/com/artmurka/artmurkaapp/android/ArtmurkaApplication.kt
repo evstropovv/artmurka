@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.support.v4.app.Fragment
-import com.artmurka.artmurkaapp.android.di.app.DaggerApplicationComponent
 import com.artmurka.artmurkaapp.android.di.module.ApplicationModule
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
