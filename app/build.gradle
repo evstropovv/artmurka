@@ -8,7 +8,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.artmurka.artmurkaapp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 4
         versionName "1.3"

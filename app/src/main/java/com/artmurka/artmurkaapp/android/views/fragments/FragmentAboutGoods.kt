@@ -1,11 +1,8 @@
 package com.artmurka.artmurkaapp.android.views.fragments
 
-
-import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
@@ -60,9 +57,9 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
         super.onAttach(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View?{
-        // Inflate the layout for this fragment
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View?{
+    // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_fragment_about_goods, container, false)
 
         tvName = fragment.findViewById<View>(R.id.tvName) as TextView
