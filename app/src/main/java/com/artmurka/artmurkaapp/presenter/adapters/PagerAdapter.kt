@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-
 import com.artmurka.artmurkaapp.android.views.fragments.FragmentAboutGoods
 import com.artmurka.artmurkaapp.android.views.fragments.FragmentDescriptionGoods
 

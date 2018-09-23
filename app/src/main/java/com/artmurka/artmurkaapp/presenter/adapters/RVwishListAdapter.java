@@ -66,34 +66,35 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
             public void onClick(View v) {
                 if (wishList.get(position).getEntryIsInBasket() == 0) {
                     //в корзину
-                    IBasket basket = new BasketRequest();
-                    Observable<BasketItems> observable = basket.toBasket(wishList.get(position).getEntryId());
-
-                    observable.subscribe(new Observer<BasketItems>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                        }
-
-                        @Override
-                        public void onNext(BasketItems value) {
-                             Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
-                            String goodsId = wishList.get(position).getEntryId();
-                            deleteFromWishOnline(goodsId);
-                            wishList.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, wishList.size());
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
+                    //TODO don't remove it
+//                    IBasket basket = new BasketRequest();
+//                    Observable<BasketItems> observable = basket.toBasket(wishList.get(position).getEntryId());
+//
+//                    observable.subscribe(new Observer<BasketItems>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//                        }
+//
+//                        @Override
+//                        public void onNext(BasketItems value) {
+//                             Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
+//                            String goodsId = wishList.get(position).getEntryId();
+//                            deleteFromWishOnline(goodsId);
+//                            wishList.remove(position);
+//                            notifyItemRemoved(position);
+//                            notifyItemRangeChanged(position, wishList.size());
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//
+//                        }
+//                    });
                 }
 
             }
@@ -113,15 +114,17 @@ public class RVwishListAdapter extends RecyclerView.Adapter<RVwishListAdapter.Vi
 
     private void deleteFromWishOnline(String goodsId) {
         //delete from wishlist online
-        IWishList iWishList = new WishListRequest();
-        Call<WishList> obs = iWishList.toWishList(goodsId); //здесь по запросу toWishList - или удаляется если она есть, или добавляется если позиции в списке нет
-        obs.enqueue(new Callback<WishList>() {
-            @Override
-            public void onResponse(Call<WishList> call, Response<WishList> response) {
-            }
-            @Override
-            public void onFailure(Call<WishList> call, Throwable t) {}
-        });
+
+        //TODO don't remove it !
+//        IWishList iWishList = new WishListRequest();
+//        Call<WishList> obs = iWishList.toWishList(goodsId); //здесь по запросу toWishList - или удаляется если она есть, или добавляется если позиции в списке нет
+//        obs.enqueue(new Callback<WishList>() {
+//            @Override
+//            public void onResponse(Call<WishList> call, Response<WishList> response) {
+//            }
+//            @Override
+//            public void onFailure(Call<WishList> call, Throwable t) {}
+//        });
     }
 
 

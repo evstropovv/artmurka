@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket;
-import com.artmurka.artmurkaapp.data.model.modules.BasketRequest;
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties;
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems;
 import com.artmurka.artmurkaapp.R;
@@ -67,25 +65,26 @@ public class RVitemListAdapterAboutGoods extends RecyclerView.Adapter<RVitemList
                         switch (item.getItemId()){
                             case R.id.to_card:
                                 //в корзину
-                                IBasket basket = new BasketRequest();
-                                Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
-                                                             observable.subscribe(new Observer<BasketItems>() {
-                                    @Override
-                                    public void onSubscribe(Disposable d) {}
-
-                                    @Override
-                                    public void onNext(BasketItems value) {
-                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
-                                    }
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        Log.d("Log.d", "onError " + e.toString());
-                                    }
-                                    @Override
-                                    public void onComplete() {
-                                    }
-                                });
+                                //TODO don't remove it
+//                                IBasket basket = new BasketRequest();
+//                                Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
+//                                                             observable.subscribe(new Observer<BasketItems>() {
+//                                    @Override
+//                                    public void onSubscribe(Disposable d) {}
+//
+//                                    @Override
+//                                    public void onNext(BasketItems value) {
+//                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
+//                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        Log.d("Log.d", "onError " + e.toString());
+//                                    }
+//                                    @Override
+//                                    public void onComplete() {
+//                                    }
+//                                });
                                 break;
                             case R.id.wish_wad:
 

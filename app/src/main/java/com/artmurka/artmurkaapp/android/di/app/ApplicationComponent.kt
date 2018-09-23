@@ -4,7 +4,9 @@ import android.app.Activity
 import com.artmurka.artmurkaapp.android.ArtmurkaApplication
 import com.artmurka.artmurkaapp.android.di.module.ApplicationModule
 import com.artmurka.artmurkaapp.android.views.activities.di.MainActivityComponent
+import com.artmurka.artmurkaapp.android.views.activities.di.SelectedGoodActivityComponent
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity
+import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
 import com.artmurka.artmurkaapp.data.model.di.RequestModule
 import dagger.Binds
 import dagger.Component
@@ -33,7 +35,8 @@ interface ApplicationComponent : AndroidInjector<ArtmurkaApplication> {
     }
 
     @Module(subcomponents = [
-        (MainActivityComponent::class)
+        (MainActivityComponent::class),
+        (SelectedGoodActivityComponent::class)
     ])
     interface ActivityBindingsModule {
 
@@ -41,6 +44,11 @@ interface ApplicationComponent : AndroidInjector<ArtmurkaApplication> {
         @IntoMap
         @ActivityKey(value = MainActivity::class)
         fun mainActivityComponentBuilder(builder: MainActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+
+        @Binds
+        @IntoMap
+        @ActivityKey(value = SelectedGoodActivity::class)
+        fun selectedGoodActivityComponentBuilder(builder: SelectedGoodActivityComponent.Builder): AndroidInjector.Factory<out Activity>
 
     }
     @Module(subcomponents = [ ])

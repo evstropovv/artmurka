@@ -1,19 +1,18 @@
 package com.artmurka.artmurkaapp.android.views.activities.login
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
-import android.webkit.ValueCallback
 import android.webkit.WebView
 import android.webkit.WebViewClient
-
-
 import com.artmurka.artmurkaapp.BuildConfig
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import com.artmurka.artmurkaapp.presenter.loginucoz.UcozApi
@@ -26,7 +25,6 @@ import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Response
 import com.github.scribejava.core.model.Verb
 import com.github.scribejava.core.oauth.OAuth10aService
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 import java.io.IOException
@@ -44,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        webView = findViewById<View>(R.id.webView)
+        webView = findViewById<WebView>(R.id.webView)
         webView!!.clearCache(true)
         webView!!.settings.javaScriptEnabled = true
         webView!!.settings.userAgentString = "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0"
@@ -85,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 val uri = Uri.parse(url)
                 if (url.contains("oauth_verifier")) {
-                    webView!!.visibility = webView!!.GONE
+                    webView!!.visibility = View.GONE
                     verifier = uri.getQueryParameter("oauth_verifier")
                     getAccessToken()
                 }

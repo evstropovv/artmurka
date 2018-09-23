@@ -79,43 +79,45 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
 
                 if (successList.get(position).getEntryIsInBasket() == 0) {
                     //в корзину
-                    IBasket basket = new BasketRequest();
-                    Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
+                    //TODO don't remove it1
 
-                    observable.subscribe(new Observer<BasketItems>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                        }
-
-                        @Override
-                        public void onNext(BasketItems value) {
-                            successList.get(position).setEntryIsInBasket(1);
-                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                        }
-
-                        @Override
-                        public void onComplete() {
-                        }
-                    });
+//                    IBasket basket = new BasketRequest();
+//                    Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
+//
+//                    observable.subscribe(new Observer<BasketItems>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//                        }
+//
+//                        @Override
+//                        public void onNext(BasketItems value) {
+//                            successList.get(position).setEntryIsInBasket(1);
+//                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//                        }
+//                    });
                 } else {
-
-                    ICheckoutRequest request = new CheckoutRequest();
-                    Call<CheckoutAllGoods> call = request.recountCheckoutData(successList.get(position).getEntryId(), "0");
-                    call.enqueue(new Callback<CheckoutAllGoods>() {
-                        @Override
-                        public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                            successList.get(position).setEntryIsInBasket(0);
-                            Toast.makeText(view.getContext(), "Видалено з корзини", Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
-                        }
-                    });
+                    //TODO don't remove it1
+//                    ICheckoutRequest request = new CheckoutRequest();
+//                    Call<CheckoutAllGoods> call = request.recountCheckoutData(successList.get(position).getEntryId(), "0");
+//                    call.enqueue(new Callback<CheckoutAllGoods>() {
+//                        @Override
+//                        public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+//                            successList.get(position).setEntryIsInBasket(0);
+//                            Toast.makeText(view.getContext(), "Видалено з корзини", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
+//                        }
+//                    });
 
                 }
             }
@@ -137,27 +139,27 @@ public class RVitemListAdapterList extends RecyclerView.Adapter<RVitemListAdapte
                 anim.setDuration(200);
                 holder.ivToWish.startAnimation(anim);
 
-
-                IWishList iWishList = new WishListRequest();
-                Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
-                obs.enqueue(new Callback<WishList>() {
-                    @Override
-                    public void onResponse(Call<WishList> call, Response<WishList> response) {
-                        if (successList.get(position).getEntryIsInWishlist() == 1) {
-                            successList.get(position).setEntryIsInWishlist(0);
-                            holder.ivToWish.setImageResource(R.drawable.heart_small);
-                        } else {
-                            successList.get(position).setEntryIsInWishlist(1);
-                            holder.ivToWish.setImageResource(R.drawable.heart_small_orange);
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<WishList> call, Throwable t) {
-                        Log.d("Log.d", "toWishList " + t.getMessage());
-                    }
-                });
+                //TODO don't remove it1
+//                IWishList iWishList = new WishListRequest();
+//                Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
+//                obs.enqueue(new Callback<WishList>() {
+//                    @Override
+//                    public void onResponse(Call<WishList> call, Response<WishList> response) {
+//                        if (successList.get(position).getEntryIsInWishlist() == 1) {
+//                            successList.get(position).setEntryIsInWishlist(0);
+//                            holder.ivToWish.setImageResource(R.drawable.heart_small);
+//                        } else {
+//                            successList.get(position).setEntryIsInWishlist(1);
+//                            holder.ivToWish.setImageResource(R.drawable.heart_small_orange);
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<WishList> call, Throwable t) {
+//                        Log.d("Log.d", "toWishList " + t.getMessage());
+//                    }
+//                });
             }
         });
     }

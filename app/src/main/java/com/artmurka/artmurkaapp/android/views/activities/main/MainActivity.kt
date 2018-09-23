@@ -122,10 +122,10 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.card) {
-            changeFragment(Const.BASKET_FRAGMENT, null!!, null!!, null!!)
+            this.changeFragment(Const.BASKET_FRAGMENT)
         }
         if (item.itemId == R.id.sort) {
-            changeFragment(Const.CATEGORY_SETTINGS_FRAGMENT, null!!, null!!, null!!)
+            this.changeFragment(Const.CATEGORY_SETTINGS_FRAGMENT)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         //        }
     }
 
-    override fun changeFragment(fragment: Int, url: String, childs: List<Success>, catName: String) {
+    override fun changeFragment(fragment: Int, url: String? , childs: List<Success>? ,catName: String?) {
         val fm = supportFragmentManager
         val bundle = Bundle()
         when (fragment) {
@@ -311,22 +311,22 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         // Handle navigation view item clicks here.
         val id = item.itemId
         if (id == R.id.nav_catalog) { //???????
-            changeFragment(Const.CATEGORY_FRAGMENT, null!!, null!!, null!!)
+            changeFragment(Const.CATEGORY_FRAGMENT)
             // Handle the camera action
         } else if (id == R.id.nav_basket) { //????????
-            changeFragment(Const.BASKET_FRAGMENT, null!!, null!!, null!!)
+            changeFragment(Const.BASKET_FRAGMENT)
         } else if (id == R.id.nav_desires) { //???????
-            changeFragment(Const.WISH_FRAGMENT, null!!, null!!, null!!)
+            changeFragment(Const.WISH_FRAGMENT)
         } else if (id == R.id.nav_orders) { // ??? ??????
-            changeFragment(Const.ORDER_FRAGMENT, null!!, null!!, null!!)
+            changeFragment(Const.ORDER_FRAGMENT)
         } else if (id == R.id.nav_individual) { // ?????????????? ?????, ????? - ??????? ?????? ?? 1 ???
-            changeFragment(Const.PAY_FRAGMENT, null!!, null!!, null!!)
+            changeFragment(Const.PAY_FRAGMENT)
         } else if (id == R.id.nav_consulting) { // ?????????? ???
             val call = Uri.parse("tel:" + Const.TEL_NUMBER)
             val surf = Intent(Intent.ACTION_DIAL, call)
             startActivity(surf)
         } else if (id == R.id.delivery) { // ?????????????? ?????, ????? - ??????? ?????? ?? 1 ???
-            changeFragment(Const.DELIVERY, null!!, null!!, null!!)
+            changeFragment(Const.DELIVERY)
         }
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)

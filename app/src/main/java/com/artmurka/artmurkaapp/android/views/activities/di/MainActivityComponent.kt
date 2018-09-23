@@ -37,11 +37,11 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
     @Module(subcomponents = [
         (BasketFragmentComponent::class),
         (CategoryFragmentComponent::class),
-        (CategoryFragmentComponent::class),
+        (CategorySettingsComponent::class),
         (DeliveryFragmentComponent::class),
-        (FragmentAboutGoodsComponent::class),
+//        (FragmentAboutGoodsComponent::class),
         (FragmentCategoryChildsComponent::class),
-        (FragmentDescriptionGoodsComponent::class),
+ //       (FragmentDescriptionGoodsComponent::class),
         (FragmentZakazComponent::class),
         (IndividualFragmentComponent::class),
         (ItemListFragmentComponent::class),
@@ -74,10 +74,10 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
         fun deliveryFragmentComponent(builder: DeliveryFragmentComponent.Builder): AndroidInjector.Factory<out Fragment>
 
 
-        @Binds
-        @IntoMap
-        @FragmentKey(value = FragmentAboutGoods::class)
-        fun fragmentAboutGoodstComponent(builder: FragmentAboutGoodsComponent.Builder): AndroidInjector.Factory<out Fragment>
+//        @Binds
+//        @IntoMap
+//        @FragmentKey(value = FragmentAboutGoods::class)
+//        fun fragmentAboutGoodstComponent(builder: FragmentAboutGoodsComponent.Builder): AndroidInjector.Factory<out Fragment>
 
 
         @Binds
@@ -85,11 +85,6 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
         @FragmentKey(value = FragmentCategoryChilds::class)
         fun fragmentCategoryChildsGoodstComponent(builder: FragmentCategoryChildsComponent.Builder): AndroidInjector.Factory<out Fragment>
 
-
-        @Binds
-        @IntoMap
-        @FragmentKey(value = FragmentDescriptionGoods::class)
-        fun fFragmentDescriptionGoodsComponent(builder: FragmentDescriptionGoodsComponent.Builder): AndroidInjector.Factory<out Fragment>
 
 
         @Binds

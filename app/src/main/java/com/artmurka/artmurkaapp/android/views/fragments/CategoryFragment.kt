@@ -52,8 +52,8 @@ class CategoryFragment : BaseFragment(), ICategoryFragment {
         }
 
     override fun onAttach(context: Context?) {
-        presenter.takeView(this)
         super.onAttach(context)
+        presenter.takeView(this)
     }
 
     override fun onDestroy() {
@@ -64,15 +64,13 @@ class CategoryFragment : BaseFragment(), ICategoryFragment {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_category, container, false)
-        val fm = fragmentManager
-        dataFragment = fm!!.findFragmentByTag("data") as SaveDataFragment
+        dataFragment =  fragmentManager?.findFragmentByTag("data")  as SaveDataFragment?
         progressBar = view.findViewById<View>(R.id.progressBar2) as ProgressBar
 
         if (dataFragment == null) {
             dataFragment = SaveDataFragment()
-            fm.beginTransaction()
-                    .add(dataFragment, "data")
-                    .commit()
+            fragmentManager?.beginTransaction()?.add(dataFragment, "data")
+                    ?.commit()
         }
 
         btnCall = view.findViewById<View>(R.id.btnCall) as Button

@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.android.views.fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -28,6 +29,7 @@ import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IItemListFragment
 import com.artmurka.artmurkaapp.presenter.Presenter
 import com.artmurka.artmurkaapp.presenter.PresenterView
+import kotlinx.android.synthetic.main.fragment_item_list.*
 
 import java.util.ArrayList
 import javax.inject.Inject
@@ -39,12 +41,12 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
     override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
     @Inject
     lateinit var presenter: ItemListPresenter
-    private var recyclerView: RecyclerView? = null
+
     private var recyclerAdapter: RVitemListAdapter? = null
     private var recyclerAdapterList: RVitemListAdapterList? = null
     private var recyclerGridAdapter: RVitemListGridAdapter? = null
-    private var url: String? = ""
 
+    private var url: String? = ""
     private var curPage = 1
     private var sort: String? = "name"
     private var order: String? = "asc"
@@ -52,12 +54,14 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
     private var isLoading: Boolean? = false
     private var totalItemCount: Int = 0
     private var lastVisibleItem: Int = 0
-    private var progressBar: ProgressBar? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        progressBar = view.findViewById<View>(R.id.progressBar2) as ProgressBar
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        presenter.takeView(this)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         Log.d("Log.d", "itemListFragment ")
         val bundle = arguments
         if (bundle != null) {
@@ -71,33 +75,33 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
                 order = bundle.getString("order")
             }
         }
-        recyclerView = view.findViewById<View>(R.id.recyclerView) as RecyclerView
+
         if (Preferences.listSettings == 1) {
 
-            val recyclerLayoutManager = GridLayoutManager(view.context, 2)
-            recyclerView!!.layoutManager = recyclerLayoutManager
-            recyclerAdapter = RVitemListAdapter(view.context)
-            recyclerView!!.adapter = recyclerAdapter
+            val recyclerLayoutManager = GridLayoutManager(view?.context, 2)
+            recyclerView.layoutManager = recyclerLayoutManager
+            recyclerAdapter = RVitemListAdapter(view?.context)
+            recyclerView.adapter = recyclerAdapter
 
-            recyclerView!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                 }
 
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    presenter!!.getCategoriesData(++curPage, url!!, sort!!, order!!)
+                    presenter.getCategoriesData(++curPage, url!!, sort!!, order!!)
                 }
             })
 
         } else if (Preferences.listSettings == 2) {
-            val recyclerLayoutManager = LinearLayoutManager(view.context)
+            val recyclerLayoutManager = LinearLayoutManager(view?.context)
             recyclerLayoutManager.orientation = LinearLayout.VERTICAL
-            recyclerView!!.layoutManager = recyclerLayoutManager
-            recyclerAdapterList = RVitemListAdapterList(view.context)
-            recyclerView!!.adapter = recyclerAdapterList
+            recyclerView.layoutManager = recyclerLayoutManager
+            recyclerAdapterList = RVitemListAdapterList(view?.context)
+            recyclerView.adapter = recyclerAdapterList
 
-            recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     totalItemCount = recyclerLayoutManager.itemCount
@@ -106,8 +110,8 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
                     Log.d("Log.d", lastVisibleItem.toString() + "")
                     if ((!isLoading!!)!! && totalItemCount <= lastVisibleItem + visibleThreshold) {
 
-                        presenter!!.getCategoriesData(++curPage, url!!, sort!!, order!!)
-                        progressBar!!.visibility = View.VISIBLE
+                        presenter.getCategoriesData(++curPage, url!!, sort!!, order!!)
+                        progressBar2.visibility = View.VISIBLE
                         isLoading = true
                     }
                 }
@@ -117,7 +121,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             val recyclerLayoutManager = StaggeredGridLayoutManager(3,
                     StaggeredGridLayoutManager.VERTICAL)
             recyclerView!!.layoutManager = recyclerLayoutManager
-            recyclerGridAdapter = RVitemListGridAdapter(view.context)
+            recyclerGridAdapter = RVitemListGridAdapter(view?.context)
             recyclerView!!.adapter = recyclerGridAdapter
 
             recyclerView!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -132,16 +136,11 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             })
         }
 
-        //TODO
-         Preferences.listUrl = this!!.url!!
-
-
+        Preferences.listUrl = this!!.url!!
         presenter!!.getCategoriesData(++curPage, url!!, sort!!, order!!)
 
-        progressBar!!.visibility = View.VISIBLE
-        return view
+        progressBar2.visibility = View.VISIBLE
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -162,14 +161,14 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             else -> {
             }
         }
-        progressBar!!.visibility = View.INVISIBLE
+        progressBar2.visibility = View.INVISIBLE
         isLoading = false
     }
 
     override fun showError(error: String) {
         Snackbar.make(view!!, error, Snackbar.LENGTH_LONG)
                 .setAction(resources.getString(R.string.any_error)) { }.show()
-        progressBar!!.visibility = View.INVISIBLE
+        progressBar2.visibility = View.INVISIBLE
     }
 
     override fun setTitle(title: String) {
@@ -183,12 +182,12 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
     }
 
     override fun stopProgressBar() {
-        progressBar!!.visibility = View.INVISIBLE
+        progressBar2.visibility = View.INVISIBLE
     }
 
 
     override fun onPrepareOptionsMenu(menu: Menu?) {
-        menu!!.findItem(R.id.sort).isVisible = true
+        menu?.findItem(R.id.sort)?.isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 }

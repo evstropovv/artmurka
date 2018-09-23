@@ -27,58 +27,39 @@ import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IBasketPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.checkout.CheckoutActivity
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragment
+import kotlinx.android.synthetic.main.fragment_cart.*
 
 import javax.inject.Inject
 
 class BasketFragment : BaseFragment(), IBasketFragment {
-    private var btnToMain: Button? = null
-    private var btnCheckout: Button? = null
-    private var tvMessage: TextView? = null
-    private var tvPrice: TextView? = null
 
-    private var frameCheckout: FrameLayout? = null
-
-    private var recyclerView: RecyclerView? = null
     private var recyclerAdapter: RVbasketAdapter? = null
-
-    private var linLayout: LinearLayout? = null
 
     @Inject
     lateinit var presenter: BasketPresenter
 
     override fun onAttach(context: Context?) {
-        presenter!!.takeView(this)
         super.onAttach(context)
+        presenter.takeView(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_cart, container, false)
-        frameCheckout = view.findViewById<View>(R.id.frameCheckout) as FrameLayout
-        btnToMain = view.findViewById<View>(R.id.btnToMain) as Button
-        tvPrice = view.findViewById<View>(R.id.tvPrice) as TextView
-        linLayout = view.findViewById<View>(R.id.linLayout) as LinearLayout
-        btnToMain!!.setOnClickListener {
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        btnToMain.setOnClickListener {
             fragmentManager!!.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE) //back button pressed.
         }
-        btnCheckout = view.findViewById<View>(R.id.btnCheckout) as Button
         btnCheckout!!.setOnClickListener {
             val intent = Intent(context, CheckoutActivity::class.java)
             startActivity(intent)
         }
-
-        tvMessage = view.findViewById<View>(R.id.tvCartMessage) as TextView
         makeMessageInvisible(false)
-        recyclerView = view.findViewById<View>(R.id.recyclerView) as RecyclerView
-        val recyclerLayoutManager = LinearLayoutManager(view.context)
+        val recyclerLayoutManager = LinearLayoutManager(view?.context)
         recyclerView!!.layoutManager = recyclerLayoutManager
-        recyclerAdapter = RVbasketAdapter(view.context, this)
+        recyclerAdapter = RVbasketAdapter(view?.context, this)
         recyclerView!!.adapter = recyclerAdapter
-
         presenter!!.getDataForbasket()
-
-
-        return view
     }
 
     override fun onResume() {
@@ -103,29 +84,29 @@ class BasketFragment : BaseFragment(), IBasketFragment {
 
     override fun makeMessageInvisible(b: Boolean) {
         if (b) {
-            btnToMain!!.visibility = View.INVISIBLE
-            tvMessage!!.visibility = View.INVISIBLE
+            btnToMain.visibility = View.INVISIBLE
+            tvCartMessage.visibility = View.INVISIBLE
             frameCheckout!!.visibility = View.VISIBLE
 
         } else {
-            btnToMain!!.visibility = View.VISIBLE
-            tvMessage!!.visibility = View.VISIBLE
-            frameCheckout!!.visibility = View.INVISIBLE
+            btnToMain.visibility = View.VISIBLE
+            tvCartMessage.visibility = View.VISIBLE
+            frameCheckout.visibility = View.INVISIBLE
 
         }
     }
 
     override fun showPrice(price: String) {
-        tvPrice!!.text = "$price грн."
+        tvPrice.text = "$price грн."
         if (java.lang.Float.parseFloat(price) < 0) {
-            btnCheckout!!.visibility = View.INVISIBLE
-            btnToMain!!.visibility = View.VISIBLE
+            btnCheckout.visibility = View.INVISIBLE
+            btnToMain.visibility = View.VISIBLE
         }
     }
 
 
     override fun showItemsInBasket(items: List<Item>) {
-        recyclerAdapter!!.setData(items)
+        recyclerAdapter?.setData(items)
     }
 
     override fun getLayout(): Int {

@@ -121,16 +121,16 @@ public class RVcheckoutAdapter extends RecyclerView.Adapter<RVcheckoutAdapter.Vi
     }
 
     private void refreshItemRequest(int cnt, int position){
-
-        ICheckoutRequest request = new CheckoutRequest();
-        Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), String.valueOf(cnt));
-         call.enqueue(new Callback<CheckoutAllGoods>() {
-            @Override
-            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-            }
-            @Override
-            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
-            }});
+        //TODO don't remove it1
+//        ICheckoutRequest request = new CheckoutRequest();
+//        Call<CheckoutAllGoods> call = request.recountCheckoutData(orderList.get(position).getOrderPosition(), String.valueOf(cnt));
+//         call.enqueue(new Callback<CheckoutAllGoods>() {
+//            @Override
+//            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
+//            }
+//            @Override
+//            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
+//            }});
     }
 
     @Override
