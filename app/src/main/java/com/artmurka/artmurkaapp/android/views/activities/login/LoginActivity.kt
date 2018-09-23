@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
         service = ServiceBuilder(BuildConfig.LOGIN_CONSUMER_KEY)
                 .apiSecret(BuildConfig.LOGIN_CONSUMER_SECRET)
                 .debug()
-                .build(UcozApi.instance())
+                .build(UcozApi)
 
         object : AsyncTask<Void, Void, String>() {
             override fun doInBackground(vararg params: Void): String {
@@ -145,8 +145,8 @@ class LoginActivity : AppCompatActivity() {
                     Preferences.consumerSecret = BuildConfig.LOGIN_CONSUMER_SECRET
                     Preferences.oauthToken = result.token
                     Preferences.oauthTokenSecret = result.tokenSecret
-                    Preferences.name = user!!.nickname
-                    Preferences.email = user!!.email
+                    Preferences.name = user!!.nickname!!
+                    Preferences.email = user!!.email!!
                     intent.putExtra("name", user!!.nickname)
                     intent.putExtra("email", user!!.email)
 
