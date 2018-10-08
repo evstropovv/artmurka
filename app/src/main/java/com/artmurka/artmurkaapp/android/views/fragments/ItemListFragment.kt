@@ -80,7 +80,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
 
             val recyclerLayoutManager = GridLayoutManager(view?.context, 2)
             recyclerView.layoutManager = recyclerLayoutManager
-            recyclerAdapter = RVitemListAdapter(view?.context)
+            recyclerAdapter = RVitemListAdapter(view?.context!!)
             recyclerView.adapter = recyclerAdapter
 
             recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -98,7 +98,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             val recyclerLayoutManager = LinearLayoutManager(view?.context)
             recyclerLayoutManager.orientation = LinearLayout.VERTICAL
             recyclerView.layoutManager = recyclerLayoutManager
-            recyclerAdapterList = RVitemListAdapterList(view?.context)
+            recyclerAdapterList = RVitemListAdapterList(view?.context!!)
             recyclerView.adapter = recyclerAdapterList
 
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -121,7 +121,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             val recyclerLayoutManager = StaggeredGridLayoutManager(3,
                     StaggeredGridLayoutManager.VERTICAL)
             recyclerView!!.layoutManager = recyclerLayoutManager
-            recyclerGridAdapter = RVitemListGridAdapter(view?.context)
+            recyclerGridAdapter = RVitemListGridAdapter(view?.context!!)
             recyclerView!!.adapter = recyclerGridAdapter
 
             recyclerView!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {

@@ -14,7 +14,6 @@ class WishListRequest  @Inject constructor(val apiModule: ApiRetrofit, val ucoz 
 
     override val wishList: Call<WishList>
         get() {
-
             val mapForUcozModule = HashMap<String, String>()
             mapForUcozModule["page"] = "wishlist"
             val confForRequest = ucoz["GET", "uapi/shop/request", mapForUcozModule]

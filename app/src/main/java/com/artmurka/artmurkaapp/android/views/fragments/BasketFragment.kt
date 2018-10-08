@@ -5,25 +5,14 @@ import android.app.FragmentManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
-
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Item
 import com.artmurka.artmurkaapp.presenter.Presenter
 import com.artmurka.artmurkaapp.presenter.PresenterView
 import com.artmurka.artmurkaapp.presenter.adapters.RVbasketAdapter
 import com.artmurka.artmurkaapp.presenter.BasketPresenter
-import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IBasketPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.checkout.CheckoutActivity
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragment
@@ -31,7 +20,8 @@ import kotlinx.android.synthetic.main.fragment_cart.*
 
 import javax.inject.Inject
 
-class BasketFragment : BaseFragment(), IBasketFragment {
+class BasketFragment : BaseFragment(), IBasketFragment, RVbasketAdapter.OnItemClickListener {
+
 
     private var recyclerAdapter: RVbasketAdapter? = null
 
@@ -43,6 +33,13 @@ class BasketFragment : BaseFragment(), IBasketFragment {
         presenter.takeView(this)
     }
 
+    override fun onRefreshItem(cnt: String, id: String) {
+        presenter.onRefreshItem(cnt, id)
+    }
+
+    override fun addToWishList(id: String) {
+        presenter.addToWishList(id)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -57,8 +54,9 @@ class BasketFragment : BaseFragment(), IBasketFragment {
         makeMessageInvisible(false)
         val recyclerLayoutManager = LinearLayoutManager(view?.context)
         recyclerView!!.layoutManager = recyclerLayoutManager
-        recyclerAdapter = RVbasketAdapter(view?.context, this)
+        recyclerAdapter = RVbasketAdapter(view?.context!!, this)
         recyclerView!!.adapter = recyclerAdapter
+        recyclerAdapter?.onItemClickListener = this
         presenter!!.getDataForbasket()
     }
 

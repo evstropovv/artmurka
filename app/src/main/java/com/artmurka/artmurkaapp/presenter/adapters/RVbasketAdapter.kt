@@ -36,6 +36,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFragment) : RecyclerView.Adapter<RVbasketAdapter.ViewHolder>() {
+
+    public interface OnItemClickListener {
+        fun onRefreshItem(cnt: String, id: String)
+        fun addToWishList(id: String)
+    }
+
+    var onItemClickListener: OnItemClickListener? = null
+
     internal var basketItemList: MutableList<Item>? = null
 
     init {
@@ -70,28 +78,21 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
 
                     R.id.delete_from_basket -> {
                         //delete from basket
-                        refreshItemRequest(0, position)  // 0  = delete
+                        onItemClickListener?.onRefreshItem("0", basketItemList?.get(position)?.getId()!!) // 0  = delete
                         basketItemList!!.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, basketItemList!!.size)
                         changePrice()
                     }
-                    R.id.wish_wad ->
-                        //add to wishList
+                    R.id.wish_wad ->{
+                        onItemClickListener?.addToWishList(basketItemList?.get(position)?.entryId!!)
+
                         Toast.makeText(ctx, basketItemList!![position].entryTitle + " додано до бажань", Toast.LENGTH_SHORT).show()
+                    }
+
                     else -> {
                     }
-                }//                                IWishList iWishList = new WishListRequest();
-                //                                Call<WishList> obs = iWishList.toWishList(basketItemList.get(position).getEntryId());
-                //                                obs.enqueue(new Callback<WishList>() {
-                //                                    @Override
-                //                                    public void onResponse(Call<WishList> call, Response<WishList> response) {
-                //                                    }
-                //
-                //                                    @Override
-                //                                    public void onFailure(Call<WishList> call, Throwable t) {
-                //                                    }
-                //                                });
+                }
                 false
             }
 
@@ -110,19 +111,6 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
         fragment.showPrice(sum.toString() + "")
     }
 
-    private fun refreshItemRequest(cnt: Int, position: Int) {
-
-        //        ICheckoutRequest request = new CheckoutRequest();
-        //        Call<CheckoutAllGoods> call = request.recountCheckoutData(basketItemList.get(position).getId(), String.valueOf(cnt));
-        //        call.enqueue(new Callback<CheckoutAllGoods>() {
-        //            @Override
-        //            public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-        //
-        //            }
-        //            @Override
-        //            public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {}
-        //        });
-    }
 
     override fun getItemCount(): Int {
         return basketItemList!!.size

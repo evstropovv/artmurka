@@ -61,7 +61,7 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
         }
         val recyclerLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)
         rvCategoryItem.layoutManager = recyclerLayoutManager
-        recyclerAdapter = RVitemListAdapterAboutGoods(view?.context)
+        recyclerAdapter = RVitemListAdapterAboutGoods(view?.context!!)
         rvCategoryItem.adapter = recyclerAdapter
 
 
