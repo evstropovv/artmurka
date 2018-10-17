@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -71,7 +72,7 @@ public interface ApiRetrofit {
 
     @FormUrlEncoded
     @PUT("uapi/shop/checkout/")
-    Call<CheckoutAllGoods> recountCheckoutData(@FieldMap HashMap<String, String> param);
+    Single<CheckoutAllGoods> recountCheckoutData(@FieldMap HashMap<String, String> param);
 
     @GET("uapi/shop/invoices/")
     Call<Orders> getInvoises(@QueryMap HashMap<String, String> param);

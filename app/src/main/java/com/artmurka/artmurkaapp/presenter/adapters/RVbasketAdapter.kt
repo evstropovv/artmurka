@@ -14,14 +14,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList
-import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest
-import com.artmurka.artmurkaapp.data.model.modules.WishListRequest
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.CheckoutAllGoods
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Item
 
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.R
 
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
@@ -31,14 +25,11 @@ import com.squareup.picasso.Picasso
 
 import java.util.ArrayList
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFragment) : RecyclerView.Adapter<RVbasketAdapter.ViewHolder>() {
 
     public interface OnItemClickListener {
-        fun onRefreshItem(cnt: String, id: String)
+        fun onRefreshItem(position: String, id: String)
         fun addToWishList(id: String)
     }
 
@@ -78,7 +69,7 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
 
                     R.id.delete_from_basket -> {
                         //delete from basket
-                        onItemClickListener?.onRefreshItem("0", basketItemList?.get(position)?.getId()!!) // 0  = delete
+                        onItemClickListener?.onRefreshItem(basketItemList?.get(position)?.getId()!!, "0") // 0  = delete
                         basketItemList!!.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, basketItemList!!.size)

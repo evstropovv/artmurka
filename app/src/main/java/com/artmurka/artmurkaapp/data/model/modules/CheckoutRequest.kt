@@ -14,6 +14,7 @@ import java.util.HashMap
 import java.util.TreeMap
 
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Call
 import javax.inject.Inject
 
@@ -28,11 +29,11 @@ class CheckoutRequest @Inject constructor(val apiModule: ApiRetrofit, val ucoz :
             return apiModule.getCheckout(confForRequest)
         }
 
-    override fun recountCheckoutData(position: String, cnt: String): Call<CheckoutAllGoods> {
+    override fun recountCheckoutData(position: String, id: String): Single<CheckoutAllGoods> {
 
         val mapForUcozModule = HashMap<String, String>()
         mapForUcozModule["mode"] = "recalc"
-        mapForUcozModule["cnt_$position"] = cnt
+        mapForUcozModule["cnt_$position"] = id
         val confForRequest = ucoz.get("PUT", "uapi/shop/checkout/", mapForUcozModule)
         return apiModule.recountCheckoutData(confForRequest)
     }

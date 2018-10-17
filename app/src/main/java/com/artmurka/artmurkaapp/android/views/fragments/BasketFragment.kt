@@ -33,8 +33,8 @@ class BasketFragment : BaseFragment(), IBasketFragment, RVbasketAdapter.OnItemCl
         presenter.takeView(this)
     }
 
-    override fun onRefreshItem(cnt: String, id: String) {
-        presenter.onRefreshItem(cnt, id)
+    override fun onRefreshItem(position: String, id: String) {
+        presenter.onRefreshItem(position, id)
     }
 
     override fun addToWishList(id: String) {
