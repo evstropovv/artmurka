@@ -62,10 +62,10 @@ public interface ApiRetrofit {
     //add to item to BASKET
     @FormUrlEncoded
     @POST("uapi/shop/wishlisth")
-    Call<WishList> addToWishList(@FieldMap HashMap<String, String> map);
+    Observable<WishList> addToWishList(@FieldMap HashMap<String, String> map);
 
     @GET("uapi/shop/request")
-    Call<WishList> getWishList(@QueryMap HashMap<String, String> map);
+    Observable<WishList> getWishList(@QueryMap HashMap<String, String> map);
 
     @GET("uapi/shop/checkout/")
     Observable<CheckoutAllGoods> getCheckout(@QueryMap HashMap<String, String> param);

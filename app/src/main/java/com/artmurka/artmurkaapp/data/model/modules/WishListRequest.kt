@@ -3,16 +3,14 @@ package com.artmurka.artmurkaapp.data.model.modules
 import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
-
+import io.reactivex.Observable
 import java.util.HashMap
-
-import retrofit2.Call
 import javax.inject.Inject
 
 
 class WishListRequest  @Inject constructor(val apiModule: ApiRetrofit, val ucoz : UcozApiModule ): IWishList {
 
-    override val wishList: Call<WishList>
+    override val wishList: Observable<WishList>
         get() {
             val mapForUcozModule = HashMap<String, String>()
             mapForUcozModule["page"] = "wishlist"
@@ -20,7 +18,7 @@ class WishListRequest  @Inject constructor(val apiModule: ApiRetrofit, val ucoz 
             return apiModule.getWishList(confForRequest)
         }
 
-    override fun toWishList(goods_id: String): Call<WishList> {
+    override fun toWishList(goods_id: String): Observable<WishList> {
         val mapForUcozModule = HashMap<String, String>()
         mapForUcozModule["goods_id"] = goods_id
         val confForRequest = ucoz["POST", "uapi/shop/wishlisth", mapForUcozModule]

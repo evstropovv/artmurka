@@ -11,16 +11,15 @@ import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
 import com.artmurka.artmurkaapp.data.model.modules.WishListRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.AboutGood
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.SizePhoto
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.Success
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.good.Good
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
+import com.artmurka.artmurkaapp.domain.usecase.wishlist.ToWishListUseCase
 
 import java.util.ArrayList
 import java.util.HashMap
@@ -29,6 +28,7 @@ import java.util.TreeMap
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +37,7 @@ import javax.inject.Inject
 class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                                               val model2: AboutGoodsRequest,
                                               val basket : BasketRequest,
-                                              val wishList :WishListRequest) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
+                                              val toWishListUseCase: ToWishListUseCase) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
     private var goodsId: String? = null
 
     override fun getDataAboutGoods(id: String) {
@@ -110,11 +110,11 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
         when (buttonId) {
             R.id.ivWish -> {
                 //добавить в список желаний
-                val obs = wishList.toWishList(goodsId!!)
-                obs.enqueue(object : Callback<WishList> {
-                    override fun onResponse(call: Call<WishList>, response: Response<WishList>) {
+                toWishListUseCase.execute(object : DisposableObserver<WishList>() {
+                    override fun onComplete() {  }
+                    override fun onNext(t: WishList) {
                         try {
-                            for ((_, value) in response.body()!!.success.goodsList) {
+                            for ((_, value) in t.success.goodsList) {
                                 if (value.entryId == goodsId) {
                                     view?.setWishButton(true)
                                     break
@@ -126,11 +126,11 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                             view?.setWishButton(false)
                             e.printStackTrace()
                         }
+                    }
+                    override fun onError(e: Throwable) {
 
                     }
-
-                    override fun onFailure(call: Call<WishList>, t: Throwable) {}
-                })
+                }, ToWishListUseCase.Params(goodsId!!))
             }
             R.id.ivBasket -> {
                 //кнопка добавления в корзину

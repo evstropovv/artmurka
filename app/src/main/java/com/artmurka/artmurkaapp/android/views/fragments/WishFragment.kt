@@ -1,6 +1,7 @@
 package com.artmurka.artmurkaapp.android.views.fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -32,6 +33,10 @@ class WishFragment : BaseFragment(), IWishFragment {
     private var recyclerView: RecyclerView? = null
     private var recyclerAdapter: RVwishListAdapter? = null
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        presenter.takeView(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,7 +48,7 @@ class WishFragment : BaseFragment(), IWishFragment {
         recyclerAdapter = RVwishListAdapter(view.context)
         recyclerView!!.adapter = recyclerAdapter
 
-        presenter!!.getDataForWishList()
+        presenter?.getDataForWishList()
         return view
     }
 
@@ -59,6 +64,6 @@ class WishFragment : BaseFragment(), IWishFragment {
     }
 
     override fun showWishList(list: List<GoodsListDescription>) {
-        recyclerAdapter!!.setData(list)
+        recyclerAdapter?.setData(list)
     }
 }
