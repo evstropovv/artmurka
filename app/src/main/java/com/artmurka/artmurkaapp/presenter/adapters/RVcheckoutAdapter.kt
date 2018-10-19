@@ -46,9 +46,9 @@ class RVcheckoutAdapter(internal var context: Context, internal var fragment: IC
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvCategoryName.text = orderList[position].name
-        holder.tvPrice.text = orderList[position].price.priceRaw!!.toString() + " грн/шт"
+        holder.tvPrice.text = orderList[position].price?.priceRaw!!.toString() + " грн/шт"
         holder.tvAmount.text = orderList[position].cnt
-        holder.tvSumPrice.text = orderList[position].sum.sumRaw!!.toString() + " грн"
+        holder.tvSumPrice.text = orderList[position].sum?.sumRaw!!.toString() + " грн"
 
         holder.ivPlus.setOnClickListener {
             //при клике увеличиваем количество на 1
@@ -77,14 +77,14 @@ class RVcheckoutAdapter(internal var context: Context, internal var fragment: IC
     private fun refreshItemCnt(cnt: Int, position: Int) {
         var cnt = cnt
         if (cnt < 1) cnt = 1
-        val price = orderList[position].price.priceRaw
+        val price = orderList[position].price?.priceRaw
         orderList[position].cnt = cnt.toString()
-        orderList[position].sum.sumRaw = java.lang.Float.parseFloat((cnt * price!!).toString() + "")
+        orderList[position].sum?.sumRaw = java.lang.Float.parseFloat((cnt * price!!).toString() + "")
         notifyItemChanged(position)
 
         var sumPrice = 0
         for (i in orderList.indices) {
-            sumPrice = sumPrice + orderList[i].sum.sumRaw!!.toInt()
+            sumPrice = sumPrice + orderList[i].sum?.sumRaw!!.toInt()
         }
 
         fragment.refreshSumPrice(sumPrice.toString() + " грн")
@@ -93,7 +93,7 @@ class RVcheckoutAdapter(internal var context: Context, internal var fragment: IC
     private fun refreshItemCnt() {
         var sumPrice = 0
         for (i in orderList.indices) {
-            sumPrice = sumPrice + orderList[i].sum.sumRaw!!.toInt()
+            sumPrice = sumPrice + orderList[i].sum?.sumRaw!!.toInt()
         }
         fragment.refreshSumPrice(sumPrice.toString() + " грн")
     }

@@ -41,13 +41,13 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
         observable.enqueue(object : Callback<AboutGood> {
             override fun onResponse(call: Call<AboutGood>, response: Response<AboutGood>) {
                 val aboutGood = response.body()!!.success
-                view?.setName(aboutGood!!.entryTitle)
+                view?.setName(aboutGood?.entryTitle!!)
                 view?.setDescription(Html.fromHtml(aboutGood?.entryDescription).toString())
                 view?.setPrice(aboutGood?.entryPrice?.priceRaw + " грн.")
                 val map = aboutGood?.entryPhoto?.othersPhoto
-                map!![aboutGood?.entryPhoto?.numPhotos.toString() + ""] = SizePhoto(aboutGood.entryPhoto.defPhoto.photo)
+                map!![aboutGood?.entryPhoto?.numPhotos.toString() + ""] = SizePhoto(aboutGood?.entryPhoto?.defPhoto?.photo)
                 view?.setPhoto(getImageList(map))
-                view?.getDataForRecyclerView(response.body()!!.success!!.entryCat.url)
+                view?.getDataForRecyclerView(response.body()?.success?.entryCat?.url!!)
                 view?.setWishButton(if (aboutGood.entryIsInWishlist == 1) true else false)
                 view?.setBasketButton(if (aboutGood.entryIsInBasket > 0) true else false)
                 Log.d("Log.d", "getdata - success")
@@ -67,15 +67,15 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
             override fun onResponse(call: Call<Good>, response: Response<Good>) {
 
                 val aboutGood = response.body()!!.success
-                view?.setName(aboutGood.entryTitle)
-                view?.setDescription(Html.fromHtml(aboutGood.entryDescription).toString())
-                view?.setPrice(aboutGood.entryPrice.priceRaw + " грн.")
+                view?.setName(aboutGood?.entryTitle!!)
+                view?.setDescription(Html.fromHtml(aboutGood?.entryDescription).toString())
+                view?.setPrice(aboutGood?.entryPrice?.priceRaw + " грн.")
                 val map = HashMap<String, SizePhoto>()
-                map[aboutGood.entryPhoto.numPhotos!!.toString() + ""] = SizePhoto(aboutGood.entryPhoto.defPhoto.photo)
+                map[aboutGood?.entryPhoto?.numPhotos!!.toString() + ""] = SizePhoto(aboutGood?.entryPhoto?.defPhoto?.photo)
                 view?.setPhoto(getImageList(map))
-                view?.getDataForRecyclerView(response.body()!!.success.entryCat.url)
+                view?.getDataForRecyclerView(response.body()?.success?.entryCat?.url!!)
                 view?.setWishButton(if (aboutGood.entryIsInWishlist == 1) true else false)
-                view?.setBasketButton(if (aboutGood.entryIsInBasket > 0) true else false)
+                view?.setBasketButton(if (aboutGood.entryIsInBasket!! > 0) true else false)
                 Log.d("Log.d", "getdata2 - success")
             }
 
@@ -92,7 +92,7 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
             override fun onSubscribe(d: Disposable) {}
 
             override fun onNext(value: SuccessExample) {
-                view?.setDataForRecyclerView(getGoodsList(value.success.goodsList))
+                view?.setDataForRecyclerView(getGoodsList(value?.success?.goodsList!!))
             }
 
             override fun onError(e: Throwable) {}
@@ -151,7 +151,7 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
 
         val photosUrl = ArrayList<String>()
         for (key in map.keys) {
-            photosUrl.add(map[key]?.getPhoto()!!)
+            photosUrl.add(map[key]?.photo!!)
         }
         return photosUrl
     }

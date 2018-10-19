@@ -53,26 +53,26 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
     override fun getData() {
         val disposable = request.checkoutData.map<Success> { checkoutAllGoods -> checkoutAllGoods.success }.subscribe({ success ->
             Log.d("Log.d", "ResponsCheck")
-            view?.showCheckout(getList(success.getOrderContent().getOrderGoods()))
-            view?.refreshSumPrice(success.getOrderData().getOrderAmount().getAmountRaw()!!.toString())
+            view?.showCheckout(getList(success.orderContent?.orderGoods!!))
+            view?.refreshSumPrice(success.orderData?.orderAmount?.amountRaw!!.toString())
 
             //отображаем значения для выбора оплаты и выбора доставки
             if (deliveryList == null) {
                 deliveryList = ArrayList()
                 paymentList = ArrayList()
 
-                deliveryMap = success.getDeliveryList()
-                payMap = success.getPaymentList()
+                deliveryMap = success.deliveryList
+                payMap = success.paymentList
 
                 for (i in 0 until deliveryMap!!.size + 1) {
                     if (deliveryMap!![i.toString()] != null) {
-                        deliveryList!!.add(deliveryMap!![i.toString()]!!.getName())
+                        deliveryList?.add(deliveryMap!![i.toString()]!!.name!!)
                     }
                 }
 
                 for (i in 0 until payMap!!.size + 1) {
                     if (payMap!![i.toString()] != null) {
-                        paymentList!!.add(payMap!![i.toString()]!!.getName())
+                        paymentList!!.add(payMap!![i.toString()]!!.name!!)
                     }
                 }
                 view?.setDataSpinner(deliveryList!!, paymentList!!)
@@ -91,11 +91,11 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
             override fun onResponse(call: Call<CheckoutResponse>, response: Response<CheckoutResponse>) {
                 if (response.code() == 200) {
                     if (response.body()!!.error != null) {
-                        view?.showOrderIsProcessed(response.body()!!.error.msg)
+                        view?.showOrderIsProcessed(response.body()?.error?.msg!!)
                     }
 
                     if (response.body()!!.success != null) {
-                        view?.showDialog(response.body()!!.success.msg)
+                        view?.showDialog(response.body()?.success?.msg!!)
                     }
                 }
             }
@@ -162,7 +162,7 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
         city.modelName = "Address"
 
         val disposable = ApiModuleNovaPoshta.getClient().searhCity(city)
-                .map { datumList -> datumList.data[0].addresses }
+                .map { datumList -> datumList.data!![0].addresses!! }
                 .doOnNext { addresses -> Log.d("Log.d", "list address size " + addresses.size + "") }
                 //                .flatMap(addresses -> Flowable.fromIterable(addresses))
                 //                .filter(addres -> {
@@ -179,7 +179,7 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
                         val cityStringList = ArrayList<String>()
                         for (i in addresses.indices) {
                             //отображаем города у которых 1+ склад новой почты
-                            cityStringList.add(cities!![i].mainDescription)
+                            cityStringList.add(cities!![i].mainDescription!!)
                         }
                         view?.setCities(cityStringList)
                     }
@@ -205,7 +205,7 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
         val answerList = ArrayList<OrderDesc>()
         for (key in map.keys) {
             val desc = map[key]
-            desc?.setOrderPosition(key)
+            desc?.orderPosition = key
             answerList.add(desc!!)
         }
         return answerList

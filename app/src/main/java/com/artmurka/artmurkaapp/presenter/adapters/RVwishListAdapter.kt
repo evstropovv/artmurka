@@ -38,9 +38,9 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.with(ctx).load(wishList!![position].entryPhoto.defPhoto.thumb).into(holder.ivItemPhoto)
+        Picasso.with(ctx).load(wishList!![position].entryPhoto?.defPhoto?.thumb).into(holder.ivItemPhoto)
         holder.tvCategoryName.text = wishList[position].entryTitle
-        holder.tvPrice.text = wishList[position].entryPrice.priceRaw!!.toString() + " грн."
+        holder.tvPrice.text = wishList[position].entryPrice?.priceRaw.toString() + " грн."
         holder.ivToBasket.setOnClickListener {
             if (wishList[position].entryIsInBasket == 0L) {
                 //в корзину
@@ -76,8 +76,7 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
             }
         }
         holder.ivDeleteFromWish.setOnClickListener {
-            val goodsId = wishList[position].entryId
-            deleteFromWishOnline(goodsId)
+            deleteFromWishOnline(wishList[position].entryId!!)
             wishList.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, wishList.size)

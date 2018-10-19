@@ -38,7 +38,7 @@ class RVorderListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVorde
         this.orders = orders
         this.orderList.clear()
         try {
-            this.orderList.addAll(orders.success.orders)
+            this.orderList.addAll(orders?.success?.orders!!)
         } catch (e: NullPointerException) {
             e.printStackTrace()
         }
@@ -55,9 +55,9 @@ class RVorderListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVorde
         try {
             holder.tvOrderNumber.text = orderList[position].nom
             val curentStatus = orderList[position].status
-            holder.tvStatus.text = orders!!.success.orderStatus[curentStatus]
+            holder.tvStatus.text = orders?.success?.orderStatus?[curentStatus!!]!!
             val curHide = orderList[position].hide
-            holder.tvName.text = orders!!.success.orderHide[curHide]
+            holder.tvName.text = orders!!.success?.orderHide[curHide]!!
             holder.tvPrice.text = orderList[position].payment.topay
             holder.tvPrice.setOnClickListener { }
         } catch (e: NullPointerException) {

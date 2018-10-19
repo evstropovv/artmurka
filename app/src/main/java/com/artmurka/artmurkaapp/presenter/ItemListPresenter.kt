@@ -27,8 +27,8 @@ class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemList
             getItemtListUseCase.execute(object : DisposableObserver<Success>() {
                 override fun onNext(value: Success) {
                     view?.apply {
-                        showItemList(getList(value.goodsList))
-                        setTitle(value.catName)
+                        showItemList(getList(value.goodsList!!))
+                        setTitle(value.catName!!)
                         stopProgressBar()
                     }
                 }

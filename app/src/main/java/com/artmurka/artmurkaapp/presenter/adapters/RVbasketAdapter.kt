@@ -56,9 +56,9 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.goodName.text = basketItemList!![position].entryTitle
-        holder.goodDescription.text = basketItemList!![position].cnt + " шт. " + basketItemList!![position].entryPrice.price
-        holder.goodPrice.text = basketItemList!![position].summ.summRaw + " грн."
-        Picasso.with(ctx).load(basketItemList!![position].entryPhoto.thumb).into(holder.itemPhoto)
+        holder.goodDescription.text = basketItemList!![position].cnt + " шт. " + basketItemList!![position].entryPrice?.price
+        holder.goodPrice.text = basketItemList!![position].summ?.summRaw + " грн."
+        Picasso.with(ctx).load(basketItemList!![position].entryPhoto?.thumb).into(holder.itemPhoto)
         Log.d("Log.d", Gson().toJson(basketItemList!![position]))
 
         holder.basketMenu.setOnClickListener {
@@ -69,7 +69,7 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
 
                     R.id.delete_from_basket -> {
                         //delete from basket
-                        onItemClickListener?.onRefreshItem(basketItemList?.get(position)?.getId()!!, "0") // 0  = delete
+                        onItemClickListener?.onRefreshItem(basketItemList?.get(position)?.id!!, "0") // 0  = delete
                         basketItemList!!.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, basketItemList!!.size)
@@ -96,7 +96,7 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
         var sum = 0f
         if (basketItemList!!.size > 0) {
             for (i in basketItemList!!.indices) {
-                sum = sum + java.lang.Float.parseFloat(basketItemList!![i].entryPrice.priceRaw)
+                sum = sum + java.lang.Float.parseFloat(basketItemList!![i].entryPrice?.priceRaw)
             }
         }
         fragment.showPrice(sum.toString() + "")
@@ -113,7 +113,6 @@ class RVbasketAdapter(private val ctx: Context, internal var fragment: IBasketFr
         var goodPrice: TextView
         var itemPhoto: ImageView
         var basketMenu: ImageView
-
 
         init {
             goodName = itemView.findViewById<View>(R.id.good_name) as TextView

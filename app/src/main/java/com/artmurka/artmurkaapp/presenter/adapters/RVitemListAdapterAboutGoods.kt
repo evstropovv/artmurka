@@ -48,7 +48,7 @@ class RVitemListAdapterAboutGoods(internal var ctx: Context) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvItemName.text = successList[position].entryTitle
-        Picasso.with(ctx).load(successList[position].entryPhoto.defPhoto.thumb).into(holder.ivItemPhoto)
+        Picasso.with(ctx).load(successList[position].entryPhoto?.defPhoto?.thumb).into(holder.ivItemPhoto)
         holder.ivMenu.setOnClickListener {
             val popupMenu = PopupMenu(ctx, holder.ivMenu)
             popupMenu.inflate(R.menu.item_menu)

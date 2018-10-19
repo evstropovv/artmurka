@@ -40,7 +40,7 @@ class RVitemListGridAdapter(internal var ctx: Context) : RecyclerView.Adapter<RV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.with(ctx).load(successList[position].entryPhoto.defPhoto.photo).into(holder.ivItemPhoto)
+        Picasso.with(ctx).load(successList[position].entryPhoto?.defPhoto?.photo).into(holder.ivItemPhoto)
     }
 
     override fun getItemCount(): Int {

@@ -42,8 +42,8 @@ class RVitemListAdapterList(internal var ctx: Context) : RecyclerView.Adapter<RV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvItemName.text = successList[position].entryTitle
-        holder.tvPrice.text = successList[position].entryPrice.priceRaw + " грн."
-        Picasso.with(ctx).load(successList[position].entryPhoto.defPhoto.thumb).into(holder.ivItemPhoto)
+        holder.tvPrice.text = successList[position].entryPrice?.priceRaw + " грн."
+        Picasso.with(ctx).load(successList[position].entryPhoto?.defPhoto?.thumb).into(holder.ivItemPhoto)
         holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey)
 
         holder.ivToBasket.setOnClickListener {

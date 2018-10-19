@@ -32,9 +32,9 @@ class BasketPresenter @Inject constructor(val basket: BasketRequest,
 
             override fun onNext(value: BasketItems) {
                 if (view != null) {
-                    view!!.showItemsInBasket(value.success.basket.items)
+                    view!!.showItemsInBasket(value.success?.basket?.items!!)
                     view!!.makeMessageInvisible(true)
-                    view!!.showPrice(value.success.basket.total)
+                    view!!.showPrice(value.success?.basket?.total!!)
                 }
             }
 
