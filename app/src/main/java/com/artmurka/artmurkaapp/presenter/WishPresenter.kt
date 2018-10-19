@@ -15,29 +15,15 @@ import javax.inject.Inject
 class WishPresenter @Inject constructor(val getWishListUseCase: GetWishListUseCase) : BasePresenter<IWishFragment>(), IWishPresenter {
 
     override fun getDataForWishList() {
-        getWishListUseCase.execute(object : DisposableObserver<WishList>() {
+        getWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
+            override fun onNext(t: List<GoodsListDescription>) {
+                view?.showWishList(t)
+            }
+
             override fun onComplete() { }
 
-            override fun onNext(t: WishList) {
-                try {
-                    view?.showWishList(getList(t.success.goodsList))
-                } catch (e: NullPointerException) {
-                    Log.e("Log.e", e.printStackTrace().toString())
-                }
-            }
-
-            override fun onError(e: Throwable) {
-            }
+            override fun onError(e: Throwable) { }
         }, GetWishListUseCase.Params())
 
     }
-
-    private fun getList(map: HashMap<String, GoodsListDescription>): List<GoodsListDescription> {
-        val answerList = ArrayList<GoodsListDescription>()
-        for (key in map.keys) {
-            answerList.add(map[key]!!)
-        }
-        return answerList
-    }
-
 }

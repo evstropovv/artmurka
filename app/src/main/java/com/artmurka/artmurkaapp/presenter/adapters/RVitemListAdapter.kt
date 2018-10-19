@@ -10,28 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList
-import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
-import com.artmurka.artmurkaapp.data.model.modules.WishListRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
 import java.util.ArrayList
-
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RVitemListAdapter(internal var ctx: Context) : RecyclerView.Adapter<RVitemListAdapter.ViewHolder>() {
     private val successList: ArrayList<GoodsProperties>

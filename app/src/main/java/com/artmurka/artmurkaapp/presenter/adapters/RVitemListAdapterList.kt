@@ -3,7 +3,6 @@ package com.artmurka.artmurkaapp.presenter.adapters
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,28 +13,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList
-import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
-import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest
-import com.artmurka.artmurkaapp.data.model.modules.WishListRequest
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.CheckoutAllGoods
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
 import com.squareup.picasso.Picasso
 
 import java.util.ArrayList
-
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RVitemListAdapterList(internal var ctx: Context) : RecyclerView.Adapter<RVitemListAdapterList.ViewHolder>() {
     private val successList: ArrayList<GoodsProperties>

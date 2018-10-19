@@ -3,12 +3,8 @@ package com.artmurka.artmurkaapp.presenter
 import android.text.Html
 import android.util.Log
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IAboutGoods
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IWishList
 import com.artmurka.artmurkaapp.data.model.modules.AboutGoodsRequest
 import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
-import com.artmurka.artmurkaapp.data.model.modules.WishListRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.AboutGood
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.SizePhoto
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.good.Good
@@ -25,7 +21,6 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.TreeMap
 
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -114,7 +109,7 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                     override fun onComplete() {  }
                     override fun onNext(t: WishList) {
                         try {
-                            for ((_, value) in t.success.goodsList) {
+                            for ((_, value) in t.success?.goodsList!!) {
                                 if (value.entryId == goodsId) {
                                     view?.setWishButton(true)
                                     break
