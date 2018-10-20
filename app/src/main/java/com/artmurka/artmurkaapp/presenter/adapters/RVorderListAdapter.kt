@@ -1,7 +1,6 @@
 package com.artmurka.artmurkaapp.presenter.adapters
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Order
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Orders
 import com.artmurka.artmurkaapp.other.Const
@@ -21,7 +19,6 @@ import com.artmurka.artmurkaapp.other.PayLiq
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity
 import com.artmurka.artmurkaapp.android.views.fragments.OrderStatusFragment
-
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -55,39 +52,37 @@ class RVorderListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVorde
         try {
             holder.tvOrderNumber.text = orderList[position].nom
             val curentStatus = orderList[position].status
-            holder.tvStatus.text = orders?.success?.orderStatus?[curentStatus!!]!!
+            holder.tvStatus.text = orders?.success?.orderStatus!![curentStatus]
             val curHide = orderList[position].hide
-            holder.tvName.text = orders!!.success?.orderHide[curHide]!!
-            holder.tvPrice.text = orderList[position].payment.topay
+            holder.tvName.text = orders?.success?.orderHide!![curHide]
+            holder.tvPrice.text = orderList[position].payment?.topay
             holder.tvPrice.setOnClickListener { }
         } catch (e: NullPointerException) {
             e.printStackTrace()
         }
 
-
         //if order status is new, and deliver
-        if (orderList[position].payment.id == "2" && Integer.parseInt(orderList[position].status) <= 1) {
+        if (orderList[position].payment?.id == "2" && Integer.parseInt(orderList[position].status) <= 1) {
             holder.btnPay.visibility = View.VISIBLE
         } else {
             holder.btnPay.visibility = View.INVISIBLE
         }
 
-
         holder.btnPay.setOnClickListener { view ->
             val builder = AlertDialog.Builder(view.context)
-            builder.setMessage("Перед тим як сплачувати, будь ласка, зателефонуйте менеджеру для підтвердження наявності товару. Ви впевнені що хочете сплатити ?")
-                    .setPositiveButton("Так") { dialog, id ->
+            builder.setMessage(ctx.resources.getString(R.string.fragment_order_dialog))
+                    .setPositiveButton(ctx.resources.getString(R.string.yes)) { dialog, id ->
                         val parameters = HashMap<String, String>()
-                        parameters["order_id"] = orderList[position].nom
-                        parameters["amount"] = orderList[position].amount
+                        parameters["order_id"] = orderList[position].nom!!
+                        parameters["amount"] = orderList[position].amount!!
                         PayLiq(view.context, parameters).start()
                     }
-                    .setNeutralButton("Зателефонувати") { dialog, id ->
+                    .setNeutralButton(ctx.resources.getString(R.string.call)) { dialog, id ->
                         val call = Uri.parse("tel:" + Const.TEL_NUMBER)
                         val surf = Intent(Intent.ACTION_DIAL, call)
                         view.context.startActivity(surf)
                     }
-                    .setNegativeButton("Ні") { dialog, id ->
+                    .setNegativeButton(ctx.resources.getString(R.string.no)) { dialog, id ->
                         // User cancelled the dialog
                     }.show()
         }

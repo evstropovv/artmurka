@@ -47,7 +47,7 @@ class OrderFragment : BaseFragment(), IOrderFragment {
         rvOrder!!.adapter = adapter
 
         if (Preferences.isLogin!!) {
-            presenter!!.getOrders()
+            presenter.getOrders()
         } else {
             val snackbar = Snackbar.make(view, resources.getString(R.string.fragment_order_status_toast_message), Snackbar.LENGTH_LONG)
                     .setAction("Action", null)

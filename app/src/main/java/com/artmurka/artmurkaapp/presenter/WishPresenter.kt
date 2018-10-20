@@ -1,14 +1,10 @@
 package com.artmurka.artmurkaapp.presenter
 
-import android.util.Log
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IWishPresenter
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IWishFragment
 import com.artmurka.artmurkaapp.domain.usecase.wishlist.GetWishListUseCase
 import io.reactivex.observers.DisposableObserver
-import java.util.ArrayList
-import java.util.HashMap
 import javax.inject.Inject
 
 

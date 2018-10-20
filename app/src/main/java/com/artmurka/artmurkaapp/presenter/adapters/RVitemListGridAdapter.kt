@@ -30,7 +30,6 @@ class RVitemListGridAdapter(internal var ctx: Context) : RecyclerView.Adapter<RV
             this.successList.clear()
             this.successList.addAll(list)
             notifyDataSetChanged()
-            Log.d("Log.d", "success list :" + Gson().toJson(successList))
         }
     }
 
@@ -48,12 +47,10 @@ class RVitemListGridAdapter(internal var ctx: Context) : RecyclerView.Adapter<RV
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvItemName: TextView
         var ivItemPhoto: ImageView
 
 
         init {
-            tvItemName = itemView.findViewById<View>(R.id.item_name) as TextView
             ivItemPhoto = itemView.findViewById<View>(R.id.ivItemPhoto) as ImageView
 
             itemView.setOnClickListener {
@@ -66,7 +63,6 @@ class RVitemListGridAdapter(internal var ctx: Context) : RecyclerView.Adapter<RV
 
                 val activity = ctx as Activity
                 activity.startActivity(intent)
-                //   activity.overridePendingTransition(R.drawable.fadein, R.drawable.fadeout);
             }
         }
     }

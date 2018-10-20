@@ -1,6 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">АртМурка</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yes" >Так</string>
+    <string name="no" >Ні</string>
+    <string name="call" >Зателефонувати</string>
+
+
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -22,6 +27,9 @@
     <string name="text_novaposhta_zakaz2">Оберіть адресу доставки</string>
 
 
+    <string name="fragment_filters">Фільтри</string>
+
+
     <string name="fragment_card_make_checkout">Оформити заказ</string>
     <string name="fragment_card_empty_basket">Корзинка пуста. Але її завжди можна наповнити :)</string>
     <string name="fragment_card_button_main">Каталог</string>
@@ -37,6 +45,12 @@
     <string name="fragment_category_new">Спочатку нові</string>
     <string name="fragment_category_old">Давно додані</string>
     <string name="fragment_category_vid_spiska">Вид списку:</string>
+
+    <string name="fragment_category_settings_cheap">От дешевых к дорогим</string>
+    <string name="fragment_category_settings_expensive">От дорогих к дешевым</string>
+    <string name="fragment_category_settings_byname">Сортировка по имени</string>
+    <string name="fragment_category_settings_new">Новые первые</string>
+    <string name="fragment_category_settings_old">Старые первые</string>
 
     <string name="fragment_about_about">Опис</string>
     <string name="fragment_other_category">Інші товари цієї категорії:</string>
@@ -57,6 +71,11 @@
     <string name="fragment_order_status_my_orders" >Мої замовлення </string>
     <string name="any_error" >Якась помилка... </string>
 
+    <string name="any_error_reload" >Щось пішло не так. Перезавантажити ?</string>
+
+    <string name="fragment_wish_name" >Мої бажання</string>
+
+    <string name="fragment_order_dialog" >Перед тим як сплачувати, будь ласка, зателефонуйте менеджеру для підтвердження наявності товару. Ви впевнені що хочете сплатити ?</string>
 
 
     <string-array name="planets">

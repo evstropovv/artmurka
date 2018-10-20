@@ -5,7 +5,6 @@ import com.artmurka.artmurkaapp.data.model.modules.UcozApiModule
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
