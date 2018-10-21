@@ -51,7 +51,7 @@ interface ApiRetrofit {
     fun getGoodsInBasket(@QueryMap map: HashMap<String, String>): Observable<BasketItems>
 
     @DELETE("uapi/shop/basket/")
-    fun deleteItemInBasket(@QueryMap map: HashMap<String, String>): Call<BasketItems>
+    fun deleteItemInBasket(@QueryMap map: HashMap<String, String>): Observable<BasketItems>
 
     @GET("uapi/shop/request")
     fun getGoodDescription(@QueryMap map: HashMap<String, String>): Call<AboutGood>

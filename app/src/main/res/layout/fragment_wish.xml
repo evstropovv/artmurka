@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".android.views.fragments.WishFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvWish"
         android:layout_width="match_parent"

@@ -43,11 +43,8 @@ class CategorySettings : BaseFragment(), ICategorySettings {
         presenter.takeView(this)
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_category_settings, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         radioGroup.check(Preferences.checkedRadioButton!!)
         setIvListener()
@@ -103,15 +100,15 @@ class CategorySettings : BaseFragment(), ICategorySettings {
                     .commit()
             fm.executePendingTransactions()
         }
-        return view
     }
+
 
     private fun setIvListener() {
 
-        ivList!!.setOnClickListener { changeIconsColor(1) }
+        ivList.setOnClickListener { changeIconsColor(1) }
 
-        ivMicrosoft!!.setOnClickListener { changeIconsColor(2) }
-        ivGrid!!.setOnClickListener { changeIconsColor(3) }
+        ivMicrosoft.setOnClickListener { changeIconsColor(2) }
+        ivGrid.setOnClickListener { changeIconsColor(3) }
 
     }
 

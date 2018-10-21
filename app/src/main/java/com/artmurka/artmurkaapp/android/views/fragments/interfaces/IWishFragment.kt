@@ -5,5 +5,6 @@ import com.artmurka.artmurkaapp.presenter.PresenterView
 
 
 interface IWishFragment  : PresenterView {
-    fun showWishList(list: List<GoodsListDescription>)
+    fun showWishList(list: MutableList<GoodsListDescription>)
+    fun deleteFromWisList(goodId : String)
 }

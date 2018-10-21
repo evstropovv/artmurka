@@ -14,6 +14,7 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.domain.usecase.wishlist.ToWishListUseCase
 
@@ -105,11 +106,12 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
         when (buttonId) {
             R.id.ivWish -> {
                 //добавить в список желаний
-                toWishListUseCase.execute(object : DisposableObserver<WishList>() {
-                    override fun onComplete() {  }
-                    override fun onNext(t: WishList) {
+                toWishListUseCase.execute(object : DisposableObserver< List<GoodsListDescription> >() {
+                    override fun onComplete() {}
+                    override fun onNext(ts:  List<GoodsListDescription> ) {
                         try {
-                            for ((_, value) in t.success?.goodsList!!) {
+
+                            for (value in ts ) {
                                 if (value.entryId == goodsId) {
                                     view?.setWishButton(true)
                                     break
@@ -122,9 +124,7 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                             e.printStackTrace()
                         }
                     }
-                    override fun onError(e: Throwable) {
-
-                    }
+                    override fun onError(e: Throwable) {  }
                 }, ToWishListUseCase.Params(goodsId!!))
             }
             R.id.ivBasket -> {

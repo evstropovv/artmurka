@@ -9,5 +9,5 @@ import retrofit2.Call
 interface IBasket {
     val itemInBasket: Observable<BasketItems>
     fun toBasket(goodId: String): Observable<BasketItems>
-    fun deleteItemFromBasket(goodId: String): Call<BasketItems>
+    fun deleteItemFromBasket(goodId: String): Observable<BasketItems>
 }

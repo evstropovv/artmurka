@@ -24,6 +24,8 @@ class GetWishListUseCase @Inject constructor(val apiModule: ApiRetrofit, val uco
                         answerList.add(it[key]!!)
                     }
                     answerList
+                }.map {
+                    list->list.sortedWith(compareBy({it.entryTitle},{it.entryDescription}))
                 }
 
     }

@@ -35,7 +35,9 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 
-class ItemListFragment : BaseFragment(), IItemListFragment {
+class ItemListFragment : BaseFragment(), IItemListFragment, RVitemListAdapter.OnItemClickListener {
+
+
     override fun getLayout(): Int = R.layout.fragment_item_list
 
     override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
@@ -54,6 +56,10 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
     private var isLoading: Boolean? = false
     private var totalItemCount: Int = 0
     private var lastVisibleItem: Int = 0
+
+    override fun toWishList(goodsId: String) = presenter.toWishList(goodsId)
+
+    override fun toBasket(goodId: String) = presenter.toBasket(goodId)
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -81,6 +87,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             val recyclerLayoutManager = GridLayoutManager(view?.context, 2)
             recyclerView.layoutManager = recyclerLayoutManager
             recyclerAdapter = RVitemListAdapter(view?.context!!)
+            recyclerAdapter?.clickListener = this
             recyclerView.adapter = recyclerAdapter
 
             recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -99,7 +106,9 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
             recyclerLayoutManager.orientation = LinearLayout.VERTICAL
             recyclerView.layoutManager = recyclerLayoutManager
             recyclerAdapterList = RVitemListAdapterList(view?.context!!)
+            recyclerAdapterList?.clickListener = this
             recyclerView.adapter = recyclerAdapterList
+
 
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -122,6 +131,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment {
                     StaggeredGridLayoutManager.VERTICAL)
             recyclerView!!.layoutManager = recyclerLayoutManager
             recyclerGridAdapter = RVitemListGridAdapter(view?.context!!)
+            recyclerGridAdapter?.clickListener = this
             recyclerView!!.adapter = recyclerGridAdapter
 
             recyclerView!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {

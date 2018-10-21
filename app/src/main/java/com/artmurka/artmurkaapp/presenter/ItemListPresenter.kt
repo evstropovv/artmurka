@@ -4,15 +4,21 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsPropertie
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IPresenterItemList
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IItemListFragment
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Basket
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.Success
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
+import com.artmurka.artmurkaapp.domain.usecase.basket.ToBasketUseCase
 import com.artmurka.artmurkaapp.domain.usecase.itemlist.GetItemListUseCase
+import com.artmurka.artmurkaapp.domain.usecase.wishlist.ToWishListUseCase
 import java.util.ArrayList
 import java.util.TreeMap
 import io.reactivex.Observable
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
-class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemListUseCase) : BasePresenter<IItemListFragment>(), IPresenterItemList {
+class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemListUseCase,
+                                            val toWishListUseCase: ToWishListUseCase,
+                                            val toBasketUseCase: ToBasketUseCase) : BasePresenter<IItemListFragment>(), IPresenterItemList {
 
 
     private val goodsProperties: ArrayList<GoodsProperties>
@@ -21,6 +27,39 @@ class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemList
     init {
         goodsProperties = ArrayList()
     }
+
+    fun toWishList(goodsId: String) {
+        toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
+            override fun onComplete() {}
+            override fun onNext(t: List<GoodsListDescription>) {
+                // view?.showWishList(t as MutableList<GoodsListDescription>)
+            }
+
+            override fun onError(e: Throwable) {}
+        }, ToWishListUseCase.Params(goodsId))
+    }
+
+    fun toBasket(goodId: String) {
+        toBasketUseCase.execute(object : DisposableObserver<Basket>() {
+            override fun onComplete() {}
+            override fun onNext(t: Basket) {
+                // view?.showWishList(t.items  )
+                // view?.deleteFromWisList(t)
+                //    t.items[1].
+//TODO эта хрень должна как то протянуться до RvWishListAdapter
+                //                                           Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
+//                                            String goodsId = wishList.get(position).getEntryId();
+//                                            deleteFromWishOnline(goodsId);
+//                                            wishList.remove(position);
+//                                            notifyItemRemoved(position);
+//                                            notifyItemRangeChanged(position, wishList.size());
+
+            }
+
+            override fun onError(e: Throwable) {}
+        }, ToBasketUseCase.Params(goodId))
+    }
+
 
     override fun getCategoriesData(curPage: Int, url: String, sort: String, order: String) {
         if (!isFull) {

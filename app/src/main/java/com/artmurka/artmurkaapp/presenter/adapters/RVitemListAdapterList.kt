@@ -6,9 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,6 +19,8 @@ import java.util.ArrayList
 
 class RVitemListAdapterList(internal var ctx: Context) : RecyclerView.Adapter<RVitemListAdapterList.ViewHolder>() {
     private val successList: ArrayList<GoodsProperties>
+
+    var clickListener: RVitemListAdapter.OnItemClickListener? = null
 
     init {
         successList = ArrayList()
@@ -47,93 +46,37 @@ class RVitemListAdapterList(internal var ctx: Context) : RecyclerView.Adapter<RV
         holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey)
 
         holder.ivToBasket.setOnClickListener {
-            val anim = RotateAnimation(-10f, 10f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-            anim.interpolator = LinearInterpolator()
-            anim.repeatCount = Animation.RELATIVE_TO_PARENT
-            anim.duration = 200
-            holder.ivToBasket.startAnimation(anim)
 
+            holder.ivToBasket.startAnimation(com.artmurka.artmurkaapp.other.RotateAnimation().getAnimation())
             if (successList[position].entryIsInBasket == 0) {
                 //в корзину
-                //TODO don't remove it1
-
-                //                    IBasket basket = new BasketRequest();
-                //                    Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
-                //
-                //                    observable.subscribe(new Observer<BasketItems>() {
-                //                        @Override
-                //                        public void onSubscribe(Disposable d) {
-                //                        }
-                //
-                //                        @Override
-                //                        public void onNext(BasketItems value) {
-                //                            successList.get(position).setEntryIsInBasket(1);
-                //                            Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
-                //                        }
-                //
-                //                        @Override
-                //                        public void onError(Throwable e) {
-                //                        }
-                //
-                //                        @Override
-                //                        public void onComplete() {
-                //                        }
-                //                    });
-            } else {
-                //TODO don't remove it1
-                //                    ICheckoutRequest request = new CheckoutRequest();
-                //                    Call<CheckoutAllGoods> call = request.recountCheckoutData(successList.get(position).getEntryId(), "0");
-                //                    call.enqueue(new Callback<CheckoutAllGoods>() {
-                //                        @Override
-                //                        public void onResponse(Call<CheckoutAllGoods> call, Response<CheckoutAllGoods> response) {
-                //                            successList.get(position).setEntryIsInBasket(0);
-                //                            Toast.makeText(view.getContext(), "Видалено з корзини", Toast.LENGTH_LONG).show();
-                //                        }
-                //
-                //                        @Override
-                //                        public void onFailure(Call<CheckoutAllGoods> call, Throwable t) {
-                //                        }
-                //                    });
-
+                clickListener?.toBasket(successList.get(position).entryId!!)
             }
         }
-
-        holder.ivToWish.setImageResource(
-                if (successList[position].entryIsInWishlist == 1)
-                    R.drawable.heart_small_orange
-                else
-                    R.drawable.heart_small)
-
+        var isHeartOrange = false
+        isHeartOrange = when (successList[position].entryIsInWishlist) {
+            1 -> {
+                holder.ivToWish.setImageResource(R.drawable.heart_small_orange)
+                true
+            }
+            else -> {
+                holder.ivToWish.setImageResource(R.drawable.heart_small)
+                false
+            }
+        }
         holder.ivToWish.setOnClickListener {
             Toast.makeText(ctx, successList[position].entryTitle + " додано до бажань", Toast.LENGTH_SHORT).show()
             //animation
-            val anim = RotateAnimation(-10f, 10f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-            anim.interpolator = LinearInterpolator()
-            anim.repeatCount = Animation.RELATIVE_TO_PARENT
-            anim.duration = 200
-            holder.ivToWish.startAnimation(anim)
+            holder.ivToWish.startAnimation(com.artmurka.artmurkaapp.other.RotateAnimation().getAnimation())
 
-            //TODO don't remove it1
-            //                IWishList iWishList = new WishListRequest();
-            //                Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
-            //                obs.enqueue(new Callback<WishList>() {
-            //                    @Override
-            //                    public void onResponse(Call<WishList> call, Response<WishList> response) {
-            //                        if (successList.get(position).getEntryIsInWishlist() == 1) {
-            //                            successList.get(position).setEntryIsInWishlist(0);
-            //                            holder.ivToWish.setImageResource(R.drawable.heart_small);
-            //                        } else {
-            //                            successList.get(position).setEntryIsInWishlist(1);
-            //                            holder.ivToWish.setImageResource(R.drawable.heart_small_orange);
-            //
-            //                        }
-            //                    }
-            //
-            //                    @Override
-            //                    public void onFailure(Call<WishList> call, Throwable t) {
-            //                        Log.d("Log.d", "toWishList " + t.getMessage());
-            //                    }
-            //                });
+            clickListener?.toWishList(successList.get(position).entryId!!)
+
+            isHeartOrange = !isHeartOrange
+
+            when(isHeartOrange){
+                true ->  holder.ivToWish.setImageResource(R.drawable.heart_small_orange)
+                false -> holder.ivToWish.setImageResource(R.drawable.heart_small)
+            }
         }
     }
 

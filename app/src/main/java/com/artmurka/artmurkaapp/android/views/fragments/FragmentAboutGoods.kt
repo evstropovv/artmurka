@@ -43,20 +43,12 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         ivWish!!.setOnClickListener { v ->
-            val anim = RotateAnimation(-10f, 10f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-            anim.interpolator = LinearInterpolator()
-            anim.repeatCount = Animation.RELATIVE_TO_PARENT
-            anim.duration = 100
-            v.startAnimation(anim)
-
+            v.startAnimation(com.artmurka.artmurkaapp.other.RotateAnimation().getAnimation())
             presenter!!.btnClicked(v.id)
         }
         ivBasket!!.setOnClickListener { v ->
-            val anim = RotateAnimation(-10f, 10f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-            anim.interpolator = LinearInterpolator()
-            anim.repeatCount = Animation.RELATIVE_TO_PARENT
-            anim.duration = 100
-            v.startAnimation(anim)
+
+            v.startAnimation(com.artmurka.artmurkaapp.other.RotateAnimation().getAnimation())
             presenter!!.btnClicked(v.id)
         }
         val recyclerLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)

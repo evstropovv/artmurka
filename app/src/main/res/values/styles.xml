@@ -12,6 +12,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/FuturaTextViewStyle</item>
+        <item name="android:buttonStyle">@style/FuturaButtonStyle</item>
     </style>
 
 
@@ -21,6 +23,16 @@
         <item name="actionMenuTextColor">@android:color/white</item>
 
     </style>
+
+    <style name="FuturaTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/futuranew</item>
+    </style>
+
+    <style name="FuturaButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/futuranew</item>
+    </style>
+
+
     <style name="spinner_style">
 
         <item name="android:layout_marginLeft">5dp</item>

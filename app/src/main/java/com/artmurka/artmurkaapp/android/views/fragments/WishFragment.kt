@@ -1,13 +1,9 @@
 package com.artmurka.artmurkaapp.android.views.fragments
 
-
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.presenter.adapters.RVwishListAdapter
 import com.artmurka.artmurkaapp.presenter.WishPresenter
@@ -19,33 +15,43 @@ import kotlinx.android.synthetic.main.fragment_wish.*
 import javax.inject.Inject
 
 
-class WishFragment : BaseFragment(), IWishFragment {
-    override fun getLayout(): Int = R.layout.fragment_wish
-
-    override fun getFragmentPresenter(): Presenter<out PresenterView> =  presenter
+class WishFragment : BaseFragment(), IWishFragment, RVwishListAdapter.OnItemClickListener {
 
 
     @Inject
     lateinit var presenter: WishPresenter
+
     private var recyclerAdapter: RVwishListAdapter? = null
+
+    override fun getLayout(): Int = R.layout.fragment_wish
+
+    override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         presenter.takeView(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_wish, container, false)
+    override fun deleteFromWishOnline(goodId: String) {
+        presenter.deleteFromWishOnline(goodId)
+    }
 
+    override fun toBasket(goodId: String) {
+        presenter.toBasket(goodId)
+    }
 
-        val recyclerLayoutManager = LinearLayoutManager(view.context)
-        rvWish.layoutManager = recyclerLayoutManager
-        recyclerAdapter = RVwishListAdapter(view.context)
+    override fun deleteFromWisList(goodId: String) {
+        recyclerAdapter?.deleteFromWishOnline(goodId)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        rvWish.layoutManager = LinearLayoutManager(context)
+        recyclerAdapter = RVwishListAdapter(context!!)
+        recyclerAdapter?.clickListener = this
         rvWish.adapter = recyclerAdapter
-
-        presenter?.getDataForWishList()
-        return view
+        presenter.getDataForWishList()
     }
 
 
@@ -56,10 +62,9 @@ class WishFragment : BaseFragment(), IWishFragment {
         } catch (e: NullPointerException) {
             e.printStackTrace()
         }
-
     }
 
-    override fun showWishList(list: List<GoodsListDescription>) {
+    override fun showWishList(list: MutableList<GoodsListDescription>) {
         recyclerAdapter?.setData(list)
     }
 }

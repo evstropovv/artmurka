@@ -39,7 +39,7 @@ class BasketRequest @Inject constructor(val apiModule: ApiRetrofit, val ucoz : U
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun deleteItemFromBasket(goodId: String): Call<BasketItems> {
+    override fun deleteItemFromBasket(goodId: String): Observable<BasketItems> {
 
         val mapForUcozModule = HashMap<String, String>()
         mapForUcozModule["goodId"] = goodId

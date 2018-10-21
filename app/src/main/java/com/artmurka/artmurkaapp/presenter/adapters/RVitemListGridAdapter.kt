@@ -21,6 +21,8 @@ import java.util.ArrayList
 class RVitemListGridAdapter(internal var ctx: Context) : RecyclerView.Adapter<RVitemListGridAdapter.ViewHolder>() {
     private val successList: ArrayList<GoodsProperties>
 
+    var clickListener : RVitemListAdapter.OnItemClickListener? = null
+
     init {
         successList = ArrayList()
     }

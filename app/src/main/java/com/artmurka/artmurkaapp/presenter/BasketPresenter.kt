@@ -6,6 +6,7 @@ import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IBasketFragment
 import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.domain.usecase.wishlist.ToWishListUseCase
 
@@ -56,13 +57,15 @@ class BasketPresenter @Inject constructor(val basket: BasketRequest,
     }
 
     fun addToWishList(id: String) {
-        toWishListUseCase.execute(object : DisposableObserver<WishList>() {
+        toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
             override fun onComplete() {
 
             }
-            override fun onNext(t: WishList) {
+
+            override fun onNext(t: List<GoodsListDescription>) {
 
             }
+
             override fun onError(e: Throwable) {
 
             }

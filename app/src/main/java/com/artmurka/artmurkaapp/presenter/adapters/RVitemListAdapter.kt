@@ -22,6 +22,9 @@ import java.util.ArrayList
 class RVitemListAdapter(internal var ctx: Context) : RecyclerView.Adapter<RVitemListAdapter.ViewHolder>() {
     private val successList: ArrayList<GoodsProperties>
 
+    var clickListener : RVitemListAdapter.OnItemClickListener? = null
+
+
     init {
         successList = ArrayList()
     }
@@ -52,47 +55,15 @@ class RVitemListAdapter(internal var ctx: Context) : RecyclerView.Adapter<RVitem
                     R.id.to_card ->
                         //проверяем, есть ли такой товар в корзине
                         if (successList[position].entryIsInBasket == 0) {
-                            //в корзину
-                            //TODO don't remote it
-                            //                            IBasket basket = new BasketRequest();
-                            //                            Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
-                            //
-                            //                            observable.subscribe(new Observer<BasketItems>() {
-                            //                                @Override
-                            //                                public void onSubscribe(Disposable d) {}
-                            //
-                            //                                @Override
-                            //                                public void onNext(BasketItems value) {
-                            //                                         Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
-                            //                                }
-                            //                                @Override
-                            //                                public void onError(Throwable e) {
-                            //                                  ;
-                            //                                }
-                            //                                @Override
-                            //                                public void onComplete() {
-                            //                                }
-                            //                            });
+                            clickListener?.toBasket(successList.get(position).entryId!!)
                         }
                     R.id.wish_wad -> {
+                        clickListener?.toWishList(successList.get(position).entryId!!)
                     }
 
                     else -> {
                     }
-                }//в список пожеланий
-                //TODO don't remove it1
-                //                        IWishList iWishList = new WishListRequest();
-                //                        Call<WishList> obs = iWishList.toWishList(successList.get(position).getEntryId());
-                //                        obs.enqueue(new Callback<WishList>() {
-                //                            @Override
-                //                            public void onResponse(Call<WishList> call, Response<WishList> response) {
-                //                                Toast.makeText(ctx, successList.get(position).getEntryTitle() + " додано до бажань", Toast.LENGTH_SHORT).show();
-                //                            }
-                //                            @Override
-                //                            public void onFailure(Call<WishList> call, Throwable t) {
-                //
-                //                            }
-                //                        });
+                }
                 false
             }
             popupMenu.show()
@@ -124,4 +95,10 @@ class RVitemListAdapter(internal var ctx: Context) : RecyclerView.Adapter<RVitem
             }
         }
     }
+
+    public interface OnItemClickListener {
+        fun toWishList(goodsId: String)
+        fun toBasket(goodId: String)
+    }
+
 }
