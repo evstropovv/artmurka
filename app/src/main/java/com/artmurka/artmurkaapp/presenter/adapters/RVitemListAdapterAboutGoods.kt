@@ -27,6 +27,14 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 class RVitemListAdapterAboutGoods(internal var ctx: Context) : RecyclerView.Adapter<RVitemListAdapterAboutGoods.ViewHolder>() {
+
+    var itemClickListener : RVitemListAdapterAboutGoods.OnItemClickListener ? = null
+
+    public interface OnItemClickListener {
+        fun toWishList(goodsId: String)
+        fun toBasket(goodId: String)
+    }
+
     private val successList: ArrayList<GoodsProperties>
 
     init {
@@ -55,34 +63,16 @@ class RVitemListAdapterAboutGoods(internal var ctx: Context) : RecyclerView.Adap
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.to_card -> {
+                        itemClickListener?.toBasket(successList.get(position).entryId!!)
                     }
-                    R.id.wish_wad ->
-
+                    R.id.wish_wad ->{
+                        itemClickListener?.toWishList(successList.get(position).entryId!!)
                         Toast.makeText(ctx, successList[position].entryTitle + " додано до бажань", Toast.LENGTH_SHORT).show()
 
+                    }
                     else -> {
                     }
-                }//в корзину
-                //TODO don't remove it
-                //                                IBasket basket = new BasketRequest();
-                //                                Observable<BasketItems> observable = basket.toBasket(successList.get(position).getEntryId());
-                //                                                             observable.subscribe(new Observer<BasketItems>() {
-                //                                    @Override
-                //                                    public void onSubscribe(Disposable d) {}
-                //
-                //                                    @Override
-                //                                    public void onNext(BasketItems value) {
-                //                                        Log.d("Log.d", new Gson().toJson(value.getSuccess().getBasket()));
-                //                                        Toast.makeText(ctx, successList.get(position).getEntryTitle() + " успішно додано до кошика.", Toast.LENGTH_SHORT).show();
-                //                                    }
-                //                                    @Override
-                //                                    public void onError(Throwable e) {
-                //                                        Log.d("Log.d", "onError " + e.toString());
-                //                                    }
-                //                                    @Override
-                //                                    public void onComplete() {
-                //                                    }
-                //                                });
+                }
                 false
             }
             popupMenu.show()

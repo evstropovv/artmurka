@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.animation.Animation
-import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties
 import com.artmurka.artmurkaapp.presenter.AboutGoodsPresenter
 import com.artmurka.artmurkaapp.presenter.adapters.RVitemListAdapterAboutGoods
@@ -22,7 +19,8 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 
-class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
+class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods, RVitemListAdapterAboutGoods.OnItemClickListener {
+
     override fun getLayout(): Int = R.layout.fragment_fragment_about_goods
 
     override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
@@ -54,6 +52,7 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
         val recyclerLayoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.HORIZONTAL, false)
         rvCategoryItem.layoutManager = recyclerLayoutManager
         recyclerAdapter = RVitemListAdapterAboutGoods(view?.context!!)
+        recyclerAdapter?.itemClickListener = this
         rvCategoryItem.adapter = recyclerAdapter
 
 
@@ -62,6 +61,13 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods {
         if (bundle != null) {
             presenter!!.getDataAboutGoods(bundle.getString(ID))
         }
+    }
+    override fun toBasket(goodId: String) {
+        presenter.toBasket(goodId)
+    }
+
+    override fun toWishList(goodsId: String) {
+        presenter.toWishList(goodsId)
     }
 
     override fun setName(name: String) {

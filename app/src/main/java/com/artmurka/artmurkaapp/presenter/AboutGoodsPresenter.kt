@@ -14,8 +14,10 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Basket
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
+import com.artmurka.artmurkaapp.domain.usecase.basket.ToBasketUseCase
 import com.artmurka.artmurkaapp.domain.usecase.wishlist.ToWishListUseCase
 
 import java.util.ArrayList
@@ -33,7 +35,8 @@ import javax.inject.Inject
 class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                                               val model2: AboutGoodsRequest,
                                               val basket : BasketRequest,
-                                              val toWishListUseCase: ToWishListUseCase) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
+                                              val toWishListUseCase: ToWishListUseCase,
+                                              val toBasketUseCase: ToBasketUseCase ) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
     private var goodsId: String? = null
 
     override fun getDataAboutGoods(id: String) {
@@ -86,6 +89,25 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
             }
         })
     }
+
+    fun toWishList(goodsId: String) {
+        toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
+            override fun onComplete() {}
+            override fun onNext(t: List<GoodsListDescription>) { }
+
+            override fun onError(e: Throwable) {}
+        }, ToWishListUseCase.Params(goodsId))
+    }
+
+    fun toBasket(goodId: String) {
+        toBasketUseCase.execute(object : DisposableObserver<Basket>() {
+            override fun onComplete() {}
+            override fun onNext(t: Basket) { }
+
+            override fun onError(e: Throwable) {}
+        }, ToBasketUseCase.Params(goodId))
+    }
+
 
     override fun getCategoryData(category: String) {
         val observable = model.getItemList(category, "1")

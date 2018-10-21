@@ -30,10 +30,10 @@
     <string name="fragment_filters">Фільтри</string>
 
 
-    <string name="fragment_card_make_checkout">Оформити заказ</string>
+    <string name="fragment_card_make_checkout">Оформити замовлення</string>
     <string name="fragment_card_empty_basket">Корзинка пуста. Але її завжди можна наповнити :)</string>
     <string name="fragment_card_button_main">Каталог</string>
-    <string name="bottom_sheet_checkout">Оформити заказ</string>
+    <string name="bottom_sheet_checkout">Оформити замовлення</string>
     <string name="bottom_sheet_et">Введіть місто</string>
     <string name="card_order_button_pay">Сплатити</string>
     <string name="fragment_category_button_call">Зателефонувати нам :)</string>
