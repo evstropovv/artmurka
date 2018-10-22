@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
 import com.artmurka.artmurkaapp.data.model.databases.Preferences.init
 import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
 import java.util.ArrayList
@@ -31,11 +33,6 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
         wishList?.clear()
         wishList?.addAll(list)
         result.dispatchUpdatesTo(this)
-//        if (wishList != null && list.size > 0) {
-//            this.wishList.clear()
-//            this.wishList.addAll(list)
-//            notifyDataSetChanged()
-//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,11 +40,11 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
-        if (payloads.isEmpty()) {
-            super.onBindViewHolder(holder, position, payloads)
-        }
-    }
+//    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
+//        if (payloads.isEmpty()) {
+//            super.onBindViewHolder(holder, position, payloads)
+//        }
+//    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -57,64 +54,23 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
         holder.ivToBasket.setOnClickListener {
             if (wishList!![position].entryIsInBasket == 0L) {
                 clickListener?.toBasket(wishList?.get(position)?.entryId!!)
-                //в корзину
-                //TODO don't remove it
-                // IBasket basket = new BasketRequest();
-                //                    Observable<BasketItems> observable = basket.toBasket(wishList.get(position).getEntryId());
-                //
-                //                    observable.subscribe(new Observer<BasketItems>() {
-                //                        @Override
-                //                        public void onSubscribe(Disposable d) {
-                //                        }
-                //
-                //                        @Override
-                //                        public void onNext(BasketItems value) {
-                //                             Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
-                //                            String goodsId = wishList.get(position).getEntryId();
-                //                            deleteFromWishOnline(goodsId);
-                //                            wishList.remove(position);
-                //                            notifyItemRemoved(position);
-                //                            notifyItemRangeChanged(position, wishList.size());
-                //                        }
-                //
-                //                        @Override
-                //                        public void onError(Throwable e) {
-                //
-                //                        }
-                //
-                //                        @Override
-                //                        public void onComplete() {
-                //
-                //                        }
-                //                    });
+                clickListener?.deleteFromWishOnline(wishList?.get(position)?.entryId!!)
+                removeInList(position)
             }
         }
         holder.ivDeleteFromWish.setOnClickListener {
-            clickListener?.deleteFromWishOnline(wishList!![position].entryId!!)
-
-//            wishList!!.removeAt(position)
-//            notifyItemRemoved(position)
-//            notifyItemRangeChanged(position, wishList?.size!!)
+            clickListener?.deleteFromWishOnline(wishList?.get(position)?.entryId!!)
+            removeInList(position)
         }
     }
 
 
-    fun deleteFromWishOnline(goodsId: String) {
-        //delete from wishlist online
-        //  clickListener?.deleteFromWishOnline(goodsId)
 
-        //TODO don't remove it !
-        //        IWishList iWishList = new WishListRequest();
-        //        Call<WishList> obs = iWishList.toWishList(goodsId); //здесь по запросу toWishList - или удаляется если она есть, или добавляется если позиции в списке нет
-        //        obs.enqueue(new Callback<WishList>() {
-        //            @Override
-        //            public void onResponse(Call<WishList> call, Response<WishList> response) {
-        //            }
-        //            @Override
-        //            public void onFailure(Call<WishList> call, Throwable t) {}
-        //        });
+    private fun removeInList(position: Int) {
+        wishList?.removeAt(position)
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, wishList?.size!!);
     }
-
 
     override fun getItemCount(): Int {
         return wishList!!.size

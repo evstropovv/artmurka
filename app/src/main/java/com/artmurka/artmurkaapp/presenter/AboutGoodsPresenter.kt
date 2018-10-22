@@ -132,7 +132,6 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                     override fun onComplete() {}
                     override fun onNext(ts:  List<GoodsListDescription> ) {
                         try {
-
                             for (value in ts ) {
                                 if (value.entryId == goodsId) {
                                     view?.setWishButton(true)

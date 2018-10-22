@@ -11,8 +11,7 @@ constructor(val oldList: MutableList<GoodsListDescription>,
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         var isSame = oldList[oldItemPosition].entryId!! == newList[newItemPosition].entryId!!
-
-        Log.d("Log.d", "areItemTheSame ${oldList[oldItemPosition].entryId!!} and ${newList[newItemPosition].entryId!!} = $isSame")
+       // Log.d("Log.d", "areItemTheSame ${oldList[oldItemPosition].entryId!!} and ${newList[newItemPosition].entryId!!} = $isSame")
        return isSame
     }
 
@@ -22,8 +21,7 @@ constructor(val oldList: MutableList<GoodsListDescription>,
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         var isSame = oldList[oldItemPosition].entryId?.equals(newList[newItemPosition].entryId)!!
-
-        Log.d("Log.d", "areContentsTheSame ${oldList[oldItemPosition].entryId!!} and ${newList[newItemPosition].entryId!!} = $isSame")
+      //  Log.d("Log.d", "areContentsTheSame ${oldList[oldItemPosition].entryId!!} and ${newList[newItemPosition].entryId!!} = $isSame")
         return isSame
       }
 

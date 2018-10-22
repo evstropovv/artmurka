@@ -16,7 +16,8 @@ class ToWishListUseCase @Inject constructor(val apiModule: ApiRetrofit, val ucoz
         val mapForUcozModule = HashMap<String, String>()
         mapForUcozModule["goods_id"] = params.goods_id
         val confForRequest = ucoz["POST", "uapi/shop/wishlisth", mapForUcozModule]
-        return apiModule.addToWishList(confForRequest) .map { t: WishList -> t.success?.goodsList }
+        return apiModule.addToWishList(confForRequest)
+                .map { t: WishList -> t.success?.goodsList }
                 .map {
                     val answerList = ArrayList<GoodsListDescription>()
                     for (key in it.keys) {

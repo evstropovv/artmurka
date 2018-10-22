@@ -40,9 +40,9 @@ class WishFragment : BaseFragment(), IWishFragment, RVwishListAdapter.OnItemClic
         presenter.toBasket(goodId)
     }
 
-    override fun deleteFromWisList(goodId: String) {
-        recyclerAdapter?.deleteFromWishOnline(goodId)
-    }
+//    override fun deleteFromWisList(goodId: String) {
+//        recyclerAdapter?.deleteFromWishOnline(goodId)
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

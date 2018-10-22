@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.presenter
 
+import android.util.Log
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IWishPresenter
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IWishFragment
@@ -14,11 +15,12 @@ import javax.inject.Inject
 class WishPresenter @Inject constructor(val getWishListUseCase: GetWishListUseCase, val toWishListUseCase: ToWishListUseCase, val toBasketUseCase : ToBasketUseCase) : BasePresenter<IWishFragment>(), IWishPresenter {
 
     fun deleteFromWishOnline(goodsId: String){
+        Log.d("Log.d","deleteFromWishOnline $goodsId")
         //здесь по запросу toWishList - или удаляется если она есть, или добавляется если позиции в списке нет
         toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
             override fun onComplete() {}
             override fun onNext(t:  List<GoodsListDescription> ) {
-                view?.showWishList(t as MutableList<GoodsListDescription>)
+             //   view?.showWishList(t as MutableList<GoodsListDescription>)
             }
             override fun onError(e: Throwable) {  }
         }, ToWishListUseCase.Params(goodsId))
