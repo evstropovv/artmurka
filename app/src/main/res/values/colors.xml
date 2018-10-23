@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ff8574</color>
+    <color name="colorPrimary">#ffffff</color>
     <color name="colorPurpleLight">#f7aba1</color>
-    <color name="colorPrimaryDark">#ff705c</color>
-    <color name="colorAccent">#ff8574</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#6c6c6c</color>
     <color name="white">#FBE9E7</color>
-    <color name="grey">#b4b4b4</color>
+    <color name="grey">#ffffff</color>
     <color name="transparent">#00ffffff</color>
-    <color name="colorGreyIcons">#b4b4b4</color>
+    <color name="colorGreyIcons">#000000</color>
+    <color name="black">#000000</color>
 
-
+    <!--<color name="colorPrimary">#ff8574</color>-->
+    <!--<color name="colorPurpleLight">#f7aba1</color>-->
+    <!--<color name="colorPrimaryDark">#ff705c</color>-->
+    <!--<color name="colorAccent">#ff8574</color>-->
+    <!--<color name="white">#FBE9E7</color>-->
+    <!--<color name="grey">#b4b4b4</color>-->
+    <!--<color name="transparent">#00ffffff</color>-->
+    <!--<color name="colorGreyIcons">#b4b4b4</color>-->
 </resources>

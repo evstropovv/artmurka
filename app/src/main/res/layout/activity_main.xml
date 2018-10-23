@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4e4e4"
+    android:background="@color/grey"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -24,7 +24,8 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:popupTheme="@style/ToolBarStyle"
+                app:titleTextColor="@color/black"
+                app:theme="@style/ToolBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
 
@@ -39,10 +40,10 @@
 
         <FrameLayout
             android:id="@+id/mainFrame"
-            android:background="#e4e4e4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_marginTop="65dp"
+            android:background="#ffffff">
 
         </FrameLayout>
 
