@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -82,7 +83,8 @@ class CategoryFragment : BaseFragment(), ICategoryFragment {
 
 
         recyclerView = view.findViewById<View>(R.id.recyclerView) as RecyclerView
-        val recyclerLayoutManager = LinearLayoutManager(view.context)
+//        val recyclerLayoutManager = LinearLayoutManager(view.context)
+        val recyclerLayoutManager = GridLayoutManager(view.context, 2)
         recyclerView!!.layoutManager = recyclerLayoutManager
         recyclerAdapter = RVcategoryAdapter(view.context)
         recyclerView!!.adapter = recyclerAdapter

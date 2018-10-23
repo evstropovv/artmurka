@@ -83,9 +83,9 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                tvBigName!!.text = data.extras!!.getString("name")
-                tvSmallName!!.text = data.extras!!.getString("email")
-                btnLogin!!.text = "?????"
+                tvBigName?.text = data.extras!!.getString("name")
+                tvSmallName?.text = data.extras!!.getString("email")
+                btnLogin?.text = "Вийти"
                 Preferences.isLogin = true
             }
         }
@@ -104,15 +104,6 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         } else {
             fragCategory = fragment as CategoryFragment
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -150,10 +141,10 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         tvBigName = header.findViewById<View>(R.id.tvBigName) as TextView
         tvBigName!!.text = Preferences.name
         btnLogin = header.findViewById<View>(R.id.btnLogin) as Button
-        btnLogin!!.text = if (Preferences.isLogin!!) "?????" else "??????"
+        btnLogin!!.text = if (Preferences.isLogin!!) "Вийти" else "Увійти"
         btnLogin!!.setOnClickListener { v ->
             if (!Preferences.isLogin!!) {
-                btnLogin!!.text = "??????"
+                btnLogin!!.text = "Логін"
                 val intent = Intent(v.context, LoginActivity::class.java)
                 startActivityForResult(intent, 1)
             } else {
@@ -342,7 +333,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
                 supportFragmentManager.popBackStack()
             } else if (!doubleBackToExitPressedOnce) {
                 this.doubleBackToExitPressedOnce = true
-                Toast.makeText(this, "????????? ?? ??? ??? ??????", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Натисніть ще раз для виходу", Toast.LENGTH_SHORT).show()
                 Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
             } else {
                 super.onBackPressed()

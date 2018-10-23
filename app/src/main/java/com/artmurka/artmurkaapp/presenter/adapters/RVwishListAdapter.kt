@@ -17,6 +17,7 @@ import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGo
 import com.artmurka.artmurkaapp.data.model.databases.Preferences.init
 import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
 import com.google.gson.Gson
+import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
 
 import java.util.ArrayList
@@ -79,7 +80,7 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvCategoryName: TextView
         var tvPrice: TextView
-        var ivItemPhoto: ImageView
+        var ivItemPhoto: RoundedImageView
         var ivToBasket: ImageView
         var ivDeleteFromWish: ImageView
 
@@ -87,7 +88,7 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
         init {
             tvCategoryName = itemView.findViewById<View>(R.id.tvCategoryName) as TextView
             tvPrice = itemView.findViewById<View>(R.id.tvPrice) as TextView
-            ivItemPhoto = itemView.findViewById<View>(R.id.ivItemPhoto) as ImageView
+            ivItemPhoto = itemView.findViewById<View>(R.id.ivItemPhoto) as RoundedImageView
             ivToBasket = itemView.findViewById<View>(R.id.ivToBasket) as ImageView
             ivDeleteFromWish = itemView.findViewById<View>(R.id.ivDeleteFromWish) as ImageView
             itemView.setOnClickListener {

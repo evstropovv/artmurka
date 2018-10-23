@@ -34,7 +34,6 @@ class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemList
             override fun onNext(t: List<GoodsListDescription>) {
                 // view?.showWishList(t as MutableList<GoodsListDescription>)
             }
-
             override fun onError(e: Throwable) {}
         }, ToWishListUseCase.Params(goodsId))
     }
@@ -42,20 +41,7 @@ class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemList
     fun toBasket(goodId: String) {
         toBasketUseCase.execute(object : DisposableObserver<Basket>() {
             override fun onComplete() {}
-            override fun onNext(t: Basket) {
-                // view?.showWishList(t.items  )
-                // view?.deleteFromWisList(t)
-                //    t.items[1].
-//TODO эта хрень должна как то протянуться до RvWishListAdapter
-                //                                           Toast.makeText(ctx, wishList.get(position).getEntryTitle() + " успішно додано до кошика", Toast.LENGTH_SHORT).show();
-//                                            String goodsId = wishList.get(position).getEntryId();
-//                                            deleteFromWishOnline(goodsId);
-//                                            wishList.remove(position);
-//                                            notifyItemRemoved(position);
-//                                            notifyItemRangeChanged(position, wishList.size());
-
-            }
-
+            override fun onNext(t: Basket) {}
             override fun onError(e: Throwable) {}
         }, ToBasketUseCase.Params(goodId))
     }
@@ -96,7 +82,4 @@ class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemList
         return goodsProperties
     }
 
-    companion object {
-        private var exampleObservable: Observable<SuccessExample>? = null
-    }
 }

@@ -8,29 +8,31 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     card_view:cardUseCompatPadding="true"
-
     card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="4dp">
+    card_view:cardElevation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center">
 
-        <ImageView
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivItemPhoto"
             android:layout_width="150dp"
             android:layout_height="150dp"
-
+            android:scaleType="fitCenter"
+            android:paddingBottom="2dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="2dp"
-            android:src="@drawable/splash" />
-
+            app:riv_corner_radius="10dip"
+            app:riv_mutate_background="true"   />
         <TextView
             android:id="@+id/tvCategoryName"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_above="@+id/tvPrice"
             android:layout_alignLeft="@+id/tvPrice"
@@ -43,6 +45,7 @@
         <TextView
             android:id="@+id/tvPrice"
             android:paddingLeft="10dp"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -54,12 +57,11 @@
 
         <ImageView
             android:id="@+id/ivToBasket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            card_view:srcCompat="@drawable/basketfill"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignStart="@+id/ivDeleteFromWish"
             android:layout_below="@+id/ivItemPhoto"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            card_view:srcCompat="@drawable/basketfill" />
 
         <ImageView
             android:id="@+id/ivDeleteFromWish"

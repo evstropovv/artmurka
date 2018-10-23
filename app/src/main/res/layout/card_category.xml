@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ivItemPhoto"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/futura_light"
             android:layout_centerVertical="true"
             android:textAlignment="center"
             android:textScaleX="1.0"

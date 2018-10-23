@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4e4e4"
+    android:background="@color/grey"
 
     tools:context=".android.views.fragments.ItemListFragment">
 
@@ -16,7 +16,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.50"
-            android:background="#e4e4e4"
+            android:background="@color/grey"
             android:padding="2dp"
             android:scrollbars="vertical" />
 

@@ -56,6 +56,7 @@ class RVitemListAdapterAboutGoods(internal var ctx: Context) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvItemName.text = successList[position].entryTitle
+        holder.tvItemCost.text = successList[position].entryPrice?.price
         Picasso.with(ctx).load(successList[position].entryPhoto?.defPhoto?.thumb).into(holder.ivItemPhoto)
         holder.ivMenu.setOnClickListener {
             val popupMenu = PopupMenu(ctx, holder.ivMenu)
@@ -85,13 +86,14 @@ class RVitemListAdapterAboutGoods(internal var ctx: Context) : RecyclerView.Adap
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        var tvItemCost: TextView
         var tvItemName: TextView
         var ivItemPhoto: ImageView
         var ivMenu: ImageView
 
         init {
             tvItemName = itemView.findViewById<View>(R.id.item_name) as TextView
+            tvItemCost = itemView.findViewById<View>(R.id.item_cost) as TextView
             ivItemPhoto = itemView.findViewById<View>(R.id.ivItemPhoto) as ImageView
             ivMenu = itemView.findViewById<View>(R.id.item_iv) as ImageView
             itemView.setOnClickListener {
