@@ -141,13 +141,13 @@ class ItemListFragment : BaseFragment(), IItemListFragment, RVitemListAdapter.On
 
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    presenter!!.getCategoriesData(++curPage, url!!, sort!!, order!!)
+                    presenter.getCategoriesData(++curPage, url!!, sort!!, order!!)
                 }
             })
         }
 
-        Preferences.listUrl = this!!.url!!
-        presenter!!.getCategoriesData(++curPage, url!!, sort!!, order!!)
+        Preferences.listUrl = this.url!!
+        presenter.getCategoriesData(curPage++, url!!, sort!!, order!!)
 
         progressBar2.visibility = View.VISIBLE
     }

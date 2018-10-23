@@ -83,9 +83,9 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                tvBigName!!.text = data.extras!!.getString("name")
-                tvSmallName!!.text = data.extras!!.getString("email")
-                btnLogin!!.text = "?????"
+                tvBigName?.text = data.extras!!.getString("name")
+                tvSmallName?.text = data.extras!!.getString("email")
+                btnLogin?.text = "Вийти"
                 Preferences.isLogin = true
             }
         }
@@ -104,15 +104,6 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         } else {
             fragCategory = fragment as CategoryFragment
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
