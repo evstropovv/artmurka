@@ -2,7 +2,7 @@ package com.artmurka.artmurkaapp.data.model.modules
 
 import android.util.Log
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest
+import com.artmurka.artmurkaapp.domain.interfacesmodel.ICheckoutRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.CheckoutAllGoods
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkoutresponse.CheckoutResponse
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit

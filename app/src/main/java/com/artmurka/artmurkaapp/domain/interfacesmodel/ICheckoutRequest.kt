@@ -1,4 +1,4 @@
-package com.artmurka.artmurkaapp.data.model.interfacesmodel
+package com.artmurka.artmurkaapp.domain.interfacesmodel
 
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.CheckoutAllGoods
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkoutresponse.CheckoutResponse

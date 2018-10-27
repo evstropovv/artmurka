@@ -1,12 +1,11 @@
 package com.artmurka.artmurkaapp.data.model.modules
 
 import com.artmurka.artmurkaapp.BuildConfig
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IAllRequestObservers
+import com.artmurka.artmurkaapp.domain.interfacesmodel.IAllRequestObservers
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Example
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.SuccessDeserelised
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 import java.util.HashMap

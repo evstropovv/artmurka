@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.data.model.modules
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IOrderRequest
+import com.artmurka.artmurkaapp.domain.interfacesmodel.IOrderRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Orders
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
 

@@ -3,7 +3,6 @@ package com.artmurka.artmurkaapp.presenter
 import android.util.Log
 
 import com.artmurka.artmurkaapp.BuildConfig
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.ICheckoutRequest
 import com.artmurka.artmurkaapp.data.model.modules.ApiModuleNovaPoshta
 import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.DeliveryDescription
@@ -19,7 +18,6 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityResponse
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICheckoutPresenter
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFragment
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.WarehousesRequest.WarehouseRequest
-import com.google.gson.Gson
 
 import java.util.ArrayList
 import java.util.HashMap

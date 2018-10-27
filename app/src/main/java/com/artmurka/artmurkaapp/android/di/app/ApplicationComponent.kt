@@ -3,6 +3,8 @@ package com.artmurka.artmurkaapp.android.di.app
 import android.app.Activity
 import com.artmurka.artmurkaapp.android.ArtmurkaApplication
 import com.artmurka.artmurkaapp.android.di.module.ApplicationModule
+import com.artmurka.artmurkaapp.android.views.activities.checkout.CheckoutActivity
+import com.artmurka.artmurkaapp.android.views.activities.di.CheckoutActivityComponent
 import com.artmurka.artmurkaapp.android.views.activities.di.MainActivityComponent
 import com.artmurka.artmurkaapp.android.views.activities.di.SelectedGoodActivityComponent
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity
@@ -36,7 +38,8 @@ interface ApplicationComponent : AndroidInjector<ArtmurkaApplication> {
 
     @Module(subcomponents = [
         (MainActivityComponent::class),
-        (SelectedGoodActivityComponent::class)
+        (SelectedGoodActivityComponent::class),
+        (CheckoutActivityComponent::class)
     ])
     interface ActivityBindingsModule {
 
@@ -49,6 +52,12 @@ interface ApplicationComponent : AndroidInjector<ArtmurkaApplication> {
         @IntoMap
         @ActivityKey(value = SelectedGoodActivity::class)
         fun selectedGoodActivityComponentBuilder(builder: SelectedGoodActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+
+        @Binds
+        @IntoMap
+        @ActivityKey(value = CheckoutActivity::class)
+        fun selectedCheckoutActivityComponentBuilder(builder: CheckoutActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+
 
     }
     @Module(subcomponents = [ ])

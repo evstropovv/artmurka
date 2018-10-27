@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.data.model.modules
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IBasket
+import com.artmurka.artmurkaapp.domain.interfacesmodel.IBasket
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
 
@@ -10,7 +10,6 @@ import java.util.HashMap
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
 import javax.inject.Inject
 
 

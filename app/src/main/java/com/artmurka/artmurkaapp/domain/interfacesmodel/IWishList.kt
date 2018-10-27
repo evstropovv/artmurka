@@ -1,9 +1,7 @@
-package com.artmurka.artmurkaapp.data.model.interfacesmodel
+package com.artmurka.artmurkaapp.domain.interfacesmodel
 
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import io.reactivex.Observable
-
-import retrofit2.Call
 
 interface IWishList {
     val wishList: Observable<WishList>

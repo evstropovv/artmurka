@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -58,7 +59,7 @@ class FragmentCategoryChilds : Fragment(), ICategoryFragment {
         }
 
         recyclerView = view.findViewById<View>(R.id.recyclerView) as RecyclerView
-        val recyclerLayoutManager = LinearLayoutManager(view.context)
+        val recyclerLayoutManager = GridLayoutManager(view.context, 2)
         recyclerView!!.layoutManager = recyclerLayoutManager
         recyclerAdapter = RVcategoryAdapter(view.context)
         recyclerView!!.adapter = recyclerAdapter
@@ -69,7 +70,7 @@ class FragmentCategoryChilds : Fragment(), ICategoryFragment {
             if (isOnline) {
                 showCategories(childs!!)
             } else {
-                showError("Відсутній інтернет")
+                showError(context?.resources?.getString(R.string.no_internet)!!)
             }
         }
         return view
@@ -95,5 +96,5 @@ class FragmentCategoryChilds : Fragment(), ICategoryFragment {
     override fun showError(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
-}// Required empty public constructor
+}
 

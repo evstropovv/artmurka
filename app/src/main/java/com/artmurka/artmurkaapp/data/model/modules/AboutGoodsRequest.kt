@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.data.model.modules
 
-import com.artmurka.artmurkaapp.data.model.interfacesmodel.IAboutGoods
+import com.artmurka.artmurkaapp.domain.interfacesmodel.IAboutGoods
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.AboutGood
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.good.Good
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample

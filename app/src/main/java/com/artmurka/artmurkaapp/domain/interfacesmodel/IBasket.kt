@@ -1,9 +1,8 @@
-package com.artmurka.artmurkaapp.data.model.interfacesmodel
+package com.artmurka.artmurkaapp.domain.interfacesmodel
 
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
 
 import io.reactivex.Observable
-import retrofit2.Call
 
 
 interface IBasket {
