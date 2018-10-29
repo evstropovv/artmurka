@@ -38,7 +38,7 @@ tools:context=".android.views.fragments.CategoryFragment">
 
         <Button
             android:id="@+id/btnCall"
-            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/WhiteButtonTheme"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.50"

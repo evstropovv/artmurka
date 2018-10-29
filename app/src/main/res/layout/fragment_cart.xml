@@ -44,6 +44,7 @@
             <Button
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/btnCheckout"
+                android:theme="@style/WhiteButtonTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,6 +69,7 @@
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/btnToMain"
+        android:theme="@style/WhiteButtonTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
