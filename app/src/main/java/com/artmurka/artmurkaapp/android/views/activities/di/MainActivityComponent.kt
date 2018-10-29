@@ -74,12 +74,6 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
         fun deliveryFragmentComponent(builder: DeliveryFragmentComponent.Builder): AndroidInjector.Factory<out Fragment>
 
 
-//        @Binds
-//        @IntoMap
-//        @FragmentKey(value = FragmentAboutGoods::class)
-//        fun fragmentAboutGoodstComponent(builder: FragmentAboutGoodsComponent.Builder): AndroidInjector.Factory<out Fragment>
-
-
         @Binds
         @IntoMap
         @FragmentKey(value = FragmentCategoryChilds::class)
