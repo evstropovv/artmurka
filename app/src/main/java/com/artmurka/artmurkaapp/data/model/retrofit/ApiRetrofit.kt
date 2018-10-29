@@ -79,7 +79,7 @@ interface ApiRetrofit {
 
     @FormUrlEncoded
     @POST("uapi/shop/checkout/")
-    fun postCheckout(@FieldMap(encoded = true) map: HashMap<String, String>): Call<CheckoutResponse>
+    fun postCheckout(@FieldMap(encoded = true) map: HashMap<String, String>): Single<CheckoutResponse>
 
     @POST("v2.0/json/")
     fun searhCity(@Body body: City): Flowable<CityResponse>

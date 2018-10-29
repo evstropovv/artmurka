@@ -39,7 +39,7 @@ class CheckoutRequest @Inject constructor(val apiModule: ApiRetrofit, val ucoz :
     }
 
 
-    override fun postCheckout(telephone: String, msg: String, email: String, pay: String, delivery: String): Call<CheckoutResponse> {
+    override fun postCheckout(telephone: String, msg: String, email: String, pay: String, delivery: String): Single<CheckoutResponse> {
 
         val mapForUcozModule = TreeMap<String, String>()
         mapForUcozModule["mode"] = "order"
@@ -61,8 +61,6 @@ class CheckoutRequest @Inject constructor(val apiModule: ApiRetrofit, val ucoz :
         mapForUcozModule["fld3"] = encodeEmail!!
 
         val confForRequest2 = ucoz.get("POST", "uapi/shop/checkout/", mapForUcozModule)
-        Log.d("Log.d", Gson().toJson(confForRequest2))
-
 
         val reqBodyMap = HashMap<String, String>()
         reqBodyMap["oauth_signature"] = confForRequest2["oauth_signature"]!!

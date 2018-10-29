@@ -4,13 +4,10 @@ import android.util.Log
 
 import com.artmurka.artmurkaapp.BuildConfig
 import com.artmurka.artmurkaapp.data.model.modules.ApiModuleNovaPoshta
-import com.artmurka.artmurkaapp.data.model.modules.CheckoutRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.DeliveryDescription
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.OrderDesc
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.Success
 
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.PaymentDescription
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkoutresponse.CheckoutResponse
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityResponse.Datum
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityRequest.City
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityRequest.MethodProperties
@@ -18,21 +15,22 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.CityResponse
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICheckoutPresenter
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFragment
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.WarehousesRequest.WarehouseRequest
-
+import com.artmurka.artmurkaapp.domain.usecase.checkout.GetCheckoutUseCase
+import com.artmurka.artmurkaapp.domain.usecase.checkout.PostCheckoutUseCase
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.Success
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkoutresponse.CheckoutResponse
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.regex.Pattern
-
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 import javax.inject.Inject
 
-class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : BasePresenter<ICheckoutFragment>(), ICheckoutPresenter {
+class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutUseCase,
+                                            val postCheckoutUseCase: PostCheckoutUseCase) : BasePresenter<ICheckoutFragment>(), ICheckoutPresenter {
     private val isTextChanged = false
     private var deliveryList: ArrayList<String>? = null
     private var paymentList: ArrayList<String>? = null
@@ -49,57 +47,57 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
 
 
     override fun getData() {
-        val disposable = request.checkoutData.map<Success> { checkoutAllGoods -> checkoutAllGoods.success }.subscribe({ success ->
-            Log.d("Log.d", "ResponsCheck")
-            view?.showCheckout(getList(success.orderContent?.orderGoods!!))
-            view?.refreshSumPrice(success.orderData?.orderAmount?.amountRaw!!.toString())
+        getCheckoutUseCase.execute(object : DisposableObserver<Success>() {
+            override fun onComplete() {}
+            override fun onNext(success: Success) {
+                view?.showCheckout(getList(success.orderContent?.orderGoods!!))
+                view?.refreshSumPrice(success.orderData?.orderAmount?.amountRaw!!.toString())
 
-            //отображаем значения для выбора оплаты и выбора доставки
-            if (deliveryList == null) {
-                deliveryList = ArrayList()
-                paymentList = ArrayList()
+                //отображаем значения для выбора оплаты и выбора доставки
+                if (deliveryList == null) {
+                    deliveryList = ArrayList()
+                    paymentList = ArrayList()
 
-                deliveryMap = success.deliveryList
-                payMap = success.paymentList
+                    deliveryMap = success.deliveryList
+                    payMap = success.paymentList
 
-                for (i in 0 until deliveryMap!!.size + 1) {
-                    if (deliveryMap!![i.toString()] != null) {
-                        deliveryList?.add(deliveryMap!![i.toString()]!!.name!!)
+                    for (i in 0 until deliveryMap!!.size + 1) {
+                        if (deliveryMap!![i.toString()] != null) {
+                            deliveryList?.add(deliveryMap!![i.toString()]!!.name!!)
+                        }
                     }
-                }
 
-                for (i in 0 until payMap!!.size + 1) {
-                    if (payMap!![i.toString()] != null) {
-                        paymentList!!.add(payMap!![i.toString()]!!.name!!)
+                    for (i in 0 until payMap!!.size + 1) {
+                        if (payMap!![i.toString()] != null) {
+                            paymentList!!.add(payMap!![i.toString()]!!.name!!)
+                        }
                     }
+                    view?.setDataSpinner(deliveryList!!, paymentList!!)
                 }
-                view?.setDataSpinner(deliveryList!!, paymentList!!)
             }
-        }, { throwable -> })
-        disposables.add(disposable)
+
+            override fun onError(e: Throwable) {}
+        }, GetCheckoutUseCase.Params())
     }
 
 
     override fun postCheckout(telephone: String, message: String, email: String, pay: String, delivery: String) {
         Log.d("Log.d", "postCheckout")
-
-
-        val call = request.postCheckout(telephone, message, email, pay, delivery)
-        call.enqueue(object : Callback<CheckoutResponse> {
-            override fun onResponse(call: Call<CheckoutResponse>, response: Response<CheckoutResponse>) {
-                if (response.code() == 200) {
-                    if (response.body()!!.error != null) {
-                        view?.showOrderIsProcessed(response.body()?.error?.msg!!)
+        postCheckoutUseCase.execute(object : DisposableSingleObserver<CheckoutResponse>() {
+            override fun onSuccess(response: CheckoutResponse) {
+                    if (response.error != null) {
+                        view?.showOrderIsProcessed(response?.error?.msg!!)
                     }
 
-                    if (response.body()!!.success != null) {
-                        view?.showDialog(response.body()?.success?.msg!!)
+                    if (response.success != null) {
+                        view?.showDialog(response.success?.msg!!)
                     }
-                }
             }
 
-            override fun onFailure(call: Call<CheckoutResponse>, t: Throwable) {}
-        })
+            override fun onError(e: Throwable) {}
+
+        }, PostCheckoutUseCase.Params(telephone, message, email, pay, delivery))
+
     }
 
     override fun cityChanged(msg: String) {}
@@ -115,11 +113,7 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
         val expression = "^([0-9\\+]|\\(\\d{1,3}\\))[0-9\\-\\. ]{8,15}$"
         val pattern = Pattern.compile(expression)
         val matcher = pattern.matcher(phone)
-        return if (matcher.matches()) {
-            true
-        } else {
-            false
-        }
+        return matcher.matches()
     }
 
     override fun selectCity(cityPosition: Int?) {
@@ -146,7 +140,7 @@ class CheckoutPresenter @Inject constructor(val request: CheckoutRequest) : Base
 //                    view?.setWarehouses(warehouses)
 //
 //                }, { error -> })
-     //   disposables.add(disposable)
+        //   disposables.add(disposable)
     }
 
     override fun getAreas() {}

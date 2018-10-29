@@ -10,5 +10,5 @@ import retrofit2.Call
 interface ICheckoutRequest {
     val checkoutData: Observable<CheckoutAllGoods>
     fun recountCheckoutData(position: String, cnt: String): Single<CheckoutAllGoods>
-    fun postCheckout(telephoneNumber: String, adress: String, email: String, pay: String, delivery: String): Call<CheckoutResponse>
+    fun postCheckout(telephoneNumber: String, adress: String, email: String, pay: String, delivery: String): Single<CheckoutResponse>
 }
