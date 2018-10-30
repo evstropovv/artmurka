@@ -14,14 +14,8 @@ import android.widget.TextView
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
-import com.artmurka.artmurkaapp.data.model.databases.Preferences.init
-import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
-import com.google.gson.Gson
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
-
-import java.util.ArrayList
-
 
 class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishListAdapter.ViewHolder>() {
 

@@ -4,19 +4,16 @@ import android.text.Html
 import android.util.Log
 
 import com.artmurka.artmurkaapp.data.model.modules.AboutGoodsRequest
-import com.artmurka.artmurkaapp.data.model.modules.BasketRequest
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.AboutGood
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.aboutgoods.SizePhoto
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.good.Good
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.GoodsProperties
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itemlist.SuccessExample
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.IAboutGoodsPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IFragmentAboutGoods
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Basket
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
-import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.WishList
 import com.artmurka.artmurkaapp.domain.usecase.basket.ToBasketUseCase
 import com.artmurka.artmurkaapp.domain.usecase.wishlist.ToWishListUseCase
 
@@ -34,7 +31,6 @@ import javax.inject.Inject
 
 class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                                               val model2: AboutGoodsRequest,
-                                              val basket : BasketRequest,
                                               val toWishListUseCase: ToWishListUseCase,
                                               val toBasketUseCase: ToBasketUseCase ) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
     private var goodsId: String? = null
@@ -148,23 +144,11 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                     override fun onError(e: Throwable) {  }
                 }, ToWishListUseCase.Params(goodsId!!))
             }
-            R.id.ivBasket -> {
-                //кнопка добавления в корзину
-                val observable = basket.toBasket(goodsId!!)
-                observable.subscribe(object : Observer<BasketItems> {
-                    override fun onSubscribe(d: Disposable) {}
 
-                    override fun onNext(value: BasketItems) {
-                        view?.setBasketButton(true)
-                    }
+            //кнопка добавления в корзину
+            R.id.ivBasket -> toBasket(goodsId!!)
 
-                    override fun onError(e: Throwable) {}
-
-                    override fun onComplete() {}
-                })
-            }
-            else -> {
-            }
+            else -> {}
         }
     }
 
