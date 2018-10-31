@@ -20,36 +20,36 @@ class BasketPresenter @Inject constructor(val getItemIsBasketUseCase: GetItemsIn
 
     fun getDataForbasket() {
         getItemIsBasketUseCase.execute(object : DisposableObserver<Basket>() {
-            override fun onComplete() {  }
+            override fun onComplete() {}
             override fun onNext(t: Basket) {
                 view?.showItemsInBasket(t.items!!)
                 view?.makeMessageInvisible(true)
                 view?.showPrice(t?.total!!)
             }
-            override fun onError(e: Throwable) {  }
+
+            override fun onError(e: Throwable) {}
         }, GetItemsInBasketUseCase.Params())
     }
 
     fun onRefreshItem(position: String, id: String) {
-        recountCheckoutUseCase.execute(object : DisposableSingleObserver<CheckoutAllGoods>(){
-            override fun onError(e: Throwable) {  }
-            override fun onSuccess(t: CheckoutAllGoods) { }
+        recountCheckoutUseCase.execute(object : DisposableSingleObserver<CheckoutAllGoods>() {
+            override fun onError(e: Throwable) {}
+            override fun onSuccess(t: CheckoutAllGoods) {}
         }, RecountCheckoutUseCase.Params(position, id))
     }
 
     fun addToWishList(id: String) {
         toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
-            override fun onComplete() {
-
-            }
-
-            override fun onNext(t: List<GoodsListDescription>) {
-
-            }
-
-            override fun onError(e: Throwable) {
-
-            }
+            override fun onComplete() {}
+            override fun onNext(t: List<GoodsListDescription>) {}
+            override fun onError(e: Throwable) {}
         }, ToWishListUseCase.Params(id))
+    }
+
+    override fun onDropView() {
+        getItemIsBasketUseCase.dispose()
+        recountCheckoutUseCase.dispose()
+        toWishListUseCase.dispose()
+        super.onDropView()
     }
 }

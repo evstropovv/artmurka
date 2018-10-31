@@ -82,4 +82,11 @@ class ItemListPresenter @Inject constructor(val getItemtListUseCase: GetItemList
         return goodsProperties
     }
 
+    override fun onDropView() {
+        getItemtListUseCase.dispose()
+        toWishListUseCase.dispose()
+        toBasketUseCase.dispose()
+        super.onDropView()
+    }
+
 }

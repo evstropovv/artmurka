@@ -9,49 +9,49 @@
     android:layout_centerHorizontal="true"
     card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="0dp">
+    card_view:cardElevation="1dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:layout_gravity="center">
 
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivItemPhoto"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:scaleType="fitCenter"
-            android:paddingBottom="2dp"
+            android:layout_height="120dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:paddingBottom="2dp"
+            android:scaleType="fitCenter"
             app:riv_corner_radius="10dip"
-            app:riv_mutate_background="true"   />
+            app:riv_mutate_background="true" />
+
         <TextView
             android:id="@+id/tvCategoryName"
-            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_above="@+id/tvPrice"
             android:layout_alignLeft="@+id/tvPrice"
             android:layout_alignStart="@+id/tvPrice"
+            android:paddingLeft="10dp"
             android:paddingTop="2dp"
             android:text="Білі штуковини на гойдальці"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvPrice"
-            android:paddingLeft="10dp"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:paddingLeft="10dp"
             android:text="500 грн."
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -65,15 +65,15 @@
 
         <ImageView
             android:id="@+id/ivDeleteFromWish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            card_view:srcCompat="@drawable/delete_empty"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="14dp"
             android:layout_marginRight="14dp"
-            android:layout_marginEnd="14dp" />
+            android:layout_marginTop="13dp"
+            card_view:srcCompat="@drawable/delete_empty" />
 
     </RelativeLayout>
 

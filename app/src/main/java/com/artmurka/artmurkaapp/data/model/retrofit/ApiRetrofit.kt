@@ -75,7 +75,7 @@ interface ApiRetrofit {
     fun recountCheckoutData(@FieldMap param: HashMap<String, String>): Single<CheckoutAllGoods>
 
     @GET("uapi/shop/invoices/")
-    fun getInvoises(@QueryMap param: HashMap<String, String>): Call<Orders>
+    fun getInvoises(@QueryMap param: HashMap<String, String>): Observable<Orders>
 
     @FormUrlEncoded
     @POST("uapi/shop/checkout/")

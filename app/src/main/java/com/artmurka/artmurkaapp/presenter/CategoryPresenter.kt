@@ -41,4 +41,10 @@ class CategoryPresenter @Inject constructor(val model: GetCategoriesUseCase, val
         }, GetCategoriesUseCase.Params())
 
     }
+
+    override fun onDropView() {
+        model.dispose()
+        super.onDropView()
+    }
 }
+

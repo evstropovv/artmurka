@@ -85,13 +85,13 @@ class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutU
         Log.d("Log.d", "postCheckout")
         postCheckoutUseCase.execute(object : DisposableSingleObserver<CheckoutResponse>() {
             override fun onSuccess(response: CheckoutResponse) {
-                    if (response.error != null) {
-                        view?.showOrderIsProcessed(response?.error?.msg!!)
-                    }
+                if (response.error != null) {
+                    view?.showOrderIsProcessed(response?.error?.msg!!)
+                }
 
-                    if (response.success != null) {
-                        view?.showDialog(response.success?.msg!!)
-                    }
+                if (response.success != null) {
+                    view?.showDialog(response.success?.msg!!)
+                }
             }
 
             override fun onError(e: Throwable) {}
@@ -201,5 +201,11 @@ class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutU
             answerList.add(desc!!)
         }
         return answerList
+    }
+
+    override fun onDropView() {
+        getCheckoutUseCase.dispose()
+        postCheckoutUseCase.dispose()
+        super.onDropView()
     }
 }

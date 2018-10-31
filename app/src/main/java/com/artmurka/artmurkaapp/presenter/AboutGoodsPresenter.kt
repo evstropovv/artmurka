@@ -32,7 +32,7 @@ import javax.inject.Inject
 class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                                               val model2: AboutGoodsRequest,
                                               val toWishListUseCase: ToWishListUseCase,
-                                              val toBasketUseCase: ToBasketUseCase ) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
+                                              val toBasketUseCase: ToBasketUseCase) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
     private var goodsId: String? = null
 
     override fun getDataAboutGoods(id: String) {
@@ -50,13 +50,10 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                 view?.getDataForRecyclerView(response.body()?.success?.entryCat?.url!!)
                 view?.setWishButton(if (aboutGood.entryIsInWishlist == 1) true else false)
                 view?.setBasketButton(if (aboutGood.entryIsInBasket > 0) true else false)
-                Log.d("Log.d", "getdata - success")
             }
 
             override fun onFailure(call: Call<AboutGood>, t: Throwable) {
                 try2(id)
-                Log.d("Log.d", "getdata - fail")
-                Log.d("Log.d", t.message)
             }
         })
     }
@@ -76,12 +73,9 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                 view?.getDataForRecyclerView(response.body()?.success?.entryCat?.url!!)
                 view?.setWishButton(if (aboutGood.entryIsInWishlist == 1) true else false)
                 view?.setBasketButton(if (aboutGood.entryIsInBasket!! > 0) true else false)
-                Log.d("Log.d", "getdata2 - success")
             }
 
             override fun onFailure(call: Call<Good>, t: Throwable) {
-                Log.d("Log.d", "getdata2 - fail")
-                Log.d("Log.d", t.message)
             }
         })
     }
@@ -89,7 +83,7 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
     fun toWishList(goodsId: String) {
         toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
             override fun onComplete() {}
-            override fun onNext(t: List<GoodsListDescription>) { }
+            override fun onNext(t: List<GoodsListDescription>) {}
 
             override fun onError(e: Throwable) {}
         }, ToWishListUseCase.Params(goodsId))
@@ -98,7 +92,9 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
     fun toBasket(goodId: String) {
         toBasketUseCase.execute(object : DisposableObserver<Basket>() {
             override fun onComplete() {}
-            override fun onNext(t: Basket) { }
+            override fun onNext(t: Basket) {
+                view?.setBasketButton(true)
+            }
 
             override fun onError(e: Throwable) {}
         }, ToBasketUseCase.Params(goodId))
@@ -109,13 +105,11 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
         val observable = model.getItemList(category, "1")
         observable.subscribe(object : Observer<SuccessExample> {
             override fun onSubscribe(d: Disposable) {}
-
             override fun onNext(value: SuccessExample) {
                 view?.setDataForRecyclerView(getGoodsList(value?.success?.goodsList!!))
             }
 
             override fun onError(e: Throwable) {}
-
             override fun onComplete() {}
         })
     }
@@ -124,11 +118,11 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
         when (buttonId) {
             R.id.ivWish -> {
                 //добавить в список желаний
-                toWishListUseCase.execute(object : DisposableObserver< List<GoodsListDescription> >() {
+                toWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
                     override fun onComplete() {}
-                    override fun onNext(ts:  List<GoodsListDescription> ) {
+                    override fun onNext(ts: List<GoodsListDescription>) {
                         try {
-                            for (value in ts ) {
+                            for (value in ts) {
                                 if (value.entryId == goodsId) {
                                     view?.setWishButton(true)
                                     break
@@ -141,14 +135,16 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                             e.printStackTrace()
                         }
                     }
-                    override fun onError(e: Throwable) {  }
+
+                    override fun onError(e: Throwable) {}
                 }, ToWishListUseCase.Params(goodsId!!))
             }
 
             //кнопка добавления в корзину
             R.id.ivBasket -> toBasket(goodsId!!)
 
-            else -> {}
+            else -> {
+            }
         }
     }
 
@@ -168,5 +164,11 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
             goodsProperties.add(map[key]!!)
         }
         return goodsProperties
+    }
+
+    override fun onDropView() {
+        toWishListUseCase.dispose()
+        toBasketUseCase.dispose()
+        super.onDropView()
     }
 }
