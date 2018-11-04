@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
-    card_view:cardUseCompatPadding="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="1dp">
+    card_view:cardElevation="1dp"
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="200dp"
         android:layout_gravity="center">
 
 
         <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivItemPhoto"
             android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:paddingBottom="2dp"
@@ -28,52 +29,53 @@
             app:riv_corner_radius="10dip"
             app:riv_mutate_background="true" />
 
-        <TextView
-            android:id="@+id/tvCategoryName"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/flCategoryName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tvPrice"
-            android:layout_alignLeft="@+id/tvPrice"
-            android:layout_alignStart="@+id/tvPrice"
-            android:paddingLeft="10dp"
-            android:paddingTop="2dp"
-            android:text="Білі штуковини на гойдальці"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/ivToBasket"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/tvCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/futura_light"
+                android:gravity="start"
+                android:maxEms="10"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="Білі штуковини на гойдальці" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_above="@+id/flCategoryName"
+            android:layout_alignLeft="@+id/flCategoryName"
+            android:layout_alignStart="@+id/flCategoryName"
             android:paddingLeft="10dp"
             android:text="500 грн."
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ivToBasket"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignStart="@+id/ivDeleteFromWish"
-            android:layout_below="@+id/ivItemPhoto"
-            card_view:srcCompat="@drawable/basketfill" />
-
-        <ImageView
-            android:id="@+id/ivDeleteFromWish"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="13dp"
-            card_view:srcCompat="@drawable/delete_empty" />
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            card_view:srcCompat="@drawable/heart_small_orange" />
 
     </RelativeLayout>
 

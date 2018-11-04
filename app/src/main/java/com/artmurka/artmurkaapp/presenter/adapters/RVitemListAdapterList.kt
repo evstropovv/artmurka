@@ -41,7 +41,7 @@ class RVitemListAdapterList(internal var ctx: Context) : RecyclerView.Adapter<RV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvItemName.text = successList[position].entryTitle
-        holder.tvPrice.text = successList[position].entryPrice?.priceRaw + " грн."
+        holder.tvPrice.text = successList[position].entryPrice?.priceRaw + ctx.resources.getString(R.string.money)
         Picasso.with(ctx).load(successList[position].entryPhoto?.defPhoto?.thumb).into(holder.ivItemPhoto)
         holder.ivToBasket.setImageResource(R.drawable.basketfill_small_grey)
 
@@ -73,9 +73,15 @@ class RVitemListAdapterList(internal var ctx: Context) : RecyclerView.Adapter<RV
 
             isHeartOrange = !isHeartOrange
 
-            when(isHeartOrange){
-                true ->  holder.ivToWish.setImageResource(R.drawable.heart_small_orange)
-                false -> holder.ivToWish.setImageResource(R.drawable.heart_small)
+            when (isHeartOrange) {
+                true -> {
+                    holder.ivToWish.setImageResource(R.drawable.heart_small_orange)
+                    successList[position].entryIsInWishlist = 1
+                }
+                false -> {
+                    holder.ivToWish.setImageResource(R.drawable.heart_small)
+                    successList[position].entryIsInWishlist = 0
+                }
             }
         }
     }

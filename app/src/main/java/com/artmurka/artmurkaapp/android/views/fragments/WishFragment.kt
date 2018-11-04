@@ -3,6 +3,7 @@ package com.artmurka.artmurkaapp.android.views.fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.wishList.GoodsListDescription
 import com.artmurka.artmurkaapp.presenter.adapters.RVwishListAdapter
@@ -47,7 +48,7 @@ class WishFragment : BaseFragment(), IWishFragment, RVwishListAdapter.OnItemClic
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        rvWish.layoutManager = LinearLayoutManager(context)
+        rvWish.layoutManager = GridLayoutManager(context, 2)
         recyclerAdapter = RVwishListAdapter(context!!)
         recyclerAdapter?.clickListener = this
         rvWish.adapter = recyclerAdapter

@@ -16,10 +16,17 @@ import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
+import javax.xml.datatype.DatatypeConstants.SECONDS
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
+
 
 class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishListAdapter.ViewHolder>() {
 
     var clickListener: RVwishListAdapter.OnItemClickListener? = null
+
+    var clickedItems = HashSet<Int>()
 
     private var wishList: MutableList<GoodsListDescription>? = mutableListOf<GoodsListDescription>()
 
@@ -35,30 +42,41 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
         return ViewHolder(view)
     }
 
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
-//        if (payloads.isEmpty()) {
-//            super.onBindViewHolder(holder, position, payloads)
-//        }
-//    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         Picasso.with(ctx).load(wishList!![position].entryPhoto?.defPhoto?.thumb).into(holder.ivItemPhoto)
         holder.tvCategoryName.text = wishList!![position].entryTitle
-        holder.tvPrice.text = wishList!![position].entryPrice?.priceRaw.toString() + " грн."
+        holder.tvPrice.text = wishList!![position].entryPrice?.priceRaw.toString() + ctx.resources.getString(R.string.money)
         holder.ivToBasket.setOnClickListener {
-            if (wishList!![position].entryIsInBasket == 0L) {
-                clickListener?.toBasket(wishList?.get(position)?.entryId!!)
-                clickListener?.deleteFromWishOnline(wishList?.get(position)?.entryId!!)
-                removeInList(position)
+
+            holder.ivToBasket.startAnimation(com.artmurka.artmurkaapp.other.RotateAnimation().getAnimation())
+
+            if (clickedItems.contains(position)) {
+                clickedItems.remove(position)
+                holder.ivToBasket.setImageDrawable(ctx.resources.getDrawable(R.drawable.heart_small_orange))
+            } else {
+                clickedItems.add(position)
+                holder.ivToBasket.setImageDrawable(ctx.resources.getDrawable(R.drawable.heart_small))
             }
-        }
-        holder.ivDeleteFromWish.setOnClickListener {
-            clickListener?.deleteFromWishOnline(wishList?.get(position)?.entryId!!)
-            removeInList(position)
+
+            //delay добавлен что б у пользователя было время одуматься, и нажать еще раз кнопку что бы отменить удаление
+            Completable.complete()
+                    .delay(300, TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnComplete {
+                        if (clickedItems.contains(position)) {
+                            clickedItems.remove(position)
+                            clickListener?.deleteFromWishOnline(wishList?.get(position)?.entryId!!)
+                            removeInList(position)
+                        }
+                    }.doOnError { t ->
+                        Log.e("Log.e", t.message)
+                    }
+                    .subscribe()
+
         }
     }
-
 
 
     private fun removeInList(position: Int) {
@@ -76,7 +94,6 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
         var tvPrice: TextView
         var ivItemPhoto: RoundedImageView
         var ivToBasket: ImageView
-        var ivDeleteFromWish: ImageView
 
 
         init {
@@ -84,7 +101,6 @@ class RVwishListAdapter(private val ctx: Context) : RecyclerView.Adapter<RVwishL
             tvPrice = itemView.findViewById<View>(R.id.tvPrice) as TextView
             ivItemPhoto = itemView.findViewById<View>(R.id.ivItemPhoto) as RoundedImageView
             ivToBasket = itemView.findViewById<View>(R.id.ivToBasket) as ImageView
-            ivDeleteFromWish = itemView.findViewById<View>(R.id.ivDeleteFromWish) as ImageView
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, SelectedGoodActivity::class.java)
                 val id = wishList!![adapterPosition].entryId
