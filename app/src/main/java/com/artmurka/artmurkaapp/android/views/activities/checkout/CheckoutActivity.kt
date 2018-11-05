@@ -44,7 +44,7 @@ class CheckoutActivity : AppCompatActivity(), ICheckoutActivity, HasSupportFragm
         if (fragment == null) {
             fragmentZakaz = FragmenZakaz()
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.pager, fragmentZakaz, "ZAKAZ")
+                    .replace(R.id.pager, fragmentZakaz!!, "ZAKAZ")
                     .commit()
             supportFragmentManager.executePendingTransactions()
         } else {

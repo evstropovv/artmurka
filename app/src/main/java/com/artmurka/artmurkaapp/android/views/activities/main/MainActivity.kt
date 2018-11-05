@@ -79,12 +79,13 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         runtimePermission()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                tvBigName?.text = data.extras!!.getString("name")
-                tvSmallName?.text = data.extras!!.getString("email")
+                tvBigName?.text = data?.extras!!.getString("name")
+                tvSmallName?.text = data?.extras!!.getString("email")
                 btnLogin?.text = "Вийти"
                 Preferences.isLogin = true
             }
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         if (fragment == null) {
             fragCategory = CategoryFragment()
             fm.beginTransaction()
-                    .replace(R.id.mainFrame, fragCategory, TAG)
+                    .replace(R.id.mainFrame, fragCategory!!, TAG)
                     //without backstacktrace
                     .commitAllowingStateLoss()
             fm.executePendingTransactions()

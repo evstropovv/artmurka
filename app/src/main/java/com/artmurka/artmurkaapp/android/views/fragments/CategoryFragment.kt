@@ -70,7 +70,7 @@ class CategoryFragment : BaseFragment(), ICategoryFragment {
 
         if (dataFragment == null) {
             dataFragment = SaveDataFragment()
-            fragmentManager?.beginTransaction()?.add(dataFragment, "data")
+            fragmentManager?.beginTransaction()?.add(dataFragment!!, "data")
                     ?.commit()
         }
 

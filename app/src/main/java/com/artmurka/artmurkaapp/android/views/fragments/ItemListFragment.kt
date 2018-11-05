@@ -91,11 +91,11 @@ class ItemListFragment : BaseFragment(), IItemListFragment, RVitemListAdapter.On
             recyclerView.adapter = recyclerAdapter
 
             recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                 }
 
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     presenter.getCategoriesData(++curPage, url!!, sort!!, order!!)
                 }
@@ -111,7 +111,7 @@ class ItemListFragment : BaseFragment(), IItemListFragment, RVitemListAdapter.On
 
 
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     totalItemCount = recyclerLayoutManager.itemCount
                     Log.d("Log.d", totalItemCount.toString() + "")
@@ -135,11 +135,11 @@ class ItemListFragment : BaseFragment(), IItemListFragment, RVitemListAdapter.On
             recyclerView!!.adapter = recyclerGridAdapter
 
             recyclerView!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                 }
 
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     presenter.getCategoriesData(++curPage, url!!, sort!!, order!!)
                 }

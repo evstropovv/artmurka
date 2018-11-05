@@ -47,7 +47,7 @@ class FragmentCategoryChilds : Fragment(), ICategoryFragment {
         if (dataFragment == null) {
             dataFragment = SaveDataFragment()
             fm.beginTransaction()
-                    .add(dataFragment, "data")
+                    .add(dataFragment!!, "data")
                     .commit()
         }
         val bundle = arguments
