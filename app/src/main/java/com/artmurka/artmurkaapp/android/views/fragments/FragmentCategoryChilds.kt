@@ -65,7 +65,7 @@ class FragmentCategoryChilds : Fragment(), ICategoryFragment {
         recyclerView!!.adapter = recyclerAdapter
 
         if (dataFragment!!.childs != null) {
-            showCategories(dataFragment!!.childs)
+            showCategories(dataFragment?.childs!!)
         } else {
             if (isOnline) {
                 showCategories(childs!!)

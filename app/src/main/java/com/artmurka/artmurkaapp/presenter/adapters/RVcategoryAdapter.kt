@@ -12,6 +12,7 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.other.Const
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity
+import com.artmurka.artmurkaapp.other.FragmentType
 import com.squareup.picasso.Picasso
 
 import java.util.ArrayList
@@ -65,12 +66,12 @@ class RVcategoryAdapter(private val ctx: Context) : RecyclerView.Adapter<RVcateg
                 val activity = v.context as MainActivity
                 if (successList[adapterPosition].childs!!.size > 0) {
                     //если есть под-категории - открывает фрагмент с подгатегориями
-                    activity.changeFragment(Const.CATEGORY_CHILDS_FRAGMENT,
+                    activity.changeFragment(FragmentType.CATEGORY_CHILDS_FRAGMENT,
                             successList[adapterPosition].catUrl,
                             successList[adapterPosition].childs, successList[adapterPosition].catName)
                 } else {
 
-                    activity.changeFragment(Const.ITEM_LIST_FRAGMENT, successList[adapterPosition].catUrl, null, null)
+                    activity.changeFragment(FragmentType.ITEM_LIST_FRAGMENT, successList[adapterPosition].catUrl, null, null)
 
                 }
             }

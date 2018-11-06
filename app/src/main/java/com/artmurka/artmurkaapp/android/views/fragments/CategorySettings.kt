@@ -18,7 +18,9 @@ import com.artmurka.artmurkaapp.presenter.CategorySettingsPresenter
 import com.artmurka.artmurkaapp.presenter.Presenter
 import com.artmurka.artmurkaapp.presenter.PresenterView
 import com.artmurka.artmurkaapp.R
+import com.artmurka.artmurkaapp.android.views.activities.main.IMainActivity
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICategorySettings
+import com.artmurka.artmurkaapp.other.FragmentType
 import kotlinx.android.synthetic.main.fragment_category_settings.*
 
 import java.util.HashMap
@@ -59,7 +61,7 @@ class CategorySettings : BaseFragment(), ICategorySettings {
                     settings["order"] = "ask"
                 }
                 R.id.rbExpensive -> {
-                    Toast.makeText(view.context,  resources.getString(R.string.fragment_category_settings_expensive), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, resources.getString(R.string.fragment_category_settings_expensive), Toast.LENGTH_SHORT).show()
                     settings["sort"] = "price"
                     settings["order"] = "desc"
                 }
@@ -84,21 +86,17 @@ class CategorySettings : BaseFragment(), ICategorySettings {
                     settings["order"] = "ask"
                 }
             }
-            presenter!!.applyChanges(settings, currentSelect!!)
+            presenter.applyChanges(settings, currentSelect!!)
             Preferences.listSettings = currentSelect
-            val fm = activity!!.supportFragmentManager
-            val itemList = ItemListFragment()
+
             val bundle = Bundle()
             bundle.putString("url", Preferences.listUrl)
             bundle.putString("sort", settings["sort"])
             bundle.putString("order", settings["order"])
             bundle.putInt("list", currentSelect!!)
-            itemList.arguments = bundle
-            fm.beginTransaction()
-                    .replace(R.id.mainFrame, itemList)
-                    .addToBackStack(null)
-                    .commit()
-            fm.executePendingTransactions()
+
+            (activity as IMainActivity).changeFragment(FragmentType.ITEM_LIST_FRAGMENT, bndl = bundle)
+
         }
     }
 

@@ -1,0 +1,13 @@
+package com.artmurka.artmurkaapp.other
+
+enum class FragmentType {
+    CATEGORY_CHILDS_FRAGMENT,
+    CATEGORY_FRAGMENT,
+    ITEM_LIST_FRAGMENT,
+    BASKET_FRAGMENT,
+    WISH_FRAGMENT,
+    ORDER_FRAGMENT,
+    PAY_FRAGMENT,
+    DELIVERY,
+    CATEGORY_SETTINGS_FRAGMENT
+}

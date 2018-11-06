@@ -90,8 +90,8 @@ class CategoryFragment : BaseFragment(), ICategoryFragment {
         recyclerView!!.adapter = recyclerAdapter
 
 
-        if (dataFragment!!.categories != null) {
-            showCategories(dataFragment!!.categories)
+        if (dataFragment?.categories != null) {
+            showCategories(dataFragment?.categories!!)
 
         } else {
             if (!isOnline) {
