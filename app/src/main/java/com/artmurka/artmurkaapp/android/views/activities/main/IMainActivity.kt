@@ -8,4 +8,9 @@ import com.artmurka.artmurkaapp.presenter.PresenterView
 
 interface IMainActivity : PresenterView {
     fun changeFragment(fragment: FragmentType, url: String? = null, childs: List<Success>? = null, catName: String? = null, bndl: Bundle? = null)
+    fun showToast(msg: String)
+    fun exit()
+    fun makeCall()
+
+
 }

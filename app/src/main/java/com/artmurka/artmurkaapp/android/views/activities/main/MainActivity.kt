@@ -30,8 +30,8 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import com.artmurka.artmurkaapp.other.Const
 import com.artmurka.artmurkaapp.R
-import com.artmurka.artmurkaapp.android.views.fragments.CategoryFragment
 import com.artmurka.artmurkaapp.other.FragmentType
+import com.artmurka.artmurkaapp.presenter.MainPresenter
 
 import java.util.ArrayList
 
@@ -51,11 +51,14 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
+    @Inject
+    lateinit var presenter: MainPresenter
+
+
     override fun supportFragmentInjector(): AndroidInjector<Fragment>? = dispatchingAndroidInjector
 
     var navController: NavController? = null
 
-    internal var doubleBackToExitPressedOnce = false
     lateinit var tvBigName: TextView
     lateinit var tvSmallName: TextView
     lateinit var btnLogin: Button
@@ -67,9 +70,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         setContentView(R.layout.activity_main)
         Preferences.init(this)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
         setUI()
-
         runtimePermission()
     }
 
@@ -119,27 +120,27 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         btnLogin.text = if (Preferences.isLogin!!) "Вийти" else "Увійти"
         btnLogin.setOnClickListener { v ->
             if (!Preferences.isLogin!!) {
-                btnLogin!!.text = "Логін"
+                btnLogin?.text = "Логін"
                 val intent = Intent(v.context, LoginActivity::class.java)
                 startActivityForResult(intent, 1)
             } else {
-                val builder = AlertDialog.Builder(v.context)
-                builder.setMessage(Preferences.name + ", ?? ???????? ?? ?????? ????? ? ????????")
-                        .setPositiveButton("???") { dialog, id ->
-                            Preferences.consumerKey = BuildConfig.CONSUMER_KEY
-                            Preferences.consumerSecret = BuildConfig.CONSUMER_SECRET
-                            Preferences.oauthToken = BuildConfig.OAUTH_TOKEN
-                            Preferences.oauthTokenSecret = BuildConfig.OAUTH_TOKEN_SECRET
-                            Preferences.name = "ArtMurka"
-                            Preferences.email = "artmurka.com"
-                            tvBigName.text = "???-?????"
-                            tvSmallName.text = "artmurka.com"
-                            Preferences.isLogin = false
-                        }
-                        .setNegativeButton("??") { dialog, id -> }
-                builder.create().show()
+//                val builder = AlertDialog.Builder(v.context)
+//                builder.setMessage(Preferences.name + ", Ви дійсно хочете вийти з аккаунта?")
+//                        .setPositiveButton("Так") { dialog, id ->
+//                            Preferences.consumerKey = BuildConfig.CONSUMER_KEY
+//                            Preferences.consumerSecret = BuildConfig.CONSUMER_SECRET
+//                            Preferences.oauthToken = BuildConfig.OAUTH_TOKEN
+//                            Preferences.oauthTokenSecret = BuildConfig.OAUTH_TOKEN_SECRET
+//                            Preferences.name = "ArtMurka"
+//                            Preferences.email = "artmurka.com"
+//                            tvBigName.text = "ArtMurka"
+//                            tvSmallName.text = "artmurka.com"
+//                            Preferences.isLogin = false
+//                        }
+//                        .setNegativeButton("Ні") { dialog, id -> }
+//                builder.create().show()
             }
-        }
+    }
     }
 
     override fun changeFragment(fragment: FragmentType, url: String?, childs: List<Success>?, catName: String?, bndl: Bundle?) {
@@ -193,7 +194,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         return false
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) { //???????? ?????? ?? ??????????
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
@@ -212,53 +213,32 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         }
     }
 
+    override fun showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        val id = item.itemId
-        if (id == R.id.nav_catalog) {
-            changeFragment(FragmentType.CATEGORY_FRAGMENT)
-        } else if (id == R.id.nav_basket) {
-            changeFragment(FragmentType.BASKET_FRAGMENT)
-        } else if (id == R.id.nav_desires) {
-            changeFragment(FragmentType.WISH_FRAGMENT)
-        } else if (id == R.id.nav_orders) {
-            changeFragment(FragmentType.ORDER_FRAGMENT)
-        } else if (id == R.id.nav_individual) {
-            changeFragment(FragmentType.PAY_FRAGMENT)
-        } else if (id == R.id.nav_consulting) {
-            val call = Uri.parse("tel:" + Const.TEL_NUMBER)
-            val surf = Intent(Intent.ACTION_DIAL, call)
-            startActivity(surf)
-        } else if (id == R.id.delivery) {
-            changeFragment(FragmentType.DELIVERY)
-        }
+        presenter.onNavigationItemSelected(item)
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 
     override fun onBackPressed() {
-
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-
-            if(navController?.popBackStack()!!){
+            if (navController?.popBackStack()!!) {
                 navController?.navigateUp()
-            }  else if (!doubleBackToExitPressedOnce) {
-                this.doubleBackToExitPressedOnce = true
-                Toast.makeText(this, resources.getString(R.string.exit), Toast.LENGTH_SHORT).show()
-
-                Completable.complete().delay(2, TimeUnit.SECONDS).doOnComplete {
-                    doubleBackToExitPressedOnce = false
-                }.subscribe()
             } else {
-                super.onBackPressed()
-                return
+                presenter.onBackPressed()
             }
         }
     }
 
+    override fun exit() = finish()
 
+    override fun makeCall() {
+        val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
+        startActivity(surf)
+    }
 
 }
