@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -23,8 +24,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-
-import com.artmurka.artmurkaapp.BuildConfig
 import com.artmurka.artmurkaapp.android.views.activities.login.LoginActivity
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
@@ -68,6 +67,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         setTheme(R.style.SplashTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        presenter.takeView(this)
         Preferences.init(this)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setUI()
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
 //                        .setNegativeButton("Ні") { dialog, id -> }
 //                builder.create().show()
             }
-    }
+        }
     }
 
     override fun changeFragment(fragment: FragmentType, url: String?, childs: List<Success>?, catName: String?, bndl: Bundle?) {
@@ -152,8 +152,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
                 navController?.navigate(R.id.fragmentCategoryChilds, bundle)
             }
 
-            FragmentType.CATEGORY_FRAGMENT ->
-                navController?.navigate(R.id.categoryFragment, bundle)
+            FragmentType.CATEGORY_FRAGMENT -> navController?.navigate(R.id.categoryFragment, bundle)
 
             FragmentType.ITEM_LIST_FRAGMENT -> {
                 bundle.putString("url", url)
@@ -163,23 +162,17 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
                 navController?.navigate(R.id.itemListFragment, bundle)
             }
 
-            FragmentType.BASKET_FRAGMENT ->
-                navController?.navigate(R.id.basketFragment)
+            FragmentType.BASKET_FRAGMENT -> navController?.navigate(R.id.basketFragment)
 
-            FragmentType.WISH_FRAGMENT ->
-                navController?.navigate(R.id.wishFragment)
+            FragmentType.WISH_FRAGMENT -> navController?.navigate(R.id.wishFragment)
 
-            FragmentType.ORDER_FRAGMENT ->
-                navController?.navigate(R.id.orderFragment)
+            FragmentType.ORDER_FRAGMENT -> navController?.navigate(R.id.orderFragment)
 
-            FragmentType.CATEGORY_SETTINGS_FRAGMENT ->
-                navController?.navigate(R.id.categorySettings)
+            FragmentType.CATEGORY_SETTINGS_FRAGMENT -> navController?.navigate(R.id.categorySettings)
 
-            FragmentType.PAY_FRAGMENT ->
-                navController?.navigate(R.id.orderFragment)
+            FragmentType.PAY_FRAGMENT -> navController?.navigate(R.id.orderFragment)
 
-            FragmentType.DELIVERY ->
-                navController?.navigate(R.id.deliveryFragment)
+            FragmentType.DELIVERY -> navController?.navigate(R.id.deliveryFragment)
         }
     }
 
@@ -226,19 +219,14 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            if (navController?.popBackStack()!!) {
-                navController?.navigateUp()
-            } else {
+            if (navController?.currentDestination?.id == null) {
                 presenter.onBackPressed()
+            } else {
+                navController?.navigateUp()
             }
         }
     }
 
-    override fun exit() = finish()
-
-    override fun makeCall() {
-        val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
-        startActivity(surf)
-    }
+    override fun exit() = this.finish()
 
 }
