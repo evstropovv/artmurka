@@ -3,19 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_catalog"
+            android:id="@+id/categoryFragment"
             android:icon="@drawable/table"
             android:title="Каталог"/>
         <item
-            android:id="@+id/nav_basket"
+            android:id="@+id/basketFragment"
             android:icon="@drawable/cart_outline"
             android:title="Корзинка"/>
         <item
-            android:id="@+id/nav_desires"
+            android:id="@+id/wishFragment"
             android:icon="@drawable/heartoutline"
             android:title="Мої бажання"/>
         <item
-            android:id="@+id/nav_orders"
+            android:id="@+id/orderFragment"
             android:icon="@drawable/reorderhorizontal"
             android:title="Мої замовлення"/>
     </group>
@@ -23,12 +23,12 @@
     <item android:title="Додатково">
         <menu>
             <item
-                android:id="@+id/delivery"
+                android:id="@+id/deliveryFragment"
                 android:icon="@drawable/delivery"
                 android:title="Доставка та оплата"/>
 
             <item
-                android:id="@+id/nav_individual"
+                android:id="@+id/individualFragment"
                 android:icon="@drawable/feather"
                 android:title="Індивідуальне замовлення"/>
             <item

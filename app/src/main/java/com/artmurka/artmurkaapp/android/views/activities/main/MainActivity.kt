@@ -24,6 +24,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.artmurka.artmurkaapp.android.views.activities.login.LoginActivity
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
@@ -42,6 +43,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.Completable
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.design_navigation_menu.*
 import java.util.concurrent.TimeUnit
 
 
@@ -210,9 +212,18 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        presenter.onNavigationItemSelected(item)
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
+        when (item.itemId) {
+            R.id.nav_consulting -> {
+                presenter.makeCall()
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return true
+            }
+            else-> {
+                NavigationUI.setupWithNavController(nav_view, navController!!)
+                return super.onOptionsItemSelected(item)
+            }
+        }
+
     }
 
     override fun onBackPressed() {
