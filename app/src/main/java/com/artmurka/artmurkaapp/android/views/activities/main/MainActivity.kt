@@ -3,24 +3,16 @@ package com.artmurka.artmurkaapp.android.views.activities.main
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Parcelable
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -28,23 +20,19 @@ import androidx.navigation.ui.NavigationUI
 import com.artmurka.artmurkaapp.android.views.activities.login.LoginActivity
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
-import com.artmurka.artmurkaapp.other.Const
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.other.FragmentType
 import com.artmurka.artmurkaapp.presenter.MainPresenter
-
+import com.tbruyelle.rxpermissions2.RxPermissions
 import java.util.ArrayList
-
 import javax.inject.Inject
-
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import io.reactivex.Completable
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.design_navigation_menu.*
-import java.util.concurrent.TimeUnit
+import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
@@ -55,14 +43,11 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
     @Inject
     lateinit var presenter: MainPresenter
 
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment>? = dispatchingAndroidInjector
 
+    var header: View? = null
     var navController: NavController? = null
-
-    lateinit var tvBigName: TextView
-    lateinit var tvSmallName: TextView
-    lateinit var btnLogin: Button
+    val rxPermissions = RxPermissions(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -73,17 +58,15 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         Preferences.init(this)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setUI()
-        runtimePermission()
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                tvBigName?.text = data?.extras!!.getString("name")
-                tvSmallName?.text = data?.extras!!.getString("email")
-                btnLogin?.text = "Вийти"
+                header?.tvBigName?.text = data?.extras!!.getString("name")
+                header?.tvSmallName?.text = data?.extras!!.getString("email")
+                header?.btnLogin?.text = "Вийти"
                 Preferences.isLogin = true
             }
         }
@@ -113,14 +96,11 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
 
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
-        val header = navigationView.getHeaderView(0)
-        tvSmallName = header.findViewById<TextView>(R.id.tvSmallName)
-        tvBigName = header.findViewById<TextView>(R.id.tvBigName)
-        btnLogin = header.findViewById<Button>(R.id.btnLogin)
-        tvSmallName?.text = Preferences.email
-        tvBigName.text = Preferences.name
-        btnLogin.text = if (Preferences.isLogin!!) "Вийти" else "Увійти"
-        btnLogin.setOnClickListener { v ->
+        header = navigationView.getHeaderView(0)
+        header?.tvSmallName?.text = Preferences.email
+        header?.tvBigName?.text = Preferences.name
+        header?.btnLogin?.text = if (Preferences.isLogin!!) "Вийти" else "Увійти"
+        header?.btnLogin?.setOnClickListener { v ->
             if (!Preferences.isLogin!!) {
                 btnLogin?.text = "Логін"
                 val intent = Intent(v.context, LoginActivity::class.java)
@@ -153,9 +133,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
                 bundle.putString("catName", catName)
                 navController?.navigate(R.id.fragmentCategoryChilds, bundle)
             }
-
             FragmentType.CATEGORY_FRAGMENT -> navController?.navigate(R.id.categoryFragment, bundle)
-
             FragmentType.ITEM_LIST_FRAGMENT -> {
                 bundle.putString("url", url)
                 bndl?.let {
@@ -163,62 +141,24 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
                 }
                 navController?.navigate(R.id.itemListFragment, bundle)
             }
-
             FragmentType.BASKET_FRAGMENT -> navController?.navigate(R.id.basketFragment)
-
             FragmentType.WISH_FRAGMENT -> navController?.navigate(R.id.wishFragment)
-
             FragmentType.ORDER_FRAGMENT -> navController?.navigate(R.id.orderFragment)
-
             FragmentType.CATEGORY_SETTINGS_FRAGMENT -> navController?.navigate(R.id.categorySettings)
-
             FragmentType.PAY_FRAGMENT -> navController?.navigate(R.id.orderFragment)
-
             FragmentType.DELIVERY -> navController?.navigate(R.id.deliveryFragment)
-        }
-    }
-
-    private fun runtimePermission(): Boolean {
-        if (Build.VERSION.SDK_INT >= 23
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE),
-                    100)
-            return true
-        }
-        return false
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 100) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[2] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[3] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[4] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[5] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[6] == PackageManager.PERMISSION_GRANTED) {
-
-                changeFragment(FragmentType.CATEGORY_FRAGMENT)
-                setUI()
-            } else {
-                runtimePermission()
-            }
         }
     }
 
     override fun showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_consulting -> {
                 presenter.makeCall()
-                drawer_layout.closeDrawer(GravityCompat.START)
                 return true
             }
-            else-> {
+            else -> {
                 NavigationUI.setupWithNavController(nav_view, navController!!)
                 return super.onOptionsItemSelected(item)
             }
@@ -239,5 +179,4 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
     }
 
     override fun exit() = this.finish()
-
 }

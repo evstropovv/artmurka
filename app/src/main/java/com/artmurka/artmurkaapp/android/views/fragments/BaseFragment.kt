@@ -9,12 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.artmurka.artmurkaapp.presenter.Presenter
 import com.artmurka.artmurkaapp.presenter.PresenterView
+import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.disposables.CompositeDisposable
 
 
 abstract class BaseFragment : Fragment() {
+    var rxPermissions: RxPermissions? = null
+    var compositeDisposable: CompositeDisposable? = null
+
 
     override fun onAttach(context: Context?) {
+        rxPermissions = RxPermissions(this)
+        compositeDisposable = CompositeDisposable()
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
@@ -43,6 +50,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onDestroy() {
         getFragmentPresenter().destroy()
+        compositeDisposable?.dispose()
 
         super.onDestroy()
     }
@@ -51,5 +59,6 @@ abstract class BaseFragment : Fragment() {
 
     @LayoutRes
     protected abstract fun getLayout(): Int
+
     protected abstract fun getFragmentPresenter(): Presenter<out PresenterView>
 }

@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.android.views.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
@@ -32,12 +33,16 @@ import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICheckoutFrag
 import com.artmurka.artmurkaapp.presenter.Presenter
 import com.artmurka.artmurkaapp.presenter.PresenterView
 import com.google.gson.Gson
+import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.tbruyelle.rxpermissions2.RxPermissions
 
 import java.util.ArrayList
 
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.fragment_zakaz.*
+import kotlinx.android.synthetic.main.zakaz.*
 import java.util.function.BiFunction
 import javax.inject.Inject
 
@@ -50,42 +55,25 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
     override fun getLayout(): Int = R.layout.fragment_zakaz
 
     override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
-
-    lateinit var linearNovaPoshta: LinearLayout
-    lateinit var linerPikup: LinearLayout
-    lateinit var linearPayReciever: LinearLayout
-    lateinit var linerLiqPay: LinearLayout
-    private var tvChoseAdress: TextView? = null
-    private var tvPikup: TextView? = null
-    private var autoCompleteWarehouse: AutoCompleteTextView? = null
-    private var autoCompleteCities: AutoCompleteTextView? = null
-    private var linearPib: LinearLayout? = null
-    private var linearPay: LinearLayout? = null
     private var npCheck = false
     private var liqPayCheck = false
     private var wasPayChoised = false
-    private var cardCity: CardView? = null
-    private var btnPostCheckout: Button? = null
-    private var etPhone: EditText? = null
-    private var etName: EditText? = null
-    private var etLastName: EditText? = null
-    private var etPatr: EditText? = null
+
     private var obsCity: Observable<CharSequence>? = null
     private var obsWarehouse: Observable<CharSequence>? = null
     private var obsName: Observable<CharSequence>? = null
     private var obsLastName: Observable<CharSequence>? = null
     private var obsName2: Observable<CharSequence>? = null
     private var obsPhone: Observable<CharSequence>? = null
-    private val checkoutButtonDisposable: Disposable? = null
 
     @SuppressLint("CheckResult")
     private fun loadRxBindings() {
-        obsCity = RxTextView.textChanges(autoCompleteCities!!)
-        obsWarehouse = RxTextView.textChanges(autoCompleteWarehouse!!)
-        obsName = RxTextView.textChanges(etName!!)
-        obsLastName = RxTextView.textChanges(etLastName!!)
-        obsName2 = RxTextView.textChanges(etPatr!!)
-        obsPhone = RxTextView.textChanges(etPhone!!)
+        obsCity = RxTextView.textChanges(spinnerCity)
+        obsWarehouse = RxTextView.textChanges(autocompleteWarehouse)
+        obsName = RxTextView.textChanges(etName)
+        obsLastName = RxTextView.textChanges(etLastName)
+        obsName2 = RxTextView.textChanges(etPatronymic)
+        obsPhone = RxTextView.textChanges(etPhone)
 //TODO !!!
 //        Observable.combineLatest(obsName!!, obsLastName!!, obsName2!!, obsPhone!!, obsCity!!, obsWarehouse!!) BiFunction{ name , lastname, obsName2, obsPhone, obsCity, obsWarehouse -> name
 //        }
@@ -102,7 +90,6 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
 //        }
 //                .subscribe { aBoolean -> btnPostCheckout!!.isEnabled = aBoolean!! }
 
-
 //        Observable.combineLatest<CharSequence, CharSequence, CharSequence, CharSequence, CharSequence, CharSequence, Boolean>(obsName!!, obsLastName!!, obsName2!!, obsPhone!!, obsCity!!, obsWarehouse!!)
 //
 //        { name , lastname, obsName2, obsPhone, obsCity, obsWarehouse ->
@@ -118,53 +105,22 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
 //                .subscribe { aBoolean -> btnPostCheckout!!.isEnabled = aBoolean!! }
     }
 
-    override fun onStop() {
-        super.onStop()
 
+    override fun onStart() {
+        initUI()
+        super.onStart()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        val view = inflater.inflate(R.layout.fragment_zakaz, container, false)
-        // Inflate the layout for this fragment
-        initUI(view)
-
-
-
-
-        autoCompleteWarehouse = view.findViewById<View>(R.id.autocompleteWarehouse) as AutoCompleteTextView
-
-        btnPostCheckout!!.setOnClickListener {
+    private fun initUI() {
+        btnZakaz.setOnClickListener {
             presenter.postCheckout(etPhone!!.text.toString(),
                     etName!!.text.toString() + " " + etLastName!!.text.toString()
-                            + autoCompleteCities!!.text.toString() + autoCompleteWarehouse!!.text.toString(),
+                            + spinnerCity.text.toString() + spinnerCity.text.toString(),
                     "va.evstropov@gmail.com", if (npCheck) "2" else "1", if (liqPayCheck) "2" else "1"
             )
         }
-
-        return view
-    }
-
-    private fun initUI(view: View) {
-        linearPib = view.findViewById<View>(R.id.linearPib) as LinearLayout
-        linearPay = view.findViewById<View>(R.id.linearPay) as LinearLayout
-        linearNovaPoshta = view.findViewById<View>(R.id.linearNovaPoshta) as LinearLayout
-        linerPikup = view.findViewById<View>(R.id.linerPikup) as LinearLayout
-        tvChoseAdress = view.findViewById<View>(R.id.tvChoseAdress) as TextView
-        tvPikup = view.findViewById<View>(R.id.tvPikup) as TextView
-        cardCity = view.findViewById<View>(R.id.cardCity) as CardView
-        linearPayReciever = view.findViewById<View>(R.id.linearPayReciever) as LinearLayout
-        linerLiqPay = view.findViewById<View>(R.id.linerLiqPay) as LinearLayout
-        btnPostCheckout = view.findViewById<View>(R.id.btnZakaz) as Button
-        etPhone = view.findViewById<View>(R.id.etPhone) as EditText
-        etName = view.findViewById<View>(R.id.etName) as EditText
-        etLastName = view.findViewById<View>(R.id.etLastName) as EditText
-        etPatr = view.findViewById<View>(R.id.etPatronymic) as EditText
-        //   spinnerRegion = (SearchableSpinner) view.findViewById(R.id.spinnerRegion);
-        autoCompleteCities = view.findViewById<View>(R.id.spinnerCity) as AutoCompleteTextView
-        autoCompleteCities!!.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> presenter.selectCity(i) }
-        autoCompleteCities!!.addTextChangedListener(object : TextWatcher {
+        spinnerCity.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> presenter.selectCity(i) }
+        spinnerCity.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
             }
@@ -205,11 +161,18 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
             npCheck = true
             setCheckNP(npCheck)
         }
-        linerLiqPay.setOnClickListener {
-            liqPayCheck = true
-            setLiqPaqCheck(liqPayCheck)
-            wasPayChoised = true
-        }
+
+        compositeDisposable?.add(RxView.clicks(linerLiqPay)
+                .compose(rxPermissions?.ensure(Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.READ_PHONE_STATE))
+                .subscribe { granted ->
+                    if (granted) {
+                        liqPayCheck = true
+                        setLiqPaqCheck(liqPayCheck)
+                        wasPayChoised = true
+                    }
+                })
+
         linearPayReciever.setOnClickListener {
             liqPayCheck = false
             setLiqPaqCheck(liqPayCheck)
@@ -280,12 +243,9 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
 
     override fun setCities(cityList: List<String>) {
         Log.d("Log.d", Gson().toJson(cityList))
-
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, cityList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        autoCompleteCities!!.setAdapter(adapter)
-
+        spinnerCity.setAdapter(adapter)
         adapter.notifyDataSetChanged()
     }
 
@@ -293,8 +253,7 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
         Log.d("Log.d", Gson().toJson(warehouses))
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, warehouses)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        autoCompleteWarehouse!!.setAdapter(adapter)
+        autocompleteWarehouse.setAdapter(adapter)
         adapter.notifyDataSetChanged()
     }
 
@@ -311,5 +270,5 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
         val intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
     }
-}// Required empty public constructor
+}
 

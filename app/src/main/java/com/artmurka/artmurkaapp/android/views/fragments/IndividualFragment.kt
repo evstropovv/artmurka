@@ -4,24 +4,13 @@ package com.artmurka.artmurkaapp.android.views.fragments
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.provider.MediaStore
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
-import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ISendEmailPresenter
 import com.artmurka.artmurkaapp.presenter.SendEmailPresenter
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ISendEmailFragment
@@ -29,6 +18,7 @@ import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ISendEmailFra
 import android.app.Activity.RESULT_OK
 import com.artmurka.artmurkaapp.presenter.Presenter
 import com.artmurka.artmurkaapp.presenter.PresenterView
+import kotlinx.android.synthetic.main.fragment_individual.*
 import javax.inject.Inject
 
 
@@ -37,30 +27,14 @@ class IndividualFragment : BaseFragment(), ISendEmailFragment {
     @Inject
     lateinit var presenter: SendEmailPresenter
 
-    lateinit var btnAddPhoto: Button
-    lateinit var btnSend: Button
-    lateinit var etName: EditText
-    lateinit var etEmail: EditText
-    lateinit var etMsg: EditText
-    lateinit var tvChosingPhoto: TextView
     var photoUri: String? = null
 
     override fun getLayout(): Int = R.layout.fragment_individual
     override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_individual, container, false)
-
-        btnAddPhoto = view.findViewById<View>(R.id.btnAddPhoto) as Button
-        btnSend = view.findViewById<View>(R.id.btnSend) as Button
-        etName = view.findViewById<View>(R.id.etName) as EditText
-        etEmail = view.findViewById<View>(R.id.etEmail) as EditText
+    override fun onStart() {
+        super.onStart()
         etEmail.setText(if (Preferences.email.matches("artmurka.com".toRegex())) "" else Preferences.email)
-        etMsg = view.findViewById<View>(R.id.etMsg) as EditText
-        tvChosingPhoto = view.findViewById<View>(R.id.tvChosingFile) as TextView
-
         btnAddPhoto.setOnClickListener {
             if (fileLoadPermission()) {
                 choseFile()
@@ -76,15 +50,12 @@ class IndividualFragment : BaseFragment(), ISendEmailFragment {
                             + etName.text.toString() + " -name. " +
                             "" + etMsg.text.toString())
                 } else {
-
                     presenter.sendEmail(etEmail.text.toString() + " -email "
                             + etName.text.toString() + " -name. " +
                             "" + etMsg.text.toString(), photoUri!!)
                 }
             }
         }
-
-        return view
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

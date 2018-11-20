@@ -1,11 +1,14 @@
 package com.artmurka.artmurkaapp.presenter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ICategoryPresenter
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ICategoryFragment
 import com.artmurka.artmurkaapp.domain.usecase.categories.GetCategoriesUseCase
+import com.artmurka.artmurkaapp.other.Const
 import java.util.ArrayList
 import javax.inject.Inject
 import io.reactivex.observers.DisposableObserver
@@ -15,6 +18,12 @@ class CategoryPresenter @Inject constructor(val model: GetCategoriesUseCase, val
 
 
     private var successList: ArrayList<Success>? = null
+
+    fun makeCall() {
+        val call = Uri.parse("tel:" + Const.TEL_NUMBER)
+        val surf = Intent(Intent.ACTION_DIAL, call)
+        context.startActivity(surf)
+    }
 
     override fun getCategoriesData(isUpdate: Boolean) {
         if (successList == null) {

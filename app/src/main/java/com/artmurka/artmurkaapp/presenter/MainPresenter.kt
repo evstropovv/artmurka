@@ -12,6 +12,7 @@ import com.artmurka.artmurkaapp.android.views.activities.main.IMainActivity
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import com.artmurka.artmurkaapp.other.Const
 import com.artmurka.artmurkaapp.other.FragmentType
+import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class MainPresenter @Inject constructor(val ctx: Context) : BasePresenter<IMainA
 
 
     fun makeCall(){
-        val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
+         val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
         ctx.startActivity(surf)
     }
 
