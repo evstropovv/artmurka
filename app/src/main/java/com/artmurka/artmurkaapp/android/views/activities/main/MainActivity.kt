@@ -1,6 +1,5 @@
 package com.artmurka.artmurkaapp.android.views.activities.main
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Parcelable
@@ -10,6 +9,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.DrawerLayout
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -35,7 +36,7 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
-class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
 
     var header: View? = null
     var navController: NavController? = null
-    val rxPermissions = RxPermissions(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -78,11 +78,19 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.card) {
-            this.changeFragment(FragmentType.BASKET_FRAGMENT)
-        }
-        if (item.itemId == R.id.sort) {
-            this.changeFragment(FragmentType.CATEGORY_SETTINGS_FRAGMENT)
+        when (item.itemId) {
+            android.R.id.home -> {
+                navController?.popBackStack()
+                return true
+            }
+            R.id.card -> {
+                this.changeFragment(FragmentType.BASKET_FRAGMENT)
+                return true
+            }
+            R.id.sort -> {
+                this.changeFragment(FragmentType.CATEGORY_SETTINGS_FRAGMENT)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -91,12 +99,19 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
         setSupportActionBar(toolbar)
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+        drawer_layout.addDrawerListener(toggle)
+        NavigationUI.setupWithNavController(nav_view, navController!!)
+        NavigationUI.setupActionBarWithNavController(this, navController!!, drawer_layout)
+        toolbar.setNavigationOnClickListener {
+            if (!navController?.popBackStack()!!) {
+                if (!drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.openDrawer(GravityCompat.START)
+                }
+            }
+        }
 
-        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
-        navigationView.setNavigationItemSelectedListener(this)
-        header = navigationView.getHeaderView(0)
+        header = nav_view.getHeaderView(0)
         header?.tvSmallName?.text = Preferences.email
         header?.tvBigName?.text = Preferences.name
         header?.btnLogin?.text = if (Preferences.isLogin!!) "Вийти" else "Увійти"
@@ -133,7 +148,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
                 bundle.putString("catName", catName)
                 navController?.navigate(R.id.fragmentCategoryChilds, bundle)
             }
-            FragmentType.CATEGORY_FRAGMENT -> navController?.navigate(R.id.categoryFragment, bundle)
+            FragmentType.CATEGORY_FRAGMENT -> navController?.navigate(R.id.categoryFragment)
             FragmentType.ITEM_LIST_FRAGMENT -> {
                 bundle.putString("url", url)
                 bndl?.let {
@@ -151,20 +166,6 @@ class MainActivity : AppCompatActivity(), IMainActivity, NavigationView.OnNaviga
     }
 
     override fun showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_consulting -> {
-                presenter.makeCall()
-                return true
-            }
-            else -> {
-                NavigationUI.setupWithNavController(nav_view, navController!!)
-                return super.onOptionsItemSelected(item)
-            }
-        }
-
-    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
