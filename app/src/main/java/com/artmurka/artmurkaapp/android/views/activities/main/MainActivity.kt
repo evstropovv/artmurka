@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
-class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -102,12 +102,14 @@ class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjec
         toggle.syncState()
         drawer_layout.addDrawerListener(toggle)
         NavigationUI.setupWithNavController(nav_view, navController!!)
-        NavigationUI.setupActionBarWithNavController(this, navController!!, drawer_layout)
+        // NavigationUI.setupActionBarWithNavController(this, navController!!, drawer_layout)
+
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        navigationView.setNavigationItemSelectedListener(this)
+
         toolbar.setNavigationOnClickListener {
-            if (!navController?.popBackStack()!!) {
-                if (!drawer_layout.isDrawerOpen(GravityCompat.START)) {
-                    drawer_layout.openDrawer(GravityCompat.START)
-                }
+            if (!drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                drawer_layout.openDrawer(GravityCompat.START)
             }
         }
 
@@ -163,6 +165,12 @@ class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjec
             FragmentType.PAY_FRAGMENT -> navController?.navigate(R.id.orderFragment)
             FragmentType.DELIVERY -> navController?.navigate(R.id.deliveryFragment)
         }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        presenter.onNavigationItemSelected(item)
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
     }
 
     override fun showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()

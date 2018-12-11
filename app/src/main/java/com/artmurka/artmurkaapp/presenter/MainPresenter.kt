@@ -33,6 +33,19 @@ class MainPresenter @Inject constructor(val ctx: Context) : BasePresenter<IMainA
         }
     }
 
+    fun onNavigationItemSelected(item: MenuItem) {
+        val id = item.itemId
+        when (id) {
+            R.id.categoryFragment -> view?.changeFragment(FragmentType.CATEGORY_FRAGMENT)
+            R.id.basketFragment -> view?.changeFragment(FragmentType.BASKET_FRAGMENT)
+            R.id.wishFragment -> view?.changeFragment(FragmentType.WISH_FRAGMENT)
+            R.id.orderFragment -> view?.changeFragment(FragmentType.ORDER_FRAGMENT)
+            R.id.individualFragment -> view?.changeFragment(FragmentType.PAY_FRAGMENT)
+            R.id.nav_consulting -> makeCall()
+            R.id.deliveryFragment -> view?.changeFragment(FragmentType.DELIVERY)
+        }
+    }
+
 
     fun makeCall(){
          val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
