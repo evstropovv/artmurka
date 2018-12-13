@@ -1,17 +1,21 @@
 package com.artmurka.artmurkaapp.android.views.activities.di
 
+import android.app.Activity
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.artmurka.artmurkaapp.android.di.scopes.PerActivity
 import com.artmurka.artmurkaapp.android.views.activities.main.MainActivity
+import com.artmurka.artmurkaapp.android.views.dialogs.ExitAcDialog
 import com.artmurka.artmurkaapp.android.views.fragments.*
 import com.artmurka.artmurkaapp.android.views.fragments.di.*
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 import dagger.android.support.FragmentKey
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 
 @PerActivity
@@ -41,7 +45,7 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
         (DeliveryFragmentComponent::class),
 //        (FragmentAboutGoodsComponent::class),
         (FragmentCategoryChildsComponent::class),
- //       (FragmentDescriptionGoodsComponent::class),
+        //       (FragmentDescriptionGoodsComponent::class),
         (FragmentZakazComponent::class),
         (IndividualFragmentComponent::class),
         (ItemListFragmentComponent::class),
@@ -80,7 +84,6 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
         fun fragmentCategoryChildsGoodstComponent(builder: FragmentCategoryChildsComponent.Builder): AndroidInjector.Factory<out Fragment>
 
 
-
         @Binds
         @IntoMap
         @FragmentKey(value = FragmenZakaz::class)
@@ -114,6 +117,12 @@ interface MainActivityComponent : AndroidInjector<MainActivity> {
 
     @Module
     class ProvideModule {
+
+        @Provides
+        @PerActivity
+        fun provideDialogExit(activity: AppCompatActivity): ExitAcDialog {
+            return ExitAcDialog(activity)
+        }
 
     }
 

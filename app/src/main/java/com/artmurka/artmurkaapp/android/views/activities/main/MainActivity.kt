@@ -22,6 +22,7 @@ import com.artmurka.artmurkaapp.android.views.activities.login.LoginActivity
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import com.artmurka.artmurkaapp.R
+import com.artmurka.artmurkaapp.android.views.dialogs.ExitAcDialog
 import com.artmurka.artmurkaapp.other.FragmentType
 import com.artmurka.artmurkaapp.presenter.MainPresenter
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -43,6 +44,9 @@ class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjec
 
     @Inject
     lateinit var presenter: MainPresenter
+
+    @Inject
+    lateinit var exitAcDialog : ExitAcDialog
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment>? = dispatchingAndroidInjector
 
@@ -102,7 +106,6 @@ class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjec
         toggle.syncState()
         drawer_layout.addDrawerListener(toggle)
         NavigationUI.setupWithNavController(nav_view, navController!!)
-        // NavigationUI.setupActionBarWithNavController(this, navController!!, drawer_layout)
 
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
@@ -123,21 +126,13 @@ class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjec
                 val intent = Intent(v.context, LoginActivity::class.java)
                 startActivityForResult(intent, 1)
             } else {
-//                val builder = AlertDialog.Builder(v.context)
-//                builder.setMessage(Preferences.name + ", Ви дійсно хочете вийти з аккаунта?")
-//                        .setPositiveButton("Так") { dialog, id ->
-//                            Preferences.consumerKey = BuildConfig.CONSUMER_KEY
-//                            Preferences.consumerSecret = BuildConfig.CONSUMER_SECRET
-//                            Preferences.oauthToken = BuildConfig.OAUTH_TOKEN
-//                            Preferences.oauthTokenSecret = BuildConfig.OAUTH_TOKEN_SECRET
-//                            Preferences.name = "ArtMurka"
-//                            Preferences.email = "artmurka.com"
-//                            tvBigName.text = "ArtMurka"
-//                            tvSmallName.text = "artmurka.com"
-//                            Preferences.isLogin = false
-//                        }
-//                        .setNegativeButton("Ні") { dialog, id -> }
-//                builder.create().show()
+                exitAcDialog.exitAcDialogListener = object :ExitAcDialog.ExitDialogListener{
+                    override fun onYesPressed() {
+                        tvBigName.text = "ArtMurka"
+                        tvSmallName.text = "artmurka.com"
+                    }
+                }
+                exitAcDialog.show()
             }
         }
     }
