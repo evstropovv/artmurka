@@ -7,7 +7,6 @@ import com.artmurka.artmurkaapp.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_fullphoto.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 
 /**
  * Created by Vasya on 11.02.2018.
@@ -24,7 +23,7 @@ class FullPhotoActivity : AppCompatActivity() {
             Picasso.with(this)
                     .load(bundle.getString("image"))
                     .placeholder(R.drawable.splash)
-                    .into(imageView, object : Callback {
+                    .into(zoomIV, object : Callback {
                         override fun onSuccess() {}
                         override fun onError() {}
                     })

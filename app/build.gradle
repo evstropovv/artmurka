@@ -25,23 +25,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildTypes.each {
-        it.buildConfigField 'String', 'URL', url
-        it.buildConfigField 'String', 'CONSUMER_KEY', consumer_key
-        it.buildConfigField 'String', 'CONSUMER_SECRET', consumer_secret
-        it.buildConfigField 'String', 'OAUTH_TOKEN', oauth_token
-        it.buildConfigField 'String', 'OAUTH_TOKEN_SECRET', oauth_token_secret
-        it.buildConfigField 'String', 'OAUTH_VERSION', oauth_version
-        it.buildConfigField 'String', 'PUBLIC_PAY_KEY', public_pay_key
-        it.buildConfigField 'String', 'PRIVATE_PAY_KEY', private_pay_key
-        it.buildConfigField 'String', 'APPLICATION_EMAIL', application_email
-        it.buildConfigField 'String', 'APPLICATION_EMAIL_PASSWORD', application_email_password
-        it.buildConfigField 'String', 'SEND_TO_EMAIL', send_to_email
-        it.buildConfigField 'String', 'LOGIN_CONSUMER_KEY', login_consumer_key
-        it.buildConfigField 'String', 'LOGIN_CONSUMER_SECRET', login_consumer_secret
-        it.buildConfigField 'String', 'NP_API_KEY', np_api_key
 
-    }
     androidExtensions {
         experimental = true
     }
@@ -61,7 +45,7 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    def nav_version = "1.0.0-alpha07"
+    def nav_version = "1.0.0-alpha08"
 
     //navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
@@ -78,7 +62,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-plus:10.0.1'
 
     //rxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
@@ -89,9 +73,9 @@ dependencies {
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     //network
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
     //images
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -112,7 +96,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.15"
 
     //multidex
-    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
 
     //test
     testImplementation 'junit:junit:4.12'
