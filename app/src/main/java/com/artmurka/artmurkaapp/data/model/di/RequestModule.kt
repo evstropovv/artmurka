@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.data.model.di
 
-import com.artmurka.artmurkaapp.BuildConfig
+import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.data.model.modules.UcozApiModule
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
 import dagger.Module
@@ -37,7 +37,7 @@ class RequestModule {
     fun provideRetrofit(interceptor: OkHttpClient): ApiRetrofit {
         val retrofit = Retrofit.Builder()
                 .client(interceptor)
-                .baseUrl(BuildConfig.URL)
+                .baseUrl(Constants.url())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()

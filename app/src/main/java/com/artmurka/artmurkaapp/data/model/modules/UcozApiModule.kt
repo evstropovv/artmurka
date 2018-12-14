@@ -1,9 +1,7 @@
 package com.artmurka.artmurkaapp.data.model.modules
 
 import android.util.Base64
-import android.util.Log
-
-import com.artmurka.artmurkaapp.BuildConfig
+import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 
 import java.io.UnsupportedEncodingException
@@ -19,14 +17,14 @@ import javax.crypto.spec.SecretKeySpec
 
 class UcozApiModule {
 
-    private val URL = BuildConfig.URL //artmurka
+    private val URL = Constants.url() //artmurka
 
     private var CONSUMER_KEY: String? = null
     private var CONSUMER_SECRET: String? = null
     private var OAUTH_TOKEN: String? = null
     private var OAUTH_TOKEN_SECRET: String? = null
 
-    private val OAUTH_VERSION = BuildConfig.OAUTH_VERSION
+    private val OAUTH_VERSION = Constants.oauthversion()
     private val OAUTH_SIGNATURE_METHOD = "HMAC-SHA1"
 
     // in PHP -> time();

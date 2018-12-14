@@ -51,6 +51,11 @@ android {
     }
 
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/anim'] } }
+    externalNativeBuild {
+        cmake {
+            path file('src/CMakeLists.txt')
+        }
+    }
 }
 
 dependencies {

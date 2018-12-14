@@ -3,16 +3,11 @@ package com.artmurka.artmurkaapp.presenter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AlertDialog
 import android.view.MenuItem
-import android.widget.Toast
-import com.artmurka.artmurkaapp.BuildConfig
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.main.IMainActivity
-import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import com.artmurka.artmurkaapp.other.Const
 import com.artmurka.artmurkaapp.other.FragmentType
-import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

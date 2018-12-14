@@ -1,8 +1,8 @@
 package com.artmurka.artmurkaapp.presenter
 
 import android.content.Context
+import com.artmurka.artmurkaapp.Constants
 
-import com.artmurka.artmurkaapp.BuildConfig
 import com.artmurka.artmurkaapp.presenter.interfaces_presenter.ISendEmailPresenter
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.ISendEmailFragment
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail
@@ -13,9 +13,9 @@ class SendEmailPresenter @Inject constructor(val context: Context) : BasePresent
 
     override fun sendEmail(msg: String) {
         BackgroundMail.newBuilder(context)
-                .withUsername(BuildConfig.APPLICATION_EMAIL)
-                .withPassword(BuildConfig.APPLICATION_EMAIL_PASSWORD)
-                .withMailto(BuildConfig.SEND_TO_EMAIL)
+                .withUsername(Constants.applicationemail())
+                .withPassword(Constants.applicationemail_password())
+                .withMailto(Constants.sendtoemail())
                 .withType(BackgroundMail.TYPE_PLAIN)
                 .withSubject("Індивідуальне замовлення")
                 .withBody(msg)
@@ -26,9 +26,9 @@ class SendEmailPresenter @Inject constructor(val context: Context) : BasePresent
 
     override fun sendEmail(msg: String, fileuri: String) {
         BackgroundMail.newBuilder(context)
-                .withUsername(BuildConfig.APPLICATION_EMAIL)
-                .withPassword(BuildConfig.APPLICATION_EMAIL_PASSWORD)
-                .withMailto(BuildConfig.SEND_TO_EMAIL)
+                .withUsername(Constants.applicationemail())
+                .withPassword(Constants.applicationemail_password())
+                .withMailto(Constants.sendtoemail())
                 .withType(BackgroundMail.TYPE_PLAIN)
                 .withAttachments(fileuri)
                 .withSubject("Індивідуальне замовлення + додаток")

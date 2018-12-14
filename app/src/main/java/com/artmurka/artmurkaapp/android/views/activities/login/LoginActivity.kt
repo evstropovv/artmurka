@@ -13,7 +13,7 @@ import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.artmurka.artmurkaapp.BuildConfig
+import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import com.artmurka.artmurkaapp.presenter.loginucoz.UcozApi
 import com.artmurka.artmurkaapp.presenter.loginucoz.User
@@ -48,8 +48,8 @@ class LoginActivity : AppCompatActivity() {
         webView!!.settings.userAgentString = "Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0"
         webView!!.settings.builtInZoomControls = true
         webView!!.settings.displayZoomControls = false
-        service = ServiceBuilder(BuildConfig.LOGIN_CONSUMER_KEY)
-                .apiSecret(BuildConfig.LOGIN_CONSUMER_SECRET)
+        service = ServiceBuilder(Constants.loginconsumerkey())
+                .apiSecret(Constants.loginconsumersecret())
                 .debug()
                 .build(UcozApi)
 
@@ -141,8 +141,8 @@ class LoginActivity : AppCompatActivity() {
             override fun onPostExecute(result: OAuth1AccessToken) {
                 val intent = Intent()
                 if (result.token != null) {
-                    Preferences.consumerKey = BuildConfig.LOGIN_CONSUMER_KEY
-                    Preferences.consumerSecret = BuildConfig.LOGIN_CONSUMER_SECRET
+                    Preferences.consumerKey = Constants.loginconsumerkey()
+                    Preferences.consumerSecret = Constants.loginconsumersecret()
                     Preferences.oauthToken = result.token
                     Preferences.oauthTokenSecret = result.tokenSecret
                     Preferences.name = user!!.nickname!!

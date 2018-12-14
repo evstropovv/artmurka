@@ -12,11 +12,14 @@ import dagger.android.HasServiceInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class ArtmurkaApplication : Application() , HasActivityInjector, HasSupportFragmentInjector, HasServiceInjector {
+class ArtmurkaApplication : Application(), HasActivityInjector, HasSupportFragmentInjector, HasServiceInjector {
 
-    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Activity>
-    @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
-    @Inject lateinit var serviceInjector: DispatchingAndroidInjector<Service>
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Activity>
+    @Inject
+    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    @Inject
+    lateinit var serviceInjector: DispatchingAndroidInjector<Service>
 
     override fun onCreate() {
         super.onCreate()
