@@ -31,3 +31,8 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
+      - run:
+          name: Build debug APK
+          command: |
+                 ./gradlew :app:assembleDebug
+                 ./gradlew :app:assembleDebugAndroidTest
