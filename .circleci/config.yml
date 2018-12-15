@@ -1,4 +1,7 @@
 version: 2
+general:
+  artifacts:
+    - /home/ubuntu/artmurka/app/build/outputs/apk/
 jobs:
   build:
     working_directory: ~/code
@@ -32,7 +35,8 @@ jobs:
       - store_test_results:
           path: app/build/test-results
       - run:
-          name: Build debug APK
-          command: |
-                 ./gradlew :app:assembleDebug
-                 ./gradlew :app:assembleDebugAndroidTest
+          name: Build Debug
+          command: ./gradlew assembleDebug
+      - store_artifacts:
+          path: app/build/outputs/apk/debug/app-debug.apk
+          destination: app-debug.apk
