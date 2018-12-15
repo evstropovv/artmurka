@@ -18,7 +18,7 @@ import com.artmurka.artmurkaapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchableSpinner extends Spinner implements View.OnTouchListener,
+public class SearchableSpinner extends android.support.v7.widget.AppCompatSpinner implements View.OnTouchListener,
         SearchableListDialog.SearchableItem {
 
     public static final int NO_ITEM_SELECTED = -1;
