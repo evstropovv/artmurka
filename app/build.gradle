@@ -40,6 +40,9 @@ android {
             path file('src/CMakeLists.txt')
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
