@@ -31,6 +31,10 @@
         <activity android:name=".android.views.activities.fullphoto.FullPhotoActivity" />
         <activity android:name="ua.privatbank.paylibliqpay.CheckoutActivity" />
         <activity android:name=".android.views.activities.login.LoginActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="74b6b751fefe01af489547a2ef5bcba63d191b05"
+            />
     </application>
 
 </manifest>

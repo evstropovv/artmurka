@@ -9,8 +9,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.widget.DrawerLayout
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +23,6 @@ import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.dialogs.ExitAcDialog
 import com.artmurka.artmurkaapp.other.FragmentType
 import com.artmurka.artmurkaapp.presenter.MainPresenter
-import com.tbruyelle.rxpermissions2.RxPermissions
 import java.util.ArrayList
 import javax.inject.Inject
 import dagger.android.AndroidInjection
@@ -35,7 +32,8 @@ import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
-
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,6 +55,7 @@ class MainActivity : AppCompatActivity(), IMainActivity, HasSupportFragmentInjec
         AndroidInjection.inject(this)
         setTheme(R.style.SplashTheme)
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
         presenter.takeView(this)
         Preferences.init(this)
