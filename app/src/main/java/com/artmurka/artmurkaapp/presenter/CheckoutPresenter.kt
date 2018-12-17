@@ -85,16 +85,15 @@ class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutU
         Log.d("Log.d", "postCheckout")
         postCheckoutUseCase.execute(object : DisposableSingleObserver<CheckoutResponse>() {
             override fun onSuccess(response: CheckoutResponse) {
-                if (response.error != null) {
-                    view?.showOrderIsProcessed(response?.error?.msg!!)
+                response.error?.let {
+                    view?.showOrderIsProcessed(response.error.msg!!)
                 }
-
-                if (response.success != null) {
-                    view?.showDialog(response.success?.msg!!)
+                response.success?.let {
+                    view?.showDialog(response.success.msg!!)
                 }
             }
 
-            override fun onError(e: Throwable) {}
+            override fun onError(e: Throwable) {Log.d("Log.d", e.message)}
 
         }, PostCheckoutUseCase.Params(telephone, message, email, pay, delivery))
 

@@ -1,13 +1,14 @@
-# artmurka
+# artmurka 
+[![Circle CI](https://circleci.com/gh/evstropovv/artmurka.svg?style=shield)](https://circleci.com/gh/evstropovv/artmurka/tree/master)
+
 Android client for online store http://artmurka.com (api - ucoz.ru)
-I am trying to build this project with MVP architecture :)
 
 This project uses such technologies:
-  Rxjava2
-  Rxandroid2
-  Picasso
-  Retrofit2 
-  OAuth 1.0a
+  Rxjava2,
+  Rxandroid2,
+  Picasso,
+  Retrofit2,
+  OAuth 1.0a,
   LiqPay SDK
   
   Some screenshots:

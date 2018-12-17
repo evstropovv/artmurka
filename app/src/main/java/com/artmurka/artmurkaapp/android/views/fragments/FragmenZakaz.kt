@@ -2,28 +2,16 @@ package com.artmurka.artmurkaapp.android.views.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.support.v7.widget.CardView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.OrderDesc
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.Areas.AreasResponse
 import com.artmurka.artmurkaapp.presenter.CheckoutPresenter
@@ -35,15 +23,12 @@ import com.artmurka.artmurkaapp.presenter.PresenterView
 import com.google.gson.Gson
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.tbruyelle.rxpermissions2.RxPermissions
-
 import java.util.ArrayList
-
 import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.Observables
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_zakaz.*
 import kotlinx.android.synthetic.main.zakaz.*
-import java.util.function.BiFunction
 import javax.inject.Inject
 
 
@@ -55,7 +40,8 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
     override fun getLayout(): Int = R.layout.fragment_zakaz
 
     override fun getFragmentPresenter(): Presenter<out PresenterView> = presenter
-    private var npCheck = false
+    private var npCheck = PublishSubject.create<Boolean>()
+    private var npCheckFlag = false
     private var liqPayCheck = false
     private var wasPayChoised = false
 
@@ -66,6 +52,14 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
     private var obsName2: Observable<CharSequence>? = null
     private var obsPhone: Observable<CharSequence>? = null
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        presenter.takeView(this)
+        npCheck.onNext(false)
+        compositeDisposable?.add(npCheck.subscribe { t -> npCheckFlag = t })
+
+    }
+
     @SuppressLint("CheckResult")
     private fun loadRxBindings() {
         obsCity = RxTextView.textChanges(spinnerCity)
@@ -74,35 +68,18 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
         obsLastName = RxTextView.textChanges(etLastName)
         obsName2 = RxTextView.textChanges(etPatronymic)
         obsPhone = RxTextView.textChanges(etPhone)
-//TODO !!!
-//        Observable.combineLatest(obsName!!, obsLastName!!, obsName2!!, obsPhone!!, obsCity!!, obsWarehouse!!) BiFunction{ name , lastname, obsName2, obsPhone, obsCity, obsWarehouse -> name
-//        }
-//
-//        { name , lastname, obsName2, obsPhone, obsCity, obsWarehouse ->
-//            (name.length > 1
-//                    && lastname.length > 1
-//                    && obsName2.length > 1
-//                    && obsPhone.length > 1
-//
-//                    //if chosen delivery NP -> check city and warehouse length
-//                    && (!npCheck || obsCity.length > 1 && obsWarehouse.length > 0)
-//                    && wasPayChoised)
-//        }
-//                .subscribe { aBoolean -> btnPostCheckout!!.isEnabled = aBoolean!! }
 
-//        Observable.combineLatest<CharSequence, CharSequence, CharSequence, CharSequence, CharSequence, CharSequence, Boolean>(obsName!!, obsLastName!!, obsName2!!, obsPhone!!, obsCity!!, obsWarehouse!!)
-//
-//        { name , lastname, obsName2, obsPhone, obsCity, obsWarehouse ->
-//            (name.length > 1
-//                    && lastname.length > 1
-//                    && obsName2.length > 1
-//                    && obsPhone.length > 1
-//
-//                    //if chosen delivery NP -> check city and warehouse length
-//                    && (!npCheck || obsCity.length > 1 && obsWarehouse.length > 0)
-//                    && wasPayChoised)
-//        }
-//                .subscribe { aBoolean -> btnPostCheckout!!.isEnabled = aBoolean!! }
+        compositeDisposable?.add(Observables.combineLatest(
+                obsName!!, obsLastName!!, obsName2!!, obsPhone!!, obsCity!!, obsWarehouse!!, npCheck!!)
+        { name, lastname, name2, phone, city, warehouse, np
+            ->
+            name.length > 1 && lastname.length > 1 && name2.length > 1
+                    && phone.length > 1
+                    //if chosen delivery NP -> check city and warehouse length
+                    && (!np || city.length > 1 && warehouse.length > 0)
+                    && wasPayChoised
+        }
+                .subscribe { t -> btnZakaz.isEnabled = t })
     }
 
 
@@ -116,7 +93,7 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
             presenter.postCheckout(etPhone!!.text.toString(),
                     etName!!.text.toString() + " " + etLastName!!.text.toString()
                             + spinnerCity.text.toString() + spinnerCity.text.toString(),
-                    "va.evstropov@gmail.com", if (npCheck) "2" else "1", if (liqPayCheck) "2" else "1"
+                    "va.evstropov@gmail.com", if (npCheckFlag) "2" else "1", if (liqPayCheck) "2" else "1"
             )
         }
         spinnerCity.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> presenter.selectCity(i) }
@@ -137,12 +114,8 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
                 }
             }
 
-            override fun afterTextChanged(editable: Editable) {
-
-            }
+            override fun afterTextChanged(editable: Editable) {}
         })
-
-
     }
 
     private fun setSpinnerCityChecked(isChecked: Boolean?) {
@@ -154,12 +127,13 @@ class FragmenZakaz : BaseFragment(), ICheckoutFragment {
         super.onResume()
         loadRxBindings()
         linearNovaPoshta.setOnClickListener {
-            npCheck = false
-            setCheckNP(npCheck)
+
+            npCheck.onNext(false)
+            setCheckNP(false)
         }
         linerPikup.setOnClickListener {
-            npCheck = true
-            setCheckNP(npCheck)
+            npCheck.onNext(true)
+            setCheckNP(true)
         }
 
         compositeDisposable?.add(RxView.clicks(linerLiqPay)
