@@ -3,7 +3,7 @@ package com.artmurka.artmurkaapp.android.views.dialogs
 import android.app.Activity
 import android.os.Bundle
 import android.view.Window
-import com.artmurka.artmurkaapp.BuildConfig
+import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.data.model.databases.Preferences
 import kotlinx.android.synthetic.main.dialog_exit_ac.*
@@ -25,10 +25,10 @@ class ExitAcDialog(var c: Activity) : android.app.Dialog(c) {
 
     private fun initListeners() {
         btnYes.setOnClickListener {
-            Preferences.consumerKey = BuildConfig.CONSUMER_KEY
-            Preferences.consumerSecret = BuildConfig.CONSUMER_SECRET
-            Preferences.oauthToken = BuildConfig.OAUTH_TOKEN
-            Preferences.oauthTokenSecret = BuildConfig.OAUTH_TOKEN_SECRET
+            Preferences.consumerKey = Constants.consumerkey()
+            Preferences.consumerSecret = Constants.consumersecret()
+            Preferences.oauthToken = Constants.oauthtoken()
+            Preferences.oauthTokenSecret = Constants.oauthtokensecret()
             Preferences.name = "ArtMurka"
             Preferences.email = "artmurka.com"
             Preferences.isLogin = false

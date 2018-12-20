@@ -3,7 +3,7 @@ package com.artmurka.artmurkaapp.data.model.databases
 import android.content.Context
 import android.content.SharedPreferences
 
-import com.artmurka.artmurkaapp.BuildConfig
+import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.R
 import java.lang.ref.WeakReference
 
@@ -12,10 +12,10 @@ import java.lang.ref.WeakReference
 
 object Preferences {
 
-    private val CONSUMER_KEY = BuildConfig.CONSUMER_KEY
-    private val CONSUMER_SECRET = BuildConfig.CONSUMER_SECRET
-    private val OAUTH_TOKEN = BuildConfig.OAUTH_TOKEN
-    private val OAUTH_TOKEN_SECRET = BuildConfig.OAUTH_TOKEN_SECRET
+    private val CONSUMER_KEY = Constants.consumerkey()
+    private val CONSUMER_SECRET = Constants.consumersecret()
+    private val OAUTH_TOKEN = Constants.oauthtoken()
+    private val OAUTH_TOKEN_SECRET = Constants.oauthtokensecret()
 
 
     val STORAGE_NAME = "applicationTheme"

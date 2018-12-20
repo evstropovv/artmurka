@@ -39,7 +39,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/textView7"
                         android:text="@string/about_delivery" />
                 </RelativeLayout>
 

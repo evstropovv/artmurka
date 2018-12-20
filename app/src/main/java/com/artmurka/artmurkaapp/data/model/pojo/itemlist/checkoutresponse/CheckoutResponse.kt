@@ -1,25 +1,21 @@
 package com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkoutresponse
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class CheckoutResponse {
+data class CheckoutResponse(
+        @SerializedName("success")
+        val success: Success?,
+        @SerializedName("error")
+        val error: Error?
 
-    @SerializedName("success")
-    @Expose
-    var success: Success? = null
-
-    @SerializedName("error")
-    @Expose
-    var error: Error? = null
-
-    fun withSuccess(success: Success): CheckoutResponse {
-        this.success = success
-        return this
-    }
-
-    fun withError(error: Error): CheckoutResponse {
-        this.error = error
-        return this
-    }
+) {
+    data class Success(
+            @SerializedName("msg")
+            val msg: String?
+    )
+    data class Error(
+            @SerializedName("msg")
+            val msg: String?
+    )
 }
+

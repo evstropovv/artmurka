@@ -1,6 +1,6 @@
 package com.artmurka.artmurkaapp.domain.usecase.categories
 
-import com.artmurka.artmurkaapp.BuildConfig
+import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.data.model.modules.UcozApiModule
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
 import com.artmurka.artmurkaapp.domain.usecase.base.AbsUseCaseObs
@@ -20,7 +20,7 @@ class GetCategoriesUseCase @Inject constructor( val ucoz: UcozApiModule) : AbsUs
     override fun buildUseCaseObservable(params: Params): Observable<ArrayList<Success>> {
 
         val retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.URL)
+                .baseUrl(Constants.url())
                 .addConverterFactory(GsonConverterFactory.create(
                         GsonBuilder().registerTypeAdapter(Success::class.java, SuccessDeserelised()).create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -3,18 +3,16 @@ package com.artmurka.artmurkaapp.other;
 import android.content.Context;
 import android.util.Log;
 
-import com.artmurka.artmurkaapp.BuildConfig;
-
+import com.artmurka.artmurkaapp.Constants;
 import java.util.HashMap;
-
 import ua.privatbank.paylibliqpay.ErrorCode;
 import ua.privatbank.paylibliqpay.LiqPay;
 import ua.privatbank.paylibliqpay.LiqPayCallBack;
 
 public class PayLiq extends Thread {
     private Context context;
-    private final String publicPayKey = BuildConfig.PUBLIC_PAY_KEY;
-    private final String privatePayKey = BuildConfig.PRIVATE_PAY_KEY;
+    private final String publicPayKey = Constants.INSTANCE.publicpaykey();
+    private final String privatePayKey = Constants.INSTANCE.privatepaykey();
     private HashMap<String, String> parametrs;
     //new PayLiq(v.getContext()).start();
 

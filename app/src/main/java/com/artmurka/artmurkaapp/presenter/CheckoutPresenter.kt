@@ -1,8 +1,8 @@
 package com.artmurka.artmurkaapp.presenter
 
 import android.util.Log
+import com.artmurka.artmurkaapp.Constants
 
-import com.artmurka.artmurkaapp.BuildConfig
 import com.artmurka.artmurkaapp.data.model.modules.ApiModuleNovaPoshta
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.DeliveryDescription
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.checkout.OrderDesc
@@ -85,16 +85,15 @@ class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutU
         Log.d("Log.d", "postCheckout")
         postCheckoutUseCase.execute(object : DisposableSingleObserver<CheckoutResponse>() {
             override fun onSuccess(response: CheckoutResponse) {
-                if (response.error != null) {
-                    view?.showOrderIsProcessed(response?.error?.msg!!)
+                response.error?.let {
+                    view?.showOrderIsProcessed(response.error.msg!!)
                 }
-
-                if (response.success != null) {
-                    view?.showDialog(response.success?.msg!!)
+                response.success?.let {
+                    view?.showDialog(response.success.msg!!)
                 }
             }
 
-            override fun onError(e: Throwable) {}
+            override fun onError(e: Throwable) {Log.d("Log.d", e.message)}
 
         }, PostCheckoutUseCase.Params(telephone, message, email, pay, delivery))
 
@@ -121,7 +120,7 @@ class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutU
         Log.d("Log.d", "cityRef$cityRef")
 
         val warehouseRequest = WarehouseRequest()
-        warehouseRequest.apiKey = BuildConfig.NP_API_KEY
+        warehouseRequest.apiKey = Constants.npapikey()
         warehouseRequest.calledMethod = "getWarehouses" //getSettlements
         warehouseRequest.modelName = "AddressGeneral"
         warehouseRequest.methodProperties = com.artmurka.artmurkaapp.data.model.pojo.itemlist.novaposhta.WarehousesRequest.MethodProperties(cityRef)
@@ -147,7 +146,7 @@ class CheckoutPresenter @Inject constructor(val getCheckoutUseCase: GetCheckoutU
 
     override fun getCities(cityName: String) {
         val city = City()
-        city.apiKey = BuildConfig.NP_API_KEY
+        city.apiKey = Constants.npapikey()
         city.calledMethod = "searchSettlements"
         // Log.d("Log.d", "select position "+datumList.get(pos).getAreasCenter());
         city.methodProperties = MethodProperties(cityName)
