@@ -17,6 +17,10 @@ import kotlinx.android.synthetic.main.fragment_order.*
 import javax.inject.Inject
 //фрагмент страницы заказов
 class OrderFragment : BaseFragment(), IOrderFragment {
+    override fun showError(msg: String) {
+
+    }
+
 
     @Inject
     lateinit var presenter: OrdersPresenter
@@ -46,7 +50,13 @@ class OrderFragment : BaseFragment(), IOrderFragment {
     override fun showOrders(list: Orders) {
         adapter?.setData(list)
     }
+    override fun showProgress() {
 
+    }
+
+    override fun hideProgress() {
+
+    }
     override fun onResume() {
         super.onResume()
         try {

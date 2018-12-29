@@ -22,7 +22,6 @@ import javax.inject.Inject
 
 class BasketFragment : BaseFragment(), IBasketFragment, RVbasketAdapter.OnItemClickListener {
 
-
     private var recyclerAdapter: RVbasketAdapter? = null
 
     @Inject

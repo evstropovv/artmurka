@@ -4,5 +4,9 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Orders
 import com.artmurka.artmurkaapp.presenter.PresenterView
 
 interface IOrderFragment  : PresenterView {
+
+
     fun showOrders(list: Orders)
+
+    fun showError(msg : String)
 }

@@ -22,5 +22,6 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.artmurka.artmurkaapp", appContext.getPackageName());
+        assertNotEquals("asdf", appContext.getPackageName());
     }
 }

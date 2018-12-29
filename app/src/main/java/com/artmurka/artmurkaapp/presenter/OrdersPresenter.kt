@@ -14,14 +14,18 @@ import javax.inject.Inject
 class OrdersPresenter @Inject constructor(val request: GetOrdersUseCase) : BasePresenter<IOrderFragment>(), IOrderPresenter {
 
     override fun getOrders() {
+        view?.showProgress()
         request.execute(object : DisposableObserver<Orders>() {
             override fun onComplete() {}
 
             override fun onNext(t: Orders) {
+                view?.hideProgress()
                 view?.showOrders(t)
             }
 
-            override fun onError(e: Throwable) {}
+            override fun onError(e: Throwable) {
+                view?.hideProgress()
+            }
         }, GetOrdersUseCase.Params())
     }
 

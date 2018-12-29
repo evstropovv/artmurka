@@ -134,6 +134,7 @@ dependencies {
 
     //test
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.15.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
 }
