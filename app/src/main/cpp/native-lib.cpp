@@ -37,7 +37,7 @@ Java_com_artmurka_artmurkaapp_Constants_privatepaykey(JNIEnv *env, jobject insta
 
 JNIEXPORT jstring JNICALL
 Java_com_artmurka_artmurkaapp_Constants_applicationemail(JNIEnv *env, jobject instance) {
-    return env->NewStringUTF("va.evstropov@gmail.com");
+    return env->NewStringUTF("testmailforartmurka@gmail.com");
 }
 JNIEXPORT jstring JNICALL
 Java_com_artmurka_artmurkaapp_Constants_applicationemailpassword(JNIEnv *env, jobject instance) {
