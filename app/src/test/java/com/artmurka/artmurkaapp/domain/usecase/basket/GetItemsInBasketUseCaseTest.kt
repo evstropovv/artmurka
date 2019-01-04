@@ -36,7 +36,7 @@ class GetItemsInBasketUseCaseTest {
     }
 
     @Test
-    fun successGetItemsInBasket() {
+    fun `repository get success`() {
 
         `when`(apiModule.getGoodsInBasket(HashMap()))
                 .thenReturn(Observable.just(getBasketItems()))
@@ -52,6 +52,27 @@ class GetItemsInBasketUseCaseTest {
         testObserver.assertValueCount(1)
         testObserver.assertValue(getBasketItems().success?.basket)
 
+    }
+
+
+    @Test
+    fun `repository get fail`() {
+
+        val throwable = Throwable()
+        // get
+        `when`(apiModule.getGoodsInBasket(HashMap()))
+                .thenReturn(Observable.error(throwable))
+
+        // when
+        val testObserver = getItemsInBasketUseCase.buildUseCaseObservable(GetItemsInBasketUseCase.Params()).test()
+
+        // then
+        verify(apiModule).getGoodsInBasket(HashMap())
+
+        testObserver.assertNoValues()
+        testObserver.assertNotComplete()
+        testObserver.assertError(throwable)
+        testObserver.assertValueCount(0)
     }
 
     companion object {
