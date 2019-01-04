@@ -42,13 +42,17 @@ class OrdersPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { h -> Schedulers.trampoline() }
-        RxJavaPlugins.setIoSchedulerHandler { h -> Schedulers.trampoline() }
+        initTestSchedulers()
 
         getOrdersUseCase = GetOrdersUseCase(apiModule, ucoz)
 
         presenter = OrdersPresenter(getOrdersUseCase)
         presenter.takeView(mockView)
+    }
+
+    private fun initTestSchedulers() {
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { h -> Schedulers.trampoline() }
+        RxJavaPlugins.setIoSchedulerHandler { h -> Schedulers.trampoline() }
     }
 
     @Test
@@ -67,8 +71,8 @@ class OrdersPresenterTest {
     fun getOrdersError() {
         val mockedResponse: Throwable = mock(Throwable::class.java)
 
-       `when`(getOrdersUseCase.buildUseCaseObservable(GetOrdersUseCase.Params()))
-               .thenReturn(Observable.error(mockedResponse))
+        `when`(getOrdersUseCase.buildUseCaseObservable(GetOrdersUseCase.Params()))
+                .thenReturn(Observable.error(mockedResponse))
 
         presenter.getOrders()
         verify(mockView).showProgress()
