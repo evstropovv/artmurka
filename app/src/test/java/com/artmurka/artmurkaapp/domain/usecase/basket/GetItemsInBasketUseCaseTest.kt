@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.domain.usecase.basket
 
+import com.artmurka.artmurkaapp.TestSchedulersRule
 import com.artmurka.artmurkaapp.data.model.modules.UcozApiModule
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Basket
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.BasketItems
@@ -10,6 +11,7 @@ import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
@@ -18,6 +20,10 @@ import org.mockito.MockitoAnnotations
 import java.util.HashMap
 
 class GetItemsInBasketUseCaseTest {
+
+    @Rule
+    @JvmField
+    val testScheduers = TestSchedulersRule()
 
     lateinit var getItemsInBasketUseCase: GetItemsInBasketUseCase
 
@@ -30,8 +36,6 @@ class GetItemsInBasketUseCaseTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        initTestSchedulers()
-
         getItemsInBasketUseCase = GetItemsInBasketUseCase(apiModule, ucoz)
     }
 
@@ -78,7 +82,7 @@ class GetItemsInBasketUseCaseTest {
     companion object {
         var item: BasketItems? = null
         private fun getBasketItems(): BasketItems {
-            if (item==null) {
+            if (item == null) {
                 val success = Success()
                 val basket = Basket()
                 item = BasketItems()
@@ -91,8 +95,4 @@ class GetItemsInBasketUseCaseTest {
     }
 
 
-    private fun initTestSchedulers() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { h -> Schedulers.trampoline() }
-        RxJavaPlugins.setIoSchedulerHandler { h -> Schedulers.trampoline() }
-    }
 }

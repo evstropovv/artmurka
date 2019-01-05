@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.presenter
 
+import com.artmurka.artmurkaapp.TestSchedulersRule
 import com.artmurka.artmurkaapp.android.views.fragments.interfaces.IOrderFragment
 import com.artmurka.artmurkaapp.data.model.modules.UcozApiModule
 import com.artmurka.artmurkaapp.data.model.pojo.itemlist.orders.Orders
@@ -11,18 +12,16 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.android.plugins.RxAndroidPlugins
-import org.junit.runner.RunWith
+import org.junit.Rule
 import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.*
 import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnitRunner
 
-
-@RunWith(MockitoJUnitRunner::class)
 class OrdersPresenterTest {
+
+    @Rule
+    @JvmField
+    val testScheduers = TestSchedulersRule()
 
     lateinit var presenter: OrdersPresenter
 
@@ -42,7 +41,6 @@ class OrdersPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        initTestSchedulers()
 
         getOrdersUseCase = GetOrdersUseCase(apiModule, ucoz)
 
@@ -50,10 +48,6 @@ class OrdersPresenterTest {
         presenter.takeView(mockView)
     }
 
-    private fun initTestSchedulers() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { h -> Schedulers.trampoline() }
-        RxJavaPlugins.setIoSchedulerHandler { h -> Schedulers.trampoline() }
-    }
 
     @Test
     fun getOrdersTrue() {
