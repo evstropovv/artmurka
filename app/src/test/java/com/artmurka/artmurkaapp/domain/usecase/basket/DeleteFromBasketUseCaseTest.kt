@@ -8,21 +8,21 @@ import com.artmurka.artmurkaapp.data.model.pojo.itemlist.itembasket.Success
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
 import io.reactivex.Observable
 import org.junit.Before
+
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import java.util.HashMap
 
-class GetItemsInBasketUseCaseTest {
+class DeleteFromBasketUseCaseTest {
 
     @Rule
     @JvmField
     val testScheduers = TestSchedulersRule()
 
-    lateinit var getItemsInBasketUseCase: GetItemsInBasketUseCase
+    lateinit var deleteFromBasketUseCase: DeleteFromBasketUseCase
 
     @Mock
     lateinit var apiModule: ApiRetrofit
@@ -33,20 +33,19 @@ class GetItemsInBasketUseCaseTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        getItemsInBasketUseCase = GetItemsInBasketUseCase(apiModule, ucoz)
+        deleteFromBasketUseCase = DeleteFromBasketUseCase(apiModule, ucoz)
     }
-
     @Test
     fun `repository get success`() {
 
-        `when`(apiModule.getGoodsInBasket(HashMap()))
+        Mockito.`when`(apiModule.deleteItemInBasket(HashMap()))
                 .thenReturn(Observable.just(getBasketItems()))
 
         // when
-        val testObserver = getItemsInBasketUseCase.buildUseCaseObservable(GetItemsInBasketUseCase.Params()).test()
+        val testObserver = deleteFromBasketUseCase.buildUseCaseObservable(DeleteFromBasketUseCase.Params("test")).test()
 
         // then
-        verify(apiModule).getGoodsInBasket(HashMap())
+        Mockito.verify(apiModule).deleteItemInBasket(HashMap())
 
         testObserver.assertNoErrors()
         testObserver.assertComplete()
@@ -61,14 +60,14 @@ class GetItemsInBasketUseCaseTest {
 
         val throwable = Throwable()
         // get
-        `when`(apiModule.getGoodsInBasket(HashMap()))
+        Mockito.`when`(apiModule.deleteItemInBasket(HashMap()))
                 .thenReturn(Observable.error(throwable))
 
         // when
-        val testObserver = getItemsInBasketUseCase.buildUseCaseObservable(GetItemsInBasketUseCase.Params()).test()
+        val testObserver = deleteFromBasketUseCase.buildUseCaseObservable(DeleteFromBasketUseCase.Params("test")).test()
 
         // then
-        verify(apiModule).getGoodsInBasket(HashMap())
+        Mockito.verify(apiModule).deleteItemInBasket(HashMap())
 
         testObserver.assertNoValues()
         testObserver.assertNotComplete()
@@ -90,4 +89,6 @@ class GetItemsInBasketUseCaseTest {
             return item!!
         }
     }
+
+
 }
