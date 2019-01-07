@@ -70,7 +70,7 @@ class GetWishListUseCaseTest {
     fun `repository get fail`() {
 
         val throwable = Throwable()
-        // get
+        // get.
         Mockito.`when`(apiModule.getWishList(HashMap()))
                 .thenReturn(Observable.error(throwable))
 
