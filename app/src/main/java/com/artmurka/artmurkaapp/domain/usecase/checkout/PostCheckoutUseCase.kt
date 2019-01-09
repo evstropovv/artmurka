@@ -20,13 +20,15 @@ class PostCheckoutUseCase @Inject constructor(val apiModule: ApiRetrofit, val uc
         mapForUcozModule["delivery_id"] = params.delivery
         mapForUcozModule["fld1"] = params.telephone
 
-        var encodeEmail: String? = null
-        var encodeMsg: String? = null
+        var encodeEmail: String?
+        var encodeMsg: String?
         val msgTrim = params.msg.replace(" ", "") //убираем пробелы
         try {
             encodeEmail = URLEncoder.encode(params.email, "UTF-8")
             encodeMsg = URLEncoder.encode(msgTrim, "UTF-8")
         } catch (e: UnsupportedEncodingException) {
+            encodeEmail = ""
+            encodeMsg = ""
             e.printStackTrace()
         }
 
