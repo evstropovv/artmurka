@@ -1,5 +1,6 @@
 package com.artmurka.artmurkaapp.presenter
 
+import android.content.Context
 import android.text.Html
 import android.util.Log
 
@@ -32,7 +33,8 @@ import javax.inject.Inject
 class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                                               val model2: AboutGoodsRequest,
                                               val toWishListUseCase: ToWishListUseCase,
-                                              val toBasketUseCase: ToBasketUseCase) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
+                                              val toBasketUseCase: ToBasketUseCase,
+                                              val context: Context) : BasePresenter<IFragmentAboutGoods>(), IAboutGoodsPresenter {
     private var goodsId: String? = null
 
     override fun getDataAboutGoods(id: String) {
@@ -43,7 +45,8 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                 val aboutGood = response.body()!!.success
                 view?.setName(aboutGood?.entryTitle!!)
                 view?.setDescription(Html.fromHtml(aboutGood?.entryDescription).toString())
-                view?.setPrice(aboutGood?.entryPrice?.priceRaw + " грн.")
+                view?.setPrice(aboutGood?.entryPrice?.priceRaw + context.getString(R.string.money))
+                view?.setArticle("${context.getString(R.string.article)} ${aboutGood?.entryArtNo!!}")
                 val map = aboutGood?.entryPhoto?.othersPhoto
                 map!![aboutGood?.entryPhoto?.numPhotos.toString() + ""] = SizePhoto(aboutGood?.entryPhoto?.defPhoto?.photo)
                 view?.setPhoto(getImageList(map))
@@ -66,7 +69,8 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                 val aboutGood = response.body()!!.success
                 view?.setName(aboutGood?.entryTitle!!)
                 view?.setDescription(Html.fromHtml(aboutGood?.entryDescription).toString())
-                view?.setPrice(aboutGood?.entryPrice?.priceRaw + " грн.")
+                view?.setPrice(aboutGood?.entryPrice?.priceRaw + context.getString(R.string.money))
+                view?.setArticle("${context.getString(R.string.article)} ${aboutGood?.entryArtNo!!}")
                 val map = HashMap<String, SizePhoto>()
                 map[aboutGood?.entryPhoto?.numPhotos!!.toString() + ""] = SizePhoto(aboutGood?.entryPhoto?.defPhoto?.photo)
                 view?.setPhoto(getImageList(map))

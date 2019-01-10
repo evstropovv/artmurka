@@ -62,6 +62,7 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods, RVitemListAdapte
             presenter!!.getDataAboutGoods(bundle.getString(ID))
         }
     }
+
     override fun toBasket(goodId: String) {
         presenter.toBasket(goodId)
     }
@@ -98,6 +99,10 @@ class FragmentAboutGoods : BaseFragment(), IFragmentAboutGoods, RVitemListAdapte
 
     override fun setPrice(price: String) {
         tvPrice!!.text = price
+    }
+
+    override fun setArticle(art: String) {
+        tvArcticle.text = art
     }
 
     override fun setFullDescription(fullDescription: String) {}

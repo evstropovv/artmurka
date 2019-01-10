@@ -12,6 +12,7 @@ interface IFragmentAboutGoods  : PresenterView {
     fun setPrice(price: String)
     fun setDescription(description: String)
     fun getDataForRecyclerView(category: String)
+    fun setArticle(art: String)
 
     fun setFullDescription(fullDescription: String)
     fun setDataForRecyclerView(list: ArrayList<GoodsProperties>)
