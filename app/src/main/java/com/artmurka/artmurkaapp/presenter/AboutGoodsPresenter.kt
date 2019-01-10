@@ -46,7 +46,9 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                 view?.setName(aboutGood?.entryTitle!!)
                 view?.setDescription(Html.fromHtml(aboutGood?.entryDescription).toString())
                 view?.setPrice(aboutGood?.entryPrice?.priceRaw + context.getString(R.string.money))
-                view?.setArticle("${context.getString(R.string.article)} ${aboutGood?.entryArtNo!!}")
+                if (!aboutGood?.entryArtNo!!.equals("")){
+                    view?.setArticle("${context.getString(R.string.article)} ${aboutGood?.entryArtNo!!}")
+                }
                 val map = aboutGood?.entryPhoto?.othersPhoto
                 map!![aboutGood?.entryPhoto?.numPhotos.toString() + ""] = SizePhoto(aboutGood?.entryPhoto?.defPhoto?.photo)
                 view?.setPhoto(getImageList(map))
@@ -70,7 +72,9 @@ class AboutGoodsPresenter @Inject constructor(val model: AboutGoodsRequest,
                 view?.setName(aboutGood?.entryTitle!!)
                 view?.setDescription(Html.fromHtml(aboutGood?.entryDescription).toString())
                 view?.setPrice(aboutGood?.entryPrice?.priceRaw + context.getString(R.string.money))
-                view?.setArticle("${context.getString(R.string.article)} ${aboutGood?.entryArtNo!!}")
+                if (!aboutGood?.entryArtNo!!.equals("")){
+                    view?.setArticle("${context.getString(R.string.article)} ${aboutGood?.entryArtNo!!}")
+                }
                 val map = HashMap<String, SizePhoto>()
                 map[aboutGood?.entryPhoto?.numPhotos!!.toString() + ""] = SizePhoto(aboutGood?.entryPhoto?.defPhoto?.photo)
                 view?.setPhoto(getImageList(map))

@@ -116,7 +116,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:paddingRight="10dp"
-                        android:paddingBottom="18dp"
+                        android:paddingBottom="16dp"
                         android:textSize="16sp"
                         tools:text="артикуль: 800 222" />
                 </RelativeLayout>
