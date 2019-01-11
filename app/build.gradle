@@ -12,7 +12,7 @@ android {
         applicationId "com.artmurka.artmurkaapp"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 6
+        versionCode 7
         versionName "1.5"
 
         vectorDrawables.useSupportLibrary = true

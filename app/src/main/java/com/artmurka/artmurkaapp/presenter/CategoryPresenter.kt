@@ -22,6 +22,7 @@ class CategoryPresenter @Inject constructor(val model: GetCategoriesUseCase, val
     fun makeCall() {
         val call = Uri.parse("tel:" + Const.TEL_NUMBER)
         val surf = Intent(Intent.ACTION_DIAL, call)
+        surf.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(surf)
     }
 
