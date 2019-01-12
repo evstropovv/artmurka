@@ -16,7 +16,6 @@ import com.artmurka.artmurkaapp.R
 import com.artmurka.artmurkaapp.android.views.activities.selectedgood.SelectedGoodActivity
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
-import javax.xml.datatype.DatatypeConstants.SECONDS
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit

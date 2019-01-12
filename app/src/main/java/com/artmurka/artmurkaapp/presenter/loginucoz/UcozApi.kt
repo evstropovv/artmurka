@@ -5,7 +5,10 @@ import com.github.scribejava.core.extractors.TokenExtractor
 import com.github.scribejava.core.model.OAuth1AccessToken
 import com.github.scribejava.core.model.OAuth1RequestToken
 
-object UcozApi: DefaultApi10a() {
+class UcozApi: DefaultApi10a() {
+    override fun getAuthorizationBaseUrl(): String {
+       return AUTHORIZE_URL
+    }
 
     override fun getAccessTokenEndpoint(): String {
         return "http://uapi.ucoz.com/accounts/oauthgetaccesstoken"

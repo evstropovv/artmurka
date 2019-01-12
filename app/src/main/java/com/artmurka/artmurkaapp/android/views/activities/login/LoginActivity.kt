@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
         service = ServiceBuilder(Constants.loginconsumerkey())
                 .apiSecret(Constants.loginconsumersecret())
                 .debug()
-                .build(UcozApi)
+                .build(UcozApi())
 
         object : AsyncTask<Void, Void, String>() {
             override fun doInBackground(vararg params: Void): String {

@@ -75,11 +75,15 @@ crashlytics {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     def nav_version = "1.0.0-alpha08"
 
     //navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+
+    //oauth 1.0a helper
+    implementation project(':scribejavacore')
 
     //support
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -109,9 +113,6 @@ dependencies {
 
     //images
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
-    //oauth 1.0a helper
-    implementation 'com.github.scribejava:scribejava-core:4.2.0'
 
     //email send helper
     implementation 'com.github.yesidlazaro:GmailBackground:1.2.0'
