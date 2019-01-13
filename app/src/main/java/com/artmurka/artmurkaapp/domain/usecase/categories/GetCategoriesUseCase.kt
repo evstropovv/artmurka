@@ -14,23 +14,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
 import java.util.HashMap
 import javax.inject.Inject
+import javax.inject.Named
 
-class GetCategoriesUseCase @Inject constructor( val ucoz: UcozApiModule) : AbsUseCaseObs<ArrayList<Success>, GetCategoriesUseCase.Params>() {
+class GetCategoriesUseCase @Inject constructor( val ucoz: UcozApiModule, @Named("categories") val apiModule: ApiRetrofit) : AbsUseCaseObs<ArrayList<Success>, GetCategoriesUseCase.Params>() {
 
     override fun buildUseCaseObservable(params: Params): Observable<ArrayList<Success>> {
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Constants.url())
-                .addConverterFactory(GsonConverterFactory.create(
-                        GsonBuilder().registerTypeAdapter(Success::class.java, SuccessDeserelised()).create()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-        val apiRetrofit = retrofit.create(ApiRetrofit::class.java)
-
         val mapForUcozModule = HashMap<String, String>()
         mapForUcozModule["page"] = "categories"
         val confForRequest = ucoz["GET", "uapi/shop/request", mapForUcozModule]
-        return apiRetrofit.getShopCategories(confForRequest)
+        return apiModule.getShopCategories(confForRequest)
                 .map { value -> value.success }
     }
 

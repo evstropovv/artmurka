@@ -2,7 +2,10 @@ package com.artmurka.artmurkaapp.data.model.di
 
 import com.artmurka.artmurkaapp.Constants
 import com.artmurka.artmurkaapp.data.model.modules.UcozApiModule
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.Success
+import com.artmurka.artmurkaapp.data.model.pojo.itemlist.categories.SuccessDeserelised
 import com.artmurka.artmurkaapp.data.model.retrofit.ApiRetrofit
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -10,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -39,6 +43,21 @@ class RequestModule {
                 .client(interceptor)
                 .baseUrl(Constants.url())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+        return retrofit.create(ApiRetrofit::class.java)
+    }
+
+
+    @Provides
+    @Singleton
+    @Named("categories")
+    fun provideRetrofitCategories(interceptor: OkHttpClient): ApiRetrofit {
+        val retrofit = Retrofit.Builder()
+                .client(interceptor)
+                .baseUrl(Constants.url())
+                .addConverterFactory(GsonConverterFactory.create(
+                        GsonBuilder().registerTypeAdapter(Success::class.java, SuccessDeserelised()).create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
         return retrofit.create(ApiRetrofit::class.java)
