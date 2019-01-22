@@ -37,12 +37,17 @@ class WishPresenter @Inject constructor(val getWishListUseCase: GetWishListUseCa
     }
 
     override fun getDataForWishList() {
+        view?.showProgress()
         getWishListUseCase.execute(object : DisposableObserver<List<GoodsListDescription>>() {
             override fun onNext(t: List<GoodsListDescription>) {
+                view?.hideProgress()
                 view?.showWishList(t as MutableList<GoodsListDescription>)
             }
             override fun onComplete() {}
-            override fun onError(e: Throwable) {}
+            override fun onError(e: Throwable) {
+                view?.hideProgress()
+                view?.showError(e.message!!)
+            }
         }, GetWishListUseCase.Params())
 
     }

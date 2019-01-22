@@ -6,4 +6,5 @@ import com.artmurka.artmurkaapp.presenter.PresenterView
 
 interface IWishFragment  : PresenterView {
     fun showWishList(list: MutableList<GoodsListDescription>)
+    fun showError(msg : String)
 }

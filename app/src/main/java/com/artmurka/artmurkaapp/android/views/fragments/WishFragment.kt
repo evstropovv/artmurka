@@ -55,6 +55,15 @@ class WishFragment : BaseFragment(), IWishFragment, RVwishListAdapter.OnItemClic
         presenter.getDataForWishList()
     }
 
+    override fun showError(msg: String) {
+
+    }
+    override fun showProgress(){
+
+    }
+    override fun hideProgress(){
+
+    }
 
     override fun onResume() {
         super.onResume()
