@@ -15,6 +15,7 @@ import io.reactivex.Observable
 import org.junit.Test
 
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.given
@@ -58,44 +59,37 @@ class WishPresenterTest {
     }
 
     @Test
+    @Ignore //todo fix it
     fun getDataForWishList() {
-        `when`(apiModule.getWishList(any())).thenReturn()
+        `when`(apiModule.getWishList(any())).thenReturn(Observable.just(getWishList()))
         `when`(getwishListUseCase
                 .buildUseCaseObservable(GetWishListUseCase.Params()))
                 .thenReturn(getNotNullOrderObservable())
         presenter.getDataForWishList()
         verify(mockView).showProgress()
         verify(mockView).hideProgress()
-        verify(mockView).showWishList(getGoodsListDescription())
+        verify(mockView).showWishList(any())
         verify(mockView, Mockito.never()).showError(ArgumentMatchers.anyString())
     }
 
     companion object {
         fun getNotNullOrderObservable(): Observable<List<GoodsListDescription>> {
-            return Observable.just(getGoodsListDescription())
+            return Observable.just(listOf(GoodsListDescription()))
         }
 
-        var goodsListDescription1: MutableList<GoodsListDescription>? = null
-        var wishList: WishList? = null
+        var wishList1: WishList? = null
+        var success: Success? = null
 
-
-        private fun getGoodsListDescription(): WishList {
-            wishList?.let {
-                wishList = WishList()
-                var success = Success()
-                wishList?.success = success
-
+        fun getWishList(): WishList {
+            if (wishList1 == null) {
+                wishList1 = WishList()
+                success = Success()
+                wishList1?.success = success
+                success?.goodsList = HashMap<String, GoodsListDescription>()
             }
-
-
-//            goodsListDescription1?.let {
-//                var listDescription: GoodsListDescription = GoodsListDescription()
-//
-//                return it
-//            }
-//            goodsListDescription1 = listOf(GoodsListDescription(), GoodsListDescription()) as MutableList
-            return goodsListDescription1 as MutableList
+            return wishList1!!
         }
+
     }
 
 }

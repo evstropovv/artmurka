@@ -48,6 +48,6 @@ class MainPresenter @Inject constructor(val ctx: Context) : BasePresenter<IMainA
     }
 
     fun showExitFromAccauntDialog() {
-
+        io.reactivex.Flowable.just("1").onBackpressureLatest()
     }
 }
