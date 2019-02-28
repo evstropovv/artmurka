@@ -18,7 +18,7 @@ class MainPresenter @Inject constructor(val ctx: Context) : BasePresenter<IMainA
 
     fun onBackPressed() {
         if (!doubleBackToExitPressedOnce) {
-            this.doubleBackToExitPressedOnce = trueFLAG_ACTIVITY_NEW_TASK
+            this.doubleBackToExitPressedOnce = true
             view?.showToast(ctx.resources.getString(R.string.exit))
             Completable.complete().delay(2, TimeUnit.SECONDS).doOnComplete {
                 doubleBackToExitPressedOnce = false
