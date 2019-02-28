@@ -18,7 +18,7 @@ class MainPresenter @Inject constructor(val ctx: Context) : BasePresenter<IMainA
 
     fun onBackPressed() {
         if (!doubleBackToExitPressedOnce) {
-            this.doubleBackToExitPressedOnce = true
+            this.doubleBackToExitPressedOnce = trueFLAG_ACTIVITY_NEW_TASK
             view?.showToast(ctx.resources.getString(R.string.exit))
             Completable.complete().delay(2, TimeUnit.SECONDS).doOnComplete {
                 doubleBackToExitPressedOnce = false
@@ -42,8 +42,9 @@ class MainPresenter @Inject constructor(val ctx: Context) : BasePresenter<IMainA
     }
 
 
-    fun makeCall(){
-         val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
+    fun makeCall() {
+        val surf = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Const.TEL_NUMBER))
+        surf.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ctx.startActivity(surf)
     }
 
