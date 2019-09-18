@@ -3,7 +3,7 @@
 extern "C" {
 JNIEXPORT jstring JNICALL
 Java_com_artmurka_artmurkaapp_Constants_url(JNIEnv *env, jobject instance) {
-    return env->NewStringUTF("https://artmurka.com/");
+    return env->NewStringUTF("https://artmurka.at.ua/");
 }
 
 JNIEXPORT jstring JNICALL
